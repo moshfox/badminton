@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>El Torneig De Bàdminton</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f6f6f3;
+  --card:rgba(255,255,255,.78);
+  --text:#101010;
+  --muted:#737373;
+  --line:#deded8;
+  --black:#101010;
+  --green:#b7ff68;
+  --soft:#f1f1ec;
+  --danger:#ff4b4b;
+  --shadow:0 24px 70px rgba(0,0,0,.08);
+  --match-w:240px;
+  --col-gap:90px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(183,255,104,.32), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(0,0,0,.08), transparent 30%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,textarea,select{font:inherit}
+button{border:0;cursor:pointer}
+.hidden{display:none!important}
+
+.lock{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.lock-card,.hero,.panel,.admin-box{
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:var(--shadow);
+}
+
+.lock-card{
+  width:min(480px,100%);
+  border-radius:34px;
+  padding:32px;
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:900;
+}
+
+h1{
+  font-size:clamp(34px,5vw,56px);
+  line-height:.9;
+  letter-spacing:-.07em;
+  margin:10px 0;
+}
+
+h2{
+  font-size:34px;
+  line-height:.95;
+  letter-spacing:-.06em;
+  margin:10px 0;
+}
+
+p{
+  color:var(--muted);
+  line-height:1.45;
+  margin:0;
+}
+
+.input{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  outline:none;
+  background:#fff;
+  margin-top:8px;
+}
+
+.btn{
+  padding:13px 17px;
+  border-radius:999px;
+  background:var(--black);
+  color:#fff;
+  font-weight:900;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:#111;
+  border:1px solid var(--line);
+}
+
+.btn.green{
+  background:var(--green);
+  color:#111;
+}
+
+.btn.danger{
+  background:var(--danger);
+  color:#fff;
+}
+
+.error{
+  color:var(--danger);
+  font-size:14px;
+  margin-top:12px;
+  font-weight:800;
+}
+
+.app{
+  padding:18px;
+  max-width:1800px;
+  margin:auto;
+}
+
+.hero{
+  border-radius:30px;
+  padding:18px 22px;
+  margin-bottom:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:11px 15px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  font-weight:900;
+}
+
+.tab.active{
+  background:#111;
+  color:#fff;
+}
+
+.panel{
+  border-radius:26px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:12px 0 16px;
+}
+
+.chip{
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+}
+
+.bracket-stage{
+  position:relative;
+  overflow:auto;
+  padding:24px 24px 40px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:26px;
+}
+
+#bracketLines{
+  position:absolute;
+  top:0;
+  left:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.bracket{
+  position:relative;
+  z-index:2;
+  display:flex;
+  gap:var(--col-gap);
+  align-items:flex-start;
+}
+
+.round-header{
+  margin-bottom:16px;
+}
+
+.round-title{
+  font-weight:900;
+  font-size:16px;
+  letter-spacing:-.04em;
+}
+
+.round-subtitle{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:800;
+  margin-top:2px;
+}
+
+.match{
+  width:var(--match-w);
+  background:#fff;
+  border:1px solid #d8d8d2;
+  border-radius:18px;
+  padding:10px 12px;
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+  position:relative;
+}
+
+.match.bye{
+  background:linear-gradient(135deg,#ffffff,#efffdb);
+  border-color:#b7ff68;
+}
+
+.match-code{
+  font-size:10px;
+  color:var(--muted);
+  font-weight:900;
+  margin-bottom:6px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.player{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:7px 9px;
+  border-radius:11px;
+  font-weight:800;
+  font-size:13px;
+  min-height:30px;
+}
+
+.player + .player{margin-top:3px}
+
+.player-name{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:160px;
+}
+
+.player.winner{
+  background:#dfffba;
+  font-weight:900;
+}
+
+.player.loser{opacity:.4}
+
+.score{
+  background:#f1f1ec;
+  border-radius:9px;
+  padding:3px 7px;
+  font-weight:900;
+  font-size:12px;
+  min-width:26px;
+  text-align:center;
+  flex-shrink:0;
+}
+
+.player.winner .score{background:#b7ff68}
+
+.winner-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  padding:4px 9px;
+  font-size:11px;
+  font-weight:900;
+  margin-top:7px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+
+.schedule{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px;
+}
+
+.day-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:14px;
+  min-height:178px;
+}
+
+.day-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.day-head strong{
+  text-transform:capitalize;
+  letter-spacing:-.03em;
+}
+
+.patio{
+  background:#f7f7f3;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:10px;
+  margin-top:8px;
+  min-height:68px;
+}
+
+.patio-title{
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.event{
+  background:rgba(183,255,104,.58);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:8px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.event small{
+  display:block;
+  color:#333;
+  margin-top:4px;
+}
+
+.hover-card{
+  position:fixed;
+  pointer-events:none;
+  z-index:30;
+  width:280px;
+  background:#111;
+  color:#fff;
+  border-radius:22px;
+  padding:12px;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);
+  display:none;
+}
+
+.hover-card img{
+  width:100%;
+  height:125px;
+  object-fit:cover;
+  border-radius:16px;
+  margin-bottom:10px;
+  background:#333;
+}
+
+.hover-card p{
+  color:#ddd;
+  margin:5px 0 0;
+  font-size:13px;
+}
+
+.admin-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(12px);
+  z-index:50;
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+
+.admin-box{
+  width:min(1050px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:34px;
+  padding:24px;
+}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+
+label{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+textarea{
+  min-height:82px;
+  resize:vertical;
+}
+
+.admin-match{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  margin-top:12px;
+  background:#fafafa;
+}
+
+/* ── Reset overlay (inline, dins el #app) ── */
+#resetOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(14px);
+  z-index:60;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.reset-card{
+  background:#fff;
+  border-radius:30px;
+  padding:32px;
+  width:min(460px,100%);
+  box-shadow:0 24px 70px rgba(0,0,0,.18);
+  text-align:center;
+}
+
+.reset-card h3{
+  font-size:22px;
+  letter-spacing:-.05em;
+  margin:0 0 10px;
+}
+
+.reset-card p{
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.reset-card .input{
+  margin-top:0;
+  text-align:center;
+  font-weight:700;
+}
+
+.reset-card .btn-row{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.festa-banner{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.festa-banner::before,
+.festa-banner::after{
+  content:"";
+  flex:1;
+  height:1.5px;
+  background:linear-gradient(90deg,transparent,#ff4b4b88,transparent);
+}
+
+.festa-label{
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:#ff4b4b;
+  white-space:nowrap;
+}
+
+.day-card.is-festa{
+  background:linear-gradient(135deg,#fff5f5,#fff);
+  border-color:#ffcfcf;
+}
+
+@media(max-width:760px){
+  .app{padding:14px}
+  .hero{align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+<section id="lock" class="lock">
+  <div class="lock-card">
+    <div class="eyebrow">Accés privat</div>
+    <h2>El Torneig De Bàdminton</h2>
+    <p>Introdueix la contrasenya per veure el bracket i l'horari.</p>
+    <input id="accessPassword" class="input" type="password" placeholder="Contrasenya">
+    <button id="enterBtn" class="btn" style="width:100%;margin-top:14px;">Entrar</button>
+    <div id="lockError" class="error"></div>
+  </div>
+</section>
+
+<main id="app" class="app hidden">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">28 d'abril — 20 de maig</div>
+      <h1>El Torneig De Bàdminton</h1>
+      <p>Bracket oficial amb connexions visuals i horari editable.</p>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-view="bracketView">Bracket</button>
+      <button class="tab" data-view="calendarView">Horari</button>
+    </div>
+  </section>
+
+  <section id="bracketView">
+    <div class="panel">
+      <div class="eyebrow">Quadre del torneig</div>
+      <div class="legend">
+        <span class="chip">14 prèvies · 28 jugadors</span>
+        <span class="chip">Tots juguen la prèvia</span>
+        <span class="chip">Horaris buits fins que els posi l'admin</span>
+      </div>
+      <div class="bracket-stage" id="bracketStage">
+        <svg id="bracketLines" style="overflow:visible;"></svg>
+        <div id="bracket" class="bracket"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendarView" class="hidden">
+    <div class="panel">
+      <div class="eyebrow">Horari</div>
+      <h2>Calendari per patis</h2>
+      <p style="margin-bottom:14px;">Només apareixeran partits quan l'admin els assigni un dia i un pati.</p>
+      <div id="schedule" class="schedule"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Reset overlay (dins el context del app, fora del admin modal) -->
+<div id="resetOverlay" class="hidden">
+  <!-- Step 1: confirm -->
+  <div id="resetStep1" class="reset-card">
+    <h3>⚠️ Reiniciar torneig</h3>
+    <p>Aquesta acció eliminarà tots els resultats, puntuacions, horaris i guanyadors. Els partits i jugadors quedaran intactes.</p>
+    <p style="margin-top:8px;"><strong>Segur que vols reiniciar el torneig?</strong></p>
+    <div class="btn-row">
+      <button id="resetCancel1" class="btn secondary">Cancel·lar</button>
+      <button id="resetConfirm1" class="btn danger">Sí, continuar</button>
+    </div>
+  </div>
+  <!-- Step 2: type confirmation -->
+  <div id="resetStep2" class="reset-card hidden">
+    <h3>Confirmació final</h3>
+    <p>Escriu exactament per confirmar:</p>
+    <p style="background:#f1f1ec;border-radius:12px;padding:10px 14px;font-weight:900;font-size:13px;color:#111;margin:10px 0;">El Torneig De Bàdminton Restart</p>
+    <input id="resetTyped" class="input" type="text" placeholder="Escriu aquí…">
+    <div id="resetError" class="error" style="text-align:left;"></div>
+    <div class="btn-row">
+      <button id="resetCancel2" class="btn secondary">Cancel·lar</button>
+      <button id="resetConfirm2" class="btn danger">Reiniciar ara</button>
+    </div>
+  </div>
+</div>
+
+<div id="hoverCard" class="hover-card"></div>
+
+<section id="adminModal" class="admin-modal hidden">
+  <div class="admin-box">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
+      <div>
+        <div class="eyebrow">Panell d'administració</div>
+        <h2>Control del torneig</h2>
+      </div>
+      <button id="closeAdmin" class="btn secondary">Tancar</button>
+    </div>
+
+    <div id="adminLogin">
+      <div class="admin-grid">
+        <div class="field">
+          <label>Correu</label>
+          <input id="adminEmail" class="input" type="email" placeholder="Example@Example">
+        </div>
+        <div class="field">
+          <label>Contrasenya</label>
+          <input id="adminPassword" class="input" type="password" placeholder="Password">
+        </div>
+      </div>
+      <button id="loginAdmin" class="btn green" style="margin-top:14px;">Entrar com a admin</button>
+      <div id="adminError" class="error"></div>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+      <div class="admin-grid">
+        <button id="saveAll" class="btn green">Guardar canvis</button>
+        <button id="logoutAdmin" class="btn secondary">Sortir</button>
+        <button id="openReset" class="btn danger">Reiniciar torneig</button>
+      </div>
+      <h3 style="margin-top:24px;">Dies de Festa</h3>
+      <p style="font-size:13px;color:var(--muted);margin:6px 0 12px;">Marca dies com a festa — apareixeran destacats a l'horari.</p>
+      <div id="adminFestaDays" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;"></div>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;">
+        <input id="festaDateInput" class="input" type="date" style="width:auto;margin-top:0;max-width:200px;" min="2026-04-28" max="2026-05-20">
+        <button id="addFestaDay" class="btn secondary" style="white-space:nowrap;">+ Afegir festa</button>
+      </div>
+      <h3 style="margin-top:24px;">Partits</h3>
+      <div id="adminMatches"></div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdcQr8dLemM6ZbwwUSgEYMFFswJWUk0m4",
+  authDomain: "badminton-98ddd.firebaseapp.com",
+  projectId: "badminton-98ddd",
+  storageBucket: "badminton-98ddd.firebasestorage.app",
+  messagingSenderId: "118680568883",
+  appId: "1:118680568883:web:1e381457e460115c1c4f46",
+  measurementId: "G-1FCL9D6W1G"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const auth = getAuth(app);
+
+const ADMIN_EMAIL = "hodelyproductions@gmail.com";
+const VERSION = "bracket-28-v1";
+const $ = id => document.getElementById(id);
+
+let typed = "";
+let tournament = null;
+
+// ─────────────────────────────────────────────
+// 28 JUGADORS · 14 PARTITS DE PRÈVIA (R1)
+// 14 guanyadors → octaus (R2, 7 partits)
+// 7 → R3 (quarts, 4 partits, 1 bye automàtic gestionat per admin)
+// etc.  — estructura estàndard fins a Final
+// ─────────────────────────────────────────────
+const initialTournament = {
+  version: VERSION,
+  title: "El Torneig De Bàdminton",
+  updatedAt: Date.now(),
+  festaDays: [],
+  matches: [
+    // ── Ronda 1 · Prèvies (14 partits, 28 jugadors) ──
+    {id:"m1",  round:1, p1:"Nitzer Galindo",        p2:"Adam Singh Kahur",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m2",  round:1, p1:"Gerard Vallès",          p2:"Sami El Youssofi",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m3",  round:1, p1:"Olaguer Zapater",        p2:"Aran Creixell",         score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m4",  round:1, p1:"Eloi Martinez",          p2:"Adam Addahchouri",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m5",  round:1, p1:"Erik Fernandez",         p2:"Jan Gonzalez Queralt",  score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m6",  round:1, p1:"Biel Cortés",            p2:"Haroun Abachri Cortés", score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m7",  round:1, p1:"Ibrahim Allouch",        p2:"Oriol Casas Barreda",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m8",  round:1, p1:"Oriol Rios Baez",        p2:"Pere Porta Córdoba",    score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m9",  round:1, p1:"Logan López Cobo",       p2:"Marc Pérez Trullols",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m10", round:1, p1:"Yago Vazquez Sorio",     p2:"Enric Gombau Ballús",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m11", round:1, p1:"Martí Bessols Carcasè",  p2:"Reda Benhattal",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m12", round:1, p1:"Sergio Ortiz Herrera",   p2:"Jiddu Suárez Ibáñez",  score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m13", round:1, p1:"Oways Benhattal",        p2:"Guim Ballester",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m14", round:1, p1:"Jugador A",              p2:"Jugador B",             score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+
+    // ── Ronda 2 · Octaus de final (7 partits) ──
+    {id:"m15", round:2, p1:"Guanyador M1",  p2:"Guanyador M2",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m16", round:2, p1:"Guanyador M3",  p2:"Guanyador M4",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m17", round:2, p1:"Guanyador M5",  p2:"Guanyador M6",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m18", round:2, p1:"Guanyador M7",  p2:"Guanyador M8",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m19", round:2, p1:"Guanyador M9",  p2:"Guanyador M10", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m20", round:2, p1:"Guanyador M11", p2:"Guanyador M12", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m21", round:2, p1:"Guanyador M13", p2:"Guanyador M14", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+
+    // ── Ronda 3 · Quarts de final (4 partits) ──
+    {id:"m22", round:3, p1:"Guanyador M15", p2:"Guanyador M16", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m23", round:3, p1:"Guanyador M17", p2:"Guanyador M18", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m24", round:3, p1:"Guanyador M19", p2:"Guanyador M20", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m25", round:3, p1:"Guanyador M21", p2:"—",             score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final (bye).", image:""},
+
+    // ── Ronda 4 · Semifinals (2 partits) ──
+    {id:"m26", round:4, p1:"Guanyador M22", p2:"Guanyador M23", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
+    {id:"m27", round:4, p1:"Guanyador M24", p2:"Guanyador M25", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
+
+    // ── Ronda 5 · Final ──
+    {id:"m28", round:5, p1:"Guanyador M26", p2:"Guanyador M27", score1:"", score2:"", winner:"", date:"", court:"", description:"Final del torneig.", image:""}
+  ]
+};
+
+// ── Layout: nombre de slots verticals per columna ──
+const SLOT_H   = 120;
+const MATCH_H  = 100;
+const MATCH_W  = 240;
+const COL_GAP  = 90;
+const TOTAL_SLOTS = 14; // R1 té 14 partits → altura base
+
+/*
+  Posicions en "slots" (índex 0-based, centrat a slot + 0.5):
+  R1: m1..m14 → slots 0..13  (1 per slot)
+  R2: m15..m21 → slots 0.5, 2.5, 4.5, 6.5, 8.5, 10.5, 12.5
+  R3: m22..m25 → slots 1.5, 5.5, 9.5, 13 (bye)
+  R4: m26..m27 → slots 3.5, 11.5
+  R5: m28      → slot 7.0
+*/
+const slotMap = {
+  m1:0,  m2:1,  m3:2,  m4:3,  m5:4,  m6:5,  m7:6,
+  m8:7,  m9:8, m10:9, m11:10, m12:11, m13:12, m14:13,
+
+  m15:0.5, m16:2.5, m17:4.5, m18:6.5, m19:8.5, m20:10.5, m21:12.5,
+
+  m22:1.5, m23:5.5, m24:9.5, m25:13,
+
+  m26:3.5, m27:11.5,
+
+  m28:7.0
+};
+
+const nextMap = {
+  m1: ["m15","p1"], m2: ["m15","p2"],
+  m3: ["m16","p1"], m4: ["m16","p2"],
+  m5: ["m17","p1"], m6: ["m17","p2"],
+  m7: ["m18","p1"], m8: ["m18","p2"],
+  m9: ["m19","p1"], m10:["m19","p2"],
+  m11:["m20","p1"], m12:["m20","p2"],
+  m13:["m21","p1"], m14:["m21","p2"],
+
+  m15:["m22","p1"], m16:["m22","p2"],
+  m17:["m23","p1"], m18:["m23","p2"],
+  m19:["m24","p1"], m20:["m24","p2"],
+  m21:["m25","p1"],
+
+  m22:["m26","p1"], m23:["m26","p2"],
+  m24:["m27","p1"], m25:["m27","p2"],
+
+  m26:["m28","p1"], m27:["m28","p2"]
+};
+
+const connections = Object.entries(nextMap).map(([from,[to]]) => [from,to]);
+
+const roundMeta = {
+  1:{title:"Prèvies",          subtitle:"14 partits · 28 jugadors"},
+  2:{title:"Octaus de final",  subtitle:"7 partits · 14 jugadors"},
+  3:{title:"Quarts de final",  subtitle:"4 partits"},
+  4:{title:"Semifinals",       subtitle:"2 partits"},
+  5:{title:"Final",            subtitle:"1 partit"}
+};
+
+async function sha256(text){
+  const data = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+async function loadTournament(){
+  const ref  = doc(db,"tournaments","main");
+  const snap = await getDoc(ref);
+
+  if(snap.exists() && snap.data().version === VERSION){
+    tournament = snap.data();
+    if(!tournament.festaDays) tournament.festaDays = [];
+  } else {
+    tournament = JSON.parse(JSON.stringify(initialTournament));
+  }
+
+  propagateWinners();
+  render();
+
+  onSnapshot(ref, s=>{
+    if(s.exists() && s.data().version === VERSION){
+      tournament = s.data();
+      if(!tournament.festaDays) tournament.festaDays = [];
+      propagateWinners();
+      render();
+    }
+  });
+}
+
+function isPlaceholder(name){
+  return !name || name.startsWith("Guanyador") || name === "—";
+}
+
+function propagateWinners(){
+  if(!tournament) return;
+
+  const base    = JSON.parse(JSON.stringify(initialTournament));
+  const current = JSON.parse(JSON.stringify(tournament));
+
+  // reset placeholder slots to their initial labels
+  current.matches.forEach(match=>{
+    const orig = base.matches.find(x=>x.id===match.id);
+    if(orig){
+      if(isPlaceholder(orig.p1)) match.p1 = orig.p1;
+      if(isPlaceholder(orig.p2)) match.p2 = orig.p2;
+    }
+  });
+
+  // propagate winners forward
+  for(let pass=0; pass<6; pass++){
+    current.matches.forEach(match=>{
+      if(match.winner && nextMap[match.id]){
+        const [nextId, slot] = nextMap[match.id];
+        const next = current.matches.find(m=>m.id===nextId);
+        if(next) next[slot] = match.winner;
+      }
+    });
+  }
+
+  tournament = current;
+}
+
+function render(){
+  renderBracket();
+  renderSchedule();
+  renderAdminFestaDays();
+  renderAdminMatches();
+}
+
+function renderBracket(){
+  const bracket = $("bracket");
+  bracket.innerHTML = "";
+
+  const CANVAS_H = TOTAL_SLOTS * SLOT_H;
+  const HEADER_H = 52;
+
+  Object.entries(roundMeta).forEach(([roundNum, meta])=>{
+    const col = document.createElement("div");
+    col.style.cssText = `position:relative; flex-shrink:0; width:${MATCH_W}px; height:${CANVAS_H + HEADER_H}px;`;
+
+    const header = document.createElement("div");
+    header.className = "round-header";
+    header.style.cssText = `position:absolute; top:0; left:0; right:0; height:${HEADER_H}px;`;
+    header.innerHTML = `
+      <div class="round-title">${meta.title}</div>
+      <div class="round-subtitle">${meta.subtitle}</div>
+    `;
+    col.appendChild(header);
+
+    const matches = tournament.matches.filter(m=>m.round===Number(roundNum));
+
+    matches.forEach(match=>{
+      const slot  = slotMap[match.id];
+      const topPx = HEADER_H + slot * SLOT_H + (SLOT_H - MATCH_H) / 2;
+      const played = match.score1!=="" || match.score2!=="" || match.winner!=="";
+      const hasWinner = match.winner !== "";
+
+      const card = document.createElement("div");
+      card.className = `match ${match.bye ? "bye" : ""}`;
+      card.dataset.id = match.id;
+      card.style.cssText = `position:absolute; top:${topPx}px; left:0; width:${MATCH_W}px;`;
+
+      card.innerHTML = `
+        <div class="match-code">${match.id.toUpperCase()}</div>
+
+        <div class="player ${match.winner===match.p1 ? "winner" : ""} ${played && match.winner!==match.p1 ? "loser" : ""}">
+          <span class="player-name">${match.p1}</span>
+          ${played ? `<span class="score">${match.score1 || "-"}</span>` : ""}
+        </div>
+
+        <div class="player ${match.winner===match.p2 ? "winner" : ""} ${played && match.winner!==match.p2 ? "loser" : ""}">
+          <span class="player-name">${match.p2}</span>
+          ${played ? `<span class="score">${match.score2 || "-"}</span>` : ""}
+        </div>
+
+        ${hasWinner ? `<div class="winner-badge">🏆 ${match.winner}</div>` : ""}
+      `;
+
+      addHover(card, match);
+      col.appendChild(card);
+    });
+
+    bracket.appendChild(col);
+  });
+
+  setTimeout(drawBracketLines, 60);
+}
+
+function drawBracketLines(){
+  const svg = $("bracketLines");
+  if(!svg) return;
+
+  const CANVAS_H = TOTAL_SLOTS * SLOT_H;
+  const HEADER_H = 52;
+  const totalH   = CANVAS_H + HEADER_H + 40;
+  const cols     = Object.keys(roundMeta).length;
+  const totalW   = cols * MATCH_W + (cols - 1) * COL_GAP + 48;
+
+  svg.setAttribute("width",  totalW);
+  svg.setAttribute("height", totalH);
+  svg.style.width  = totalW + "px";
+  svg.style.height = totalH + "px";
+  svg.innerHTML = "";
+
+  function cardCentreRight(matchId){
+    const el = document.querySelector(`[data-id="${matchId}"]`);
+    if(!el) return null;
+    const col = el.parentElement;
+    return {
+      x: col.offsetLeft + MATCH_W + 24,
+      y: col.offsetTop  + el.offsetTop + el.offsetHeight / 2 + 24
+    };
+  }
+
+  function cardCentreLeft(matchId){
+    const el = document.querySelector(`[data-id="${matchId}"]`);
+    if(!el) return null;
+    const col = el.parentElement;
+    return {
+      x: col.offsetLeft + 24,
+      y: col.offsetTop  + el.offsetTop + el.offsetHeight / 2 + 24
+    };
+  }
+
+  connections.forEach(([fromId,toId])=>{
+    const from = cardCentreRight(fromId);
+    const to   = cardCentreLeft(toId);
+    if(!from || !to) return;
+
+    const midX = from.x + (to.x - from.x) * 0.5;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.setAttribute("d",`M${from.x},${from.y} H${midX} V${to.y} H${to.x}`);
+    path.setAttribute("fill","none");
+    path.setAttribute("stroke","#c8c8c0");
+    path.setAttribute("stroke-width","1.5");
+    path.setAttribute("stroke-linecap","round");
+    path.setAttribute("stroke-linejoin","round");
+    svg.appendChild(path);
+  });
+}
+
+function renderSchedule(){
+  const schedule = $("schedule");
+  schedule.innerHTML = "";
+
+  const start = new Date(2026,3,29);
+  const end   = new Date(2026,4,25);
+
+  for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
+    const iso     = toISO(d);
+    const matches = tournament.matches.filter(m=>m.date===iso && m.court);
+
+    const festaDays = tournament.festaDays || [];
+    const isFesta   = festaDays.includes(iso);
+
+    const day = document.createElement("div");
+    day.className = `day-card${isFesta ? " is-festa" : ""}`;
+    day.innerHTML = `
+      <div class="day-head">
+        <strong>${new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d)}</strong>
+        <span class="chip">${matches.length} partits</span>
+      </div>
+      ${isFesta ? `<div class="festa-banner"><span class="festa-label">🎉 Festa</span></div>` : ""}
+      <div class="patio">
+        <div class="patio-title">Pati 1</div>
+        <div class="patio-content" data-date="${iso}" data-court="Pati 1"></div>
+      </div>
+      <div class="patio">
+        <div class="patio-title">Pati 2</div>
+        <div class="patio-content" data-date="${iso}" data-court="Pati 2"></div>
+      </div>
+    `;
+    schedule.appendChild(day);
+  }
+
+  document.querySelectorAll(".patio-content").forEach(box=>{
+    const date   = box.dataset.date;
+    const court  = box.dataset.court;
+    const events = tournament.matches.filter(m=>m.date===date && m.court===court);
+
+    if(!events.length){
+      box.innerHTML = `<span style="color:var(--muted);font-size:12px;font-weight:800;">Sense partit</span>`;
+      return;
+    }
+
+    events.forEach(match=>{
+      const ev = document.createElement("div");
+      ev.className = "event";
+      ev.innerHTML = `
+        <b>${match.id.toUpperCase()} · ${match.p1}</b><br>
+        vs ${match.p2}
+        <small>${match.winner ? "Guanya: " + match.winner : "Pendent"}</small>
+      `;
+      addHover(ev, match);
+      box.appendChild(ev);
+    });
+  });
+}
+
+function addHover(element, match){
+  const hover = $("hoverCard");
+
+  element.addEventListener("mousemove", e=>{
+    hover.style.display = "block";
+    hover.style.left = e.clientX + 18 + "px";
+    hover.style.top  = e.clientY + 18 + "px";
+    hover.innerHTML = `
+      ${match.image ? `<img src="${match.image}" alt="Imatge">` : ""}
+      <strong>${match.id.toUpperCase()} · ${match.p1} vs ${match.p2}</strong>
+      <p>${match.description || "Sense descripció."}</p>
+    `;
+  });
+
+  element.addEventListener("mouseleave", ()=>{
+    hover.style.display = "none";
+  });
+}
+
+function renderAdminFestaDays(){
+  if(!$("adminFestaDays") || !tournament) return;
+  const box = $("adminFestaDays");
+  box.innerHTML = "";
+  const days = tournament.festaDays || [];
+  if(!days.length){
+    box.innerHTML = `<span style="color:var(--muted);font-size:13px;font-weight:700;">Cap dia de festa afegit.</span>`;
+    return;
+  }
+  days.sort().forEach(iso=>{
+    const d = new Date(iso + "T00:00:00");
+    const label = new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d);
+    const chip = document.createElement("span");
+    chip.style.cssText = "display:inline-flex;align-items:center;gap:6px;background:#fff0f0;border:1px solid #ffcfcf;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900;color:#ff4b4b;";
+    chip.innerHTML = `🎉 ${label} <button data-iso="${iso}" style="background:none;color:#ff4b4b;font-size:15px;line-height:1;padding:0;margin:0;cursor:pointer;" title="Eliminar">×</button>`;
+    chip.querySelector("button").addEventListener("click", e=>{
+      tournament.festaDays = (tournament.festaDays||[]).filter(x=>x!==e.target.dataset.iso);
+      renderAdminFestaDays();
+      renderSchedule();
+    });
+    box.appendChild(chip);
+  });
+}
+
+$("addFestaDay").addEventListener("click", ()=>{
+  const val = $("festaDateInput").value;
+  if(!val) return;
+  if(!tournament.festaDays) tournament.festaDays = [];
+  if(!tournament.festaDays.includes(val)){
+    tournament.festaDays.push(val);
+    renderAdminFestaDays();
+    renderSchedule();
+  }
+  $("festaDateInput").value = "";
+});
+
+function renderAdminMatches(){
+  if(!$("adminPanel") || $("adminPanel").classList.contains("hidden") || !tournament) return;
+
+  const box = $("adminMatches");
+  box.innerHTML = "";
+
+  tournament.matches.forEach((m,i)=>{
+    const div = document.createElement("div");
+    div.className = "admin-match";
+
+    div.innerHTML = `
+      <strong>${roundMeta[m.round]?.title || "Ronda " + m.round} · ${m.id.toUpperCase()}</strong>
+
+      <div class="admin-grid">
+        ${field(i,"p1","Jugador 1",m.p1)}
+        ${field(i,"p2","Jugador 2",m.p2)}
+        ${field(i,"score1","Punts jugador 1",m.score1)}
+        ${field(i,"score2","Punts jugador 2",m.score2)}
+        ${field(i,"winner","Guanyador",m.winner)}
+        ${field(i,"date","Dia",m.date,"date")}
+
+        <div class="field">
+          <label>Pati</label>
+          <select class="input admin-input" data-i="${i}" data-k="court">
+            <option value="" ${m.court==="" ? "selected" : ""}>Sense pati</option>
+            <option ${m.court==="Pati 1" ? "selected" : ""}>Pati 1</option>
+            <option ${m.court==="Pati 2" ? "selected" : ""}>Pati 2</option>
+          </select>
+        </div>
+
+        ${field(i,"image","URL imatge",m.image)}
+      </div>
+
+      <div class="field" style="margin-top:12px;">
+        <label>Descripció</label>
+        <textarea class="input admin-input" data-i="${i}" data-k="description">${escapeHtml(m.description)}</textarea>
+      </div>
+    `;
+
+    box.appendChild(div);
+  });
+
+  document.querySelectorAll(".admin-input").forEach(input=>{
+    input.addEventListener("input", e=>{
+      const i = Number(e.target.dataset.i);
+      const k = e.target.dataset.k;
+      tournament.matches[i][k] = e.target.value;
+      propagateWinners();
+      renderBracket();
+      renderSchedule();
+    });
+  });
+}
+
+function field(i,k,label,value,type="text"){
+  return `
+    <div class="field">
+      <label>${label}</label>
+      <input class="input admin-input" type="${type}" data-i="${i}" data-k="${k}" value="${escapeHtml(value)}">
+    </div>
+  `;
+}
+
+function escapeHtml(text=""){
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+}
+
+function toISO(date){
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+}
+
+// ── Reset logic ──────────────────────────────────────────────────────────────
+const RESET_PHRASE = "El Torneig De Bàdminton Restart";
+
+function openResetOverlay(){
+  $("resetStep1").classList.remove("hidden");
+  $("resetStep2").classList.add("hidden");
+  $("resetTyped").value = "";
+  $("resetError").textContent = "";
+  $("resetOverlay").classList.remove("hidden");
+  $("adminModal").classList.add("hidden"); // hide admin modal behind
+}
+
+function closeResetOverlay(){
+  $("resetOverlay").classList.add("hidden");
+  $("adminModal").classList.remove("hidden");
+}
+
+$("openReset").addEventListener("click", openResetOverlay);
+
+$("resetCancel1").addEventListener("click", closeResetOverlay);
+$("resetCancel2").addEventListener("click", closeResetOverlay);
+
+$("resetConfirm1").addEventListener("click", ()=>{
+  $("resetStep1").classList.add("hidden");
+  $("resetStep2").classList.remove("hidden");
+  setTimeout(()=>$("resetTyped").focus(), 100);
+});
+
+$("resetConfirm2").addEventListener("click", async()=>{
+  const val = $("resetTyped").value.trim();
+  if(val !== RESET_PHRASE){
+    $("resetError").textContent = "El text no coincideix. Torna-ho a intentar.";
+    return;
+  }
+
+  // Build a clean copy: keep match structure & players, wipe results
+  const clean = JSON.parse(JSON.stringify(initialTournament));
+  clean.updatedAt = Date.now();
+
+  // Preserve edited player names from current tournament (round 1 only)
+  if(tournament){
+    tournament.matches.filter(m=>m.round===1).forEach(m=>{
+      const target = clean.matches.find(x=>x.id===m.id);
+      if(target){
+        target.p1 = m.p1;
+        target.p2 = m.p2;
+      }
+    });
+  }
+
+  await setDoc(doc(db,"tournaments","main"), clean);
+  tournament = clean;
+  propagateWinners();
+  render();
+
+  closeResetOverlay();
+  alert("Torneig reiniciat correctament.");
+});
+
+// ── Auth & tab logic ─────────────────────────────────────────────────────────
+$("enterBtn").addEventListener("click", async()=>{
+  const pass = $("accessPassword").value.trim();
+  const hash = await sha256(pass);
+  const snap = await getDoc(doc(db,"config","private"));
+
+  if(!snap.exists()){
+    $("lockError").textContent = "No s'ha trobat la configuració d'accés.";
+    return;
+  }
+
+  if(hash === snap.data().passHash){
+    $("lock").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    await loadTournament();
+  } else {
+    $("lockError").textContent = "Contrasenya incorrecta.";
+  }
+});
+
+$("accessPassword").addEventListener("keydown", e=>{
+  if(e.key==="Enter") $("enterBtn").click();
+});
+
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    ["bracketView","calendarView"].forEach(id=>$(id).classList.add("hidden"));
+    $(tab.dataset.view).classList.remove("hidden");
+    setTimeout(drawBracketLines,100);
+  });
+});
+
+document.addEventListener("keydown", e=>{
+  typed += e.key.toLowerCase();
+  typed = typed.slice(-5);
+  if(typed === "astop"){
+    $("adminModal").classList.remove("hidden");
+  }
+});
+
+$("closeAdmin").addEventListener("click",()=>{
+  $("adminModal").classList.add("hidden");
+});
+
+$("loginAdmin").addEventListener("click", async()=>{
+  const email    = $("adminEmail").value.trim();
+  const password = $("adminPassword").value;
+
+  if(email !== ADMIN_EMAIL){
+    $("adminError").textContent = "Aquest correu no té permís.";
+    return;
+  }
+
+  try{
+    await signInWithEmailAndPassword(auth,email,password);
+    $("adminError").textContent = "";
+  }catch{
+    $("adminError").textContent = "No s'ha pogut iniciar sessió.";
+  }
+});
+
+onAuthStateChanged(auth, user=>{
+  if(user && user.email === ADMIN_EMAIL){
+    $("adminLogin").classList.add("hidden");
+    $("adminPanel").classList.remove("hidden");
+    renderAdminFestaDays();
+    renderAdminMatches();
+  } else {
+    $("adminLogin").classList.remove("hidden");
+    $("adminPanel").classList.add("hidden");
+  }
+});
+
+$("logoutAdmin").addEventListener("click",()=>signOut(auth));
+
+$("saveAll").addEventListener("click", async()=>{
+  propagateWinners();
+  tournament.version   = VERSION;
+  tournament.updatedAt = Date.now();
+  await setDoc(doc(db,"tournaments","main"), tournament);
+  alert("Canvis guardats.");
+});
+
+window.addEventListener("resize",()=>{
+  if(tournament) drawBracketLines();
+});
+
+document.addEventListener("scroll",()=>{
+  if(tournament) drawBracketLines();
+}, true);
+</script>
+</body>
+</html>
