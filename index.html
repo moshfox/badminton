@@ -190,13 +190,45 @@ p{
   color:var(--muted);
 }
 
+/* ── Bracket stage with zoom/pan ── */
 .bracket-stage{
   position:relative;
-  overflow:auto;
-  padding:24px 24px 40px;
+  overflow:hidden;
+  padding:0;
   background:#fff;
   border:1px solid var(--line);
   border-radius:26px;
+  cursor:grab;
+  user-select:none;
+  height:calc(100vh - 310px); /* fills to bottom of screen */
+  min-height:400px;
+}
+
+.bracket-stage:active{
+  cursor:grabbing;
+}
+
+.bracket-stage-hint{
+  position:absolute;
+  bottom:10px;
+  right:14px;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:700;
+  pointer-events:none;
+  z-index:10;
+  background:rgba(255,255,255,.8);
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+}
+
+.bracket-viewport{
+  position:absolute;
+  top:0;
+  left:0;
+  transform-origin:0 0;
+  will-change:transform;
 }
 
 #bracketLines{
@@ -205,6 +237,7 @@ p{
   left:0;
   pointer-events:none;
   z-index:1;
+  overflow:visible;
 }
 
 .bracket{
@@ -213,6 +246,7 @@ p{
   display:flex;
   gap:var(--col-gap);
   align-items:flex-start;
+  padding:24px 24px 40px;
 }
 
 .round-header{
@@ -239,12 +273,17 @@ p{
   border-radius:18px;
   padding:10px 12px;
   box-shadow:0 8px 22px rgba(0,0,0,.06);
-  position:relative;
+  position:absolute;
 }
 
 .match.bye{
   background:linear-gradient(135deg,#ffffff,#efffdb);
   border-color:#b7ff68;
+}
+
+.match.played{
+  border-color:#b7ff68;
+  background:linear-gradient(135deg,#f7fff0,#fff);
 }
 
 .match-code{
@@ -254,6 +293,19 @@ p{
   margin-bottom:6px;
   letter-spacing:.08em;
   text-transform:uppercase;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.match-played-badge{
+  background:#b7ff68;
+  color:#2a4a00;
+  border-radius:999px;
+  padding:2px 7px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.06em;
 }
 
 .player{
@@ -314,6 +366,48 @@ p{
   max-width:100%;
 }
 
+/* ── Schedule ── */
+.schedule-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.timer-clock{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#111;
+  color:#fff;
+  border-radius:16px;
+  padding:8px 14px;
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:-.02em;
+}
+
+.timer-clock .timer-date{
+  font-size:11px;
+  color:#aaa;
+  font-weight:700;
+}
+
+.timer-dot{
+  width:7px;
+  height:7px;
+  background:#b7ff68;
+  border-radius:50%;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.85)}
+}
+
 .schedule{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
@@ -326,6 +420,12 @@ p{
   border-radius:22px;
   padding:14px;
   min-height:178px;
+  transition:border-color .2s, box-shadow .2s;
+}
+
+.day-card.is-today{
+  border-color:#b7ff68;
+  box-shadow:0 0 0 3px rgba(183,255,104,.35);
 }
 
 .day-head{
@@ -339,6 +439,16 @@ p{
 .day-head strong{
   text-transform:capitalize;
   letter-spacing:-.03em;
+}
+
+.today-badge{
+  background:#b7ff68;
+  color:#2a4a00;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.06em;
 }
 
 .patio{
@@ -357,6 +467,19 @@ p{
   color:var(--muted);
   font-weight:900;
   margin-bottom:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.patio-playing{
+  background:#ff4b4b;
+  color:#fff;
+  border-radius:999px;
+  padding:2px 8px;
+  font-size:9px;
+  font-weight:900;
+  animation:pulse 1s infinite;
 }
 
 .event{
@@ -367,12 +490,56 @@ p{
   font-size:12px;
   font-weight:800;
   margin-bottom:6px;
+  position:relative;
+}
+
+.event.event-played{
+  background:rgba(200,200,200,.25);
+  border-color:rgba(0,0,0,.08);
+  opacity:.75;
+}
+
+.event.event-live{
+  background:rgba(255,75,75,.15);
+  border-color:rgba(255,75,75,.4);
+  animation:livePulse 2s infinite;
+}
+
+@keyframes livePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,75,75,.3)}
+  50%{box-shadow:0 0 0 5px rgba(255,75,75,0)}
 }
 
 .event small{
   display:block;
   color:#333;
   margin-top:4px;
+}
+
+.event-status{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  border-radius:999px;
+  padding:2px 7px;
+  font-size:9px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.event-status.status-played{
+  background:#e8e8e2;
+  color:#555;
+}
+
+.event-status.status-live{
+  background:#ff4b4b;
+  color:#fff;
+}
+
+.event-status.status-pending{
+  background:#f1f1ec;
+  color:#888;
 }
 
 .hover-card{
@@ -457,7 +624,6 @@ textarea{
   background:#fafafa;
 }
 
-/* ── Reset overlay (inline, dins el #app) ── */
 #resetOverlay{
   position:fixed;
   inset:0;
@@ -570,11 +736,14 @@ textarea{
       <div class="legend">
         <span class="chip">14 prèvies · 28 jugadors</span>
         <span class="chip">Tots juguen la prèvia</span>
-        <span class="chip">Horaris buits fins que els posi l'admin</span>
+        <span class="chip">Scroll ratolí = zoom · Click+arrastrar = moure</span>
       </div>
       <div class="bracket-stage" id="bracketStage">
-        <svg id="bracketLines" style="overflow:visible;"></svg>
-        <div id="bracket" class="bracket"></div>
+        <div class="bracket-viewport" id="bracketViewport">
+          <svg id="bracketLines" style="overflow:visible;position:absolute;top:0;left:0;pointer-events:none;z-index:1;"></svg>
+          <div id="bracket" class="bracket"></div>
+        </div>
+        <div class="bracket-stage-hint">🔍 Scroll per zoom · Arrastrar per moure</div>
       </div>
     </div>
   </section>
@@ -582,16 +751,25 @@ textarea{
   <section id="calendarView" class="hidden">
     <div class="panel">
       <div class="eyebrow">Horari</div>
-      <h2>Calendari per patis</h2>
-      <p style="margin-bottom:14px;">Només apareixeran partits quan l'admin els assigni un dia i un pati.</p>
+      <div class="schedule-header">
+        <div>
+          <h2>Calendari per patis</h2>
+          <p style="margin-top:4px;">Partits assignats per l'admin.</p>
+        </div>
+        <div class="timer-clock" id="timerClock">
+          <div class="timer-dot"></div>
+          <div>
+            <div id="timerTime">--:--:--</div>
+            <div class="timer-date" id="timerDate">--</div>
+          </div>
+        </div>
+      </div>
       <div id="schedule" class="schedule"></div>
     </div>
   </section>
 </main>
 
-<!-- Reset overlay (dins el context del app, fora del admin modal) -->
 <div id="resetOverlay" class="hidden">
-  <!-- Step 1: confirm -->
   <div id="resetStep1" class="reset-card">
     <h3>⚠️ Reiniciar torneig</h3>
     <p>Aquesta acció eliminarà tots els resultats, puntuacions, horaris i guanyadors. Els partits i jugadors quedaran intactes.</p>
@@ -601,7 +779,6 @@ textarea{
       <button id="resetConfirm1" class="btn danger">Sí, continuar</button>
     </div>
   </div>
-  <!-- Step 2: type confirmation -->
   <div id="resetStep2" class="reset-card hidden">
     <h3>Confirmació final</h3>
     <p>Escriu exactament per confirmar:</p>
@@ -687,11 +864,46 @@ const $ = id => document.getElementById(id);
 let typed = "";
 let tournament = null;
 
-// ─────────────────────────────────────────────
-// 28 JUGADORS · 14 PARTITS DE PRÈVIA (R1)
-// 14 guanyadors → octaus (R2, 7 partits)
-// 7 → R3 (quarts, 4 partits, 1 bye automàtic gestionat per admin)
-// etc.  — estructura estàndard fins a Final
+// ── Horaris dels patis ──
+const PATIO1_START = { h:10, m:30 };
+const PATIO1_END   = { h:11, m:0  };
+const PATIO2_START = { h:12, m:50 };
+const PATIO2_END   = { h:13, m:10 };
+
+function timeToMinutes(h, m){ return h*60 + m; }
+
+function isCourtPlaying(court, now){
+  const nowMin = timeToMinutes(now.getHours(), now.getMinutes());
+  if(court === "Pati 1"){
+    return nowMin >= timeToMinutes(PATIO1_START.h, PATIO1_START.m) &&
+           nowMin <  timeToMinutes(PATIO1_END.h,   PATIO1_END.m);
+  }
+  if(court === "Pati 2"){
+    return nowMin >= timeToMinutes(PATIO2_START.h, PATIO2_START.m) &&
+           nowMin <  timeToMinutes(PATIO2_END.h,   PATIO2_END.m);
+  }
+  return false;
+}
+
+function toISO(date){
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+}
+
+// ── Timer ──
+function startTimer(){
+  function tick(){
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString("ca-ES", {hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const dateStr = new Intl.DateTimeFormat("ca-ES",{weekday:"long",day:"numeric",month:"long"}).format(now);
+    const el = $("timerTime");
+    const de = $("timerDate");
+    if(el) el.textContent = timeStr;
+    if(de) de.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
 // ─────────────────────────────────────────────
 const initialTournament = {
   version: VERSION,
@@ -699,7 +911,6 @@ const initialTournament = {
   updatedAt: Date.now(),
   festaDays: [],
   matches: [
-    // ── Ronda 1 · Prèvies (14 partits, 28 jugadors) ──
     {id:"m1",  round:1, p1:"Nitzer Galindo",        p2:"Adam Singh Kahur",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m2",  round:1, p1:"Gerard Vallès",          p2:"Sami El Youssofi",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m3",  round:1, p1:"Olaguer Zapater",        p2:"Aran Creixell",         score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
@@ -715,7 +926,6 @@ const initialTournament = {
     {id:"m13", round:1, p1:"Oways Benhattal",        p2:"Guim Ballester",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m14", round:1, p1:"Jugador A",              p2:"Jugador B",             score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
 
-    // ── Ronda 2 · Octaus de final (7 partits) ──
     {id:"m15", round:2, p1:"Guanyador M1",  p2:"Guanyador M2",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m16", round:2, p1:"Guanyador M3",  p2:"Guanyador M4",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m17", round:2, p1:"Guanyador M5",  p2:"Guanyador M6",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
@@ -724,46 +934,34 @@ const initialTournament = {
     {id:"m20", round:2, p1:"Guanyador M11", p2:"Guanyador M12", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m21", round:2, p1:"Guanyador M13", p2:"Guanyador M14", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
 
-    // ── Ronda 3 · Quarts de final (4 partits) ──
     {id:"m22", round:3, p1:"Guanyador M15", p2:"Guanyador M16", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m23", round:3, p1:"Guanyador M17", p2:"Guanyador M18", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m24", round:3, p1:"Guanyador M19", p2:"Guanyador M20", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m25", round:3, p1:"Guanyador M21", p2:"—",             score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final (bye).", image:""},
 
-    // ── Ronda 4 · Semifinals (2 partits) ──
     {id:"m26", round:4, p1:"Guanyador M22", p2:"Guanyador M23", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
     {id:"m27", round:4, p1:"Guanyador M24", p2:"Guanyador M25", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
 
-    // ── Ronda 5 · Final ──
     {id:"m28", round:5, p1:"Guanyador M26", p2:"Guanyador M27", score1:"", score2:"", winner:"", date:"", court:"", description:"Final del torneig.", image:""}
   ]
 };
 
-// ── Layout: nombre de slots verticals per columna ──
-const SLOT_H   = 120;
-const MATCH_H  = 100;
-const MATCH_W  = 240;
-const COL_GAP  = 90;
-const TOTAL_SLOTS = 14; // R1 té 14 partits → altura base
+// ── Layout constants ──
+// SLOT_H must fit played cards (with winner badge ~138px) + gap between cards
+const SLOT_H      = 155;
+const MATCH_W     = 240;
+const COL_GAP     = 90;
+const TOTAL_SLOTS = 14;
+const HEADER_H    = 52;
+const PAD         = 24;
+const SLOT_PAD    = 10; // top padding within slot
 
-/*
-  Posicions en "slots" (índex 0-based, centrat a slot + 0.5):
-  R1: m1..m14 → slots 0..13  (1 per slot)
-  R2: m15..m21 → slots 0.5, 2.5, 4.5, 6.5, 8.5, 10.5, 12.5
-  R3: m22..m25 → slots 1.5, 5.5, 9.5, 13 (bye)
-  R4: m26..m27 → slots 3.5, 11.5
-  R5: m28      → slot 7.0
-*/
 const slotMap = {
   m1:0,  m2:1,  m3:2,  m4:3,  m5:4,  m6:5,  m7:6,
   m8:7,  m9:8, m10:9, m11:10, m12:11, m13:12, m14:13,
-
   m15:0.5, m16:2.5, m17:4.5, m18:6.5, m19:8.5, m20:10.5, m21:12.5,
-
   m22:1.5, m23:5.5, m24:9.5, m25:13,
-
   m26:3.5, m27:11.5,
-
   m28:7.0
 };
 
@@ -775,15 +973,12 @@ const nextMap = {
   m9: ["m19","p1"], m10:["m19","p2"],
   m11:["m20","p1"], m12:["m20","p2"],
   m13:["m21","p1"], m14:["m21","p2"],
-
   m15:["m22","p1"], m16:["m22","p2"],
   m17:["m23","p1"], m18:["m23","p2"],
   m19:["m24","p1"], m20:["m24","p2"],
   m21:["m25","p1"],
-
   m22:["m26","p1"], m23:["m26","p2"],
   m24:["m27","p1"], m25:["m27","p2"],
-
   m26:["m28","p1"], m27:["m28","p2"]
 };
 
@@ -796,6 +991,102 @@ const roundMeta = {
   4:{title:"Semifinals",       subtitle:"2 partits"},
   5:{title:"Final",            subtitle:"1 partit"}
 };
+
+// ── Zoom / Pan state ──
+let vpScale = 0.7;
+let vpX = 0;
+let vpY = 0;
+let isPanning = false;
+let panStartX = 0;
+let panStartY = 0;
+let panStartVpX = 0;
+let panStartVpY = 0;
+
+function applyViewport(){
+  const vp = $("bracketViewport");
+  if(vp) vp.style.transform = `translate(${vpX}px,${vpY}px) scale(${vpScale})`;
+}
+
+function initZoomPan(){
+  const stage = $("bracketStage");
+  if(!stage) return;
+
+  // wheel = zoom
+  stage.addEventListener("wheel", e=>{
+    e.preventDefault();
+    const rect  = stage.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    const newScale = Math.min(2, Math.max(0.2, vpScale * delta));
+
+    // zoom toward mouse position
+    vpX = mouseX - (mouseX - vpX) * (newScale / vpScale);
+    vpY = mouseY - (mouseY - vpY) * (newScale / vpScale);
+    vpScale = newScale;
+
+    applyViewport();
+    drawBracketLines();
+  }, { passive: false });
+
+  // mousedown = start pan
+  stage.addEventListener("mousedown", e=>{
+    isPanning = true;
+    panStartX  = e.clientX;
+    panStartY  = e.clientY;
+    panStartVpX = vpX;
+    panStartVpY = vpY;
+  });
+
+  window.addEventListener("mousemove", e=>{
+    if(!isPanning) return;
+    vpX = panStartVpX + (e.clientX - panStartX);
+    vpY = panStartVpY + (e.clientY - panStartY);
+    applyViewport();
+  });
+
+  window.addEventListener("mouseup", ()=>{ isPanning = false; });
+
+  // touch support
+  let lastTouchDist = null;
+  stage.addEventListener("touchstart", e=>{
+    if(e.touches.length === 1){
+      isPanning = true;
+      panStartX  = e.touches[0].clientX;
+      panStartY  = e.touches[0].clientY;
+      panStartVpX = vpX;
+      panStartVpY = vpY;
+    }
+    if(e.touches.length === 2){
+      lastTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  }, { passive:true });
+
+  stage.addEventListener("touchmove", e=>{
+    e.preventDefault();
+    if(e.touches.length === 1 && isPanning){
+      vpX = panStartVpX + (e.touches[0].clientX - panStartX);
+      vpY = panStartVpY + (e.touches[0].clientY - panStartY);
+      applyViewport();
+    }
+    if(e.touches.length === 2 && lastTouchDist){
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const delta = dist / lastTouchDist;
+      vpScale = Math.min(2, Math.max(0.2, vpScale * delta));
+      lastTouchDist = dist;
+      applyViewport();
+    }
+  }, { passive:false });
+
+  stage.addEventListener("touchend", ()=>{ isPanning = false; lastTouchDist = null; });
+}
 
 async function sha256(text){
   const data = new TextEncoder().encode(text);
@@ -833,11 +1124,9 @@ function isPlaceholder(name){
 
 function propagateWinners(){
   if(!tournament) return;
-
   const base    = JSON.parse(JSON.stringify(initialTournament));
   const current = JSON.parse(JSON.stringify(tournament));
 
-  // reset placeholder slots to their initial labels
   current.matches.forEach(match=>{
     const orig = base.matches.find(x=>x.id===match.id);
     if(orig){
@@ -846,7 +1135,6 @@ function propagateWinners(){
     }
   });
 
-  // propagate winners forward
   for(let pass=0; pass<6; pass++){
     current.matches.forEach(match=>{
       if(match.winner && nextMap[match.id]){
@@ -867,12 +1155,12 @@ function render(){
   renderAdminMatches();
 }
 
+// ── BRACKET RENDER ──────────────────────────────────────────────────────────
 function renderBracket(){
   const bracket = $("bracket");
   bracket.innerHTML = "";
 
   const CANVAS_H = TOTAL_SLOTS * SLOT_H;
-  const HEADER_H = 52;
 
   Object.entries(roundMeta).forEach(([roundNum, meta])=>{
     const col = document.createElement("div");
@@ -890,18 +1178,22 @@ function renderBracket(){
     const matches = tournament.matches.filter(m=>m.round===Number(roundNum));
 
     matches.forEach(match=>{
-      const slot  = slotMap[match.id];
-      const topPx = HEADER_H + slot * SLOT_H + (SLOT_H - MATCH_H) / 2;
-      const played = match.score1!=="" || match.score2!=="" || match.winner!=="";
+      const slot   = slotMap[match.id];
+      const topPx  = HEADER_H + slot * SLOT_H + SLOT_PAD;
+      const played    = match.score1!=="" || match.score2!=="" || match.winner!=="";
       const hasWinner = match.winner !== "";
 
       const card = document.createElement("div");
-      card.className = `match ${match.bye ? "bye" : ""}`;
+      card.className = `match${match.bye ? " bye" : ""}${played ? " played" : ""}`;
       card.dataset.id = match.id;
+      // Use absolute position — no overlap since each match has its own slot-based topPx
       card.style.cssText = `position:absolute; top:${topPx}px; left:0; width:${MATCH_W}px;`;
 
       card.innerHTML = `
-        <div class="match-code">${match.id.toUpperCase()}</div>
+        <div class="match-code">
+          <span>${match.id.toUpperCase()}</span>
+          ${played ? `<span class="match-played-badge">✓ Jugat</span>` : ""}
+        </div>
 
         <div class="player ${match.winner===match.p1 ? "winner" : ""} ${played && match.winner!==match.p1 ? "loser" : ""}">
           <span class="player-name">${match.p1}</span>
@@ -923,18 +1215,19 @@ function renderBracket(){
     bracket.appendChild(col);
   });
 
-  setTimeout(drawBracketLines, 60);
+  applyViewport();
+  setTimeout(drawBracketLines, 80);
 }
 
 function drawBracketLines(){
-  const svg = $("bracketLines");
-  if(!svg) return;
+  const svg      = $("bracketLines");
+  const viewport = $("bracketViewport");
+  if(!svg || !viewport) return;
 
-  const CANVAS_H = TOTAL_SLOTS * SLOT_H;
-  const HEADER_H = 52;
-  const totalH   = CANVAS_H + HEADER_H + 40;
-  const cols     = Object.keys(roundMeta).length;
-  const totalW   = cols * MATCH_W + (cols - 1) * COL_GAP + 48;
+  const CANVAS_H  = TOTAL_SLOTS * SLOT_H;
+  const totalH    = CANVAS_H + HEADER_H + 40;
+  const cols      = Object.keys(roundMeta).length;
+  const totalW    = cols * MATCH_W + (cols - 1) * COL_GAP + PAD * 2;
 
   svg.setAttribute("width",  totalW);
   svg.setAttribute("height", totalH);
@@ -942,23 +1235,24 @@ function drawBracketLines(){
   svg.style.height = totalH + "px";
   svg.innerHTML = "";
 
+  // Coordinates relative to viewport (not scaled — SVG is inside viewport)
   function cardCentreRight(matchId){
-    const el = document.querySelector(`[data-id="${matchId}"]`);
+    const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
     const col = el.parentElement;
     return {
-      x: col.offsetLeft + MATCH_W + 24,
-      y: col.offsetTop  + el.offsetTop + el.offsetHeight / 2 + 24
+      x: col.offsetLeft + PAD + MATCH_W,
+      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
     };
   }
 
   function cardCentreLeft(matchId){
-    const el = document.querySelector(`[data-id="${matchId}"]`);
+    const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
     const col = el.parentElement;
     return {
-      x: col.offsetLeft + 24,
-      y: col.offsetTop  + el.offsetTop + el.offsetHeight / 2 + 24
+      x: col.offsetLeft + PAD,
+      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
     };
   }
 
@@ -980,12 +1274,15 @@ function drawBracketLines(){
   });
 }
 
+// ── SCHEDULE RENDER ─────────────────────────────────────────────────────────
 function renderSchedule(){
   const schedule = $("schedule");
   schedule.innerHTML = "";
 
-  const start = new Date(2026,3,29);
-  const end   = new Date(2026,4,25);
+  const now    = new Date();
+  const todayISO = toISO(now);
+  const start  = new Date(2026,3,29);
+  const end    = new Date(2026,4,25);
 
   for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
     const iso     = toISO(d);
@@ -993,49 +1290,85 @@ function renderSchedule(){
 
     const festaDays = tournament.festaDays || [];
     const isFesta   = festaDays.includes(iso);
+    const isToday   = iso === todayISO;
 
     const day = document.createElement("div");
-    day.className = `day-card${isFesta ? " is-festa" : ""}`;
+    let cls = "day-card";
+    if(isFesta)  cls += " is-festa";
+    if(isToday)  cls += " is-today";
+    day.className = cls;
+
     day.innerHTML = `
       <div class="day-head">
         <strong>${new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d)}</strong>
-        <span class="chip">${matches.length} partits</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          ${isToday ? `<span class="today-badge">📅 Avui</span>` : ""}
+          <span class="chip">${matches.length} partits</span>
+        </div>
       </div>
       ${isFesta ? `<div class="festa-banner"><span class="festa-label">🎉 Festa</span></div>` : ""}
       <div class="patio">
-        <div class="patio-title">Pati 1</div>
-        <div class="patio-content" data-date="${iso}" data-court="Pati 1"></div>
+        <div class="patio-title">
+          <span>Pati 1 <small style="font-weight:700;color:#aaa;">10:30–11:00</small></span>
+          ${isToday && isCourtPlaying("Pati 1", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
+        </div>
+        <div class="patio-content" data-date="${iso}" data-court="Pati 1" data-today="${isToday}"></div>
       </div>
       <div class="patio">
-        <div class="patio-title">Pati 2</div>
-        <div class="patio-content" data-date="${iso}" data-court="Pati 2"></div>
+        <div class="patio-title">
+          <span>Pati 2 <small style="font-weight:700;color:#aaa;">12:50–13:10</small></span>
+          ${isToday && isCourtPlaying("Pati 2", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
+        </div>
+        <div class="patio-content" data-date="${iso}" data-court="Pati 2" data-today="${isToday}"></div>
       </div>
     `;
     schedule.appendChild(day);
   }
 
   document.querySelectorAll(".patio-content").forEach(box=>{
-    const date   = box.dataset.date;
-    const court  = box.dataset.court;
-    const events = tournament.matches.filter(m=>m.date===date && m.court===court);
+    const date    = box.dataset.date;
+    const court   = box.dataset.court;
+    const isToday = box.dataset.today === "true";
+    const events  = tournament.matches.filter(m=>m.date===date && m.court===court);
 
     if(!events.length){
       box.innerHTML = `<span style="color:var(--muted);font-size:12px;font-weight:800;">Sense partit</span>`;
       return;
     }
 
+    const nowNow = new Date();
     events.forEach(match=>{
+      const played   = match.winner !== "";
+      const isLive   = isToday && isCourtPlaying(court, nowNow) && !played;
+
       const ev = document.createElement("div");
-      ev.className = "event";
+      let evCls = "event";
+      if(played) evCls += " event-played";
+      else if(isLive) evCls += " event-live";
+      ev.className = evCls;
+
+      let statusHtml = "";
+      if(played){
+        statusHtml = `<span class="event-status status-played">✓ Jugat · Guanya: ${match.winner}</span>`;
+      } else if(isLive){
+        statusHtml = `<span class="event-status status-live">🔴 En joc ara</span>`;
+      } else {
+        statusHtml = `<span class="event-status status-pending">⏳ Pendent</span>`;
+      }
+
       ev.innerHTML = `
         <b>${match.id.toUpperCase()} · ${match.p1}</b><br>
         vs ${match.p2}
-        <small>${match.winner ? "Guanya: " + match.winner : "Pendent"}</small>
+        ${statusHtml}
       `;
       addHover(ev, match);
       box.appendChild(ev);
     });
   });
+
+  // scroll today into view
+  const todayCard = document.querySelector(".day-card.is-today");
+  if(todayCard) setTimeout(()=>todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"}),300);
 }
 
 function addHover(element, match){
@@ -1164,11 +1497,7 @@ function escapeHtml(text=""){
     .replaceAll('"',"&quot;");
 }
 
-function toISO(date){
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
-}
-
-// ── Reset logic ──────────────────────────────────────────────────────────────
+// ── Reset ────────────────────────────────────────────────────────────────────
 const RESET_PHRASE = "El Torneig De Bàdminton Restart";
 
 function openResetOverlay(){
@@ -1177,7 +1506,7 @@ function openResetOverlay(){
   $("resetTyped").value = "";
   $("resetError").textContent = "";
   $("resetOverlay").classList.remove("hidden");
-  $("adminModal").classList.add("hidden"); // hide admin modal behind
+  $("adminModal").classList.add("hidden");
 }
 
 function closeResetOverlay(){
@@ -1186,7 +1515,6 @@ function closeResetOverlay(){
 }
 
 $("openReset").addEventListener("click", openResetOverlay);
-
 $("resetCancel1").addEventListener("click", closeResetOverlay);
 $("resetCancel2").addEventListener("click", closeResetOverlay);
 
@@ -1203,18 +1531,13 @@ $("resetConfirm2").addEventListener("click", async()=>{
     return;
   }
 
-  // Build a clean copy: keep match structure & players, wipe results
   const clean = JSON.parse(JSON.stringify(initialTournament));
   clean.updatedAt = Date.now();
 
-  // Preserve edited player names from current tournament (round 1 only)
   if(tournament){
     tournament.matches.filter(m=>m.round===1).forEach(m=>{
       const target = clean.matches.find(x=>x.id===m.id);
-      if(target){
-        target.p1 = m.p1;
-        target.p2 = m.p2;
-      }
+      if(target){ target.p1 = m.p1; target.p2 = m.p2; }
     });
   }
 
@@ -1222,12 +1545,11 @@ $("resetConfirm2").addEventListener("click", async()=>{
   tournament = clean;
   propagateWinners();
   render();
-
   closeResetOverlay();
   alert("Torneig reiniciat correctament.");
 });
 
-// ── Auth & tab logic ─────────────────────────────────────────────────────────
+// ── Auth & tabs ──────────────────────────────────────────────────────────────
 $("enterBtn").addEventListener("click", async()=>{
   const pass = $("accessPassword").value.trim();
   const hash = await sha256(pass);
@@ -1242,6 +1564,12 @@ $("enterBtn").addEventListener("click", async()=>{
     $("lock").classList.add("hidden");
     $("app").classList.remove("hidden");
     await loadTournament();
+    startTimer();
+    initZoomPan();
+    // center bracket at start
+    vpX = 10; vpY = 10;
+    vpScale = 0.65;
+    applyViewport();
   } else {
     $("lockError").textContent = "Contrasenya incorrecta.";
   }
@@ -1257,7 +1585,7 @@ document.querySelectorAll(".tab").forEach(tab=>{
     tab.classList.add("active");
     ["bracketView","calendarView"].forEach(id=>$(id).classList.add("hidden"));
     $(tab.dataset.view).classList.remove("hidden");
-    setTimeout(drawBracketLines,100);
+    if(tab.dataset.view === "bracketView") setTimeout(drawBracketLines,100);
   });
 });
 
@@ -1269,9 +1597,7 @@ document.addEventListener("keydown", e=>{
   }
 });
 
-$("closeAdmin").addEventListener("click",()=>{
-  $("adminModal").classList.add("hidden");
-});
+$("closeAdmin").addEventListener("click",()=>$("adminModal").classList.add("hidden"));
 
 $("loginAdmin").addEventListener("click", async()=>{
   const email    = $("adminEmail").value.trim();
@@ -1315,10 +1641,6 @@ $("saveAll").addEventListener("click", async()=>{
 window.addEventListener("resize",()=>{
   if(tournament) drawBracketLines();
 });
-
-document.addEventListener("scroll",()=>{
-  if(tournament) drawBracketLines();
-}, true);
 </script>
 </body>
 </html>
