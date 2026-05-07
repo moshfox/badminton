@@ -956,8 +956,8 @@ $("enterBtn").addEventListener("click",async()=>{
     localStorage.setItem("badminton_access_ok","1");
     $("lock").classList.add("hidden");
     $("app").classList.remove("hidden");
-    $("todayBubble").classList.remove("hidden");
     await loadTournament();
+renderTodayBubble();
     startTimer();initZoomPan();applyViewport();
   }else{
     $("lockError").textContent="Contrasenya incorrecta.";
