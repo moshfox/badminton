@@ -682,47 +682,19 @@ function patioHTML(court,time,iso,isToday,now){
   return`<div class="patio"><div class="patio-title"><span>${court} <small style="font-weight:700;color:#aaa;">${time}</small></span>${isToday&&isCourtPlaying(court,now)?`<span class="patio-playing">EN JOC</span>`:""}</div><div class="patio-content" data-date="${iso}" data-court="${court}" data-today="${isToday}"></div></div>`;
 }
 
-function renderReplayGrid(){
-  const grid=$("replayGrid");if(!grid||!tournament)return;
-  const search=($("replaySearch")?.value||"").toLowerCase().trim();
-  const filter=$("replayFilter")?.value||"played";
-  const playedCount=tournament.matches.filter(m=>m.winner).length;
-  $("replayPlayedStat").textContent=playedCount;
-  $("replayPendingStat").textContent=tournament.matches.length-playedCount;
-  let list=[...tournament.matches];
-  if(filter==="played")list=list.filter(m=>m.winner);
-  if(filter==="postponed")list=list.filter(m=>isPostponed(m.id));
-  if(search)list=list.filter(m=>(`${m.id} ${m.p1} ${m.p2} ${m.winner}`.toLowerCase().includes(search)));
-  if(!list.length){grid.innerHTML=`<div class="empty-state">No hi ha partits amb aquest filtre.</div>`;return;}
-  grid.innerHTML="";
-  list.reverse().forEach(match=>{
-    const played=!!match.winner;
-    const card=document.createElement("div");
-    card.className=`replay-card${isPostponed(match.id)?" postponed":""}`;
-    card.innerHTML=`<div class="replay-card-top"><span class="replay-round-pill">${match.id.toUpperCase()} · ${roundMeta[match.round]?.title||"Ronda"}</span><span class="replay-play-pill">${played?"▶ Obrir":"⏳ Pendent"}</span></div><div class="replay-title">${escapeHtml(match.p1)}<br><span style="color:var(--muted);font-weight:800;">vs</span><br>${escapeHtml(match.p2)}</div><div class="replay-score">${match.score1||0} — ${match.score2||0}</div>${played?`<div class="replay-winner">🏆 ${escapeHtml(match.winner)}</div>`:`<div class="replay-winner" style="color:#777;background:#f4f4ef;border-color:#e5e5df;">Encara no jugat</div>`}<div class="replay-bg-mark">🏸</div>`;
-    card.addEventListener("click",()=>{
-      window.open(`./repeticion.html?id=${encodeURIComponent(match.id)}`,"_blank");
-    });
-    grid.appendChild(card);
-  });
-}
-$("replaySearch").addEventListener("input",renderReplayGrid);
-$("replayFilter").addEventListener("change",renderReplayGrid);
-
 function renderTodayBubble(){
   const bubble = $("todayBubble");
-  if(!tournament || !bubble) return;
+  if(!bubble) return;
 
   const isUnlocked = localStorage.getItem("badminton_access_ok") === "1";
-  const uc = !!tournament.underConstruction;
+  const uc = !!tournament?.underConstruction;
 
-  // NO mostrar en contraseña ni construcción
-  if(!isUnlocked || uc){
+  if(!tournament || !isUnlocked || uc || !$("app") || $("app").classList.contains("hidden")){
     bubble.classList.add("hidden");
+    bubble.classList.remove("open");
     return;
   }
 
-  // Mostrar siempre dentro de la web
   bubble.classList.remove("hidden");
 
   const todayISO = toISO(new Date());
@@ -747,8 +719,11 @@ function renderTodayBubble(){
     </div>
   `).join("");
 }
-  $("todayBubbleHead").addEventListener("click", () => {
-  $("todayBubble").classList.toggle("open");
+
+$("todayBubbleHead").addEventListener("click", () => {
+  if(!$("todayBubble").classList.contains("hidden")){
+    $("todayBubble").classList.toggle("open");
+  }
 });
 
 function showDayMessageIfNeeded(force=false){
@@ -778,28 +753,34 @@ function addHover(element,match){
 }
 
 function checkUnderConstruction(){
-  if(!tournament)return;
-  const uc=!!tournament.underConstruction;
-  $("underConstruction").classList.toggle("hidden",!uc);
+  if(!tournament) return;
+
+  const uc = !!tournament.underConstruction;
+
+  $("underConstruction").classList.toggle("hidden", !uc);
+
   if(uc){
     $("lock").classList.add("hidden");
     $("app").classList.add("hidden");
     $("todayBubble").classList.add("hidden");
-  }else{
-    $("underConstruction").classList.add("hidden");
-if(!localStorage.getItem("badminton_access_ok")){
-  $("lock").classList.remove("hidden");
-  $("app").classList.add("hidden");
-  $("todayBubble").classList.add("hidden");
-}
-    }else{
-      $("lock").classList.add("hidden");
-      $("app").classList.remove("hidden");
-      renderTodayBubble();
-    }
+    $("todayBubble").classList.remove("open");
+    return;
   }
-}
 
+  $("underConstruction").classList.add("hidden");
+
+  if(!localStorage.getItem("badminton_access_ok")){
+    $("lock").classList.remove("hidden");
+    $("app").classList.add("hidden");
+    $("todayBubble").classList.add("hidden");
+    $("todayBubble").classList.remove("open");
+    return;
+  }
+
+  $("lock").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  renderTodayBubble();
+}
 function renderUnderConstructionAdmin(){
   if(!$("toggleUnderConstruction")||!tournament)return;
   const uc=!!tournament.underConstruction;
@@ -942,16 +923,50 @@ $("resetConfirm2").addEventListener("click",async()=>{
 });
 
 (async function initApp(){
+  $("todayBubble").classList.add("hidden");
+  $("todayBubble").classList.remove("open");
+
   try{
-    const ref=doc(db,"tournaments","main"),snap=await getDoc(ref);
-    let uc=false;
-    if(snap.exists()&&snap.data().underConstruction){uc=true;}
-    if(uc){$("underConstruction").classList.remove("hidden");}
-    else{$("lock").classList.remove("hidden");}
+    const ref = doc(db,"tournaments","main");
+    const snap = await getDoc(ref);
+
+    let uc = false;
+    if(snap.exists() && snap.data().underConstruction){
+      uc = true;
+    }
+
+    if(uc){
+      $("underConstruction").classList.remove("hidden");
+      $("lock").classList.add("hidden");
+      $("app").classList.add("hidden");
+      $("todayBubble").classList.add("hidden");
+    }else{
+      $("underConstruction").classList.add("hidden");
+      $("lock").classList.remove("hidden");
+      $("app").classList.add("hidden");
+      $("todayBubble").classList.add("hidden");
+    }
   }catch(e){
     $("lock").classList.remove("hidden");
+    $("app").classList.add("hidden");
+    $("todayBubble").classList.add("hidden");
   }
 })();
+
+  if(hash===snap.data().passHash){
+  localStorage.setItem("badminton_access_ok","1");
+  $("lock").classList.add("hidden");
+  $("app").classList.remove("hidden");
+
+  await loadTournament();
+  renderTodayBubble();
+
+  startTimer();
+  initZoomPan();
+  applyViewport();
+}else{
+  $("lockError").textContent="Contrasenya incorrecta.";
+}
 
 $("enterBtn").addEventListener("click",async()=>{
   const pass=$("accessPassword").value.trim(),hash=await sha256(pass);
