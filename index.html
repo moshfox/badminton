@@ -191,7 +191,6 @@ p{
   color:var(--muted);
 }
 
-/* ── Bracket stage with zoom/pan ── */
 .bracket-stage{
   position:relative;
   overflow:hidden;
@@ -205,9 +204,7 @@ p{
   min-height:400px;
 }
 
-.bracket-stage:active{
-  cursor:grabbing;
-}
+.bracket-stage:active{cursor:grabbing}
 
 .bracket-stage-hint{
   position:absolute;
@@ -250,22 +247,9 @@ p{
   padding:24px 24px 40px;
 }
 
-.round-header{
-  margin-bottom:16px;
-}
-
-.round-title{
-  font-weight:900;
-  font-size:16px;
-  letter-spacing:-.04em;
-}
-
-.round-subtitle{
-  font-size:11px;
-  color:var(--muted);
-  font-weight:800;
-  margin-top:2px;
-}
+.round-header{margin-bottom:16px}
+.round-title{font-weight:900;font-size:16px;letter-spacing:-.04em}
+.round-subtitle{font-size:11px;color:var(--muted);font-weight:800;margin-top:2px}
 
 .match{
   width:var(--match-w);
@@ -322,19 +306,8 @@ p{
 }
 
 .player + .player{margin-top:3px}
-
-.player-name{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:160px;
-}
-
-.player.winner{
-  background:#dfffba;
-  font-weight:900;
-}
-
+.player-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.player.winner{background:#dfffba;font-weight:900}
 .player.loser{opacity:.4}
 
 .score{
@@ -367,7 +340,6 @@ p{
   max-width:100%;
 }
 
-/* ── Schedule ── */
 .schedule-header{
   display:flex;
   justify-content:space-between;
@@ -390,24 +362,10 @@ p{
   letter-spacing:-.02em;
 }
 
-.timer-clock .timer-date{
-  font-size:11px;
-  color:#aaa;
-  font-weight:700;
-}
+.timer-clock .timer-date{font-size:11px;color:#aaa;font-weight:700}
+.timer-dot{width:7px;height:7px;background:#b7ff68;border-radius:50%;animation:pulse 1s infinite}
 
-.timer-dot{
-  width:7px;
-  height:7px;
-  background:#b7ff68;
-  border-radius:50%;
-  animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.5;transform:scale(.85)}
-}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
 
 .schedule{
   display:grid;
@@ -424,33 +382,11 @@ p{
   transition:border-color .2s, box-shadow .2s;
 }
 
-.day-card.is-today{
-  border-color:#b7ff68;
-  box-shadow:0 0 0 3px rgba(183,255,104,.35);
-}
+.day-card.is-today{border-color:#b7ff68;box-shadow:0 0 0 3px rgba(183,255,104,.35)}
 
-.day-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:12px;
-}
-
-.day-head strong{
-  text-transform:capitalize;
-  letter-spacing:-.03em;
-}
-
-.today-badge{
-  background:#b7ff68;
-  color:#2a4a00;
-  border-radius:999px;
-  padding:3px 8px;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.06em;
-}
+.day-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
+.day-head strong{text-transform:capitalize;letter-spacing:-.03em}
+.today-badge{background:#b7ff68;color:#2a4a00;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;letter-spacing:.06em}
 
 .patio{
   background:#f7f7f3;
@@ -473,15 +409,7 @@ p{
   align-items:center;
 }
 
-.patio-playing{
-  background:#ff4b4b;
-  color:#fff;
-  border-radius:999px;
-  padding:2px 8px;
-  font-size:9px;
-  font-weight:900;
-  animation:pulse 1s infinite;
-}
+.patio-playing{background:#ff4b4b;color:#fff;border-radius:999px;padding:2px 8px;font-size:9px;font-weight:900;animation:pulse 1s infinite}
 
 .event{
   background:rgba(183,255,104,.58);
@@ -494,54 +422,117 @@ p{
   position:relative;
 }
 
-.event.event-played{
-  background:rgba(200,200,200,.25);
-  border-color:rgba(0,0,0,.08);
-  opacity:.75;
+.event.event-played{background:rgba(200,200,200,.25);border-color:rgba(0,0,0,.08);opacity:.75}
+.event.event-live{background:rgba(255,75,75,.15);border-color:rgba(255,75,75,.4);animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,75,75,.3)}50%{box-shadow:0 0 0 5px rgba(255,75,75,0)}}
+.event small{display:block;color:#333;margin-top:4px}
+
+.event-status{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 7px;font-size:9px;font-weight:900;margin-top:4px}
+.event-status.status-played{background:#e8e8e2;color:#555}
+.event-status.status-live{background:#ff4b4b;color:#fff}
+.event-status.status-pending{background:#f1f1ec;color:#888}
+
+.sim-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
 }
 
-.event.event-live{
-  background:rgba(255,75,75,.15);
-  border-color:rgba(255,75,75,.4);
-  animation:livePulse 2s infinite;
+.sim-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-@keyframes livePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(255,75,75,.3)}
-  50%{box-shadow:0 0 0 5px rgba(255,75,75,0)}
+.sim-card:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(0,0,0,.08)}
+.sim-card strong{display:block;font-size:15px;letter-spacing:-.03em}
+.sim-card span{display:block;margin-top:8px;font-size:12px;color:var(--muted);font-weight:800}
+
+.sim-arena{
+  margin-top:20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:18px;
 }
 
-.event small{
-  display:block;
-  color:#333;
-  margin-top:4px;
+.sim-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.sim-title{font-weight:900;letter-spacing:-.04em}
+
+.scoreboard{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:14px;
 }
 
-.event-status{
-  display:inline-flex;
+.scoreboard div{
+  background:#f7f7f3;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:4px;
-  border-radius:999px;
-  padding:2px 7px;
-  font-size:9px;
-  font-weight:900;
-  margin-top:4px;
 }
 
-.event-status.status-played{
-  background:#e8e8e2;
-  color:#555;
+.scoreboard span{font-size:28px;font-weight:900}
+
+.court{
+  position:relative;
+  height:430px;
+  border-radius:26px;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg, transparent 49.7%, rgba(0,0,0,.25) 49.7%, rgba(0,0,0,.25) 50.3%, transparent 50.3%),
+    linear-gradient(180deg,#eaffd1,#f7fff0);
+  border:2px solid #111;
 }
 
-.event-status.status-live{
-  background:#ff4b4b;
-  color:#fff;
+.net{
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:8px;
+  transform:translateX(-50%);
+  background:repeating-linear-gradient(0deg,#111,#111 6px,transparent 6px,transparent 14px);
+  opacity:.65;
 }
 
-.event-status.status-pending{
-  background:#f1f1ec;
-  color:#888;
+.racket{
+  position:absolute;
+  width:125px;
+  height:140px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  transition:transform .32s linear;
+  z-index:3;
 }
+
+.racket img{width:84px;height:84px;object-fit:contain}
+.racket span{font-size:12px;font-weight:900;text-align:center;max-width:130px;line-height:1.1}
+.racket-blue{left:13%;top:45%}
+.racket-blue span{color:#1c66ff}
+.racket-red{right:13%;top:45%}
+.racket-red span{color:#ff3333}
+
+.shuttle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  font-size:30px;
+  transform:translate(-50%,-50%);
+  transition:transform .32s linear;
+  z-index:4;
+}
+
+.sim-controls{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 
 .hover-card{
   position:fixed;
@@ -556,20 +547,8 @@ p{
   display:none;
 }
 
-.hover-card img{
-  width:100%;
-  height:125px;
-  object-fit:cover;
-  border-radius:16px;
-  margin-bottom:10px;
-  background:#333;
-}
-
-.hover-card p{
-  color:#ddd;
-  margin:5px 0 0;
-  font-size:13px;
-}
+.hover-card img{width:100%;height:125px;object-fit:cover;border-radius:16px;margin-bottom:10px;background:#333}
+.hover-card p{color:#ddd;margin:5px 0 0;font-size:13px}
 
 .admin-modal{
   position:fixed;
@@ -591,39 +570,12 @@ p{
   padding:24px;
 }
 
-.admin-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:12px;
-  margin-top:14px;
-}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px}
 
-label{
-  font-size:12px;
-  font-weight:900;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-}
-
-textarea{
-  min-height:82px;
-  resize:vertical;
-}
-
-.admin-match{
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:16px;
-  margin-top:12px;
-  background:#fafafa;
-}
+label{font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.field{display:flex;flex-direction:column;gap:5px}
+textarea{min-height:82px;resize:vertical}
+.admin-match{border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:12px;background:#fafafa}
 
 #resetOverlay{
   position:fixed;
@@ -636,420 +588,23 @@ textarea{
   padding:24px;
 }
 
-.reset-card{
-  background:#fff;
-  border-radius:30px;
-  padding:32px;
-  width:min(460px,100%);
-  box-shadow:0 24px 70px rgba(0,0,0,.18);
-  text-align:center;
-}
+.reset-card{background:#fff;border-radius:30px;padding:32px;width:min(460px,100%);box-shadow:0 24px 70px rgba(0,0,0,.18);text-align:center}
+.reset-card h3{font-size:22px;letter-spacing:-.05em;margin:0 0 10px}
+.reset-card p{font-size:14px;margin-bottom:20px}
+.reset-card .input{margin-top:0;text-align:center;font-weight:700}
+.reset-card .btn-row{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
 
-.reset-card h3{
-  font-size:22px;
-  letter-spacing:-.05em;
-  margin:0 0 10px;
-}
-
-.reset-card p{
-  font-size:14px;
-  margin-bottom:20px;
-}
-
-.reset-card .input{
-  margin-top:0;
-  text-align:center;
-  font-weight:700;
-}
-
-.reset-card .btn-row{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.festa-banner{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-}
-
-.festa-banner::before,
-.festa-banner::after{
-  content:"";
-  flex:1;
-  height:1.5px;
-  background:linear-gradient(90deg,transparent,#ff4b4b88,transparent);
-}
-
-.festa-label{
-  font-size:11px;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  font-weight:900;
-  color:#ff4b4b;
-  white-space:nowrap;
-}
-
-.day-card.is-festa{
-  background:linear-gradient(135deg,#fff5f5,#fff);
-  border-color:#ffcfcf;
-}
-
-/* ── BRACKET + EN DIRECTE layout ── */
-.bracket-main-layout {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-}
-
-.bracket-main-layout .panel {
-  flex: 1;
-  min-width: 0;
-  margin-bottom: 0;
-}
-
-/* ── EN DIRECTE panel ── */
-.endirecte-panel {
-  width: 320px;
-  flex-shrink: 0;
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,.78);
-  box-shadow: var(--shadow);
-  border-radius: 26px;
-  padding: 18px 16px;
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-  position: sticky;
-  top: 18px;
-}
-
-.endirecte-panel::-webkit-scrollbar { width: 4px; }
-.endirecte-panel::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
-
-.endirecte-title {
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 900;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.endirecte-dot {
-  width: 7px;
-  height: 7px;
-  background: #ff4b4b;
-  border-radius: 50%;
-  flex-shrink: 0;
-  animation: pulse 1.2s infinite;
-}
-
-.match-preview-card {
-  background: #fff;
-  border: 1.5px solid var(--line);
-  border-radius: 18px;
-  padding: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: border-color .18s, box-shadow .18s, transform .15s;
-  position: relative;
-  overflow: hidden;
-}
-
-.match-preview-card:hover {
-  border-color: #b7ff68;
-  box-shadow: 0 8px 28px rgba(183,255,104,.3);
-  transform: translateY(-2px);
-}
-
-.match-preview-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(183,255,104,.08), transparent 60%);
-  pointer-events: none;
-}
-
-.mp-players {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.mp-name {
-  flex: 1;
-  text-align: center;
-  letter-spacing: -.02em;
-  line-height: 1.2;
-  font-size: 11px;
-}
-
-.mp-name.winner-name {
-  color: #2a6a00;
-  font-weight: 900;
-}
-
-.mp-vs {
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 900;
-  flex-shrink: 0;
-}
-
-.mp-score {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 7px;
-  font-size: 18px;
-  font-weight: 900;
-  letter-spacing: -.04em;
-}
-
-.mp-score-val {
-  background: var(--soft);
-  border-radius: 9px;
-  padding: 3px 10px;
-  min-width: 32px;
-  text-align: center;
-}
-
-.mp-score-val.winner-score {
-  background: #b7ff68;
-  color: #2a4a00;
-}
-
-.mp-round-badge {
-  font-size: 9px;
-  color: var(--muted);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  margin-top: 7px;
-  text-align: center;
-}
-
-.mp-play-hint {
-  font-size: 10px;
-  color: #b7ff68;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 5px;
-  opacity: .8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-/* ── Match Simulator Modal ── */
-.sim-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.7);
-  backdrop-filter: blur(18px);
-  z-index: 55;
-  display: grid;
-  place-items: center;
-  padding: 18px;
-}
-
-.sim-box {
-  background: #0a1a0a;
-  border-radius: 28px;
-  padding: 24px;
-  width: min(680px, 100%);
-  box-shadow: 0 30px 80px rgba(0,0,0,.5);
-  border: 1px solid rgba(183,255,104,.2);
-  position: relative;
-}
-
-.sim-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.sim-title {
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(183,255,104,.8);
-  font-weight: 900;
-}
-
-.sim-close {
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 900;
-  border: 1px solid rgba(255,255,255,.12);
-}
-
-.sim-close:hover { background: rgba(255,255,255,.15); }
-
-/* Court canvas */
-.sim-court-wrap {
-  position: relative;
-  width: 100%;
-  padding-top: 52%;
-  border-radius: 18px;
-  overflow: hidden;
-  margin-bottom: 18px;
-  background: #1a3a1a;
-  border: 2px solid rgba(183,255,104,.15);
-}
-
-.sim-court-wrap canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Score display */
-.sim-scores {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 16px;
-  gap: 10px;
-}
-
-.sim-player-block {
-  flex: 1;
-  text-align: center;
-}
-
-.sim-player-name {
-  font-size: 13px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -.02em;
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sim-player-score {
-  font-size: 40px;
-  font-weight: 900;
-  letter-spacing: -.05em;
-  line-height: 1;
-}
-
-.sim-vs-sep {
-  font-size: 14px;
-  color: rgba(255,255,255,.3);
-  font-weight: 900;
-}
-
-.sim-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.sim-btn {
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 900;
-  font-size: 13px;
-  transition: transform .12s, opacity .12s;
-}
-
-.sim-btn:active { transform: scale(.95); }
-
-.sim-btn.play {
-  background: #b7ff68;
-  color: #111;
-  min-width: 100px;
-}
-
-.sim-btn.stop {
-  background: #ff4b4b;
-  color: #fff;
-}
-
-.sim-btn.ff {
-  background: rgba(255,255,255,.1);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.15);
-}
-
-.sim-btn.restart {
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.12);
-}
-
-.sim-status {
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,.4);
-  font-weight: 800;
-  margin-top: 10px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.sim-winner-banner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,.75);
-  border-radius: 18px;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .4s;
-}
-
-.sim-winner-banner.show {
-  opacity: 1;
-}
-
-.sim-winner-text {
-  font-size: 28px;
-  font-weight: 900;
-  color: #b7ff68;
-  letter-spacing: -.04em;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.sim-winner-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,.7);
-  margin-top: 8px;
-}
-
-@media(max-width:900px){
-  .bracket-main-layout { flex-direction: column; }
-  .endirecte-panel { width: 100%; position: static; max-height: 420px; }
-}
+.festa-banner{display:flex;align-items:center;gap:10px;margin-top:10px}
+.festa-banner::before,.festa-banner::after{content:"";flex:1;height:1.5px;background:linear-gradient(90deg,transparent,#ff4b4b88,transparent)}
+.festa-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;color:#ff4b4b;white-space:nowrap}
+.day-card.is-festa{background:linear-gradient(135deg,#fff5f5,#fff);border-color:#ffcfcf}
 
 @media(max-width:760px){
   .app{padding:14px}
   .hero{align-items:flex-start}
+  .court{height:360px}
+  .racket{width:95px}
+  .racket img{width:64px;height:64px}
 }
 </style>
 </head>
@@ -1059,7 +614,7 @@ textarea{
   <div class="lock-card">
     <div class="eyebrow">Accés privat</div>
     <h2>El Torneig De Bàdminton</h2>
-    <p>Introdueix la contrasenya per veure el bracket i l'horari.</p>
+    <p>Introdueix la contrasenya per veure el torneig.</p>
     <input id="accessPassword" class="input" type="password" placeholder="Contrasenya">
     <button id="enterBtn" class="btn" style="width:100%;margin-top:14px;">Entrar</button>
     <div id="lockError" class="error"></div>
@@ -1071,40 +626,29 @@ textarea{
     <div>
       <div class="eyebrow">28 d'abril — 25 de maig</div>
       <h1>El Torneig De Bàdminton</h1>
+      <p>Quadre oficial, calendari i simulació dels partits.</p>
     </div>
     <div class="tabs">
       <button class="tab active" data-view="bracketView">Bracket</button>
       <button class="tab" data-view="calendarView">Horari</button>
+      <button class="tab" data-view="simulationView">Partits en directe</button>
     </div>
   </section>
 
   <section id="bracketView">
-    <div class="bracket-main-layout">
-      <div class="panel">
-        <div class="eyebrow">Quadre del torneig</div>
-        <div class="legend">
-          <span class="chip">14 prèvies · 28 jugadors</span>
-          <span class="chip">Tots juguen la prèvia</span>
-          <span class="chip">Scroll ratolí = zoom · Click+arrastrar = moure</span>
-        </div>
-        <div class="bracket-stage" id="bracketStage">
-          <div class="bracket-viewport" id="bracketViewport">
-            <svg id="bracketLines" style="overflow:visible;position:absolute;top:0;left:0;pointer-events:none;z-index:1;"></svg>
-            <div id="bracket" class="bracket"></div>
-          </div>
-          <div class="bracket-stage-hint">🔍 Scroll per zoom · Arrastrar per moure</div>
-        </div>
+    <div class="panel">
+      <div class="eyebrow">Quadre del torneig</div>
+      <div class="legend">
+        <span class="chip">14 prèvies · 28 jugadors</span>
+        <span class="chip">Tots juguen la prèvia</span>
+        <span class="chip">Scroll ratolí = zoom · Click+arrastrar = moure</span>
       </div>
-
-      <!-- EN DIRECTE panel -->
-      <div class="endirecte-panel" id="endirectePanel">
-        <div class="endirecte-title">
-          <div class="endirecte-dot"></div>
-          Últims Partits
+      <div class="bracket-stage" id="bracketStage">
+        <div class="bracket-viewport" id="bracketViewport">
+          <svg id="bracketLines" style="overflow:visible;position:absolute;top:0;left:0;pointer-events:none;z-index:1;"></svg>
+          <div id="bracket" class="bracket"></div>
         </div>
-        <div id="endirecteList">
-          <p style="font-size:12px;color:var(--muted);font-weight:700;text-align:center;padding:20px 0;">Encara no hi ha partits jugats.</p>
-        </div>
+        <div class="bracket-stage-hint">🔍 Scroll per zoom · Arrastrar per moure</div>
       </div>
     </div>
   </section>
@@ -1115,6 +659,7 @@ textarea{
       <div class="schedule-header">
         <div>
           <h2>Calendari per patis</h2>
+          <p style="margin-top:4px;">Calendari oficial dels partits.</p>
         </div>
         <div class="timer-clock" id="timerClock">
           <div class="timer-dot"></div>
@@ -1125,6 +670,41 @@ textarea{
         </div>
       </div>
       <div id="schedule" class="schedule"></div>
+    </div>
+  </section>
+
+  <section id="simulationView" class="hidden">
+    <div class="panel">
+      <div class="eyebrow">Simulació</div>
+      <div class="schedule-header">
+        <div>
+          <h2>Partits en directe</h2>
+          <p style="margin-top:4px;">Recreació visual dels partits segons el marcador.</p>
+        </div>
+      </div>
+      <div id="simMatches" class="sim-grid"></div>
+      <div id="simArena" class="sim-arena hidden">
+        <div class="sim-top">
+          <button id="closeSim" class="btn secondary">Tornar</button>
+          <div id="simTitle" class="sim-title"></div>
+        </div>
+        <div class="scoreboard">
+          <div><strong id="simP1Name">Jugador 1</strong><span id="simP1Score">0</span></div>
+          <div><strong id="simP2Name">Jugador 2</strong><span id="simP2Score">0</span></div>
+        </div>
+        <div class="court">
+          <div class="net"></div>
+          <div id="racketBlue" class="racket racket-blue"><img src="./raquet_blue" alt=""><span id="racketBlueName"></span></div>
+          <div id="racketRed" class="racket racket-red"><img src="./raquet_red" alt=""><span id="racketRedName"></span></div>
+          <div id="shuttle" class="shuttle">🏸</div>
+        </div>
+        <div class="sim-controls">
+          <button id="simBack" class="btn secondary">⏪</button>
+          <button id="simPlay" class="btn green">Play</button>
+          <button id="simStop" class="btn danger">Stop</button>
+          <button id="simForward" class="btn secondary">⏩</button>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -1154,44 +734,6 @@ textarea{
 
 <div id="hoverCard" class="hover-card"></div>
 
-<!-- SIMULATOR MODAL -->
-<div id="simModal" class="sim-modal hidden">
-  <div class="sim-box">
-    <div class="sim-header">
-      <div class="sim-title">🏸 Simulació del Partit</div>
-      <button class="sim-close" id="simClose">✕ Tancar</button>
-    </div>
-
-    <div class="sim-court-wrap" id="simCourtWrap">
-      <canvas id="simCanvas"></canvas>
-      <div class="sim-winner-banner" id="simWinnerBanner">
-        <div class="sim-winner-text" id="simWinnerText"></div>
-        <div class="sim-winner-sub" id="simWinnerSub"></div>
-      </div>
-    </div>
-
-    <div class="sim-scores">
-      <div class="sim-player-block" id="simP1Block">
-        <div class="sim-player-name" id="simP1Name">—</div>
-        <div class="sim-player-score" id="simScore1" style="color:#b7ff68;">0</div>
-      </div>
-      <div class="sim-vs-sep">VS</div>
-      <div class="sim-player-block" id="simP2Block">
-        <div class="sim-player-name" id="simP2Name">—</div>
-        <div class="sim-player-score" id="simScore2" style="color:#ff8c68;">0</div>
-      </div>
-    </div>
-
-    <div class="sim-controls">
-      <button class="sim-btn restart" id="simRestart">↺ Reiniciar</button>
-      <button class="sim-btn play" id="simPlayPause">▶ Jugar</button>
-      <button class="sim-btn stop" id="simStop">■ Stop</button>
-      <button class="sim-btn ff" id="simFF">⏩ × 2</button>
-    </div>
-    <div class="sim-status" id="simStatus">Preparat per jugar</div>
-  </div>
-</div>
-
 <section id="adminModal" class="admin-modal hidden">
   <div class="admin-box">
     <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
@@ -1201,22 +743,14 @@ textarea{
       </div>
       <button id="closeAdmin" class="btn secondary">Tancar</button>
     </div>
-
     <div id="adminLogin">
       <div class="admin-grid">
-        <div class="field">
-          <label>Correu</label>
-          <input id="adminEmail" class="input" type="email" placeholder="Example@Example">
-        </div>
-        <div class="field">
-          <label>Contrasenya</label>
-          <input id="adminPassword" class="input" type="password" placeholder="Password">
-        </div>
+        <div class="field"><label>Correu</label><input id="adminEmail" class="input" type="email" placeholder="Example@Example"></div>
+        <div class="field"><label>Contrasenya</label><input id="adminPassword" class="input" type="password" placeholder="Password"></div>
       </div>
       <button id="loginAdmin" class="btn green" style="margin-top:14px;">Entrar com a admin</button>
       <div id="adminError" class="error"></div>
     </div>
-
     <div id="adminPanel" class="hidden">
       <div class="admin-grid">
         <button id="saveAll" class="btn green">Guardar canvis</button>
@@ -1224,7 +758,6 @@ textarea{
         <button id="openReset" class="btn danger">Reiniciar torneig</button>
       </div>
       <h3 style="margin-top:24px;">Dies de Festa</h3>
-      <p style="font-size:13px;color:var(--muted);margin:6px 0 12px;">Marca dies com a festa — apareixeran destacats a l'horari.</p>
       <div id="adminFestaDays" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;"></div>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;">
         <input id="festaDateInput" class="input" type="date" style="width:auto;margin-top:0;max-width:200px;" min="2026-04-28" max="2026-05-25">
@@ -1251,58 +784,43 @@ const firebaseConfig = {
   measurementId: "G-1FCL9D6W1G"
 };
 
-const app  = initializeApp(firebaseConfig);
-const db   = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
 const auth = getAuth(app);
 
-// Two admins allowed
-const ADMIN_EMAILS = ["hodelyproductions@gmail.com", "Hugo@gmail.com"];
+const ADMIN_EMAILS = ["hodelyproductions@gmail.com", "hugo@gmail.com"];
 const VERSION = "bracket-28-v1";
 const $ = id => document.getElementById(id);
 
 let typed = "";
 let tournament = null;
 
-// ── Court times ──
 const PATIO1_START = { h:10, m:30 };
 const PATIO1_END   = { h:11, m:0  };
 const PATIO2_START = { h:12, m:50 };
 const PATIO2_END   = { h:13, m:10 };
 
 function timeToMinutes(h, m){ return h*60 + m; }
-
 function isCourtPlaying(court, now){
   const nowMin = timeToMinutes(now.getHours(), now.getMinutes());
-  if(court === "Pati 1"){
-    return nowMin >= timeToMinutes(PATIO1_START.h, PATIO1_START.m) &&
-           nowMin <  timeToMinutes(PATIO1_END.h,   PATIO1_END.m);
-  }
-  if(court === "Pati 2"){
-    return nowMin >= timeToMinutes(PATIO2_START.h, PATIO2_START.m) &&
-           nowMin <  timeToMinutes(PATIO2_END.h,   PATIO2_END.m);
-  }
+  if(court === "Pati 1") return nowMin >= timeToMinutes(PATIO1_START.h, PATIO1_START.m) && nowMin < timeToMinutes(PATIO1_END.h, PATIO1_END.m);
+  if(court === "Pati 2") return nowMin >= timeToMinutes(PATIO2_START.h, PATIO2_START.m) && nowMin < timeToMinutes(PATIO2_END.h, PATIO2_END.m);
   return false;
 }
-
-function toISO(date){
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
-}
+function toISO(date){ return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`; }
 
 function startTimer(){
   function tick(){
     const now = new Date();
     const timeStr = now.toLocaleTimeString("ca-ES", {hour:"2-digit",minute:"2-digit",second:"2-digit"});
     const dateStr = new Intl.DateTimeFormat("ca-ES",{weekday:"long",day:"numeric",month:"long"}).format(now);
-    const el = $("timerTime");
-    const de = $("timerDate");
-    if(el) el.textContent = timeStr;
-    if(de) de.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    if($("timerTime")) $("timerTime").textContent = timeStr;
+    if($("timerDate")) $("timerDate").textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
   }
   tick();
   setInterval(tick, 1000);
 }
 
-// ─────────────────────────────────────────────
 const initialTournament = {
   version: VERSION,
   title: "El Torneig De Bàdminton",
@@ -1320,10 +838,9 @@ const initialTournament = {
     {id:"m9",  round:1, p1:"Logan López Cobo",       p2:"Marc Pérez Trullols",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m10", round:1, p1:"Yago Vazquez Sorio",     p2:"Enric Gombau Ballús",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m11", round:1, p1:"Martí Bessols Carcasè",  p2:"Reda Benhattal",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
-    {id:"m12", round:1, p1:"Sergio Ortiz Herrera",   p2:"Jiddu Suárez Ibáñez",  score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m12", round:1, p1:"Sergio Ortiz Herrera",   p2:"Jiddu Suárez Ibáñez",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m13", round:1, p1:"Oways Benhattal",        p2:"Guim Ballester",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
     {id:"m14", round:1, p1:"Jugador A",              p2:"Jugador B",             score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
-
     {id:"m15", round:2, p1:"Guanyador M1",  p2:"Guanyador M2",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m16", round:2, p1:"Guanyador M3",  p2:"Guanyador M4",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m17", round:2, p1:"Guanyador M5",  p2:"Guanyador M6",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
@@ -1331,149 +848,75 @@ const initialTournament = {
     {id:"m19", round:2, p1:"Guanyador M9",  p2:"Guanyador M10", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m20", round:2, p1:"Guanyador M11", p2:"Guanyador M12", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
     {id:"m21", round:2, p1:"Guanyador M13", p2:"Guanyador M14", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
-
     {id:"m22", round:3, p1:"Guanyador M15", p2:"Guanyador M16", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m23", round:3, p1:"Guanyador M17", p2:"Guanyador M18", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m24", round:3, p1:"Guanyador M19", p2:"Guanyador M20", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
-    {id:"m25", round:3, p1:"Guanyador M21", p2:"—",             score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final (bye).", image:""},
-
+    {id:"m25", round:3, p1:"Guanyador M21", p2:"—",             score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
     {id:"m26", round:4, p1:"Guanyador M22", p2:"Guanyador M23", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
     {id:"m27", round:4, p1:"Guanyador M24", p2:"Guanyador M25", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
-
     {id:"m28", round:5, p1:"Guanyador M26", p2:"Guanyador M27", score1:"", score2:"", winner:"", date:"", court:"", description:"Final del torneig.", image:""}
   ]
 };
 
-const SLOT_H      = 155;
-const MATCH_W     = 240;
-const COL_GAP     = 90;
+const SLOT_H = 155;
+const MATCH_W = 240;
+const COL_GAP = 90;
 const TOTAL_SLOTS = 14;
-const HEADER_H    = 52;
-const PAD         = 24;
-const SLOT_PAD    = 10;
+const HEADER_H = 52;
+const PAD = 24;
+const SLOT_PAD = 10;
 
 const slotMap = {
-  m1:0,  m2:1,  m3:2,  m4:3,  m5:4,  m6:5,  m7:6,
-  m8:7,  m9:8, m10:9, m11:10, m12:11, m13:12, m14:13,
-  m15:0.5, m16:2.5, m17:4.5, m18:6.5, m19:8.5, m20:10.5, m21:12.5,
-  m22:1.5, m23:5.5, m24:9.5, m25:13,
-  m26:3.5, m27:11.5,
-  m28:7.0
+  m1:0,m2:1,m3:2,m4:3,m5:4,m6:5,m7:6,m8:7,m9:8,m10:9,m11:10,m12:11,m13:12,m14:13,
+  m15:0.5,m16:2.5,m17:4.5,m18:6.5,m19:8.5,m20:10.5,m21:12.5,
+  m22:1.5,m23:5.5,m24:9.5,m25:13,
+  m26:3.5,m27:11.5,m28:7.0
 };
 
 const nextMap = {
-  m1: ["m15","p1"], m2: ["m15","p2"],
-  m3: ["m16","p1"], m4: ["m16","p2"],
-  m5: ["m17","p1"], m6: ["m17","p2"],
-  m7: ["m18","p1"], m8: ["m18","p2"],
-  m9: ["m19","p1"], m10:["m19","p2"],
-  m11:["m20","p1"], m12:["m20","p2"],
-  m13:["m21","p1"], m14:["m21","p2"],
-  m15:["m22","p1"], m16:["m22","p2"],
-  m17:["m23","p1"], m18:["m23","p2"],
-  m19:["m24","p1"], m20:["m24","p2"],
-  m21:["m25","p1"],
-  m22:["m26","p1"], m23:["m26","p2"],
-  m24:["m27","p1"], m25:["m27","p2"],
-  m26:["m28","p1"], m27:["m28","p2"]
+  m1:["m15","p1"],m2:["m15","p2"],m3:["m16","p1"],m4:["m16","p2"],m5:["m17","p1"],m6:["m17","p2"],m7:["m18","p1"],m8:["m18","p2"],m9:["m19","p1"],m10:["m19","p2"],m11:["m20","p1"],m12:["m20","p2"],m13:["m21","p1"],m14:["m21","p2"],m15:["m22","p1"],m16:["m22","p2"],m17:["m23","p1"],m18:["m23","p2"],m19:["m24","p1"],m20:["m24","p2"],m21:["m25","p1"],m22:["m26","p1"],m23:["m26","p2"],m24:["m27","p1"],m25:["m27","p2"],m26:["m28","p1"],m27:["m28","p2"]
 };
 
 const connections = Object.entries(nextMap).map(([from,[to]]) => [from,to]);
 
 const roundMeta = {
-  1:{title:"Prèvies",          subtitle:"14 partits · 28 jugadors"},
-  2:{title:"Octaus de final",  subtitle:"7 partits · 14 jugadors"},
-  3:{title:"Quarts de final",  subtitle:"4 partits"},
-  4:{title:"Semifinals",       subtitle:"2 partits"},
-  5:{title:"Final",            subtitle:"1 partit"}
+  1:{title:"Prèvies", subtitle:"14 partits · 28 jugadors"},
+  2:{title:"Octaus de final", subtitle:"7 partits · 14 jugadors"},
+  3:{title:"Quarts de final", subtitle:"4 partits"},
+  4:{title:"Semifinals", subtitle:"2 partits"},
+  5:{title:"Final", subtitle:"1 partit"}
 };
 
-let vpScale = 0.7;
-let vpX = 0;
-let vpY = 0;
-let isPanning = false;
-let panStartX = 0;
-let panStartY = 0;
-let panStartVpX = 0;
-let panStartVpY = 0;
-
-function applyViewport(){
-  const vp = $("bracketViewport");
-  if(vp) vp.style.transform = `translate(${vpX}px,${vpY}px) scale(${vpScale})`;
-}
+let vpScale = 0.7, vpX = 0, vpY = 0, isPanning = false, panStartX = 0, panStartY = 0, panStartVpX = 0, panStartVpY = 0;
+function applyViewport(){ if($("bracketViewport")) $("bracketViewport").style.transform = `translate(${vpX}px,${vpY}px) scale(${vpScale})`; }
 
 function initZoomPan(){
   const stage = $("bracketStage");
   if(!stage) return;
-
   stage.addEventListener("wheel", e=>{
     e.preventDefault();
-    const rect   = stage.getBoundingClientRect();
+    const rect = stage.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    const delta  = e.deltaY > 0 ? 0.9 : 1.1;
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
     const newScale = Math.min(2, Math.max(0.2, vpScale * delta));
     vpX = mouseX - (mouseX - vpX) * (newScale / vpScale);
     vpY = mouseY - (mouseY - vpY) * (newScale / vpScale);
     vpScale = newScale;
     applyViewport();
     drawBracketLines();
-  }, { passive: false });
-
+  }, { passive:false });
   stage.addEventListener("mousedown", e=>{
     isPanning = true;
-    panStartX  = e.clientX;
-    panStartY  = e.clientY;
-    panStartVpX = vpX;
-    panStartVpY = vpY;
+    panStartX = e.clientX; panStartY = e.clientY; panStartVpX = vpX; panStartVpY = vpY;
   });
-
   window.addEventListener("mousemove", e=>{
     if(!isPanning) return;
     vpX = panStartVpX + (e.clientX - panStartX);
     vpY = panStartVpY + (e.clientY - panStartY);
     applyViewport();
   });
-
   window.addEventListener("mouseup", ()=>{ isPanning = false; });
-
-  let lastTouchDist = null;
-  stage.addEventListener("touchstart", e=>{
-    if(e.touches.length === 1){
-      isPanning = true;
-      panStartX  = e.touches[0].clientX;
-      panStartY  = e.touches[0].clientY;
-      panStartVpX = vpX;
-      panStartVpY = vpY;
-    }
-    if(e.touches.length === 2){
-      lastTouchDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-    }
-  }, { passive:true });
-
-  stage.addEventListener("touchmove", e=>{
-    e.preventDefault();
-    if(e.touches.length === 1 && isPanning){
-      vpX = panStartVpX + (e.touches[0].clientX - panStartX);
-      vpY = panStartVpY + (e.touches[0].clientY - panStartY);
-      applyViewport();
-    }
-    if(e.touches.length === 2 && lastTouchDist){
-      const dist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-      const delta = dist / lastTouchDist;
-      vpScale = Math.min(2, Math.max(0.2, vpScale * delta));
-      lastTouchDist = dist;
-      applyViewport();
-    }
-  }, { passive:false });
-
-  stage.addEventListener("touchend", ()=>{ isPanning = false; lastTouchDist = null; });
 }
 
 async function sha256(text){
@@ -1483,19 +926,16 @@ async function sha256(text){
 }
 
 async function loadTournament(){
-  const ref  = doc(db,"tournaments","main");
+  const ref = doc(db,"tournaments","main");
   const snap = await getDoc(ref);
-
   if(snap.exists() && snap.data().version === VERSION){
     tournament = snap.data();
     if(!tournament.festaDays) tournament.festaDays = [];
   } else {
     tournament = JSON.parse(JSON.stringify(initialTournament));
   }
-
   propagateWinners();
   render();
-
   onSnapshot(ref, s=>{
     if(s.exists() && s.data().version === VERSION){
       tournament = s.data();
@@ -1506,15 +946,11 @@ async function loadTournament(){
   });
 }
 
-function isPlaceholder(name){
-  return !name || name.startsWith("Guanyador") || name === "—";
-}
-
+function isPlaceholder(name){ return !name || name.startsWith("Guanyador") || name === "—"; }
 function propagateWinners(){
   if(!tournament) return;
-  const base    = JSON.parse(JSON.stringify(initialTournament));
+  const base = JSON.parse(JSON.stringify(initialTournament));
   const current = JSON.parse(JSON.stringify(tournament));
-
   current.matches.forEach(match=>{
     const orig = base.matches.find(x=>x.id===match.id);
     if(orig){
@@ -1522,7 +958,6 @@ function propagateWinners(){
       if(isPlaceholder(orig.p2)) match.p2 = orig.p2;
     }
   });
-
   for(let pass=0; pass<6; pass++){
     current.matches.forEach(match=>{
       if(match.winner && nextMap[match.id]){
@@ -1532,122 +967,161 @@ function propagateWinners(){
       }
     });
   }
-
   tournament = current;
 }
+
+let currentSimMatch = null;
+let simInterval = null;
+let simPoint = 0;
+let simMaxPoints = 21;
+
+function cleanName(name){ return isPlaceholder(name) ? "" : name; }
+function getPlayableMatches(){
+  return tournament.matches
+    .filter(m => cleanName(m.p1) && cleanName(m.p2) && m.p2 !== "—")
+    .sort((a,b)=>{
+      const aPlayed = a.winner ? 1 : 0;
+      const bPlayed = b.winner ? 1 : 0;
+      if(aPlayed !== bPlayed) return bPlayed - aPlayed;
+      if((a.date || "") !== (b.date || "")) return String(b.date || "").localeCompare(String(a.date || ""));
+      return Number(b.id.replace("m","")) - Number(a.id.replace("m",""));
+    });
+}
+function renderSimMatches(){
+  const box = $("simMatches");
+  if(!box || !tournament) return;
+  const matches = getPlayableMatches();
+  box.innerHTML = "";
+  matches.forEach(match=>{
+    const card = document.createElement("div");
+    card.className = "sim-card";
+    const score = match.score1 !== "" || match.score2 !== "" ? `${match.score1 || 0} - ${match.score2 || 0}` : "Pendent";
+    card.innerHTML = `<strong>${match.p1} vs ${match.p2}</strong><span>${score}${match.winner ? ` · Guanya ${match.winner}` : ""}</span>`;
+    card.addEventListener("click",()=>openSimulation(match.id));
+    box.appendChild(card);
+  });
+}
+function openSimulation(matchId){
+  currentSimMatch = tournament.matches.find(m=>m.id===matchId);
+  if(!currentSimMatch) return;
+  $("simArena").classList.remove("hidden");
+  $("simTitle").textContent = `${currentSimMatch.p1} vs ${currentSimMatch.p2}`;
+  $("simP1Name").textContent = currentSimMatch.p1;
+  $("simP2Name").textContent = currentSimMatch.p2;
+  $("racketBlueName").textContent = currentSimMatch.p1;
+  $("racketRedName").textContent = currentSimMatch.p2;
+  $("simP1Score").textContent = currentSimMatch.score1 || 0;
+  $("simP2Score").textContent = currentSimMatch.score2 || 0;
+  simPoint = 0;
+  simMaxPoints = Math.max(Number(currentSimMatch.score1 || 21), Number(currentSimMatch.score2 || 21), 1);
+  moveSimulation(true);
+  $("simArena").scrollIntoView({behavior:"smooth", block:"start"});
+}
+function pointScore(max, point){ return Math.min(max, Math.round((max / simMaxPoints) * point)); }
+function moveSimulation(reset=false){
+  if(!currentSimMatch) return;
+  if(reset) simPoint = 0;
+  const p1Final = Number(currentSimMatch.score1 || 21);
+  const p2Final = Number(currentSimMatch.score2 || Math.max(0, p1Final - 4));
+  const p1Now = pointScore(p1Final, simPoint);
+  const p2Now = pointScore(p2Final, simPoint);
+  $("simP1Score").textContent = p1Now;
+  $("simP2Score").textContent = p2Now;
+  const side = simPoint % 2 === 0 ? -1 : 1;
+  const y = ((simPoint * 47) % 260) - 130;
+  const x = side * 235;
+  const blueMove = side < 0 ? `translate(${Math.abs(x) * .18}px, ${y * .14}px) rotate(${y * .08}deg)` : `translate(18px, ${y * .05}px) rotate(-8deg)`;
+  const redMove = side > 0 ? `translate(-${Math.abs(x) * .18}px, ${y * .14}px) rotate(${y * .08}deg)` : `translate(-18px, ${y * .05}px) rotate(8deg)`;
+  $("shuttle").style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${simPoint * 38}deg)`;
+  $("racketBlue").style.transform = blueMove;
+  $("racketRed").style.transform = redMove;
+}
+function simStep(dir=1){
+  if(!currentSimMatch) return;
+  simPoint += dir;
+  if(simPoint < 0) simPoint = 0;
+  if(simPoint > simMaxPoints){
+    stopSimulation();
+    simPoint = simMaxPoints;
+  }
+  moveSimulation();
+}
+function playSimulation(){ stopSimulation(); simInterval = setInterval(()=>simStep(1), 420); }
+function stopSimulation(){ if(simInterval){ clearInterval(simInterval); simInterval = null; } }
 
 function render(){
   renderBracket();
   renderSchedule();
-  renderEndirecte();
+  renderSimMatches();
   renderAdminFestaDays();
   renderAdminMatches();
 }
 
-// ── BRACKET RENDER ──────────────────────────────────────────────────────────
 function renderBracket(){
   const bracket = $("bracket");
   bracket.innerHTML = "";
-
   const CANVAS_H = TOTAL_SLOTS * SLOT_H;
-
   Object.entries(roundMeta).forEach(([roundNum, meta])=>{
     const col = document.createElement("div");
     col.style.cssText = `position:relative; flex-shrink:0; width:${MATCH_W}px; height:${CANVAS_H + HEADER_H}px;`;
-
     const header = document.createElement("div");
     header.className = "round-header";
     header.style.cssText = `position:absolute; top:0; left:0; right:0; height:${HEADER_H}px;`;
-    header.innerHTML = `
-      <div class="round-title">${meta.title}</div>
-      <div class="round-subtitle">${meta.subtitle}</div>
-    `;
+    header.innerHTML = `<div class="round-title">${meta.title}</div><div class="round-subtitle">${meta.subtitle}</div>`;
     col.appendChild(header);
-
     const matches = tournament.matches.filter(m=>m.round===Number(roundNum));
-
     matches.forEach(match=>{
-      const slot   = slotMap[match.id];
-      const topPx  = HEADER_H + slot * SLOT_H + SLOT_PAD;
-      const played    = match.score1!=="" || match.score2!=="" || match.winner!=="";
+      const slot = slotMap[match.id];
+      const topPx = HEADER_H + slot * SLOT_H + SLOT_PAD;
+      const played = match.score1!=="" || match.score2!=="" || match.winner!=="";
       const hasWinner = match.winner !== "";
-
       const card = document.createElement("div");
       card.className = `match${match.bye ? " bye" : ""}${played ? " played" : ""}`;
       card.dataset.id = match.id;
       card.style.cssText = `position:absolute; top:${topPx}px; left:0; width:${MATCH_W}px;`;
-
       card.innerHTML = `
-        <div class="match-code">
-          <span>${match.id.toUpperCase()}</span>
-          ${played ? `<span class="match-played-badge">✓ Jugat</span>` : ""}
-        </div>
-
-        <div class="player ${match.winner===match.p1 ? "winner" : ""} ${played && match.winner!==match.p1 ? "loser" : ""}">
-          <span class="player-name">${match.p1}</span>
-          ${played ? `<span class="score">${match.score1 || "-"}</span>` : ""}
-        </div>
-
-        <div class="player ${match.winner===match.p2 ? "winner" : ""} ${played && match.winner!==match.p2 ? "loser" : ""}">
-          <span class="player-name">${match.p2}</span>
-          ${played ? `<span class="score">${match.score2 || "-"}</span>` : ""}
-        </div>
-
-        ${hasWinner ? `<div class="winner-badge">🏆 ${match.winner}</div>` : ""}
-      `;
-
+        <div class="match-code"><span>${match.id.toUpperCase()}</span>${played ? `<span class="match-played-badge">✓ Jugat</span>` : ""}</div>
+        <div class="player ${match.winner===match.p1 ? "winner" : ""} ${played && match.winner!==match.p1 ? "loser" : ""}"><span class="player-name">${match.p1}</span>${played ? `<span class="score">${match.score1 || "-"}</span>` : ""}</div>
+        <div class="player ${match.winner===match.p2 ? "winner" : ""} ${played && match.winner!==match.p2 ? "loser" : ""}"><span class="player-name">${match.p2}</span>${played ? `<span class="score">${match.score2 || "-"}</span>` : ""}</div>
+        ${hasWinner ? `<div class="winner-badge">🏆 ${match.winner}</div>` : ""}`;
       addHover(card, match);
       col.appendChild(card);
     });
-
     bracket.appendChild(col);
   });
-
   applyViewport();
   setTimeout(drawBracketLines, 80);
 }
 
 function drawBracketLines(){
-  const svg      = $("bracketLines");
+  const svg = $("bracketLines");
   const viewport = $("bracketViewport");
   if(!svg || !viewport) return;
-
-  const CANVAS_H  = TOTAL_SLOTS * SLOT_H;
-  const totalH    = CANVAS_H + HEADER_H + 40;
-  const cols      = Object.keys(roundMeta).length;
-  const totalW    = cols * MATCH_W + (cols - 1) * COL_GAP + PAD * 2;
-
-  svg.setAttribute("width",  totalW);
+  const CANVAS_H = TOTAL_SLOTS * SLOT_H;
+  const totalH = CANVAS_H + HEADER_H + 40;
+  const cols = Object.keys(roundMeta).length;
+  const totalW = cols * MATCH_W + (cols - 1) * COL_GAP + PAD * 2;
+  svg.setAttribute("width", totalW);
   svg.setAttribute("height", totalH);
-  svg.style.width  = totalW + "px";
+  svg.style.width = totalW + "px";
   svg.style.height = totalH + "px";
   svg.innerHTML = "";
-
   function cardCentreRight(matchId){
     const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
     const col = el.parentElement;
-    return {
-      x: col.offsetLeft + PAD + MATCH_W,
-      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
-    };
+    return { x: col.offsetLeft + PAD + MATCH_W, y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2 };
   }
-
   function cardCentreLeft(matchId){
     const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
     const col = el.parentElement;
-    return {
-      x: col.offsetLeft + PAD,
-      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
-    };
+    return { x: col.offsetLeft + PAD, y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2 };
   }
-
   connections.forEach(([fromId,toId])=>{
     const from = cardCentreRight(fromId);
-    const to   = cardCentreLeft(toId);
+    const to = cardCentreLeft(toId);
     if(!from || !to) return;
-
     const midX = from.x + (to.x - from.x) * 0.5;
     const path = document.createElementNS("http://www.w3.org/2000/svg","path");
     path.setAttribute("d",`M${from.x},${from.y} H${midX} V${to.y} H${to.x}`);
@@ -1660,609 +1134,55 @@ function drawBracketLines(){
   });
 }
 
-// ── EN DIRECTE (últims partits) ─────────────────────────────────────────────
-function renderEndirecte(){
-  const list = $("endirecteList");
-  if(!list || !tournament) return;
-
-  // Only played matches, newest first (by position in array reversed)
-  const played = tournament.matches.filter(m => m.winner !== "");
-  if(!played.length){
-    list.innerHTML = `<p style="font-size:12px;color:var(--muted);font-weight:700;text-align:center;padding:20px 0;">Encara no hi ha partits jugats.</p>`;
-    return;
-  }
-
-  // Reverse: show last played first
-  const sorted = [...played].reverse();
-  list.innerHTML = "";
-
-  sorted.forEach(match => {
-    const card = document.createElement("div");
-    card.className = "match-preview-card";
-
-    const roundLabel = roundMeta[match.round]?.title || `Ronda ${match.round}`;
-    const s1 = parseInt(match.score1) || 0;
-    const s2 = parseInt(match.score2) || 0;
-
-    card.innerHTML = `
-      <div class="mp-players">
-        <div class="mp-name ${match.winner === match.p1 ? 'winner-name' : ''}">${match.p1}</div>
-        <div class="mp-vs">vs</div>
-        <div class="mp-name ${match.winner === match.p2 ? 'winner-name' : ''}">${match.p2}</div>
-      </div>
-      <div class="mp-score">
-        <div class="mp-score-val ${match.winner === match.p1 ? 'winner-score' : ''}">${match.score1 || '0'}</div>
-        <div style="color:rgba(0,0,0,.2);font-size:18px;font-weight:900;line-height:1.8;">—</div>
-        <div class="mp-score-val ${match.winner === match.p2 ? 'winner-score' : ''}">${match.score2 || '0'}</div>
-      </div>
-      <div class="mp-round-badge">${roundLabel}</div>
-      <div class="mp-play-hint">🏸 Veure simulació</div>
-    `;
-
-    card.addEventListener("click", () => openSimulator(match));
-    list.appendChild(card);
-  });
-}
-
-// ── SIMULATOR ───────────────────────────────────────────────────────────────
-let simState = null;
-let simRAF   = null;
-
-function openSimulator(match){
-  const s1 = parseInt(match.score1) || 0;
-  const s2 = parseInt(match.score2) || 0;
-
-  simState = {
-    match,
-    targetScore1: s1,
-    targetScore2: s2,
-    score1: 0,
-    score2: 0,
-    running: false,
-    finished: false,
-    speed: 1,
-    // Ball
-    bx: 0.5, by: 0.5,
-    bvx: 0, bvy: 0,
-    // Rackets (x in 0..1, y in 0..1)
-    r1x: 0.12, r1y: 0.5,
-    r2x: 0.88, r2y: 0.5,
-    // Rally points
-    rallyTarget1: 0.15, rallyTarget2: 0.85,
-    // Tracking
-    ballOwner: 1, // 1 or 2 — who should hit next
-    rallyLength: 0,
-    maxRally: 6,
-    // Score events queue
-    pendingPoint: 0, // 1 or 2 meaning player scored, 0 = none
-    hitFlash: 0,
-    lastTime: null,
-  };
-
-  $("simP1Name").textContent = match.p1;
-  $("simP2Name").textContent = match.p2;
-  $("simScore1").textContent = "0";
-  $("simScore2").textContent = "0";
-  $("simStatus").textContent = "Preparat per jugar";
-  $("simWinnerBanner").classList.remove("show");
-  $("simPlayPause").textContent = "▶ Jugar";
-
-  $("simModal").classList.remove("hidden");
-  resizeSimCanvas();
-  drawSimFrame();
-}
-
-function resizeSimCanvas(){
-  const wrap = $("simCourtWrap");
-  const canvas = $("simCanvas");
-  if(!wrap || !canvas) return;
-  canvas.width  = wrap.offsetWidth;
-  canvas.height = wrap.offsetHeight;
-}
-
-function launchBall(state){
-  const angle = (Math.random() * 0.6 - 0.3) + (state.ballOwner === 1 ? 0 : Math.PI);
-  const spd = 0.55 + Math.random() * 0.25;
-  state.bvx = Math.cos(angle) * spd * (state.ballOwner === 1 ? 1 : -1);
-  state.bvy = Math.sin(angle) * spd;
-  state.bx  = state.ballOwner === 1 ? 0.18 : 0.82;
-  state.by  = state.r1y + (Math.random() * 0.14 - 0.07);
-  state.rallyLength = 0;
-  state.maxRally = 3 + Math.floor(Math.random() * 6);
-}
-
-function startSim(){
-  if(!simState || simState.finished) return;
-  simState.running = true;
-  $("simPlayPause").textContent = "⏸ Pausar";
-  $("simStatus").textContent = "En joc…";
-
-  if(simState.bvx === 0){
-    launchBall(simState);
-  }
-
-  simState.lastTime = performance.now();
-  cancelAnimationFrame(simRAF);
-  simRAF = requestAnimationFrame(simLoop);
-}
-
-function pauseSim(){
-  if(!simState) return;
-  simState.running = false;
-  $("simPlayPause").textContent = "▶ Jugar";
-  $("simStatus").textContent = "Pausat";
-  cancelAnimationFrame(simRAF);
-}
-
-function stopSim(){
-  if(!simState) return;
-  simState.running = false;
-  simState.finished = true;
-  cancelAnimationFrame(simRAF);
-  $("simPlayPause").textContent = "▶ Jugar";
-  $("simStatus").textContent = "Aturat";
-  drawSimFrame();
-}
-
-function restartSim(){
-  if(!simState) return;
-  cancelAnimationFrame(simRAF);
-  openSimulator(simState.match);
-}
-
-function simLoop(ts){
-  if(!simState || !simState.running) return;
-  const dt = Math.min((ts - (simState.lastTime || ts)) / 1000, 0.05) * simState.speed;
-  simState.lastTime = ts;
-  updateSim(dt);
-  drawSimFrame();
-  simRAF = requestAnimationFrame(simLoop);
-}
-
-function updateSim(dt){
-  const st = simState;
-  if(st.finished) return;
-
-  const W = $("simCanvas").width;
-  const H = $("simCanvas").height;
-
-  // Move ball
-  st.bx += st.bvx * dt;
-  st.by += st.bvy * dt;
-
-  // Bounce top/bottom
-  if(st.by < 0.05){ st.by = 0.05; st.bvy *= -0.85; }
-  if(st.by > 0.95){ st.by = 0.95; st.bvy *= -0.85; }
-
-  // Move rackets toward ball Y
-  const rSpeed = 1.4 * dt;
-  const deadzone = 0.04;
-
-  // Player 1 racket tracks ball when ball is on their side
-  if(st.bx < 0.5){
-    const dy1 = st.by - st.r1y;
-    if(Math.abs(dy1) > deadzone) st.r1y += Math.sign(dy1) * Math.min(Math.abs(dy1), rSpeed);
-  } else {
-    // Drift back to center slowly
-    st.r1y += (0.5 - st.r1y) * dt * 0.8;
-  }
-
-  // Player 2 racket
-  if(st.bx > 0.5){
-    const dy2 = st.by - st.r2y;
-    if(Math.abs(dy2) > deadzone) st.r2y += Math.sign(dy2) * Math.min(Math.abs(dy2), rSpeed);
-  } else {
-    st.r2y += (0.5 - st.r2y) * dt * 0.8;
-  }
-
-  st.r1y = Math.max(0.1, Math.min(0.9, st.r1y));
-  st.r2y = Math.max(0.1, Math.min(0.9, st.r2y));
-
-  // Determine if the rally is long enough to award a point
-  const totalPoints = st.score1 + st.score2;
-  const totalTarget = st.targetScore1 + st.targetScore2;
-
-  // Check collision with racket 1
-  if(st.bx < 0.18 && st.bvx < 0 && Math.abs(st.by - st.r1y) < 0.12){
-    st.rallyLength++;
-    st.hitFlash = 0.15;
-
-    // Should this end the rally with player 2 scoring?
-    const shouldMiss = shouldPlayerMiss(st, 1);
-    if(shouldMiss){
-      // Miss — ball goes off left
-      st.bvx = -0.6;
-    } else {
-      st.bvx = Math.abs(st.bvx) * (0.9 + Math.random() * 0.25);
-      st.bvy = (st.by - 0.5) * 1.5 + (Math.random() * 0.4 - 0.2);
-      st.ballOwner = 2;
-    }
-  }
-
-  // Check collision with racket 2
-  if(st.bx > 0.82 && st.bvx > 0 && Math.abs(st.by - st.r2y) < 0.12){
-    st.rallyLength++;
-    st.hitFlash = 0.15;
-
-    const shouldMiss = shouldPlayerMiss(st, 2);
-    if(shouldMiss){
-      st.bvx = 0.6;
-    } else {
-      st.bvx = -Math.abs(st.bvx) * (0.9 + Math.random() * 0.25);
-      st.bvy = (st.by - 0.5) * 1.5 + (Math.random() * 0.4 - 0.2);
-      st.ballOwner = 1;
-    }
-  }
-
-  // Ball goes off left → player 2 scores
-  if(st.bx < -0.02){
-    awardPoint(st, 2);
-    return;
-  }
-
-  // Ball goes off right → player 1 scores
-  if(st.bx > 1.02){
-    awardPoint(st, 1);
-    return;
-  }
-
-  if(st.hitFlash > 0) st.hitFlash -= dt * 3;
-}
-
-function shouldPlayerMiss(st, player){
-  const totalTarget = st.targetScore1 + st.targetScore2;
-  if(totalTarget === 0) return st.rallyLength >= st.maxRally;
-
-  if(st.rallyLength < 2) return false;
-  if(st.rallyLength >= st.maxRally) return true;
-
-  // Bias miss based on score targets
-  const s1 = st.score1, s2 = st.score2;
-  const t1 = st.targetScore1, t2 = st.targetScore2;
-
-  // If player 1 needs more points, player 2 should miss more
-  if(player === 2 && s1 < t1){
-    const deficit = (t1 - s1) / Math.max(1, totalTarget - (s1 + s2));
-    return Math.random() < deficit * 0.45;
-  }
-  if(player === 1 && s2 < t2){
-    const deficit = (t2 - s2) / Math.max(1, totalTarget - (s1 + s2));
-    return Math.random() < deficit * 0.45;
-  }
-  return false;
-}
-
-function awardPoint(st, player){
-  if(player === 1) st.score1++;
-  else st.score2++;
-
-  $("simScore1").textContent = st.score1;
-  $("simScore2").textContent = st.score2;
-
-  const t1 = st.targetScore1, t2 = st.targetScore2;
-
-  // Check if sim is over
-  if(st.score1 >= t1 && st.score2 >= t2){
-    // Both targets reached, done
-    finishSim(st);
-    return;
-  }
-
-  // Start new rally
-  st.ballOwner = player === 1 ? 2 : 1;
-  launchBall(st);
-}
-
-function finishSim(st){
-  st.running = false;
-  st.finished = true;
-  cancelAnimationFrame(simRAF);
-
-  const winner = st.score1 >= st.targetScore1 ? st.match.p1 : st.match.p2;
-  $("simWinnerText").textContent = `🏆 ${winner}`;
-  $("simWinnerSub").textContent = `Guanyador del partit · ${st.score1} — ${st.score2}`;
-  $("simWinnerBanner").classList.add("show");
-  $("simStatus").textContent = "Partit acabat";
-  $("simPlayPause").textContent = "▶ Jugar";
-  drawSimFrame();
-}
-
-function drawSimFrame(){
-  const canvas = $("simCanvas");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const W = canvas.width;
-  const H = canvas.height;
-
-  ctx.clearRect(0,0,W,H);
-
-  // Court background
-  const grad = ctx.createLinearGradient(0,0,W,H);
-  grad.addColorStop(0, "#0d2e0d");
-  grad.addColorStop(1, "#152a15");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0,0,W,H);
-
-  // Court lines
-  ctx.strokeStyle = "rgba(183,255,104,0.35)";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(W*0.04, H*0.06, W*0.92, H*0.88);
-
-  // Side lines
-  ctx.strokeStyle = "rgba(183,255,104,0.2)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(W*0.04, H*0.16); ctx.lineTo(W*0.96, H*0.16);
-  ctx.moveTo(W*0.04, H*0.84); ctx.lineTo(W*0.96, H*0.84);
-  ctx.stroke();
-
-  // Service lines
-  ctx.beginPath();
-  ctx.moveTo(W*0.24, H*0.06); ctx.lineTo(W*0.24, H*0.94);
-  ctx.moveTo(W*0.76, H*0.06); ctx.lineTo(W*0.76, H*0.94);
-  ctx.stroke();
-
-  // Net
-  const netX = W * 0.5;
-  ctx.strokeStyle = "rgba(255,255,255,0.7)";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(netX, H*0.06);
-  ctx.lineTo(netX, H*0.94);
-  ctx.stroke();
-
-  // Net mesh effect
-  ctx.strokeStyle = "rgba(255,255,255,0.18)";
-  ctx.lineWidth = 1;
-  for(let yy = H*0.1; yy < H*0.92; yy += H*0.055){
-    ctx.beginPath();
-    ctx.moveTo(netX - 6, yy);
-    ctx.lineTo(netX + 6, yy);
-    ctx.stroke();
-  }
-
-  // Net posts
-  ctx.fillStyle = "rgba(255,255,255,0.8)";
-  ctx.fillRect(netX-2, H*0.04, 4, H*0.92);
-
-  const st = simState;
-  if(!st) return;
-
-  // Draw rackets
-  drawRacket(ctx, W, H, st.r1x, st.r1y, "#b7ff68", "#2a6a00", st.match.p1, true, st);
-  drawRacket(ctx, W, H, st.r2x, st.r2y, "#ff8c68", "#6a2a00", st.match.p2, false, st);
-
-  // Draw shuttlecock
-  if(st.bvx !== 0 || st.bvy !== 0 || st.score1 > 0 || st.score2 > 0){
-    drawShuttlecock(ctx, W, H, st.bx, st.by, st.bvx, st.bvy, st.hitFlash);
-  }
-}
-
-function drawRacket(ctx, W, H, rx, ry, color, shadowColor, name, isLeft, st){
-  const x = rx * W;
-  const y = ry * H;
-  const facing = isLeft ? 1 : -1;
-
-  ctx.save();
-  ctx.translate(x, y);
-
-  // Shadow
-  ctx.shadowColor = shadowColor;
-  ctx.shadowBlur = 18;
-
-  // Racket frame (oval)
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 3;
-  ctx.fillStyle = "rgba(183,255,104,0.06)";
-  ctx.beginPath();
-  ctx.ellipse(facing * 8, 0, 14, 20, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  // Strings
-  ctx.strokeStyle = color + "88";
-  ctx.lineWidth = 1;
-  for(let xi = -10; xi <= 10; xi += 5){
-    ctx.beginPath();
-    ctx.moveTo(facing * 8 + xi, -18);
-    ctx.lineTo(facing * 8 + xi, 18);
-    ctx.stroke();
-  }
-  for(let yi = -16; yi <= 16; yi += 5){
-    ctx.beginPath();
-    ctx.moveTo(facing * 8 - 12, yi);
-    ctx.lineTo(facing * 8 + 12, yi);
-    ctx.stroke();
-  }
-
-  // Handle
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 4;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(facing * (-4), 8);
-  ctx.lineTo(facing * (-22), 22);
-  ctx.stroke();
-
-  // Grip
-  ctx.strokeStyle = "#fff8";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(facing * (-8), 12);
-  ctx.lineTo(facing * (-20), 21);
-  ctx.stroke();
-
-  ctx.shadowBlur = 0;
-
-  // Player name below racket
-  ctx.font = "bold 11px Inter, sans-serif";
-  ctx.fillStyle = color;
-  ctx.textAlign = "center";
-  ctx.shadowColor = "rgba(0,0,0,.8)";
-  ctx.shadowBlur = 6;
-  const nameDisplay = name.split(" ").slice(0,2).join(" ");
-  ctx.fillText(nameDisplay, facing * 8, 38);
-
-  ctx.restore();
-}
-
-function drawShuttlecock(ctx, W, H, bx, by, bvx, bvy, flash){
-  const x = bx * W;
-  const y = by * H;
-  const speed = Math.sqrt(bvx*bvx + bvy*bvy);
-  const angle = Math.atan2(bvy, bvx);
-
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-
-  // Glow when hit
-  if(flash > 0){
-    ctx.shadowColor = "#fff";
-    ctx.shadowBlur = 20 * flash;
-  }
-
-  // Cork base
-  ctx.fillStyle = "#fff";
-  ctx.beginPath();
-  ctx.arc(0, 0, 5, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Feathers
-  ctx.strokeStyle = "rgba(255,255,255,0.7)";
-  ctx.lineWidth = 1;
-  for(let i = 0; i < 7; i++){
-    const fAngle = (i / 7) * Math.PI * 2;
-    ctx.beginPath();
-    ctx.moveTo(-2, 0);
-    ctx.lineTo(-14 + Math.cos(fAngle)*5, Math.sin(fAngle)*6);
-    ctx.stroke();
-  }
-
-  // Feather ring
-  ctx.strokeStyle = "rgba(255,255,255,0.4)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.ellipse(-10, 0, 6, 8, 0, 0, Math.PI*2);
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-// Simulator controls
-$("simPlayPause").addEventListener("click", ()=>{
-  if(!simState) return;
-  if(simState.finished){ restartSim(); return; }
-  if(simState.running) pauseSim(); else startSim();
-});
-
-$("simStop").addEventListener("click", stopSim);
-$("simRestart").addEventListener("click", restartSim);
-
-$("simFF").addEventListener("click", ()=>{
-  if(!simState) return;
-  simState.speed = simState.speed >= 4 ? 1 : simState.speed * 2;
-  $("simFF").textContent = `⏩ × ${simState.speed}`;
-});
-
-$("simClose").addEventListener("click", ()=>{
-  cancelAnimationFrame(simRAF);
-  if(simState) simState.running = false;
-  $("simModal").classList.add("hidden");
-});
-
-// ── SCHEDULE RENDER ─────────────────────────────────────────────────────────
 function renderSchedule(){
   const schedule = $("schedule");
   schedule.innerHTML = "";
-
-  const now    = new Date();
+  const now = new Date();
   const todayISO = toISO(now);
-  const start  = new Date(2026,3,29);
-  const end    = new Date(2026,4,26);
-
+  const start = new Date(2026,3,29);
+  const end = new Date(2026,4,25);
   for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
-    const iso     = toISO(d);
+    const iso = toISO(d);
     const matches = tournament.matches.filter(m=>m.date===iso && m.court);
-
     const festaDays = tournament.festaDays || [];
-    const isFesta   = festaDays.includes(iso);
-    const isToday   = iso === todayISO;
-
+    const isFesta = festaDays.includes(iso);
+    const isToday = iso === todayISO;
     const day = document.createElement("div");
     let cls = "day-card";
-    if(isFesta)  cls += " is-festa";
-    if(isToday)  cls += " is-today";
+    if(isFesta) cls += " is-festa";
+    if(isToday) cls += " is-today";
     day.className = cls;
-
     day.innerHTML = `
-      <div class="day-head">
-        <strong>${new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d)}</strong>
-        <div style="display:flex;gap:6px;align-items:center;">
-          ${isToday ? `<span class="today-badge">📅 Avui</span>` : ""}
-          <span class="chip">${matches.length} partits</span>
-        </div>
-      </div>
+      <div class="day-head"><strong>${new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d)}</strong><div style="display:flex;gap:6px;align-items:center;">${isToday ? `<span class="today-badge">📅 Avui</span>` : ""}<span class="chip">${matches.length} partits</span></div></div>
       ${isFesta ? `<div class="festa-banner"><span class="festa-label">🎉 Festa</span></div>` : ""}
-      <div class="patio">
-        <div class="patio-title">
-          <span>Pati 1 <small style="font-weight:700;color:#aaa;">10:30–11:00</small></span>
-          ${isToday && isCourtPlaying("Pati 1", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
-        </div>
-        <div class="patio-content" data-date="${iso}" data-court="Pati 1" data-today="${isToday}"></div>
-      </div>
-      <div class="patio">
-        <div class="patio-title">
-          <span>Pati 2 <small style="font-weight:700;color:#aaa;">12:50–13:10</small></span>
-          ${isToday && isCourtPlaying("Pati 2", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
-        </div>
-        <div class="patio-content" data-date="${iso}" data-court="Pati 2" data-today="${isToday}"></div>
-      </div>
-    `;
+      <div class="patio"><div class="patio-title"><span>Pati 1 <small style="font-weight:700;color:#aaa;">10:30–11:00</small></span>${isToday && isCourtPlaying("Pati 1", now) ? `<span class="patio-playing">EN JOC</span>` : ""}</div><div class="patio-content" data-date="${iso}" data-court="Pati 1" data-today="${isToday}"></div></div>
+      <div class="patio"><div class="patio-title"><span>Pati 2 <small style="font-weight:700;color:#aaa;">12:50–13:10</small></span>${isToday && isCourtPlaying("Pati 2", now) ? `<span class="patio-playing">EN JOC</span>` : ""}</div><div class="patio-content" data-date="${iso}" data-court="Pati 2" data-today="${isToday}"></div></div>`;
     schedule.appendChild(day);
   }
-
   document.querySelectorAll(".patio-content").forEach(box=>{
-    const date    = box.dataset.date;
-    const court   = box.dataset.court;
+    const date = box.dataset.date;
+    const court = box.dataset.court;
     const isToday = box.dataset.today === "true";
-    const events  = tournament.matches.filter(m=>m.date===date && m.court===court);
-
-    if(!events.length){
-      box.innerHTML = `<span style="color:var(--muted);font-size:12px;font-weight:800;">Sense partit</span>`;
-      return;
-    }
-
+    const events = tournament.matches.filter(m=>m.date===date && m.court===court);
+    if(!events.length){ box.innerHTML = `<span style="color:var(--muted);font-size:12px;font-weight:800;">Sense partit</span>`; return; }
     const nowNow = new Date();
     events.forEach(match=>{
-      const played   = match.winner !== "";
-      const isLive   = isToday && isCourtPlaying(court, nowNow) && !played;
-
+      const played = match.winner !== "";
+      const isLive = isToday && isCourtPlaying(court, nowNow) && !played;
       const ev = document.createElement("div");
       let evCls = "event";
       if(played) evCls += " event-played";
       else if(isLive) evCls += " event-live";
       ev.className = evCls;
-
       let statusHtml = "";
-      if(played){
-        statusHtml = `<span class="event-status status-played">✓ Jugat · Guanya: ${match.winner}</span>`;
-      } else if(isLive){
-        statusHtml = `<span class="event-status status-live">🔴 En joc ara</span>`;
-      } else {
-        statusHtml = `<span class="event-status status-pending">⏳ Pendent</span>`;
-      }
-
-      ev.innerHTML = `
-        <b>${match.id.toUpperCase()} · ${match.p1}</b><br>
-        vs ${match.p2}
-        ${statusHtml}
-      `;
+      if(played) statusHtml = `<span class="event-status status-played">✓ Jugat · Guanya: ${match.winner}</span>`;
+      else if(isLive) statusHtml = `<span class="event-status status-live">🔴 En joc ara</span>`;
+      else statusHtml = `<span class="event-status status-pending">⏳ Pendent</span>`;
+      ev.innerHTML = `<b>${match.p1}</b><br>vs ${match.p2}${statusHtml}`;
       addHover(ev, match);
       box.appendChild(ev);
     });
   });
-
   const todayCard = document.querySelector(".day-card.is-today");
   if(todayCard) setTimeout(()=>todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"}),300);
 }
@@ -2272,12 +1192,8 @@ function addHover(element, match){
   element.addEventListener("mousemove", e=>{
     hover.style.display = "block";
     hover.style.left = e.clientX + 18 + "px";
-    hover.style.top  = e.clientY + 18 + "px";
-    hover.innerHTML = `
-      ${match.image ? `<img src="${match.image}" alt="Imatge">` : ""}
-      <strong>${match.id.toUpperCase()} · ${match.p1} vs ${match.p2}</strong>
-      <p>${match.description || "Sense descripció."}</p>
-    `;
+    hover.style.top = e.clientY + 18 + "px";
+    hover.innerHTML = `${match.image ? `<img src="${match.image}" alt="Imatge">` : ""}<strong>${match.p1} vs ${match.p2}</strong><p>${match.description || "Sense descripció."}</p>`;
   });
   element.addEventListener("mouseleave", ()=>{ hover.style.display = "none"; });
 }
@@ -2287,10 +1203,7 @@ function renderAdminFestaDays(){
   const box = $("adminFestaDays");
   box.innerHTML = "";
   const days = tournament.festaDays || [];
-  if(!days.length){
-    box.innerHTML = `<span style="color:var(--muted);font-size:13px;font-weight:700;">Cap dia de festa afegit.</span>`;
-    return;
-  }
+  if(!days.length){ box.innerHTML = `<span style="color:var(--muted);font-size:13px;font-weight:700;">Cap dia de festa afegit.</span>`; return; }
   days.sort().forEach(iso=>{
     const d = new Date(iso + "T00:00:00");
     const label = new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d);
@@ -2320,17 +1233,13 @@ $("addFestaDay").addEventListener("click", ()=>{
 
 function renderAdminMatches(){
   if(!$("adminPanel") || $("adminPanel").classList.contains("hidden") || !tournament) return;
-
   const box = $("adminMatches");
   box.innerHTML = "";
-
   tournament.matches.forEach((m,i)=>{
     const div = document.createElement("div");
     div.className = "admin-match";
-
     div.innerHTML = `
       <strong>${roundMeta[m.round]?.title || "Ronda " + m.round} · ${m.id.toUpperCase()}</strong>
-
       <div class="admin-grid">
         ${field(i,"p1","Jugador 1",m.p1)}
         ${field(i,"p2","Jugador 2",m.p2)}
@@ -2338,28 +1247,12 @@ function renderAdminMatches(){
         ${field(i,"score2","Punts jugador 2",m.score2)}
         ${field(i,"winner","Guanyador",m.winner)}
         ${field(i,"date","Dia",m.date,"date")}
-
-        <div class="field">
-          <label>Pati</label>
-          <select class="input admin-input" data-i="${i}" data-k="court">
-            <option value="" ${m.court==="" ? "selected" : ""}>Sense pati</option>
-            <option ${m.court==="Pati 1" ? "selected" : ""}>Pati 1</option>
-            <option ${m.court==="Pati 2" ? "selected" : ""}>Pati 2</option>
-          </select>
-        </div>
-
+        <div class="field"><label>Pati</label><select class="input admin-input" data-i="${i}" data-k="court"><option value="" ${m.court==="" ? "selected" : ""}>Sense pati</option><option ${m.court==="Pati 1" ? "selected" : ""}>Pati 1</option><option ${m.court==="Pati 2" ? "selected" : ""}>Pati 2</option></select></div>
         ${field(i,"image","URL imatge",m.image)}
       </div>
-
-      <div class="field" style="margin-top:12px;">
-        <label>Descripció</label>
-        <textarea class="input admin-input" data-i="${i}" data-k="description">${escapeHtml(m.description)}</textarea>
-      </div>
-    `;
-
+      <div class="field" style="margin-top:12px;"><label>Descripció</label><textarea class="input admin-input" data-i="${i}" data-k="description">${escapeHtml(m.description)}</textarea></div>`;
     box.appendChild(div);
   });
-
   document.querySelectorAll(".admin-input").forEach(input=>{
     input.addEventListener("input", e=>{
       const i = Number(e.target.dataset.i);
@@ -2368,31 +1261,19 @@ function renderAdminMatches(){
       propagateWinners();
       renderBracket();
       renderSchedule();
-      renderEndirecte();
+      renderSimMatches();
     });
   });
 }
 
 function field(i,k,label,value,type="text"){
-  return `
-    <div class="field">
-      <label>${label}</label>
-      <input class="input admin-input" type="${type}" data-i="${i}" data-k="${k}" value="${escapeHtml(value)}">
-    </div>
-  `;
+  return `<div class="field"><label>${label}</label><input class="input admin-input" type="${type}" data-i="${i}" data-k="${k}" value="${escapeHtml(value)}"></div>`;
 }
-
 function escapeHtml(text=""){
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;");
+  return String(text).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 }
 
-// ── Reset ────────────────────────────────────────────────────────────────────
 const RESET_PHRASE = "El Torneig De Bàdminton Restart";
-
 function openResetOverlay(){
   $("resetStep1").classList.remove("hidden");
   $("resetStep2").classList.add("hidden");
@@ -2401,39 +1282,23 @@ function openResetOverlay(){
   $("resetOverlay").classList.remove("hidden");
   $("adminModal").classList.add("hidden");
 }
-
-function closeResetOverlay(){
-  $("resetOverlay").classList.add("hidden");
-  $("adminModal").classList.remove("hidden");
-}
+function closeResetOverlay(){ $("resetOverlay").classList.add("hidden"); $("adminModal").classList.remove("hidden"); }
 
 $("openReset").addEventListener("click", openResetOverlay);
 $("resetCancel1").addEventListener("click", closeResetOverlay);
 $("resetCancel2").addEventListener("click", closeResetOverlay);
-
-$("resetConfirm1").addEventListener("click", ()=>{
-  $("resetStep1").classList.add("hidden");
-  $("resetStep2").classList.remove("hidden");
-  setTimeout(()=>$("resetTyped").focus(), 100);
-});
-
+$("resetConfirm1").addEventListener("click", ()=>{ $("resetStep1").classList.add("hidden"); $("resetStep2").classList.remove("hidden"); setTimeout(()=>$("resetTyped").focus(),100); });
 $("resetConfirm2").addEventListener("click", async()=>{
   const val = $("resetTyped").value.trim();
-  if(val !== RESET_PHRASE){
-    $("resetError").textContent = "El text no coincideix. Torna-ho a intentar.";
-    return;
-  }
-
+  if(val !== RESET_PHRASE){ $("resetError").textContent = "El text no coincideix. Torna-ho a intentar."; return; }
   const clean = JSON.parse(JSON.stringify(initialTournament));
   clean.updatedAt = Date.now();
-
   if(tournament){
     tournament.matches.filter(m=>m.round===1).forEach(m=>{
       const target = clean.matches.find(x=>x.id===m.id);
       if(target){ target.p1 = m.p1; target.p2 = m.p2; }
     });
   }
-
   await setDoc(doc(db,"tournaments","main"), clean);
   tournament = clean;
   propagateWinners();
@@ -2442,74 +1307,52 @@ $("resetConfirm2").addEventListener("click", async()=>{
   alert("Torneig reiniciat correctament.");
 });
 
-// ── Auth & tabs ──────────────────────────────────────────────────────────────
 $("enterBtn").addEventListener("click", async()=>{
   const pass = $("accessPassword").value.trim();
   const hash = await sha256(pass);
   const snap = await getDoc(doc(db,"config","private"));
-
-  if(!snap.exists()){
-    $("lockError").textContent = "No s'ha trobat la configuració d'accés.";
-    return;
-  }
-
+  if(!snap.exists()){ $("lockError").textContent = "No s'ha trobat la configuració d'accés."; return; }
   if(hash === snap.data().passHash){
     $("lock").classList.add("hidden");
     $("app").classList.remove("hidden");
     await loadTournament();
     startTimer();
     initZoomPan();
-    vpX = 10; vpY = 10;
-    vpScale = 0.65;
-    applyViewport();
+    vpX = 10; vpY = 10; vpScale = 0.65; applyViewport();
   } else {
     $("lockError").textContent = "Contrasenya incorrecta.";
   }
 });
-
-$("accessPassword").addEventListener("keydown", e=>{
-  if(e.key==="Enter") $("enterBtn").click();
-});
+$("accessPassword").addEventListener("keydown", e=>{ if(e.key==="Enter") $("enterBtn").click(); });
 
 document.querySelectorAll(".tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     tab.classList.add("active");
-    ["bracketView","calendarView"].forEach(id=>$(id).classList.add("hidden"));
+    ["bracketView","calendarView","simulationView"].forEach(id=>$(id).classList.add("hidden"));
     $(tab.dataset.view).classList.remove("hidden");
     if(tab.dataset.view === "bracketView") setTimeout(drawBracketLines,100);
+    if(tab.dataset.view === "simulationView") renderSimMatches();
   });
 });
 
 document.addEventListener("keydown", e=>{
   typed += e.key.toLowerCase();
   typed = typed.slice(-5);
-  if(typed === "astop"){
-    $("adminModal").classList.remove("hidden");
-  }
+  if(typed === "astop") $("adminModal").classList.remove("hidden");
 });
 
 $("closeAdmin").addEventListener("click",()=>$("adminModal").classList.add("hidden"));
-
 $("loginAdmin").addEventListener("click", async()=>{
-  const email    = $("adminEmail").value.trim();
+  const email = $("adminEmail").value.trim().toLowerCase();
   const password = $("adminPassword").value;
-
-  if(!ADMIN_EMAILS.includes(email)){
-    $("adminError").textContent = "Aquest correu no té permís.";
-    return;
-  }
-
-  try{
-    await signInWithEmailAndPassword(auth,email,password);
-    $("adminError").textContent = "";
-  }catch{
-    $("adminError").textContent = "No s'ha pogut iniciar sessió.";
-  }
+  if(!ADMIN_EMAILS.includes(email)){ $("adminError").textContent = "Aquest correu no té permís."; return; }
+  try{ await signInWithEmailAndPassword(auth,email,password); $("adminError").textContent = ""; }
+  catch{ $("adminError").textContent = "No s'ha pogut iniciar sessió."; }
 });
 
 onAuthStateChanged(auth, user=>{
-  if(user && ADMIN_EMAILS.includes(user.email)){
+  if(user && ADMIN_EMAILS.includes(user.email.toLowerCase())){
     $("adminLogin").classList.add("hidden");
     $("adminPanel").classList.remove("hidden");
     renderAdminFestaDays();
@@ -2521,20 +1364,21 @@ onAuthStateChanged(auth, user=>{
 });
 
 $("logoutAdmin").addEventListener("click",()=>signOut(auth));
-
 $("saveAll").addEventListener("click", async()=>{
   propagateWinners();
-  tournament.version   = VERSION;
+  tournament.version = VERSION;
   tournament.updatedAt = Date.now();
   await setDoc(doc(db,"tournaments","main"), tournament);
   alert("Canvis guardats.");
 });
 
-window.addEventListener("resize",()=>{
-  if(tournament) drawBracketLines();
-  resizeSimCanvas();
-  if(simState) drawSimFrame();
-});
+$("closeSim").addEventListener("click",()=>{ stopSimulation(); $("simArena").classList.add("hidden"); });
+$("simPlay").addEventListener("click", playSimulation);
+$("simStop").addEventListener("click", stopSimulation);
+$("simForward").addEventListener("click",()=>simStep(1));
+$("simBack").addEventListener("click",()=>simStep(-1));
+
+window.addEventListener("resize",()=>{ if(tournament) drawBracketLines(); });
 </script>
 </body>
 </html>
