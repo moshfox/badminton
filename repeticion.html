@@ -202,24 +202,30 @@ let sim = {
   time:0,
   duration:1,
   progress:0,
+
   score1:0,
   score2:0,
   pointIndex:0,
+
   ball:{x:.5,y:.5,px:.5,py:.5,angle:0,scale:1},
   from:{x:.22,y:.5},
   to:{x:.78,y:.45,far:false},
   phase:0,
   hitDuration:1.1,
+
   currentPointStart:0,
   currentPointEnd:1,
   hitInPoint:0,
   hitsInPoint:7,
+
   r1:{x:.16,y:.5,tx:.16,ty:.5,rot:0,trot:0,swing:0,stayX:.16,stayY:.5},
   r2:{x:.84,y:.5,tx:.84,ty:.5,rot:0,trot:0,swing:0,stayX:.84,stayY:.5},
+
   miss:false,
   missTimer:0,
   missSide:0,
-  missLabel:""
+  missLabel:"",
+  missAnim:null
 };
 
 function loadImg(src){
@@ -307,7 +313,7 @@ function createPointPlan(points, seed){
       hits,
       start,
       end,
-      missAt:end - 1.15,
+      missAt:end - 1.45,
       pattern:Math.floor(rng()*5),
       failType:Math.floor(rng()*3)
     };
@@ -326,9 +332,11 @@ function resetSim(){
   sim.ball = {x:.5,y:.5,px:.5,py:.5,angle:0,scale:1};
   sim.r1 = {x:.16,y:.5,tx:.16,ty:.5,rot:0,trot:0,swing:0,stayX:.16,stayY:.5};
   sim.r2 = {x:.84,y:.5,tx:.84,ty:.5,rot:0,trot:0,swing:0,stayX:.84,stayY:.5};
+
   sim.miss = false;
   sim.missTimer = 0;
   sim.missLabel = "";
+  sim.missAnim = null;
 
   startPoint(0);
   updateUI();
@@ -344,8 +352,11 @@ function startPoint(index){
   sim.hitInPoint = 0;
   sim.phase = 0;
   sim.miss = false;
-  sim.ball.scale = 1;
+  sim.missTimer = 0;
   sim.missLabel = "";
+  sim.missAnim = null;
+  sim.ball.scale = 1;
+
   launchHit(true);
 }
 
@@ -388,8 +399,9 @@ function update(dt){
   }
 
   syncByTime();
-  if(!sim.miss) updateBall(dt);
-  else updateMiss(dt);
+
+  if(sim.miss) updateMissAnimation(dt);
+  else updateBall(dt);
 
   moveRackets(dt);
   updateUI();
@@ -516,6 +528,7 @@ function contact(side){
     sim.r1.tx = .205;
     sim.r1.ty = clamp(sim.to.y + random(-.025,.025),.14,.86);
     sim.r1.trot = sim.to.far ? -1.05 : -.7;
+
     sim.r1.stayY = sim.r1.ty;
     sim.r1.stayX = .17 + random(-.015,.025);
   }else{
@@ -523,6 +536,7 @@ function contact(side){
     sim.r2.tx = .795;
     sim.r2.ty = clamp(sim.to.y + random(-.025,.025),.14,.86);
     sim.r2.trot = sim.to.far ? 1.05 : .7;
+
     sim.r2.stayY = sim.r2.ty;
     sim.r2.stayX = .83 + random(-.025,.015);
   }
@@ -532,70 +546,104 @@ function makePoint(winner){
   const plan = pointPlan[sim.pointIndex] || {failType:0};
   const loser = winner === 1 ? 2 : 1;
   const failType = plan.failType;
+  const leftFail = loser === 1;
 
   sim.miss = true;
   sim.missSide = loser;
-  sim.missTimer = 1.35;
-  sim.ball.scale = .52;
+  sim.missTimer = 1.65;
+  sim.missLabel = "";
+  sim.ball.scale = 1;
 
-  const leftFail = loser === 1;
+  const startX = sim.ball.x;
+  const startY = sim.ball.y;
+
+  let endX, endY, midX, midY, label, type;
 
   if(failType === 0){
-    sim.missLabel = "No arriba";
+    type = "noReach";
+    label = "No arriba";
+
     if(leftFail){
-      sim.ball.x = random(.10,.22);
-      sim.ball.y = random(.18,.82);
-      sim.r1.tx = .28;
-      sim.r1.ty = clamp(sim.ball.y + random(.20,.34) * (sim.ball.y < .5 ? 1 : -1),.13,.87);
-      sim.r1.trot = -.35;
-      sim.r1.swing = .15;
+      endX = random(.10,.22);
+      endY = random(.18,.82);
+      sim.r1.tx = clamp(endX + .16,.18,.34);
+      sim.r1.ty = clamp(endY + random(.18,.30) * (endY < .5 ? 1 : -1),.13,.87);
+      sim.r1.trot = -.25;
+      sim.r1.swing = .05;
     }else{
-      sim.ball.x = random(.78,.90);
-      sim.ball.y = random(.18,.82);
-      sim.r2.tx = .72;
-      sim.r2.ty = clamp(sim.ball.y + random(.20,.34) * (sim.ball.y < .5 ? 1 : -1),.13,.87);
-      sim.r2.trot = .35;
-      sim.r2.swing = .15;
+      endX = random(.78,.90);
+      endY = random(.18,.82);
+      sim.r2.tx = clamp(endX - .16,.66,.82);
+      sim.r2.ty = clamp(endY + random(.18,.30) * (endY < .5 ? 1 : -1),.13,.87);
+      sim.r2.trot = .25;
+      sim.r2.swing = .05;
     }
+
+    midX = (startX + endX) / 2;
+    midY = Math.min(startY,endY) - .10;
   }
 
   if(failType === 1){
-    sim.missLabel = "Fora";
+    type = "out";
+    label = "Fora";
+
     if(leftFail){
-      sim.ball.x = random(.07,.15);
-      sim.ball.y = Math.random() > .5 ? random(.03,.10) : random(.90,.97);
+      midX = .18;
+      midY = random(.22,.78);
+      endX = random(.06,.16);
+      endY = Math.random() > .5 ? random(.02,.09) : random(.91,.98);
       sim.r1.tx = .19;
-      sim.r1.ty = clamp(sim.ball.y < .5 ? .22 : .78,.13,.87);
-      sim.r1.trot = -1.2;
-      sim.r1.swing = 1.45;
+      sim.r1.ty = clamp(midY,.14,.86);
+      sim.r1.trot = -1.25;
+      sim.r1.swing = 1.55;
     }else{
-      sim.ball.x = random(.85,.93);
-      sim.ball.y = Math.random() > .5 ? random(.03,.10) : random(.90,.97);
+      midX = .82;
+      midY = random(.22,.78);
+      endX = random(.84,.94);
+      endY = Math.random() > .5 ? random(.02,.09) : random(.91,.98);
       sim.r2.tx = .81;
-      sim.r2.ty = clamp(sim.ball.y < .5 ? .22 : .78,.13,.87);
-      sim.r2.trot = 1.2;
-      sim.r2.swing = 1.45;
+      sim.r2.ty = clamp(midY,.14,.86);
+      sim.r2.trot = 1.25;
+      sim.r2.swing = 1.55;
     }
   }
 
   if(failType === 2){
-    sim.missLabel = "Xarxa";
+    type = "net";
+    label = "Xarxa";
+
     if(leftFail){
-      sim.ball.x = random(.44,.49);
-      sim.ball.y = random(.52,.70);
-      sim.r1.tx = .25;
-      sim.r1.ty = clamp(sim.ball.y,.14,.86);
+      midX = .29;
+      midY = random(.30,.70);
+      endX = random(.45,.49);
+      endY = random(.55,.72);
+      sim.r1.tx = .24;
+      sim.r1.ty = clamp(midY,.14,.86);
       sim.r1.trot = -.95;
-      sim.r1.swing = 1.2;
+      sim.r1.swing = 1.25;
     }else{
-      sim.ball.x = random(.51,.56);
-      sim.ball.y = random(.52,.70);
-      sim.r2.tx = .75;
-      sim.r2.ty = clamp(sim.ball.y,.14,.86);
+      midX = .71;
+      midY = random(.30,.70);
+      endX = random(.51,.55);
+      endY = random(.55,.72);
+      sim.r2.tx = .76;
+      sim.r2.ty = clamp(midY,.14,.86);
       sim.r2.trot = .95;
-      sim.r2.swing = 1.2;
+      sim.r2.swing = 1.25;
     }
   }
+
+  sim.missAnim = {
+    type,
+    label,
+    t:0,
+    duration:type === "noReach" ? .95 : 1.05,
+    startX,startY,
+    midX,midY,
+    endX,endY,
+    impact:false,
+    labelShown:false
+  };
 
   if(leftFail){
     sim.r1.stayX = sim.r1.tx;
@@ -605,20 +653,71 @@ function makePoint(winner){
     sim.r2.stayY = sim.r2.ty;
   }
 
-  sim.ball.px = sim.ball.x;
-  sim.ball.py = sim.ball.y;
-
   showToast(winner === 1 ? match.p1 : match.p2,winner);
   flash();
 }
 
-function updateMiss(dt){
-  sim.missTimer -= dt;
-  sim.ball.scale += (.48 - sim.ball.scale) * Math.min(1,dt*5);
-  if(sim.missTimer <= 0){
-    sim.miss = false;
-    sim.ball.scale = 1;
-    sim.missLabel = "";
+function updateMissAnimation(dt){
+  if(!sim.missAnim){
+    sim.missTimer -= dt;
+    if(sim.missTimer <= 0){
+      sim.miss = false;
+      sim.ball.scale = 1;
+      sim.missLabel = "";
+    }
+    return;
+  }
+
+  const a = sim.missAnim;
+  a.t += dt;
+  const p = clamp(a.t / a.duration,0,1);
+  const e = ease(p);
+
+  sim.ball.x = quad(a.startX,a.midX,a.endX,e);
+  sim.ball.y = quad(a.startY,a.midY,a.endY,e);
+
+  const dx = sim.ball.x - sim.ball.px;
+  const dy = sim.ball.y - sim.ball.py;
+  if(Math.abs(dx)>.0001 || Math.abs(dy)>.0001){
+    const target = Math.atan2(dy,dx);
+    sim.ball.angle += norm(target - sim.ball.angle) * .24;
+  }
+
+  sim.ball.px = sim.ball.x;
+  sim.ball.py = sim.ball.y;
+
+  if(a.type === "net" && p > .58 && !a.impact){
+    a.impact = true;
+    sim.ball.scale = .55;
+  }
+
+  if(a.type === "out" && p > .42 && !a.impact){
+    a.impact = true;
+    sim.ball.scale = .75;
+  }
+
+  if(a.type === "noReach" && p > .55 && !a.impact){
+    a.impact = true;
+    sim.ball.scale = .58;
+  }
+
+  if(p > .68 && !a.labelShown){
+    a.labelShown = true;
+    sim.missLabel = a.label;
+  }
+
+  if(a.impact){
+    sim.ball.scale += (.48 - sim.ball.scale) * Math.min(1,dt*6);
+  }
+
+  if(p >= 1){
+    sim.missTimer -= dt;
+    if(sim.missTimer <= 0){
+      sim.miss = false;
+      sim.missAnim = null;
+      sim.ball.scale = 1;
+      sim.missLabel = "";
+    }
   }
 }
 
@@ -636,6 +735,7 @@ function seekTo(percent){
   sim.time = clamp(percent,0,100) / 100 * sim.duration;
 
   sim.miss = false;
+  sim.missAnim = null;
   sim.ball.scale = 1;
   sim.missLabel = "";
 
@@ -664,6 +764,7 @@ function draw(){
   drawRacket(sim.r1,W,H,1);
   drawRacket(sim.r2,W,H,-1);
   drawBall(W,H);
+  drawMissEffects(W,H);
   drawMissLabel(W,H);
 }
 
@@ -704,7 +805,7 @@ function drawMissZone(W,H){
   const courtH=H*.84;
 
   ctx.save();
-  ctx.fillStyle="rgba(255,54,54,.08)";
+  ctx.fillStyle="rgba(255,54,54,.075)";
   if(sim.missSide === 1){
     roundRect(courtX,courtY,courtW*.5,courtH,W*.03);
   }else{
@@ -763,6 +864,47 @@ function drawBall(W,H){
     }
     ctx.restore();
   }
+}
+
+function drawMissEffects(W,H){
+  if(!sim.miss || !sim.missAnim)return;
+
+  const a = sim.missAnim;
+  const x = sim.ball.x * W;
+  const y = sim.ball.y * H;
+  const p = clamp(a.t / a.duration,0,1);
+
+  ctx.save();
+
+  if(a.type === "net" && p > .52){
+    ctx.strokeStyle = "rgba(255,54,54,.65)";
+    ctx.lineWidth = Math.max(2,W*.003);
+    ctx.beginPath();
+    ctx.arc(W*.5,y,W*.025*Math.sin(p*Math.PI),0,Math.PI*2);
+    ctx.stroke();
+  }
+
+  if(a.type === "out" && p > .45){
+    ctx.strokeStyle = "rgba(255,54,54,.65)";
+    ctx.lineWidth = Math.max(2,W*.003);
+    ctx.setLineDash([8,8]);
+    ctx.beginPath();
+    ctx.arc(x,y,W*.025,0,Math.PI*2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  if(a.type === "noReach" && p > .48){
+    const rx = sim.missSide === 1 ? sim.r1.x*W : sim.r2.x*W;
+    const ry = sim.missSide === 1 ? sim.r1.y*H : sim.r2.y*H;
+    ctx.strokeStyle = "rgba(255,54,54,.45)";
+    ctx.lineWidth = Math.max(2,W*.002);
+    ctx.setLineDash([7,7]);
+    line(rx,ry,x,y);
+    ctx.setLineDash([]);
+  }
+
+  ctx.restore();
 }
 
 function drawMissLabel(W,H){
