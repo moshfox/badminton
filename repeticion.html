@@ -8,208 +8,96 @@
 <style>
 *{box-sizing:border-box}
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Inter,system-ui,sans-serif;
-  background:#f7f7f3;
-  color:#111;
+  margin:0;width:100%;height:100%;overflow:hidden;
+  font-family:Inter,system-ui,sans-serif;background:#f7f7f3;color:#111;
 }
-body{
-  display:grid;
-  place-items:center;
-}
+body{display:grid;place-items:center}
 .app{
-  width:min(1180px,100%);
-  height:100vh;
-  padding:12px;
-  display:grid;
-  grid-template-rows:auto 1fr auto;
-  gap:10px;
+  width:min(1180px,100%);height:100vh;padding:12px;
+  display:grid;grid-template-rows:auto 1fr auto;gap:10px;
 }
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .title{
-  background:white;
-  border:1px solid #e5e5df;
-  border-radius:22px;
-  padding:12px 16px;
-  font-weight:900;
-  letter-spacing:-.04em;
+  background:white;border:1px solid #e5e5df;border-radius:22px;
+  padding:12px 16px;font-weight:900;letter-spacing:-.04em;
   box-shadow:0 16px 45px rgba(0,0,0,.07);
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 .btn{
-  border:0;
-  background:#111;
-  color:white;
-  border-radius:999px;
-  padding:11px 15px;
-  font-weight:900;
-  cursor:pointer;
+  border:0;background:#111;color:white;border-radius:999px;
+  padding:11px 15px;font-weight:900;cursor:pointer;
 }
-.btn.light{
-  background:white;
-  color:#111;
-  border:1px solid #e5e5df;
-}
+.btn.light{background:white;color:#111;border:1px solid #e5e5df}
 .stage{
-  min-height:0;
-  position:relative;
-  background:white;
-  border:1px solid #e5e5df;
-  border-radius:30px;
-  overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  min-height:0;position:relative;background:white;border:1px solid #e5e5df;
+  border-radius:30px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.08);
 }
-canvas{
-  width:100%;
-  height:100%;
-  display:block;
-}
+canvas{width:100%;height:100%;display:block}
 .score{
-  position:absolute;
-  top:14px;
-  left:14px;
-  right:14px;
-  display:flex;
-  justify-content:space-between;
-  pointer-events:none;
-  z-index:3;
+  position:absolute;top:14px;left:14px;right:14px;
+  display:flex;justify-content:space-between;pointer-events:none;z-index:3;
 }
 .player{
-  background:rgba(255,255,255,.82);
-  backdrop-filter:blur(14px);
-  border:1px solid #e7e7e0;
-  border-radius:18px;
-  padding:10px 13px;
-  min-width:180px;
-  box-shadow:0 12px 35px rgba(0,0,0,.07);
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px);
+  border:1px solid #e7e7e0;border-radius:18px;padding:10px 13px;
+  min-width:180px;box-shadow:0 12px 35px rgba(0,0,0,.07);
 }
 .player.right{text-align:right}
-.name{
-  font-size:14px;
-  font-weight:900;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.num{
-  margin-top:3px;
-  font-size:38px;
-  line-height:.85;
-  font-weight:900;
-}
-.left .num{color:#1769ff}
-.right .num{color:#ff3636}
+.name{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{margin-top:3px;font-size:38px;line-height:.85;font-weight:900}
+.left .num{color:#1769ff}.right .num{color:#ff3636}
 .pointToast{
-  position:absolute;
-  left:50%;
-  bottom:22px;
-  transform:translateX(-50%);
-  z-index:4;
-  background:#111;
-  color:white;
-  border-radius:999px;
-  padding:10px 16px;
-  font-size:13px;
-  font-weight:900;
-  opacity:0;
-  transition:.22s ease;
-  pointer-events:none;
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  z-index:4;background:#111;color:white;border-radius:999px;
+  padding:10px 16px;font-size:13px;font-weight:900;opacity:0;
+  transition:.22s ease;pointer-events:none;
 }
-.pointToast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(-4px);
-}
-.pointToast.blue{background:#1769ff}
-.pointToast.red{background:#ff3636}
+.pointToast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+.pointToast.blue{background:#1769ff}.pointToast.red{background:#ff3636}
 .flash{
-  position:absolute;
-  inset:0;
-  background:rgba(255,54,54,.13);
-  opacity:0;
-  pointer-events:none;
-  transition:.14s;
-  z-index:2;
+  position:absolute;inset:0;background:rgba(255,54,54,.13);
+  opacity:0;pointer-events:none;transition:.14s;z-index:2;
 }
 .flash.show{opacity:1}
 .controls{
-  background:white;
-  border:1px solid #e5e5df;
-  border-radius:24px;
-  padding:12px;
-  box-shadow:0 16px 45px rgba(0,0,0,.07);
+  background:white;border:1px solid #e5e5df;border-radius:24px;
+  padding:12px;box-shadow:0 16px 45px rgba(0,0,0,.07);
 }
 .barTop{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:11px;
-  font-weight:900;
-  color:#777;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+  display:flex;justify-content:space-between;margin-bottom:8px;
+  font-size:11px;font-weight:900;color:#777;text-transform:uppercase;letter-spacing:.12em;
 }
 .videoLine{
-  position:relative;
-  height:12px;
-  border-radius:999px;
-  background:#f0f0eb;
-  border:1px solid #deded7;
-  overflow:hidden;
+  position:relative;height:12px;border-radius:999px;background:#f0f0eb;
+  border:1px solid #deded7;overflow:hidden;
 }
 .videoFill{
-  height:100%;
-  width:0%;
-  border-radius:999px;
+  height:100%;width:0%;border-radius:999px;
   background:linear-gradient(90deg,#1769ff,#7c3cff,#ff3636);
 }
-.seek{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0;
-  cursor:pointer;
-}
-.buttons{
-  margin-top:12px;
-  display:flex;
-  justify-content:center;
-  gap:8px;
-}
+.seek{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.buttons{margin-top:12px;display:flex;justify-content:center;gap:8px}
 .icon{
-  width:42px;
-  height:42px;
-  border-radius:999px;
-  border:1px solid #e5e5df;
-  background:#f5f5f1;
-  font-weight:900;
-  cursor:pointer;
+  width:42px;height:42px;border-radius:999px;border:1px solid #e5e5df;
+  background:#f5f5f1;font-weight:900;cursor:pointer;display:grid;place-items:center;
 }
-.play{
-  width:58px;
-  height:58px;
-  background:#111;
-  color:white;
-  font-size:22px;
+.play{width:58px;height:58px;background:#111;color:white}
+.shape{display:block}
+.tri{
+  width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;
+  border-left:13px solid currentColor;margin-left:3px;
 }
+.pauseShape{display:flex;gap:5px}
+.pauseShape i{width:5px;height:18px;background:currentColor;border-radius:2px}
+.stopShape{width:15px;height:15px;background:currentColor;border-radius:3px}
+.backShape,.nextShape{display:flex;align-items:center;gap:2px}
+.backShape i,.nextShape i{
+  width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;
+}
+.backShape i{border-right:10px solid currentColor}
+.nextShape i{border-left:10px solid currentColor}
 .loading{
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:white;
-  z-index:10;
-  font-weight:900;
+  position:absolute;inset:0;display:grid;place-items:center;background:white;z-index:10;font-weight:900;
 }
 .hidden{display:none!important}
 </style>
@@ -253,10 +141,10 @@ canvas{
     </div>
 
     <div class="buttons">
-      <button class="icon" id="restartBtn">↺</button>
-      <button class="icon" id="backPointBtn">⏮</button>
-      <button class="icon play" id="playBtn">▶</button>
-      <button class="icon" id="nextPointBtn">⏭</button>
+      <button class="icon" id="restartBtn"><span class="stopShape"></span></button>
+      <button class="icon" id="backPointBtn"><span class="backShape"><i></i><i></i></span></button>
+      <button class="icon play" id="playBtn"><span class="tri"></span></button>
+      <button class="icon" id="nextPointBtn"><span class="nextShape"><i></i><i></i></span></button>
       <button class="icon" id="speedBtn">1×</button>
     </div>
   </section>
@@ -278,8 +166,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 const $ = id => document.getElementById(id);
+const canvas = $("canvas");
+const ctx = canvas.getContext("2d");
 
 const fallbackMatches = [
   {id:"m1",p1:"Nitzer Galindo",p2:"Adam Singh Kahur",score1:"11",score2:"7",winner:"Nitzer Galindo"},
@@ -301,32 +190,23 @@ const fallbackMatches = [
 const params = new URLSearchParams(location.search);
 const MATCH_ID = (params.get("id") || "m1").toLowerCase();
 
-const canvas = $("canvas");
-const ctx = canvas.getContext("2d");
-
-const assets = {
-  blue:null,
-  red:null,
-  pilot:null
-};
-
+const assets = { blue:null, red:null, pilot:null };
 let match;
 let points = [];
+let pointPlan = [];
 let raf;
 let lastTime = 0;
 
 let sim = {
   playing:false,
   speed:1,
+  time:0,
+  duration:1,
   progress:0,
-  duration:60,
 
   score1:0,
   score2:0,
   pointIndex:0,
-
-  rallyHits:0,
-  hitsBeforePoint:6,
 
   ball:{x:.5,y:.5,px:.5,py:.5,angle:0,scale:1},
   from:{x:.22,y:.5},
@@ -334,8 +214,13 @@ let sim = {
   phase:0,
   hitDuration:1.1,
 
-  r1:{x:.16,y:.5,tx:.16,ty:.5,swing:0,reach:0},
-  r2:{x:.84,y:.5,tx:.84,ty:.5,swing:0,reach:0},
+  currentPointStart:0,
+  currentPointEnd:1,
+  hitInPoint:0,
+  hitsInPoint:7,
+
+  r1:{x:.16,y:.5,tx:.16,ty:.5,rot:0,trot:0,swing:0},
+  r2:{x:.84,y:.5,tx:.84,ty:.5,rot:0,trot:0,swing:0},
 
   miss:false,
   missTimer:0,
@@ -355,25 +240,15 @@ async function loadAssets(){
   assets.blue = await loadImg("./raquet_blue.png");
   assets.red = await loadImg("./raquet_red.png");
   assets.pilot = await loadImg("./pilot.png");
-
-  console.log("ASSETS:", {
-    "raquet_blue.png": !!assets.blue,
-    "raquet_red.png": !!assets.red,
-    "pilot.png": !!assets.pilot
-  });
 }
 
 async function loadMatch(){
   try{
     const snap = await getDoc(doc(db,"tournaments","main"));
     let list = fallbackMatches;
-
-    if(snap.exists() && Array.isArray(snap.data().matches)){
-      list = snap.data().matches;
-    }
-
+    if(snap.exists() && Array.isArray(snap.data().matches)) list = snap.data().matches;
     match = list.find(m => String(m.id).toLowerCase() === MATCH_ID) || fallbackMatches[0];
-  }catch(e){
+  }catch{
     match = fallbackMatches.find(m => String(m.id).toLowerCase() === MATCH_ID) || fallbackMatches[0];
   }
 
@@ -387,7 +262,8 @@ async function loadMatch(){
   $("p2Name").textContent = match.p2;
 
   points = createPointList(match);
-  sim.duration = Math.max(45, points.length * 4.8);
+  pointPlan = createPointPlan(points, seedFrom(match));
+  sim.duration = pointPlan.at(-1)?.end || 60;
 
   resetSim();
   $("loading").classList.add("hidden");
@@ -398,20 +274,15 @@ async function loadMatch(){
 function createPointList(m){
   const s1 = Math.max(0,parseInt(m.score1) || 0);
   const s2 = Math.max(0,parseInt(m.score2) || 0);
-
   let arr = [];
 
   for(let i=0;i<s1;i++) arr.push(1);
   for(let i=0;i<s2;i++) arr.push(2);
 
   if(!arr.length){
-    let a = 0;
-    let b = 0;
-    while(a < 11 && b < 9){
-      if(Math.random() > .46) a++;
-      else b++;
-    }
-    arr = [];
+    let a=0,b=0;
+    const rng = seeded(seedFrom(m)+9);
+    while(a<11 && b<9){ rng()>.46 ? a++ : b++; }
     for(let i=0;i<a;i++) arr.push(1);
     for(let i=0;i<b;i++) arr.push(2);
   }
@@ -419,37 +290,70 @@ function createPointList(m){
   const rng = seeded(seedFrom(m));
   for(let i=arr.length-1;i>0;i--){
     const j = Math.floor(rng()*(i+1));
-    [arr[i],arr[j]] = [arr[j],arr[i]];
+    [arr[i],arr[j]]=[arr[j],arr[i]];
   }
 
   return arr;
 }
 
+function createPointPlan(points, seed){
+  const rng = seeded(seed + 333);
+  let time = 0;
+
+  return points.map((winner,i)=>{
+    const hits = 5 + Math.floor(rng()*7);
+    const duration = hits * (0.95 + rng()*0.32) + 1.15;
+    const start = time;
+    const end = start + duration;
+    time = end;
+
+    return {
+      winner,
+      hits,
+      start,
+      end,
+      missAt:end - 1.15,
+      pattern:Math.floor(rng()*5)
+    };
+  });
+}
+
 function resetSim(){
-  sim.playing = false;
+  pause();
+
+  sim.time = 0;
   sim.progress = 0;
   sim.score1 = 0;
   sim.score2 = 0;
   sim.pointIndex = 0;
-  sim.rallyHits = 0;
-  sim.hitsBeforePoint = 5 + Math.floor(Math.random()*5);
-  sim.phase = 0;
-  sim.hitDuration = 1.05;
+
+  sim.ball = {x:.5,y:.5,px:.5,py:.5,angle:0,scale:1};
+  sim.r1 = {x:.16,y:.5,tx:.16,ty:.5,rot:0,trot:0,swing:0};
+  sim.r2 = {x:.84,y:.5,tx:.84,ty:.5,rot:0,trot:0,swing:0};
   sim.miss = false;
   sim.missTimer = 0;
 
-  sim.ball = {x:.5,y:.5,px:.5,py:.5,angle:0,scale:1};
-  sim.r1 = {x:.16,y:.5,tx:.16,ty:.5,swing:0,reach:0};
-  sim.r2 = {x:.84,y:.5,tx:.84,ty:.5,swing:0,reach:0};
-
-  launchHit(true);
+  startPoint(0);
   updateUI();
 }
 
+function startPoint(index){
+  const plan = pointPlan[index];
+  if(!plan)return;
+
+  sim.currentPointStart = plan.start;
+  sim.currentPointEnd = plan.end;
+  sim.hitsInPoint = plan.hits;
+  sim.hitInPoint = 0;
+  sim.phase = 0;
+  launchHit(true);
+}
+
 function play(){
+  if(sim.time >= sim.duration) return;
   sim.playing = true;
   lastTime = performance.now();
-  $("playBtn").textContent = "⏸";
+  setPlayIcon(false);
   $("status").textContent = "Reproduint";
   cancelAnimationFrame(raf);
   raf = requestAnimationFrame(loop);
@@ -457,7 +361,7 @@ function play(){
 
 function pause(){
   sim.playing = false;
-  $("playBtn").textContent = "▶";
+  setPlayIcon(true);
   $("status").textContent = "Pausat";
   cancelAnimationFrame(raf);
 }
@@ -475,47 +379,46 @@ function loop(t){
 function update(dt){
   if(!sim.playing) return;
 
-  sim.progress += dt / sim.duration * 100;
-
-  if(sim.progress >= 100){
-    sim.progress = 100;
+  sim.time += dt;
+  if(sim.time >= sim.duration){
+    sim.time = sim.duration;
     sim.playing = false;
-    $("playBtn").textContent = "▶";
+    setPlayIcon(true);
     $("status").textContent = "Final";
-    updateUI();
-    return;
   }
 
-  if(sim.missTimer > 0){
-    sim.missTimer -= dt;
+  syncByTime();
+  if(!sim.miss) updateBall(dt);
+  else updateMiss(dt);
 
-    if(sim.missSide === 1){
-      sim.r1.tx = .095;
-      sim.r1.ty = clamp(sim.ball.y + .23,.15,.85);
-      sim.r1.swing = lerp(sim.r1.swing,-1.15,dt*5);
-    }else{
-      sim.r2.tx = .905;
-      sim.r2.ty = clamp(sim.ball.y - .23,.15,.85);
-      sim.r2.swing = lerp(sim.r2.swing,-1.15,dt*5);
-    }
-
-    moveRackets(dt);
-
-    if(sim.missTimer <= 0){
-      sim.miss = false;
-      sim.ball.scale = 1;
-      sim.rallyHits = 0;
-      sim.hitsBeforePoint = 5 + Math.floor(Math.random()*6);
-      launchHit();
-    }
-
-    updateUI();
-    return;
-  }
-
-  updateBall(dt);
   moveRackets(dt);
   updateUI();
+}
+
+function syncByTime(){
+  sim.progress = sim.time / sim.duration * 100;
+
+  let idx = pointPlan.findIndex(p => sim.time < p.end);
+  if(idx < 0) idx = pointPlan.length;
+
+  let s1=0,s2=0;
+  for(let i=0;i<idx;i++){
+    if(points[i]===1)s1++;
+    else s2++;
+  }
+
+  if(idx !== sim.pointIndex && idx < pointPlan.length){
+    sim.pointIndex = idx;
+    startPoint(idx);
+  }
+
+  sim.score1 = s1;
+  sim.score2 = s2;
+
+  const plan = pointPlan[sim.pointIndex];
+  if(plan && sim.time >= plan.missAt && !sim.miss){
+    makePoint(plan.winner);
+  }
 }
 
 function updateBall(dt){
@@ -523,7 +426,7 @@ function updateBall(dt){
   sim.phase = Math.min(1,sim.phase);
 
   const e = ease(sim.phase);
-  const peak = Math.min(sim.from.y,sim.to.y) - .16;
+  const peak = Math.min(sim.from.y,sim.to.y) - .12 - Math.abs(sim.to.x-sim.from.x)*.12;
 
   sim.ball.x = lerp(sim.from.x,sim.to.x,e);
   sim.ball.y = quad(sim.from.y,peak,sim.to.y,e);
@@ -531,47 +434,29 @@ function updateBall(dt){
   const dx = sim.ball.x - sim.ball.px;
   const dy = sim.ball.y - sim.ball.py;
 
-  if(Math.abs(dx) > .0001 || Math.abs(dy) > .0001){
+  if(Math.abs(dx)>.0001 || Math.abs(dy)>.0001){
     const target = Math.atan2(dy,dx);
-    sim.ball.angle += norm(target - sim.ball.angle) * .22;
+    sim.ball.angle += norm(target - sim.ball.angle) * .18;
   }
 
   sim.ball.px = sim.ball.x;
   sim.ball.py = sim.ball.y;
 
-  const goingLeft = sim.to.x < .5;
-  const receivingLeft = sim.ball.x < .5;
-
-  sim.r1.tx = receivingLeft ? .205 : .145;
-  sim.r2.tx = !receivingLeft ? .795 : .855;
-
-  sim.r1.ty = receivingLeft ? sim.ball.y : .5 + Math.sin(performance.now()*.0012)*.09;
-  sim.r2.ty = !receivingLeft ? sim.ball.y : .5 + Math.cos(performance.now()*.0011)*.09;
-
-  if(receivingLeft && sim.ball.x < .30 && sim.phase > .55){
-    sim.r1.swing = Math.sin(sim.phase*Math.PI) * .95;
-  }else{
-    sim.r1.swing *= .88;
-  }
-
-  if(!receivingLeft && sim.ball.x > .70 && sim.phase > .55){
-    sim.r2.swing = Math.sin(sim.phase*Math.PI) * .95;
-  }else{
-    sim.r2.swing *= .88;
-  }
+  const receivingLeft = sim.to.x < .5;
+  prepareRacket(receivingLeft ? 1 : 2);
 
   if(sim.phase >= 1){
-    sim.rallyHits++;
+    contact(receivingLeft ? 1 : 2);
+    sim.hitInPoint++;
 
-    if(sim.rallyHits >= sim.hitsBeforePoint && sim.pointIndex < points.length){
-      makePoint(points[sim.pointIndex]);
-    }else{
-      launchHit();
+    if(sim.hitInPoint < sim.hitsInPoint){
+      launchHit(false);
     }
   }
 }
 
 function launchHit(first=false){
+  const plan = pointPlan[sim.pointIndex] || {pattern:0};
   const goingRight = first ? true : sim.ball.x < .5;
 
   sim.from = {
@@ -579,37 +464,77 @@ function launchHit(first=false){
     y:first ? .5 : sim.ball.y
   };
 
+  const baseX = goingRight ? random(.66,.86) : random(.14,.34);
+  let y;
+
+  if(plan.pattern === 0) y = random(.25,.75);
+  else if(plan.pattern === 1) y = sim.hitInPoint % 2 ? random(.18,.32) : random(.68,.82);
+  else if(plan.pattern === 2) y = random(.18,.82);
+  else if(plan.pattern === 3) y = sim.from.y < .5 ? random(.62,.82) : random(.18,.38);
+  else y = .5 + Math.sin(sim.hitInPoint*1.7)*.28 + random(-.08,.08);
+
   sim.to = {
-    x:goingRight ? random(.68,.84) : random(.16,.32),
-    y:random(.22,.78)
+    x:baseX,
+    y:clamp(y,.16,.84)
   };
 
   sim.phase = 0;
-  sim.hitDuration = random(1.0,1.65);
+  sim.hitDuration = random(.92,1.42);
+}
+
+function prepareRacket(side){
+  if(side === 1){
+    sim.r1.tx = .19;
+    sim.r1.ty = clamp(sim.ball.y,.14,.86);
+    sim.r1.trot = -0.15 + (sim.ball.y-.5)*0.8;
+    sim.r2.tx = .84;
+    sim.r2.ty = .5 + Math.sin(performance.now()*.001)*.08;
+    sim.r2.trot = 0.05;
+  }else{
+    sim.r2.tx = .81;
+    sim.r2.ty = clamp(sim.ball.y,.14,.86);
+    sim.r2.trot = 0.15 + (sim.ball.y-.5)*0.8;
+    sim.r1.tx = .16;
+    sim.r1.ty = .5 + Math.cos(performance.now()*.001)*.08;
+    sim.r1.trot = -0.05;
+  }
+}
+
+function contact(side){
+  if(side === 1){
+    sim.r1.swing = 1;
+    sim.r1.tx = .205;
+    sim.r1.ty = clamp(sim.to.y + random(-.025,.025),.14,.86);
+    sim.r1.trot = -.7;
+  }else{
+    sim.r2.swing = 1;
+    sim.r2.tx = .795;
+    sim.r2.ty = clamp(sim.to.y + random(-.025,.025),.14,.86);
+    sim.r2.trot = .7;
+  }
 }
 
 function makePoint(winner){
   const loser = winner === 1 ? 2 : 1;
-
-  if(winner === 1) sim.score1++;
-  else sim.score2++;
-
-  sim.pointIndex++;
   sim.miss = true;
   sim.missSide = loser;
-  sim.missTimer = 1.35;
+  sim.missTimer = 1.15;
   sim.ball.scale = .38;
 
   if(loser === 1){
-    sim.ball.x = random(.09,.25);
+    sim.ball.x = random(.08,.24);
     sim.ball.y = random(.18,.82);
-    sim.r1.tx = .08;
-    sim.r1.ty = clamp(sim.ball.y + .25,.15,.85);
+    sim.r1.tx = .105;
+    sim.r1.ty = clamp(sim.ball.y + random(.16,.28),.14,.86);
+    sim.r1.trot = -1.05;
+    sim.r1.swing = 1;
   }else{
-    sim.ball.x = random(.75,.91);
+    sim.ball.x = random(.76,.92);
     sim.ball.y = random(.18,.82);
-    sim.r2.tx = .92;
-    sim.r2.ty = clamp(sim.ball.y - .25,.15,.85);
+    sim.r2.tx = .895;
+    sim.r2.ty = clamp(sim.ball.y - random(.16,.28),.14,.86);
+    sim.r2.trot = 1.05;
+    sim.r2.swing = 1;
   }
 
   sim.ball.px = sim.ball.x;
@@ -619,92 +544,75 @@ function makePoint(winner){
   flash();
 }
 
-function moveRackets(dt){
-  sim.r1.x += (sim.r1.tx - sim.r1.x) * Math.min(1,dt*7);
-  sim.r2.x += (sim.r2.tx - sim.r2.x) * Math.min(1,dt*7);
-  sim.r1.y += (sim.r1.ty - sim.r1.y) * Math.min(1,dt*7);
-  sim.r2.y += (sim.r2.ty - sim.r2.y) * Math.min(1,dt*7);
+function updateMiss(dt){
+  sim.missTimer -= dt;
+  if(sim.missTimer <= 0){
+    sim.miss = false;
+    sim.ball.scale = 1;
+  }
+}
 
-  sim.r1.y = clamp(sim.r1.y,.14,.86);
-  sim.r2.y = clamp(sim.r2.y,.14,.86);
+function moveRackets(dt){
+  for(const r of [sim.r1,sim.r2]){
+    r.x += (r.tx-r.x)*Math.min(1,dt*6.5);
+    r.y += (r.ty-r.y)*Math.min(1,dt*6.5);
+    r.rot += (r.trot-r.rot)*Math.min(1,dt*8.5);
+    r.swing *= Math.max(0,1-dt*3.8);
+  }
 }
 
 function seekTo(percent){
   pause();
+  sim.time = clamp(percent,0,100) / 100 * sim.duration;
 
-  resetSim();
-  sim.progress = percent;
+  sim.miss = false;
+  sim.ball.scale = 1;
 
-  const wanted = Math.floor(percent/100 * points.length);
+  let idx = pointPlan.findIndex(p => sim.time < p.end);
+  if(idx < 0) idx = pointPlan.length - 1;
+  sim.pointIndex = idx;
 
-  for(let i=0;i<wanted;i++){
-    if(points[i] === 1) sim.score1++;
-    else sim.score2++;
-  }
+  startPoint(idx);
+  const plan = pointPlan[idx];
+  const local = plan ? clamp((sim.time-plan.start)/(plan.end-plan.start),0,1) : 0;
+  sim.hitInPoint = Math.floor(local * sim.hitsInPoint);
+  launchHit(false);
 
-  sim.pointIndex = wanted;
-
-  sim.ball.x = .5 + Math.sin(percent*.15)*.32;
-  sim.ball.y = .5 + Math.cos(percent*.11)*.25;
-  sim.ball.px = sim.ball.x;
-  sim.ball.py = sim.ball.y;
-
-  launchHit();
+  syncByTime();
   updateUI();
   draw();
 }
 
 function draw(){
-  const W = canvas.width;
-  const H = canvas.height;
-
+  const W = canvas.width,H = canvas.height;
   ctx.clearRect(0,0,W,H);
-
   drawBg(W,H);
   drawCourt(W,H);
   drawNet(W,H);
-
   drawRacket(sim.r1,W,H,1);
   drawRacket(sim.r2,W,H,-1);
-
   drawBall(W,H);
 }
 
 function drawBg(W,H){
-  ctx.fillStyle = "#fbfbf8";
-  ctx.fillRect(0,0,W,H);
-
-  const g = ctx.createRadialGradient(W*.5,H*.4,0,W*.5,H*.4,W*.75);
+  ctx.fillStyle="#fbfbf8";ctx.fillRect(0,0,W,H);
+  const g=ctx.createRadialGradient(W*.5,H*.4,0,W*.5,H*.4,W*.75);
   g.addColorStop(0,"rgba(183,255,104,.16)");
   g.addColorStop(1,"rgba(183,255,104,0)");
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
 }
 
 function drawCourt(W,H){
-  const x = W*.045;
-  const y = H*.08;
-  const w = W*.91;
-  const h = H*.84;
-  const r = W*.03;
-
+  const x=W*.045,y=H*.08,w=W*.91,h=H*.84,r=W*.03;
   ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,.12)";
-  ctx.shadowBlur = W*.025;
-  ctx.shadowOffsetY = H*.02;
-  ctx.fillStyle = "#fff";
-  roundRect(x,y,w,h,r);
-  ctx.fill();
-  ctx.restore();
+  ctx.shadowColor="rgba(0,0,0,.12)";
+  ctx.shadowBlur=W*.025;ctx.shadowOffsetY=H*.02;
+  ctx.fillStyle="#fff";roundRect(x,y,w,h,r);ctx.fill();ctx.restore();
 
-  ctx.strokeStyle = "#d8d8d0";
-  ctx.lineWidth = Math.max(2,W*.0022);
-  roundRect(x,y,w,h,r);
-  ctx.stroke();
+  ctx.strokeStyle="#d8d8d0";ctx.lineWidth=Math.max(2,W*.0022);
+  roundRect(x,y,w,h,r);ctx.stroke();
 
-  ctx.strokeStyle = "#ddddd6";
-  ctx.lineWidth = Math.max(1.2,W*.0015);
-
+  ctx.strokeStyle="#ddddd6";ctx.lineWidth=Math.max(1.2,W*.0015);
   line(x+w*.5,y,x+w*.5,y+h);
   line(x,y+h*.16,x+w,y+h*.16);
   line(x,y+h*.84,x+w,y+h*.84);
@@ -715,86 +623,50 @@ function drawCourt(W,H){
 }
 
 function drawNet(W,H){
-  const x = W*.5;
-
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = Math.max(2,W*.003);
+  const x=W*.5;
+  ctx.strokeStyle="#111";ctx.lineWidth=Math.max(2,W*.003);
   line(x,H*.06,x,H*.94);
-
-  ctx.strokeStyle = "rgba(0,0,0,.18)";
-  ctx.lineWidth = Math.max(1,W*.001);
-  for(let y=H*.07;y<H*.94;y+=H*.035){
-    line(x-W*.018,y,x+W*.018,y);
-  }
+  ctx.strokeStyle="rgba(0,0,0,.18)";ctx.lineWidth=Math.max(1,W*.001);
+  for(let y=H*.07;y<H*.94;y+=H*.035) line(x-W*.018,y,x+W*.018,y);
 }
 
 function drawRacket(r,W,H,side){
-  const x = r.x * W;
-  const y = r.y * H;
-  const s = W / 760;
-  const img = side === 1 ? assets.blue : assets.red;
-
+  const x=r.x*W,y=r.y*H,s=W/760,img=side===1?assets.blue:assets.red;
   shadow(x,y+34*s,55*s,15*s);
-
   ctx.save();
   ctx.translate(x,y);
-  ctx.rotate(r.swing * (side === 1 ? .5 : -.5));
-
+  ctx.rotate(r.rot + r.swing*(side===1?.45:-.45));
   if(img){
     ctx.scale(side,1);
     ctx.drawImage(img,-52*s,-72*s,104*s,144*s);
   }else{
-    ctx.strokeStyle = side === 1 ? "#1769ff" : "#ff3636";
-    ctx.lineWidth = 5*s;
-    ctx.beginPath();
-    ctx.ellipse(0,-16*s,22*s,30*s,0,0,Math.PI*2);
-    ctx.stroke();
+    ctx.strokeStyle=side===1?"#1769ff":"#ff3636";
+    ctx.lineWidth=5*s;
+    ctx.beginPath();ctx.ellipse(0,-16*s,22*s,30*s,0,0,Math.PI*2);ctx.stroke();
     line(0,15*s,0,68*s);
   }
-
   ctx.restore();
 }
 
 function drawBall(W,H){
-  const x = sim.ball.x * W;
-  const y = sim.ball.y * H;
-  const s = W / 760 * sim.ball.scale;
-
+  const x=sim.ball.x*W,y=sim.ball.y*H,s=W/760*sim.ball.scale;
   shadow(x,y+16*s,30*s,9*s);
-
   ctx.save();
   ctx.translate(x,y);
   ctx.rotate(sim.ball.angle);
-
-  if(sim.miss){
-    ctx.shadowColor = "rgba(255,54,54,.55)";
-    ctx.shadowBlur = 24*s;
+  if(sim.miss){ctx.shadowColor="rgba(255,54,54,.55)";ctx.shadowBlur=24*s}
+  if(assets.pilot) ctx.drawImage(assets.pilot,-25*s,-19*s,50*s,38*s);
+  else{
+    ctx.fillStyle=sim.miss?"#ff3636":"#f0d6aa";
+    ctx.beginPath();ctx.arc(0,0,8*s,0,Math.PI*2);ctx.fill();
   }
-
-  if(assets.pilot){
-    ctx.drawImage(assets.pilot,-25*s,-19*s,50*s,38*s);
-  }else{
-    ctx.fillStyle = sim.miss ? "#ff3636" : "#f0d6aa";
-    ctx.beginPath();
-    ctx.arc(0,0,8*s,0,Math.PI*2);
-    ctx.fill();
-  }
-
   ctx.restore();
 
   if(!sim.miss){
-    ctx.save();
-    ctx.globalAlpha = .10;
-    ctx.fillStyle = "#111";
+    ctx.save();ctx.globalAlpha=.10;ctx.fillStyle="#111";
     for(let i=1;i<=3;i++){
       ctx.beginPath();
-      ctx.arc(
-        x - Math.cos(sim.ball.angle)*i*14*s,
-        y - Math.sin(sim.ball.angle)*i*14*s,
-        5*s/i,
-        0,
-        Math.PI*2
-      );
+      ctx.arc(x-Math.cos(sim.ball.angle)*i*14*s,y-Math.sin(sim.ball.angle)*i*14*s,5*s/i,0,Math.PI*2);
       ctx.fill();
     }
     ctx.restore();
@@ -802,28 +674,26 @@ function drawBall(W,H){
 }
 
 function updateUI(){
-  $("score1").textContent = sim.score1;
-  $("score2").textContent = sim.score2;
-  $("videoFill").style.width = `${sim.progress}%`;
-  $("seek").value = sim.progress;
-  $("percent").textContent = `${Math.round(sim.progress)}%`;
+  $("score1").textContent=sim.score1;
+  $("score2").textContent=sim.score2;
+  $("videoFill").style.width=`${sim.progress}%`;
+  $("seek").value=sim.progress;
+  $("percent").textContent=`${Math.round(sim.progress)}%`;
 }
 
 function resize(){
-  const rect = $("stage").getBoundingClientRect();
-  const dpr = Math.max(1,devicePixelRatio || 1);
-
-  canvas.width = Math.floor(rect.width * dpr);
-  canvas.height = Math.floor(rect.height * dpr);
+  const rect=$("stage").getBoundingClientRect();
+  const dpr=Math.max(1,devicePixelRatio||1);
+  canvas.width=Math.floor(rect.width*dpr);
+  canvas.height=Math.floor(rect.height*dpr);
 }
 
 function showToast(name,player){
-  const t = $("toast");
-  t.className = `pointToast ${player === 1 ? "blue" : "red"} show`;
-  t.textContent = `Punt · ${first(name)}`;
-
+  const t=$("toast");
+  t.className=`pointToast ${player===1?"blue":"red"} show`;
+  t.textContent=`Punt · ${first(name)}`;
   clearTimeout(t._timer);
-  t._timer = setTimeout(()=>t.classList.remove("show"),2200);
+  t._timer=setTimeout(()=>t.classList.remove("show"),2200);
 }
 
 function flash(){
@@ -831,83 +701,58 @@ function flash(){
   setTimeout(()=>$("flash").classList.remove("show"),180);
 }
 
+function setPlayIcon(paused){
+  $("playBtn").innerHTML = paused
+    ? `<span class="tri"></span>`
+    : `<span class="pauseShape"><i></i><i></i></span>`;
+}
+
 function shadow(x,y,rx,ry){
-  const g = ctx.createRadialGradient(x,y,0,x,y,rx);
+  const g=ctx.createRadialGradient(x,y,0,x,y,rx);
   g.addColorStop(0,"rgba(0,0,0,.16)");
   g.addColorStop(1,"rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);
-  ctx.fill();
+  ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fill();
 }
 
 function roundRect(x,y,w,h,r){
   ctx.beginPath();
-  ctx.moveTo(x+r,y);
-  ctx.lineTo(x+w-r,y);
-  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-  ctx.lineTo(x+w,y+h-r);
-  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-  ctx.lineTo(x+r,y+h);
-  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-  ctx.lineTo(x,y+r);
-  ctx.quadraticCurveTo(x,y,x+r,y);
-  ctx.closePath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
 
 function line(x1,y1,x2,y2){
-  ctx.beginPath();
-  ctx.moveTo(x1,y1);
-  ctx.lineTo(x2,y2);
-  ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
 }
 
-function random(a,b){return a + Math.random()*(b-a)}
-function lerp(a,b,t){return a + (b-a)*t}
+function random(a,b){return a+Math.random()*(b-a)}
+function lerp(a,b,t){return a+(b-a)*t}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function first(n){return String(n || "Jugador").split(" ")[0]}
-function ease(t){return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2}
-function quad(a,b,c,t){return (1-t)*(1-t)*a + 2*(1-t)*t*b + t*t*c}
+function first(n){return String(n||"Jugador").split(" ")[0]}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function quad(a,b,c,t){return (1-t)*(1-t)*a+2*(1-t)*t*b+t*t*c}
 function norm(a){while(a>Math.PI)a-=Math.PI*2;while(a<-Math.PI)a+=Math.PI*2;return a}
+function seedFrom(m){return String(m.id+m.p1+m.p2+m.score1+m.score2).split("").reduce((a,c)=>a+c.charCodeAt(0),0)}
+function seeded(seed){let s=seed||1;return()=>{s=Math.sin(s)*10000;return s-Math.floor(s)}}
 
-function seedFrom(m){
-  return String(m.id+m.p1+m.p2+m.score1+m.score2)
-    .split("")
-    .reduce((a,c)=>a+c.charCodeAt(0),0);
-}
+$("playBtn").onclick=()=>sim.playing?pause():play();
+$("restartBtn").onclick=()=>{resetSim();draw()};
+$("backPointBtn").onclick=()=>seekTo(Math.max(0,sim.progress-100/points.length));
+$("nextPointBtn").onclick=()=>seekTo(Math.min(100,sim.progress+100/points.length));
 
-function seeded(seed){
-  let s = seed || 1;
-  return function(){
-    s = Math.sin(s) * 10000;
-    return s - Math.floor(s);
-  };
-}
-
-$("playBtn").onclick = () => sim.playing ? pause() : play();
-$("restartBtn").onclick = () => { pause(); resetSim(); draw(); };
-$("backPointBtn").onclick = () => seekTo(Math.max(0,sim.progress - 100 / points.length));
-$("nextPointBtn").onclick = () => seekTo(Math.min(100,sim.progress + 100 / points.length));
-
-$("speedBtn").onclick = () => {
-  const speeds = [1,1.25,1.5,2];
-  const i = speeds.indexOf(sim.speed);
-  sim.speed = speeds[(i+1)%speeds.length];
-  $("speedBtn").textContent = `${sim.speed}×`;
+$("speedBtn").onclick=()=>{
+  const speeds=[1,1.25,1.5,2];
+  const i=speeds.indexOf(sim.speed);
+  sim.speed=speeds[(i+1)%speeds.length];
+  $("speedBtn").textContent=`${sim.speed}×`;
 };
 
-$("seek").oninput = e => seekTo(Number(e.target.value));
+$("seek").oninput=e=>seekTo(Number(e.target.value));
 
-window.addEventListener("resize",()=>{
-  resize();
-  draw();
-});
-
+window.addEventListener("resize",()=>{resize();draw()});
 document.addEventListener("keydown",e=>{
-  if(e.code === "Space"){
-    e.preventDefault();
-    sim.playing ? pause() : play();
-  }
+  if(e.code==="Space"){e.preventDefault();sim.playing?pause():play()}
 });
 
 await loadAssets();
