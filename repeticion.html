@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Repetició · El Torneig De Bàdminton</title>
+<link rel="icon" type="image/png" href="./logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f6f6f3;
+  --card:#ffffff;
+  --text:#101010;
+  --muted:#737373;
+  --line:#deded8;
+  --soft:#f1f1ec;
+  --black:#101010;
+  --green:#b7ff68;
+  --blue:#1769ff;
+  --red:#ff3333;
+  --purple:#7c3cff;
+  --danger:#ff4b4b;
+  --shadow:0 28px 80px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(183,255,104,.32),transparent 34%),radial-gradient(circle at bottom right,rgba(124,60,255,.12),transparent 30%),var(--bg);color:var(--text)}
+button,input{font:inherit}
+button{border:0;cursor:pointer}
+.hidden{display:none!important}
+
+.app{
+  width:min(1180px,100%);
+  margin:0 auto;
+  padding:18px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.brand{
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 18px 55px rgba(0,0,0,.08);
+  border-radius:28px;
+  padding:16px 18px;
+  flex:1;
+}
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:900;
+}
+h1{
+  margin:8px 0 0;
+  font-size:clamp(28px,5vw,54px);
+  line-height:.92;
+  letter-spacing:-.07em;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn{
+  border-radius:999px;
+  padding:12px 16px;
+  font-weight:900;
+  background:#111;
+  color:#fff;
+}
+.btn.secondary{
+  background:#fff;
+  color:#111;
+  border:1px solid var(--line);
+}
+.btn.green{
+  background:var(--green);
+  color:#111;
+}
+.btn:hover{transform:translateY(-1px)}
+
+.loading,.errorBox{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  margin-top:18px;
+}
+.loading strong,.errorBox strong{display:block;font-size:22px;letter-spacing:-.04em;margin-bottom:8px}
+.loading p,.errorBox p{margin:0;color:var(--muted);font-weight:700;line-height:1.45}
+
+.playerHeader{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:12px;
+  align-items:stretch;
+  margin-bottom:14px;
+}
+.playerCard{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:16px;
+  box-shadow:0 15px 40px rgba(0,0,0,.07);
+  position:relative;
+  overflow:hidden;
+}
+.playerCard::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.08;
+  pointer-events:none;
+}
+.playerCard.p1::before{background:linear-gradient(135deg,var(--blue),transparent)}
+.playerCard.p2::before{background:linear-gradient(135deg,var(--red),transparent)}
+.playerName{
+  position:relative;
+  z-index:2;
+  font-size:clamp(15px,2.4vw,22px);
+  font-weight:900;
+  letter-spacing:-.05em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.playerMeta{
+  position:relative;
+  z-index:2;
+  margin-top:6px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.playerScore{
+  position:relative;
+  z-index:2;
+  font-size:clamp(44px,8vw,82px);
+  font-weight:900;
+  line-height:.9;
+  letter-spacing:-.08em;
+  margin-top:8px;
+}
+.playerCard.p2{text-align:right}
+.midScore{
+  display:grid;
+  place-items:center;
+  min-width:86px;
+}
+.vsPill{
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  padding:12px 15px;
+  font-size:12px;
+  letter-spacing:.16em;
+  font-weight:900;
+}
+.pointPill{
+  margin-top:8px;
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--muted);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.viewer{
+  background:#fff;
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  border-radius:34px;
+  overflow:hidden;
+}
+.courtWrap{
+  position:relative;
+  background:#111;
+  border-bottom:1px solid var(--line);
+}
+canvas{
+  width:100%;
+  display:block;
+  background:#111;
+}
+.overlayFlash{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .08s;
+  background:rgba(255,75,75,.22);
+}
+.overlayFlash.show{opacity:1}
+.feed{
+  position:absolute;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:center;
+  width:min(760px,calc(100% - 24px));
+  pointer-events:none;
+}
+.feedItem{
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:11px;
+  font-weight:900;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  animation:feedIn .22s ease both;
+}
+.feedItem.p1{background:var(--blue)}
+.feedItem.p2{background:var(--red)}
+@keyframes feedIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.winnerOverlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.90);
+  backdrop-filter:blur(14px);
+  opacity:0;
+  pointer-events:none;
+  transition:.35s ease;
+  z-index:8;
+  text-align:center;
+  padding:20px;
+}
+.winnerOverlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.trophy{
+  font-size:58px;
+  animation:trophy .55s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes trophy{from{transform:scale(0) rotate(-15deg)}to{transform:scale(1) rotate(0)}}
+.winnerText{
+  margin-top:8px;
+  font-size:clamp(26px,5vw,48px);
+  font-weight:900;
+  letter-spacing:-.07em;
+  line-height:.95;
+}
+.winnerSub{
+  margin-top:10px;
+  color:var(--muted);
+  font-weight:900;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 14px;
+}
+.winnerBtns{
+  margin-top:18px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.controls{
+  padding:14px 18px 18px;
+}
+.progressTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  gap:10px;
+}
+.status{
+  font-size:10px;
+  font-weight:900;
+  color:var(--muted);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.timeText{
+  font-size:10px;
+  font-weight:900;
+  color:#111;
+}
+.progressTrack{
+  height:10px;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:999px;
+  position:relative;
+  overflow:visible;
+  cursor:pointer;
+}
+.progressFill{
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--green));
+  position:relative;
+}
+.progressFill::after{
+  content:"";
+  position:absolute;
+  right:-7px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#fff;
+  border:3px solid #111;
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+}
+.seekInput{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  cursor:pointer;
+  margin:0;
+}
+
+.controlRow{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:12px;
+  margin-top:15px;
+}
+.leftControls,.rightControls{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.rightControls{justify-content:flex-end}
+.iconBtn{
+  width:42px;
+  height:42px;
+  border-radius:999px;
+  background:#f1f1ec;
+  border:1px solid var(--line);
+  color:#111;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  transition:.15s;
+}
+.iconBtn:hover{
+  background:#e8e8e3;
+  transform:translateY(-1px);
+}
+.playBtn{
+  width:60px;
+  height:60px;
+  background:#111;
+  color:#fff;
+  border:none;
+  font-size:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+.speedBtn{
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:900;
+}
+.speedBtn.active{
+  background:#111;
+  color:#fff;
+}
+.infoGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.infoCard{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:16px;
+}
+.infoCard strong{
+  display:block;
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.infoCard span{
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+.assetStatus{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+.assetChip{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  font-weight:900;
+  color:var(--muted);
+}
+.assetChip.ok{color:#2a6a00;background:#efffde;border-color:#d6fcb0}
+.assetChip.bad{color:#b10000;background:#fff1f1;border-color:#ffd0d0}
+
+@media(max-width:760px){
+  .app{padding:12px}
+  .playerHeader{grid-template-columns:1fr;gap:8px}
+  .midScore{min-width:0}
+  .playerCard.p2{text-align:left}
+  .controlRow{grid-template-columns:1fr}
+  .leftControls,.rightControls{justify-content:center}
+  .playBtn{margin:auto}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="eyebrow">🏸 Repetició tècnica</div>
+      <h1 id="pageTitle">Carregant partit...</h1>
+    </div>
+    <div class="actions">
+      <button class="btn secondary" id="backBtn">← Tornar</button>
+      <button class="btn green" id="reloadBtn">Recarregar</button>
+    </div>
+  </div>
+
+  <section id="loading" class="loading">
+    <strong>Preparant la repetició</strong>
+    <p>Estic carregant el partit des de Firebase i preparant els assets. Que no cunda el shuttle.</p>
+  </section>
+
+  <section id="errorBox" class="errorBox hidden">
+    <strong>No s’ha pogut obrir aquest partit</strong>
+    <p id="errorText">Revisa que la URL tingui un id correcte, per exemple: repeticion.html?id=m1</p>
+  </section>
+
+  <section id="mainViewer" class="hidden">
+    <div class="playerHeader">
+      <div class="playerCard p1" id="cardP1">
+        <div class="playerName" id="p1Name">—</div>
+        <div class="playerMeta">Jugador blau</div>
+        <div class="playerScore" id="score1">0</div>
+      </div>
+
+      <div class="midScore">
+        <div>
+          <div class="vsPill">VS</div>
+          <div class="pointPill" id="pointCount">0 punts</div>
+        </div>
+      </div>
+
+      <div class="playerCard p2" id="cardP2">
+        <div class="playerName" id="p2Name">—</div>
+        <div class="playerMeta">Jugador vermell</div>
+        <div class="playerScore" id="score2">0</div>
+      </div>
+    </div>
+
+    <div class="viewer">
+      <div class="courtWrap" id="courtWrap">
+        <canvas id="courtCanvas"></canvas>
+        <div class="overlayFlash" id="flash"></div>
+        <div class="winnerOverlay" id="winnerOverlay">
+          <div class="trophy">🏆</div>
+          <div class="winnerText" id="winnerName">Guanyador</div>
+          <div class="winnerSub" id="winnerScore">Resultat final</div>
+          <div class="winnerBtns">
+            <button class="btn" id="watchAgainBtn">↺ Tornar a veure</button>
+            <button class="btn secondary" id="closeWinnerBtn">Veure pista</button>
+          </div>
+        </div>
+        <div class="feed" id="feed"></div>
+      </div>
+
+      <div class="controls">
+        <div class="progressTop">
+          <div class="status" id="statusText">Preparat</div>
+          <div class="timeText" id="timeText">0%</div>
+        </div>
+
+        <div class="progressTrack">
+          <div class="progressFill" id="progressFill"></div>
+          <input id="seekInput" class="seekInput" type="range" min="0" max="100" value="0" step="0.1">
+        </div>
+
+        <div class="controlRow">
+          <div class="leftControls">
+            <button class="iconBtn" id="restartBtn" title="Reiniciar">↺</button>
+            <button class="iconBtn" id="stopBtn" title="Stop">■</button>
+            <button class="iconBtn" id="prevPointBtn" title="Punt anterior">⏮</button>
+          </div>
+
+          <button class="iconBtn playBtn" id="playBtn">▶</button>
+
+          <div class="rightControls">
+            <button class="iconBtn" id="nextPointBtn" title="Punt següent">⏭</button>
+            <button class="speedBtn" id="speedBtn">1×</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infoGrid">
+      <div class="infoCard">
+        <strong>Partit</strong>
+        <span id="matchInfo">—</span>
+      </div>
+      <div class="infoCard">
+        <strong>Estat</strong>
+        <span id="matchStatus">—</span>
+      </div>
+      <div class="infoCard">
+        <strong>Guanyador</strong>
+        <span id="matchWinner">—</span>
+      </div>
+      <div class="infoCard">
+        <strong>Descripció</strong>
+        <span id="matchDescription">—</span>
+      </div>
+    </div>
+
+    <div class="assetStatus" id="assetStatus"></div>
+  </section>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdcQr8dLemM6ZbwwUSgEYMFFswJWUk0m4",
+  authDomain: "badminton-98ddd.firebaseapp.com",
+  projectId: "badminton-98ddd",
+  storageBucket: "badminton-98ddd.firebasestorage.app",
+  messagingSenderId: "118680568883",
+  appId: "1:118680568883:web:1e381457e460115c1c4f46",
+  measurementId: "G-1FCL9D6W1G"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const $ = id => document.getElementById(id);
+
+const params = new URLSearchParams(location.search);
+const MATCH_ID = (params.get("id") || "").trim().toLowerCase();
+
+const roundMeta = {
+  1:"Prèvies",
+  2:"Octaus de final",
+  3:"Quarts de final",
+  4:"Semifinals",
+  5:"Final"
+};
+
+const fallbackMatches = [
+  {id:"m1",round:1,p1:"Nitzer Galindo",p2:"Adam Singh Kahur",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m2",round:1,p1:"Gerard Vallès",p2:"Sami El Youssofi",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m3",round:1,p1:"Olaguer Zapater",p2:"Aran Creixell",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m4",round:1,p1:"Eloi Martinez",p2:"Adam Addahchouri",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m5",round:1,p1:"Erik Fernandez",p2:"Jan Gonzalez Queralt",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m6",round:1,p1:"Biel Cortés",p2:"Haroun Abachri Cortés",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m7",round:1,p1:"Ibrahim Allouch",p2:"Oriol Casas Barreda",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m8",round:1,p1:"Oriol Rios Baez",p2:"Pere Porta Córdoba",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m9",round:1,p1:"Logan López Cobo",p2:"Marc Pérez Trullols",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m10",round:1,p1:"Yago Vazquez Sorio",p2:"Enric Gombau Ballús",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m11",round:1,p1:"Martí Bessols Carcasè",p2:"Reda Benhattal",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m12",round:1,p1:"Sergio Ortiz Herrera",p2:"Jiddu Suárez Ibáñez",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m13",round:1,p1:"Oways Benhattal",p2:"Guim Ballester",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+  {id:"m14",round:1,p1:"Jugador A",p2:"Jugador B",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""}
+];
+
+const assetSources = {
+  shuttle:["./pilot.png","./pilot.svg","./pilot.webp","./pilot"],
+  racketBlue:["./racquet_blue.png","./racquet_blue.svg","./racquet_blue.webp","./racquet_blue"],
+  racketRed:["./racquet_red.png","./racquet_red.svg","./racquet_red.webp","./racquet_red"]
+};
+
+const assets = {
+  shuttle:null,
+  racketBlue:null,
+  racketRed:null,
+  loaded:{shuttle:false,racketBlue:false,racketRed:false}
+};
+
+let match = null;
+let events = [];
+let state = null;
+let raf = null;
+let feedNodes = [];
+let lastCanvasW = 0;
+
+function escapeHtml(text=""){
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+}
+
+function seededRand(seed){
+  let s = seed || 1;
+  return function(){
+    s = Math.sin(s) * 10000;
+    return s - Math.floor(s);
+  };
+}
+
+function seedFromMatch(m){
+  return String(m.id + m.p1 + m.p2 + m.score1 + m.score2)
+    .split("")
+    .reduce((a,c)=>a+c.charCodeAt(0),0);
+}
+
+function loadImageWithFallback(list){
+  return new Promise(resolve=>{
+    let i=0;
+    function attempt(){
+      if(i>=list.length){resolve(null);return;}
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=()=>{i++;attempt();};
+      img.src=list[i];
+    }
+    attempt();
+  });
+}
+
+async function loadAssets(){
+  const [shuttle,blue,red] = await Promise.all([
+    loadImageWithFallback(assetSources.shuttle),
+    loadImageWithFallback(assetSources.racketBlue),
+    loadImageWithFallback(assetSources.racketRed)
+  ]);
+
+  assets.shuttle = shuttle;
+  assets.racketBlue = blue;
+  assets.racketRed = red;
+  assets.loaded.shuttle = !!shuttle;
+  assets.loaded.racketBlue = !!blue;
+  assets.loaded.racketRed = !!red;
+
+  renderAssetStatus();
+}
+
+function renderAssetStatus(){
+  const box = $("assetStatus");
+  box.innerHTML = "";
+  [
+    ["pilot",assets.loaded.shuttle],
+    ["racquet_blue",assets.loaded.racketBlue],
+    ["racquet_red",assets.loaded.racketRed]
+  ].forEach(([name,ok])=>{
+    const chip=document.createElement("span");
+    chip.className=`assetChip ${ok?"ok":"bad"}`;
+    chip.textContent=ok ? `✓ ${name}` : `fallback ${name}`;
+    box.appendChild(chip);
+  });
+}
+
+async function loadMatch(){
+  if(!MATCH_ID){
+    showError("Falta l'id del partit. Exemple correcte: repeticion.html?id=m1");
+    return;
+  }
+
+  try{
+    const snap = await getDoc(doc(db,"tournaments","main"));
+    let list = fallbackMatches;
+
+    if(snap.exists() && Array.isArray(snap.data().matches)){
+      list = snap.data().matches;
+    }
+
+    match = list.find(m => String(m.id).toLowerCase() === MATCH_ID);
+
+    if(!match){
+      showError(`No existeix cap partit amb id "${MATCH_ID}".`);
+      return;
+    }
+
+    match.score1 ??= "";
+    match.score2 ??= "";
+    match.winner ??= "";
+    match.description ??= "";
+    match.date ??= "";
+    match.court ??= "";
+
+    initMatch();
+  }catch(err){
+    console.error(err);
+    const local = fallbackMatches.find(m => String(m.id).toLowerCase() === MATCH_ID);
+    if(local){
+      match = local;
+      initMatch();
+    }else{
+      showError("Firebase no ha carregat i tampoc hi ha fallback per aquest partit.");
+    }
+  }
+}
+
+function showError(msg){
+  $("loading").classList.add("hidden");
+  $("mainViewer").classList.add("hidden");
+  $("errorBox").classList.remove("hidden");
+  $("errorText").textContent = msg;
+  $("pageTitle").textContent = "Error de repetició";
+}
+
+function initMatch(){
+  $("loading").classList.add("hidden");
+  $("errorBox").classList.add("hidden");
+  $("mainViewer").classList.remove("hidden");
+
+  const round = roundMeta[match.round] || `Ronda ${match.round || ""}`;
+  $("pageTitle").textContent = `${match.id.toUpperCase()} · ${match.p1} vs ${match.p2}`;
+  $("p1Name").textContent = match.p1 || "Jugador 1";
+  $("p2Name").textContent = match.p2 || "Jugador 2";
+  $("matchInfo").textContent = `${match.id.toUpperCase()} · ${round}`;
+  $("matchStatus").textContent = match.winner ? "Partit jugat" : "Partit pendent";
+  $("matchWinner").textContent = match.winner || "Encara sense guanyador";
+  $("matchDescription").textContent = match.description || "Sense descripció.";
+
+  events = buildEvents(match);
+  resetState();
+  resizeCanvas();
+  seekTo(0);
+  drawFrame();
+}
+
+function buildEvents(m){
+  const s1 = Math.max(0, parseInt(m.score1) || 0);
+  const s2 = Math.max(0, parseInt(m.score2) || 0);
+
+  let raw = [];
+  for(let i=0;i<s1;i++) raw.push(1);
+  for(let i=0;i<s2;i++) raw.push(2);
+
+  if(raw.length === 0){
+    raw = generateDemoEvents(m);
+  }
+
+  const rng = seededRand(seedFromMatch(m));
+  for(let i=raw.length-1;i>0;i--){
+    const j=Math.floor(rng()*(i+1));
+    [raw[i],raw[j]]=[raw[j],raw[i]];
+  }
+
+  if(m.winner){
+    const winnerPlayer = m.winner === m.p1 ? 1 : m.winner === m.p2 ? 2 : null;
+    if(winnerPlayer && raw[raw.length-1] !== winnerPlayer){
+      const idx = raw.lastIndexOf(winnerPlayer);
+      if(idx >= 0){
+        [raw[idx],raw[raw.length-1]] = [raw[raw.length-1],raw[idx]];
+      }
+    }
+  }
+
+  return raw;
+}
+
+function generateDemoEvents(m){
+  const rng = seededRand(seedFromMatch(m) + 999);
+  const max = 11;
+  let a=0,b=0;
+  const preferred = rng() > .5 ? 1 : 2;
+  while(a<max && b<max){
+    const p = rng() < .56 ? preferred : (preferred===1?2:1);
+    if(p===1)a++;else b++;
+  }
+  const arr=[];
+  for(let i=0;i<a;i++)arr.push(1);
+  for(let i=0;i<b;i++)arr.push(2);
+  return arr;
+}
+
+function resetState(){
+  cancelAnimationFrame(raf);
+  const rng = seededRand(seedFromMatch(match) + 4242);
+
+  state = {
+    running:false,
+    finished:false,
+    progress:0,
+    speed:1,
+    score1:0,
+    score2:0,
+    lastTime:null,
+    rng,
+
+    bx:.5,
+    by:.5,
+    prevBx:.5,
+    prevBy:.5,
+    angle:0,
+    targetAngle:0,
+    shuttleScale:1,
+
+    r1x:.16,
+    r1y:.5,
+    r2x:.84,
+    r2y:.5,
+    r1TargetY:.5,
+    r2TargetY:.5,
+    r1Swing:0,
+    r2Swing:0,
+
+    trajFrom:{x:.22,y:.5},
+    trajTo:{x:.78,y:.5},
+    trajPhase:0,
+    trajDur:.75,
+
+    pauseAfterMiss:0,
+    missActive:false,
+    missPlayer:0,
+
+    lastAwarded:-1,
+    pointIndex:0
+  };
+
+  $("winnerOverlay").classList.remove("show");
+  $("feed").innerHTML="";
+  feedNodes=[];
+  updateTextUI();
+}
+
+function updateTextUI(){
+  $("score1").textContent = state.score1;
+  $("score2").textContent = state.score2;
+  $("pointCount").textContent = `${state.score1 + state.score2} punts`;
+  $("progressFill").style.width = `${state.progress}%`;
+  $("seekInput").value = state.progress;
+  $("timeText").textContent = `${Math.round(state.progress)}%`;
+}
+
+function play(){
+  if(!state || state.finished)return;
+  state.running=true;
+  state.lastTime=performance.now();
+  $("playBtn").textContent="⏸";
+  $("statusText").textContent="Reproduint";
+  cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(loop);
+}
+
+function pause(){
+  if(!state)return;
+  state.running=false;
+  $("playBtn").textContent="▶";
+  $("statusText").textContent="Pausat";
+  cancelAnimationFrame(raf);
+}
+
+function stop(){
+  resetState();
+  $("statusText").textContent="Aturat";
+  drawFrame();
+}
+
+function loop(ts){
+  if(!state || !state.running)return;
+  const dt = Math.min((ts - (state.lastTime || ts))/1000,.05) * state.speed;
+  state.lastTime = ts;
+  update(dt);
+  drawFrame();
+  raf=requestAnimationFrame(loop);
+}
+
+function update(dt){
+  if(state.finished)return;
+
+  if(state.pauseAfterMiss > 0){
+    state.pauseAfterMiss -= dt;
+    if(state.pauseAfterMiss <= 0){
+      state.missActive=false;
+      state.shuttleScale=1;
+      launchTrajectory();
+    }
+    return;
+  }
+
+  const totalDur = Math.max(9, events.length * 1.45);
+  state.progress += dt * 100 / totalDur;
+
+  if(state.progress >= 100){
+    state.progress = 100;
+    updateTextUI();
+    finish();
+    return;
+  }
+
+  const expectedPoints = Math.floor((state.progress / 100) * events.length);
+  const currentPoints = state.score1 + state.score2;
+
+  if(expectedPoints > currentPoints){
+    awardPoint(events[currentPoints]);
+    updateTextUI();
+    return;
+  }
+
+  animateFlight(dt);
+  updateTextUI();
+}
+
+function animateFlight(dt){
+  state.trajPhase += dt / Math.max(.3,state.trajDur);
+  state.trajPhase = Math.min(1,state.trajPhase);
+
+  const e = easeInOut(state.trajPhase);
+  const from = state.trajFrom;
+  const to = state.trajTo;
+
+  state.bx = from.x + (to.x - from.x) * e;
+  const arcPeak = Math.min(from.y,to.y) - .16 - state.rng()*.05;
+  state.by = quad(from.y,arcPeak,to.y,e);
+
+  const dx = state.bx - state.prevBx;
+  const dy = state.by - state.prevBy;
+  if(Math.abs(dx)>.0005 || Math.abs(dy)>.0005){
+    state.targetAngle = Math.atan2(dy,dx);
+  }
+  state.angle += normalizeAngle(state.targetAngle-state.angle) * Math.min(1,dt*8);
+  state.prevBx=state.bx;
+  state.prevBy=state.by;
+
+  const ballLeft = state.bx < .5;
+  const softNoise = Math.sin(performance.now()*.002) * .035;
+
+  state.r1TargetY = ballLeft ? state.by + softNoise : .5 + Math.sin(performance.now()*.0012)*.09;
+  state.r2TargetY = !ballLeft ? state.by - softNoise : .5 + Math.cos(performance.now()*.0011)*.09;
+
+  state.r1y += (state.r1TargetY-state.r1y) * Math.min(1,dt*5.8);
+  state.r2y += (state.r2TargetY-state.r2y) * Math.min(1,dt*5.8);
+  state.r1y = clamp(state.r1y,.16,.84);
+  state.r2y = clamp(state.r2y,.16,.84);
+
+  if(state.bx < .30 && state.trajPhase > .72) state.r1Swing = Math.sin(state.trajPhase*Math.PI)*.8;
+  else state.r1Swing *= Math.max(0,1-dt*6);
+
+  if(state.bx > .70 && state.trajPhase > .72) state.r2Swing = Math.sin(state.trajPhase*Math.PI)*.8;
+  else state.r2Swing *= Math.max(0,1-dt*6);
+
+  if(state.trajPhase >= 1){
+    launchTrajectory();
+  }
+}
+
+function launchTrajectory(){
+  const goRight = state.bx < .5;
+  state.trajFrom = {x:state.bx,y:state.by};
+  const x = goRight ? (.70 + state.rng()*.16) : (.14 + state.rng()*.16);
+  const y = .24 + state.rng()*.52;
+  state.trajTo = {x,y};
+  state.trajPhase=0;
+  state.trajDur=.55+state.rng()*.42;
+}
+
+function awardPoint(player){
+  if(player===1)state.score1++;
+  else state.score2++;
+
+  const loser = player===1 ? 2 : 1;
+  const scorerName = player===1 ? match.p1 : match.p2;
+
+  showFeed(`Punt per ${firstName(scorerName)}`,player);
+  flash();
+
+  state.missActive=true;
+  state.missPlayer=loser;
+  state.pauseAfterMiss=.78;
+  state.shuttleScale=.34;
+
+  if(loser===1){
+    state.bx = .10 + state.rng()*.20;
+    state.by = .18 + state.rng()*.64;
+    state.r1y = clamp(state.by + .18 + state.rng()*.12,.16,.84);
+    state.r1Swing = -.35;
+  }else{
+    state.bx = .70 + state.rng()*.20;
+    state.by = .18 + state.rng()*.64;
+    state.r2y = clamp(state.by - .18 - state.rng()*.12,.16,.84);
+    state.r2Swing = -.35;
+  }
+
+  state.prevBx=state.bx;
+  state.prevBy=state.by;
+}
+
+function showFeed(text,player){
+  const feed = $("feed");
+  const item = document.createElement("div");
+  item.className = `feedItem p${player}`;
+  item.textContent = `🏸 ${text}`;
+  feed.appendChild(item);
+  feedNodes.push(item);
+
+  if(feedNodes.length > 4){
+    const old = feedNodes.shift();
+    old.remove();
+  }
+
+  setTimeout(()=>{
+    item.style.opacity="0";
+    item.style.transition="opacity .45s";
+    setTimeout(()=>item.remove(),460);
+  },1900);
+}
+
+function flash(){
+  $("flash").classList.add("show");
+  setTimeout(()=>$("flash").classList.remove("show"),180);
+}
+
+function seekTo(percent){
+  percent = clamp(percent,0,100);
+  state.progress = percent;
+  state.score1 = 0;
+  state.score2 = 0;
+  state.finished = false;
+  $("winnerOverlay").classList.remove("show");
+
+  const wanted = Math.floor((percent/100)*events.length);
+  for(let i=0;i<wanted;i++){
+    if(events[i]===1)state.score1++;
+    else state.score2++;
+  }
+
+  const p = percent/100;
+  state.bx = .5 + Math.sin(p * Math.PI * events.length * 1.2) * .32;
+  state.by = .5 + Math.cos(p * Math.PI * events.length * .9) * .25;
+  state.prevBx = state.bx;
+  state.prevBy = state.by;
+  state.r1y = clamp(.5 + Math.sin(p*8)*.17,.16,.84);
+  state.r2y = clamp(.5 + Math.cos(p*8)*.17,.16,.84);
+  state.missActive=false;
+  state.pauseAfterMiss=0;
+  state.shuttleScale=1;
+  state.trajFrom={x:state.bx,y:state.by};
+  state.trajTo={x:1-state.bx,y:state.by};
+  state.trajPhase=0;
+
+  updateTextUI();
+  drawFrame();
+}
+
+function jumpPoint(dir){
+  const current = state.score1 + state.score2;
+  const next = clamp(current + dir,0,events.length);
+  const pct = events.length ? (next / events.length) * 100 : 0;
+  pause();
+  seekTo(pct);
+}
+
+function finish(){
+  state.running=false;
+  state.finished=true;
+  cancelAnimationFrame(raf);
+  $("playBtn").textContent="▶";
+  $("statusText").textContent="Repetició acabada";
+
+  const winner =
+    match.winner ||
+    (state.score1 >= state.score2 ? match.p1 : match.p2);
+
+  $("winnerName").textContent = winner;
+  $("winnerScore").textContent = `Resultat final · ${state.score1} — ${state.score2}`;
+  $("winnerOverlay").classList.add("show");
+}
+
+function resizeCanvas(){
+  const canvas = $("courtCanvas");
+  const wrap = $("courtWrap");
+  const dpr = Math.max(1,window.devicePixelRatio || 1);
+  const w = wrap.clientWidth || 1000;
+  const h = Math.round(w * .54);
+
+  canvas.width = Math.round(w*dpr);
+  canvas.height = Math.round(h*dpr);
+  canvas.style.height = h+"px";
+
+  lastCanvasW = canvas.width;
+}
+
+function drawFrame(){
+  const canvas = $("courtCanvas");
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width;
+  const H = canvas.height;
+  if(!W || !H)return;
+
+  ctx.clearRect(0,0,W,H);
+  drawBackground(ctx,W,H);
+  drawCourt(ctx,W,H);
+  drawRacket(ctx,W,H,state.r1x,state.r1y,1,state.r1Swing,match.p1);
+  drawRacket(ctx,W,H,state.r2x,state.r2y,-1,state.r2Swing,match.p2);
+  drawShuttle(ctx,W,H,state.bx,state.by,state.angle,state.shuttleScale,state.missActive);
+  drawLabels(ctx,W,H);
+}
+
+function drawBackground(ctx,W,H){
+  const bg = ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,"#172617");
+  bg.addColorStop(.52,"#0d150d");
+  bg.addColorStop(1,"#111");
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,W,H);
+
+  for(let i=0;i<18;i++){
+    const x=(i/17)*W;
+    ctx.fillStyle=`rgba(183,255,104,${i%2===0?.035:.018})`;
+    ctx.beginPath();
+    ctx.arc(x,H*.08 + Math.sin(i)*H*.04,W*.055,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawCourt(ctx,W,H){
+  const x=W*.045,y=H*.12,w=W*.91,h=H*.76;
+  const r=W*.025;
+
+  ctx.save();
+  ctx.shadowColor="rgba(0,0,0,.55)";
+  ctx.shadowBlur=W*.035;
+  ctx.fillStyle="#162616";
+  roundRect(ctx,x,y,w,h,r);
+  ctx.fill();
+  ctx.restore();
+
+  const courtGrad=ctx.createLinearGradient(0,y,0,y+h);
+  courtGrad.addColorStop(0,"#203820");
+  courtGrad.addColorStop(.52,"#162816");
+  courtGrad.addColorStop(1,"#101d10");
+  ctx.fillStyle=courtGrad;
+  roundRect(ctx,x,y,w,h,r);
+  ctx.fill();
+
+  ctx.strokeStyle="rgba(255,255,255,.34)";
+  ctx.lineWidth=Math.max(1.5,W*.0022);
+  ctx.strokeRect(x,y,w,h);
+
+  ctx.strokeStyle="rgba(255,255,255,.20)";
+  ctx.lineWidth=Math.max(1,W*.0016);
+
+  line(ctx,x,y+h*.13,x+w,y+h*.13);
+  line(ctx,x,y+h*.87,x+w,y+h*.87);
+  line(ctx,x,y+h*.32,x+w,y+h*.32);
+  line(ctx,x,y+h*.68,x+w,y+h*.68);
+  line(ctx,x+w*.25,y+h*.32,x+w*.25,y+h*.68);
+  line(ctx,x+w*.75,y+h*.32,x+w*.75,y+h*.68);
+
+  const netX = x+w*.5;
+  ctx.save();
+  ctx.strokeStyle="rgba(255,255,255,.70)";
+  ctx.lineWidth=Math.max(2,W*.004);
+  line(ctx,netX,y-H*.015,netX,y+h+H*.015);
+  ctx.strokeStyle="rgba(0,0,0,.35)";
+  ctx.lineWidth=Math.max(3,W*.006);
+  line(ctx,netX+W*.006,y,netX+W*.006,y+h);
+  ctx.restore();
+
+  ctx.fillStyle="rgba(255,255,255,.55)";
+  ctx.fillRect(netX-W*.006,H*.48,W*.012,H*.052);
+}
+
+function drawLabels(ctx,W,H){
+  ctx.save();
+  ctx.font=`900 ${Math.max(12,W*.014)}px Inter, sans-serif`;
+  ctx.textBaseline="middle";
+  ctx.fillStyle="rgba(23,105,255,.82)";
+  ctx.textAlign="left";
+  ctx.fillText(firstName(match.p1),W*.06,H*.075);
+  ctx.fillStyle="rgba(255,51,51,.82)";
+  ctx.textAlign="right";
+  ctx.fillText(firstName(match.p2),W*.94,H*.075);
+  ctx.restore();
+}
+
+function drawRacket(ctx,W,H,rx,ry,side,swing,name){
+  const x=rx*W,y=ry*H,s=W/700;
+  drawEntityShadow(ctx,x,y+30*s,48*s,16*s);
+
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(swing * (side===1 ? .46 : -.46));
+
+  const img = side===1 ? assets.racketBlue : assets.racketRed;
+
+  if(img){
+    ctx.scale(side,1);
+    ctx.drawImage(img,-44*s,-62*s,88*s,124*s);
+  }else{
+    drawFallbackRacket(ctx,s,side);
+  }
+
+  ctx.restore();
+
+  ctx.save();
+  ctx.font=`900 ${Math.max(10,W*.012)}px Inter, sans-serif`;
+  ctx.fillStyle=side===1 ? "rgba(23,105,255,.9)" : "rgba(255,51,51,.9)";
+  ctx.textAlign=side===1 ? "left" : "right";
+  ctx.fillText(firstName(name), x + side*44*s, y + 8*s);
+  ctx.restore();
+}
+
+function drawFallbackRacket(ctx,s,side){
+  const c = side===1 ? "#1769ff" : "#ff3333";
+  ctx.strokeStyle=c;
+  ctx.lineWidth=4*s;
+  ctx.lineCap="round";
+  ctx.beginPath();
+  ctx.moveTo(0,22*s);
+  ctx.lineTo(0,58*s);
+  ctx.stroke();
+
+  ctx.strokeStyle=c;
+  ctx.lineWidth=3*s;
+  ctx.beginPath();
+  ctx.ellipse(0,-10*s,17*s,22*s,0,0,Math.PI*2);
+  ctx.stroke();
+
+  ctx.strokeStyle=c+"77";
+  ctx.lineWidth=1*s;
+  for(let i=-12;i<=12;i+=6){
+    line(ctx,i*s,-30*s,i*s,12*s);
+  }
+  for(let j=-24;j<=10;j+=6){
+    line(ctx,-16*s,j*s,16*s,j*s);
+  }
+
+  ctx.fillStyle=c;
+  ctx.beginPath();
+  ctx.arc(0,42*s,6*s,0,Math.PI*2);
+  ctx.fill();
+}
+
+function drawShuttle(ctx,W,H,bx,by,angle,scale=1,miss=false){
+  const x=bx*W,y=by*H,s=(W/700)*Math.max(.3,scale);
+  drawEntityShadow(ctx,x,y+18*s,28*s,9*s);
+
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(angle);
+
+  if(miss){
+    ctx.shadowColor="rgba(255,75,75,.9)";
+    ctx.shadowBlur=28*s;
+  }else{
+    ctx.shadowColor="rgba(255,255,255,.28)";
+    ctx.shadowBlur=14*s;
+  }
+
+  if(assets.shuttle){
+    ctx.globalAlpha=miss?.88:1;
+    ctx.drawImage(assets.shuttle,-24*s,-18*s,48*s,36*s);
+    ctx.globalAlpha=1;
+  }else{
+    drawFallbackShuttle(ctx,s,miss);
+  }
+  ctx.restore();
+
+  if(!miss && scale>.7){
+    ctx.save();
+    ctx.globalAlpha=.14;
+    ctx.fillStyle="#fff";
+    for(let i=1;i<=3;i++){
+      ctx.beginPath();
+      ctx.arc(x-Math.cos(angle)*i*13*s,y-Math.sin(angle)*i*13*s,5*s/i,0,Math.PI*2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+function drawFallbackShuttle(ctx,s,miss){
+  ctx.fillStyle=miss ? "#ff4b4b" : "#f5dfb9";
+  ctx.beginPath();
+  ctx.arc(0,0,7*s,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.strokeStyle=miss ? "rgba(255,75,75,.55)" : "rgba(255,255,255,.75)";
+  ctx.lineWidth=1.4*s;
+  for(let i=0;i<9;i++){
+    const a=(i/9)*Math.PI*2;
+    line(ctx,0,0,Math.cos(a)*21*s,Math.sin(a)*21*s);
+  }
+  ctx.beginPath();
+  ctx.arc(0,0,21*s,0,Math.PI*2);
+  ctx.stroke();
+}
+
+function drawEntityShadow(ctx,x,y,rx,ry){
+  ctx.save();
+  const g=ctx.createRadialGradient(x,y,0,x,y,rx);
+  g.addColorStop(0,"rgba(0,0,0,.32)");
+  g.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function line(ctx,x1,y1,x2,y2){
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  ctx.lineTo(x2,y2);
+  ctx.stroke();
+}
+
+function easeInOut(t){
+  return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+}
+
+function quad(p0,p1,p2,t){
+  return (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2;
+}
+
+function normalizeAngle(a){
+  while(a>Math.PI)a-=Math.PI*2;
+  while(a<-Math.PI)a+=Math.PI*2;
+  return a;
+}
+
+function clamp(v,min,max){
+  return Math.max(min,Math.min(max,v));
+}
+
+function firstName(name="Jugador"){
+  return String(name).split(" ")[0] || "Jugador";
+}
+
+$("playBtn").addEventListener("click",()=>{
+  if(!state)return;
+  if(state.finished){
+    resetState();
+    drawFrame();
+    play();
+    return;
+  }
+  state.running ? pause() : play();
+});
+
+$("restartBtn").addEventListener("click",()=>{
+  resetState();
+  $("statusText").textContent="Reiniciat";
+  drawFrame();
+});
+
+$("stopBtn").addEventListener("click",stop);
+
+$("speedBtn").addEventListener("click",()=>{
+  if(!state)return;
+  const speeds=[1,1.5,2,3,4];
+  const i=speeds.indexOf(state.speed);
+  state.speed=speeds[(i+1)%speeds.length];
+  $("speedBtn").textContent=state.speed+"×";
+  $("speedBtn").classList.toggle("active",state.speed>1);
+});
+
+$("seekInput").addEventListener("input",e=>{
+  if(!state)return;
+  pause();
+  seekTo(Number(e.target.value));
+});
+
+$("prevPointBtn").addEventListener("click",()=>jumpPoint(-1));
+$("nextPointBtn").addEventListener("click",()=>jumpPoint(1));
+
+$("watchAgainBtn").addEventListener("click",()=>{
+  resetState();
+  drawFrame();
+  play();
+});
+
+$("closeWinnerBtn").addEventListener("click",()=>{
+  $("winnerOverlay").classList.remove("show");
+});
+
+$("backBtn").addEventListener("click",()=>{
+  if(history.length>1) history.back();
+  else location.href="./index.html";
+});
+
+$("reloadBtn").addEventListener("click",()=>location.reload());
+
+window.addEventListener("resize",()=>{
+  if(!$("mainViewer").classList.contains("hidden")){
+    resizeCanvas();
+    drawFrame();
+  }
+});
+
+document.addEventListener("keydown",e=>{
+  if(!state)return;
+  if(e.code==="Space"){
+    e.preventDefault();
+    $("playBtn").click();
+  }
+  if(e.key==="ArrowRight") jumpPoint(1);
+  if(e.key==="ArrowLeft") jumpPoint(-1);
+});
+
+(async function start(){
+  await Promise.all([loadAssets(), loadMatch()]);
+})();
+</script>
+</body>
+</html>
