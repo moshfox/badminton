@@ -710,16 +710,43 @@ $("replaySearch").addEventListener("input",renderReplayGrid);
 $("replayFilter").addEventListener("change",renderReplayGrid);
 
 function renderTodayBubble(){
-  const bubble=$("todayBubble");if(!tournament||!bubble)return;
-  const todayISO=toISO(new Date());
-  const todays=tournament.matches.filter(m=>m.date===todayISO&&m.court&&!m.winner);
-  $("todayBubbleCount").textContent=todays.length;
-  bubble.classList.toggle("hidden",!tournament.settings?.showTodayBubble);
-  const body=$("todayBubbleBody");
-  if(!todays.length){body.innerHTML=`<div class="today-item">Cap partit pendent avui.</div>`;return;}
-  body.innerHTML=todays.map(m=>`<div class="today-item"><b>${m.id.toUpperCase()} · ${escapeHtml(m.p1)}</b><br>vs ${escapeHtml(m.p2)}<small>${m.court}${isPostponed(m.id)?" · retardat per Alemanya":""}</small></div>`).join("");
+  const bubble = $("todayBubble");
+  if(!tournament || !bubble) return;
+
+  const isUnlocked = localStorage.getItem("badminton_access_ok") === "1";
+  const uc = !!tournament.underConstruction;
+
+  // NO mostrar en contraseña ni construcción
+  if(!isUnlocked || uc){
+    bubble.classList.add("hidden");
+    return;
+  }
+
+  // Mostrar siempre dentro de la web
+  bubble.classList.remove("hidden");
+
+  const todayISO = toISO(new Date());
+  const todays = tournament.matches.filter(m =>
+    m.date === todayISO && m.court && !m.winner
+  );
+
+  $("todayBubbleCount").textContent = todays.length;
+
+  const body = $("todayBubbleBody");
+
+  if(!todays.length){
+    body.innerHTML = `<div class="today-item">Cap partit pendent avui.</div>`;
+    return;
+  }
+
+  body.innerHTML = todays.map(m => `
+    <div class="today-item">
+      <b>${m.id.toUpperCase()} · ${escapeHtml(m.p1)}</b><br>
+      vs ${escapeHtml(m.p2)}
+      <small>${m.court}${isPostponed(m.id) ? " · retardat per Alemanya" : ""}</small>
+    </div>
+  `).join("");
 }
-$("todayBubbleHead").addEventListener("click",()=>$("todayBubble").classList.toggle("open"));
 
 function showDayMessageIfNeeded(force=false){
   const msg=tournament?.dayMessage;
@@ -763,7 +790,7 @@ function checkUnderConstruction(){
     }else{
       $("lock").classList.add("hidden");
       $("app").classList.remove("hidden");
-      $("todayBubble").classList.remove("hidden");
+      renderTodayBubble();
     }
   }
 }
