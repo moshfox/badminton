@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="./logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -30,7 +30,7 @@
 
 body{
   margin:0;
-  font-family:'DM Sans',system-ui,sans-serif;
+  font-family:Inter,system-ui,sans-serif;
   background:
     radial-gradient(circle at top left, rgba(183,255,104,.32), transparent 34%),
     radial-gradient(circle at bottom right, rgba(0,0,0,.08), transparent 30%),
@@ -68,22 +68,20 @@ button{border:0;cursor:pointer}
   letter-spacing:.18em;
   text-transform:uppercase;
   color:var(--muted);
-  font-weight:700;
+  font-weight:900;
 }
 
 h1{
-  font-family:'Syne',sans-serif;
   font-size:clamp(34px,5vw,56px);
   line-height:.9;
-  letter-spacing:-.04em;
+  letter-spacing:-.07em;
   margin:10px 0;
 }
 
 h2{
-  font-family:'Syne',sans-serif;
   font-size:34px;
   line-height:.95;
-  letter-spacing:-.04em;
+  letter-spacing:-.06em;
   margin:10px 0;
 }
 
@@ -108,8 +106,7 @@ p{
   border-radius:999px;
   background:var(--black);
   color:#fff;
-  font-weight:700;
-  font-family:'DM Sans',sans-serif;
+  font-weight:900;
 }
 
 .btn.secondary{
@@ -132,7 +129,7 @@ p{
   color:var(--danger);
   font-size:14px;
   margin-top:12px;
-  font-weight:700;
+  font-weight:800;
 }
 
 .app{
@@ -163,8 +160,7 @@ p{
   border-radius:999px;
   background:#fff;
   border:1px solid var(--line);
-  font-weight:700;
-  font-family:'DM Sans',sans-serif;
+  font-weight:900;
 }
 
 .tab.active{
@@ -191,11 +187,11 @@ p{
   border-radius:999px;
   padding:7px 10px;
   font-size:12px;
-  font-weight:700;
+  font-weight:900;
   color:var(--muted);
 }
 
-/* ── Bracket stage ── */
+/* ── Bracket stage with zoom/pan ── */
 .bracket-stage{
   position:relative;
   overflow:hidden;
@@ -209,7 +205,9 @@ p{
   min-height:400px;
 }
 
-.bracket-stage:active{cursor:grabbing}
+.bracket-stage:active{
+  cursor:grabbing;
+}
 
 .bracket-stage-hint{
   position:absolute;
@@ -228,14 +226,16 @@ p{
 
 .bracket-viewport{
   position:absolute;
-  top:0; left:0;
+  top:0;
+  left:0;
   transform-origin:0 0;
   will-change:transform;
 }
 
 #bracketLines{
   position:absolute;
-  top:0; left:0;
+  top:0;
+  left:0;
   pointer-events:none;
   z-index:1;
   overflow:visible;
@@ -250,11 +250,12 @@ p{
   padding:24px 24px 40px;
 }
 
-.round-header{margin-bottom:16px}
+.round-header{
+  margin-bottom:16px;
+}
 
 .round-title{
-  font-family:'Syne',sans-serif;
-  font-weight:800;
+  font-weight:900;
   font-size:16px;
   letter-spacing:-.04em;
 }
@@ -262,7 +263,7 @@ p{
 .round-subtitle{
   font-size:11px;
   color:var(--muted);
-  font-weight:600;
+  font-weight:800;
   margin-top:2px;
 }
 
@@ -289,7 +290,7 @@ p{
 .match-code{
   font-size:10px;
   color:var(--muted);
-  font-weight:700;
+  font-weight:900;
   margin-bottom:6px;
   letter-spacing:.08em;
   text-transform:uppercase;
@@ -304,7 +305,7 @@ p{
   border-radius:999px;
   padding:2px 7px;
   font-size:9px;
-  font-weight:700;
+  font-weight:900;
   letter-spacing:.06em;
 }
 
@@ -315,7 +316,7 @@ p{
   gap:8px;
   padding:7px 9px;
   border-radius:11px;
-  font-weight:700;
+  font-weight:800;
   font-size:13px;
   min-height:30px;
 }
@@ -329,14 +330,18 @@ p{
   max-width:160px;
 }
 
-.player.winner{background:#dfffba;font-weight:800}
+.player.winner{
+  background:#dfffba;
+  font-weight:900;
+}
+
 .player.loser{opacity:.4}
 
 .score{
   background:#f1f1ec;
   border-radius:9px;
   padding:3px 7px;
-  font-weight:800;
+  font-weight:900;
   font-size:12px;
   min-width:26px;
   text-align:center;
@@ -354,7 +359,7 @@ p{
   border-radius:999px;
   padding:4px 9px;
   font-size:11px;
-  font-weight:700;
+  font-weight:900;
   margin-top:7px;
   white-space:nowrap;
   overflow:hidden;
@@ -380,7 +385,7 @@ p{
   color:#fff;
   border-radius:16px;
   padding:8px 14px;
-  font-weight:700;
+  font-weight:900;
   font-size:13px;
   letter-spacing:-.02em;
 }
@@ -388,11 +393,12 @@ p{
 .timer-clock .timer-date{
   font-size:11px;
   color:#aaa;
-  font-weight:600;
+  font-weight:700;
 }
 
 .timer-dot{
-  width:7px; height:7px;
+  width:7px;
+  height:7px;
   background:#b7ff68;
   border-radius:50%;
   animation:pulse 1s infinite;
@@ -434,7 +440,6 @@ p{
 .day-head strong{
   text-transform:capitalize;
   letter-spacing:-.03em;
-  font-family:'Syne',sans-serif;
 }
 
 .today-badge{
@@ -443,7 +448,7 @@ p{
   border-radius:999px;
   padding:3px 8px;
   font-size:10px;
-  font-weight:700;
+  font-weight:900;
   letter-spacing:.06em;
 }
 
@@ -461,7 +466,7 @@ p{
   letter-spacing:.12em;
   text-transform:uppercase;
   color:var(--muted);
-  font-weight:700;
+  font-weight:900;
   margin-bottom:8px;
   display:flex;
   justify-content:space-between;
@@ -474,7 +479,7 @@ p{
   border-radius:999px;
   padding:2px 8px;
   font-size:9px;
-  font-weight:700;
+  font-weight:900;
   animation:pulse 1s infinite;
 }
 
@@ -484,7 +489,7 @@ p{
   border-radius:14px;
   padding:8px;
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
   margin-bottom:6px;
   position:relative;
 }
@@ -506,7 +511,11 @@ p{
   50%{box-shadow:0 0 0 5px rgba(255,75,75,0)}
 }
 
-.event small{display:block;color:#333;margin-top:4px}
+.event small{
+  display:block;
+  color:#333;
+  margin-top:4px;
+}
 
 .event-status{
   display:inline-flex;
@@ -515,13 +524,24 @@ p{
   border-radius:999px;
   padding:2px 7px;
   font-size:9px;
-  font-weight:700;
+  font-weight:900;
   margin-top:4px;
 }
 
-.event-status.status-played{background:#e8e8e2;color:#555}
-.event-status.status-live{background:#ff4b4b;color:#fff}
-.event-status.status-pending{background:#f1f1ec;color:#888}
+.event-status.status-played{
+  background:#e8e8e2;
+  color:#555;
+}
+
+.event-status.status-live{
+  background:#ff4b4b;
+  color:#fff;
+}
+
+.event-status.status-pending{
+  background:#f1f1ec;
+  color:#888;
+}
 
 .hover-card{
   position:fixed;
@@ -545,7 +565,11 @@ p{
   background:#333;
 }
 
-.hover-card p{color:#ddd;margin:5px 0 0;font-size:13px}
+.hover-card p{
+  color:#ddd;
+  margin:5px 0 0;
+  font-size:13px;
+}
 
 .admin-modal{
   position:fixed;
@@ -576,14 +600,22 @@ p{
 
 label{
   font-size:12px;
-  font-weight:700;
+  font-weight:900;
   color:var(--muted);
   text-transform:uppercase;
   letter-spacing:.08em;
 }
 
-.field{display:flex;flex-direction:column;gap:5px}
-textarea{min-height:82px;resize:vertical}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+textarea{
+  min-height:82px;
+  resize:vertical;
+}
 
 .admin-match{
   border:1px solid var(--line);
@@ -614,33 +646,52 @@ textarea{min-height:82px;resize:vertical}
 }
 
 .reset-card h3{
-  font-family:'Syne',sans-serif;
   font-size:22px;
   letter-spacing:-.05em;
   margin:0 0 10px;
 }
 
-.reset-card p{font-size:14px;margin-bottom:20px}
+.reset-card p{
+  font-size:14px;
+  margin-bottom:20px;
+}
 
-.reset-card .input{margin-top:0;text-align:center;font-weight:600}
+.reset-card .input{
+  margin-top:0;
+  text-align:center;
+  font-weight:700;
+}
 
 .reset-card .btn-row{
-  display:flex;gap:10px;margin-top:16px;
-  justify-content:center;flex-wrap:wrap;
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 
 .festa-banner{
-  display:flex;align-items:center;gap:10px;margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
 }
-.festa-banner::before,.festa-banner::after{
-  content:"";flex:1;height:1.5px;
+
+.festa-banner::before,
+.festa-banner::after{
+  content:"";
+  flex:1;
+  height:1.5px;
   background:linear-gradient(90deg,transparent,#ff4b4b88,transparent);
 }
 
 .festa-label{
-  font-size:11px;letter-spacing:.2em;
-  text-transform:uppercase;font-weight:700;
-  color:#ff4b4b;white-space:nowrap;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:#ff4b4b;
+  white-space:nowrap;
 }
 
 .day-card.is-festa{
@@ -648,235 +699,352 @@ textarea{min-height:82px;resize:vertical}
   border-color:#ffcfcf;
 }
 
-/* ──────────────────────────────────
-   SIMULACIÓ LIVE
-────────────────────────────────── */
-#simModal{
-  position:fixed;inset:0;
-  background:rgba(5,5,5,.88);
-  backdrop-filter:blur(18px);
-  z-index:70;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:20px;
+/* ── BRACKET + EN DIRECTE layout ── */
+.bracket-main-layout {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
 }
 
-.sim-header{
-  text-align:center;
-  margin-bottom:18px;
-  color:#fff;
+.bracket-main-layout .panel {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
 }
 
-.sim-header .eyebrow{color:#b7ff68}
-
-.sim-match-title{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(20px,3vw,32px);
-  font-weight:800;
-  letter-spacing:-.04em;
-  color:#fff;
-  margin:6px 0 0;
+/* ── EN DIRECTE panel ── */
+.endirecte-panel {
+  width: 320px;
+  flex-shrink: 0;
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.78);
+  box-shadow: var(--shadow);
+  border-radius: 26px;
+  padding: 18px 16px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  position: sticky;
+  top: 18px;
 }
 
-.sim-score-board{
-  display:flex;align-items:center;gap:20px;
-  margin:10px 0;
+.endirecte-panel::-webkit-scrollbar { width: 4px; }
+.endirecte-panel::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+.endirecte-title {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 900;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.sim-score-block{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
+.endirecte-dot {
+  width: 7px;
+  height: 7px;
+  background: #ff4b4b;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 1.2s infinite;
 }
 
-.sim-score-number{
-  font-family:'Syne',sans-serif;
-  font-size:52px;
-  font-weight:800;
-  line-height:1;
-  color:#fff;
-  transition:transform .15s;
+.match-preview-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border-color .18s, box-shadow .18s, transform .15s;
+  position: relative;
+  overflow: hidden;
 }
 
-.sim-score-number.bump{transform:scale(1.35)}
-
-.sim-score-name{
-  font-size:13px;
-  font-weight:600;
-  color:#aaa;
-  letter-spacing:.04em;
+.match-preview-card:hover {
+  border-color: #b7ff68;
+  box-shadow: 0 8px 28px rgba(183,255,104,.3);
+  transform: translateY(-2px);
 }
 
-.sim-vs{
-  font-family:'Syne',sans-serif;
-  font-size:24px;
-  font-weight:800;
-  color:#444;
+.match-preview-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(183,255,104,.08), transparent 60%);
+  pointer-events: none;
 }
 
-.sim-court{
-  background:#111;
-  border-radius:28px;
-  padding:0;
-  overflow:hidden;
-  position:relative;
-  width:min(680px,100%);
-  aspect-ratio:16/9;
-  border:1px solid #222;
+.mp-players {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
-.sim-canvas{width:100%;height:100%;display:block}
-
-.sim-status{
-  text-align:center;
-  color:#b7ff68;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  margin:10px 0;
-  min-height:20px;
+.mp-name {
+  flex: 1;
+  text-align: center;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+  font-size: 11px;
 }
 
-.sim-controls{
-  display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:center;
+.mp-name.winner-name {
+  color: #2a6a00;
+  font-weight: 900;
 }
 
-.sim-btn{
-  padding:12px 22px;
-  border-radius:999px;
-  border:0;
-  cursor:pointer;
-  font-weight:700;
-  font-size:14px;
-  font-family:'DM Sans',sans-serif;
-  transition:transform .1s, opacity .1s;
+.mp-vs {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 900;
+  flex-shrink: 0;
 }
 
-.sim-btn:active{transform:scale(.95)}
-
-.sim-btn-start{background:#b7ff68;color:#111}
-.sim-btn-stop{background:#ff4b4b;color:#fff}
-.sim-btn-skip{background:#333;color:#fff}
-.sim-btn-close{background:#222;color:#aaa}
-
-/* ── Partits tab ── */
-.matches-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:14px;
-  margin-top:12px;
+.mp-score {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 7px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -.04em;
 }
 
-.match-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:16px;
-  cursor:pointer;
-  transition:transform .18s, box-shadow .18s, border-color .18s;
-  position:relative;
-  overflow:hidden;
+.mp-score-val {
+  background: var(--soft);
+  border-radius: 9px;
+  padding: 3px 10px;
+  min-width: 32px;
+  text-align: center;
 }
 
-.match-card::before{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(183,255,104,.1),transparent 60%);
-  opacity:0;
-  transition:opacity .2s;
+.mp-score-val.winner-score {
+  background: #b7ff68;
+  color: #2a4a00;
 }
 
-.match-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 16px 44px rgba(0,0,0,.12);
-  border-color:#b7ff68;
+.mp-round-badge {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-top: 7px;
+  text-align: center;
 }
 
-.match-card:hover::before{opacity:1}
-
-.match-card.played-card{
-  background:linear-gradient(135deg,#f7fff0,#fff);
-  border-color:#b7ff68;
+.mp-play-hint {
+  font-size: 10px;
+  color: #b7ff68;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 5px;
+  opacity: .8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
-.match-card-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:10px;
+/* ── Match Simulator Modal ── */
+.sim-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(18px);
+  z-index: 55;
+  display: grid;
+  place-items: center;
+  padding: 18px;
 }
 
-.match-round-badge{
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--muted);
+.sim-box {
+  background: #0a1a0a;
+  border-radius: 28px;
+  padding: 24px;
+  width: min(680px, 100%);
+  box-shadow: 0 30px 80px rgba(0,0,0,.5);
+  border: 1px solid rgba(183,255,104,.2);
+  position: relative;
 }
 
-.match-played-chip{
-  background:#b7ff68;
-  color:#2a4a00;
-  border-radius:999px;
-  padding:2px 8px;
-  font-size:9px;
-  font-weight:700;
+.sim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
-.match-players{
-  display:flex;flex-direction:column;gap:6px;
+.sim-title {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(183,255,104,.8);
+  font-weight: 900;
 }
 
-.match-player-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:8px 10px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:700;
-  background:var(--soft);
+.sim-close {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid rgba(255,255,255,.12);
 }
 
-.match-player-row.winner-row{
-  background:#dfffba;
-  font-weight:800;
+.sim-close:hover { background: rgba(255,255,255,.15); }
+
+/* Court canvas */
+.sim-court-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 52%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #1a3a1a;
+  border: 2px solid rgba(183,255,104,.15);
 }
 
-.match-player-row.loser-row{opacity:.5}
-
-.match-score-badge{
-  background:#fff;
-  border-radius:8px;
-  padding:3px 8px;
-  font-weight:800;
-  font-size:12px;
-  min-width:26px;
-  text-align:center;
-  border:1px solid var(--line);
+.sim-court-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.match-player-row.winner-row .match-score-badge{
-  background:#b7ff68;
-  border-color:#97dd44;
+/* Score display */
+.sim-scores {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
 }
 
-.sim-launch-btn{
-  margin-top:10px;
-  width:100%;
-  padding:10px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#111;
-  color:#fff;
-  font-weight:700;
-  font-size:12px;
-  cursor:pointer;
-  transition:background .2s;
-  display:flex;align-items:center;justify-content:center;gap:6px;
+.sim-player-block {
+  flex: 1;
+  text-align: center;
 }
 
-.sim-launch-btn:hover{background:#222}
+.sim-player-name {
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -.02em;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-.matches-section-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:4px;
-  flex-wrap:wrap;gap:10px;
+.sim-player-score {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1;
+}
+
+.sim-vs-sep {
+  font-size: 14px;
+  color: rgba(255,255,255,.3);
+  font-weight: 900;
+}
+
+.sim-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sim-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+  transition: transform .12s, opacity .12s;
+}
+
+.sim-btn:active { transform: scale(.95); }
+
+.sim-btn.play {
+  background: #b7ff68;
+  color: #111;
+  min-width: 100px;
+}
+
+.sim-btn.stop {
+  background: #ff4b4b;
+  color: #fff;
+}
+
+.sim-btn.ff {
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.15);
+}
+
+.sim-btn.restart {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.sim-status {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,.4);
+  font-weight: 800;
+  margin-top: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sim-winner-banner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.75);
+  border-radius: 18px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.sim-winner-banner.show {
+  opacity: 1;
+}
+
+.sim-winner-text {
+  font-size: 28px;
+  font-weight: 900;
+  color: #b7ff68;
+  letter-spacing: -.04em;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.sim-winner-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,.7);
+  margin-top: 8px;
+}
+
+@media(max-width:900px){
+  .bracket-main-layout { flex-direction: column; }
+  .endirecte-panel { width: 100%; position: static; max-height: 420px; }
 }
 
 @media(max-width:760px){
@@ -891,7 +1059,7 @@ textarea{min-height:82px;resize:vertical}
   <div class="lock-card">
     <div class="eyebrow">Accés privat</div>
     <h2>El Torneig De Bàdminton</h2>
-    <p>Introdueix la contrasenya per accedir al torneig.</p>
+    <p>Introdueix la contrasenya per veure el bracket i l'horari.</p>
     <input id="accessPassword" class="input" type="password" placeholder="Contrasenya">
     <button id="enterBtn" class="btn" style="width:100%;margin-top:14px;">Entrar</button>
     <div id="lockError" class="error"></div>
@@ -901,42 +1069,52 @@ textarea{min-height:82px;resize:vertical}
 <main id="app" class="app hidden">
   <section class="hero">
     <div>
-      <div class="eyebrow">28 d'abril — 25 de maig · 2026</div>
+      <div class="eyebrow">28 d'abril — 25 de maig</div>
       <h1>El Torneig De Bàdminton</h1>
     </div>
     <div class="tabs">
       <button class="tab active" data-view="bracketView">Bracket</button>
       <button class="tab" data-view="calendarView">Horari</button>
-      <button class="tab" data-view="matchesView">Simulació</button>
     </div>
   </section>
 
-  <!-- BRACKET -->
   <section id="bracketView">
-    <div class="panel">
-      <div class="eyebrow">Quadre del torneig</div>
-      <div class="legend">
-        <span class="chip">14 prèvies · 28 jugadors</span>
-        <span class="chip">Tots juguen la prèvia</span>
-        <span class="chip">Scroll = zoom · Click+arrastrar = moure</span>
-      </div>
-      <div class="bracket-stage" id="bracketStage">
-        <div class="bracket-viewport" id="bracketViewport">
-          <svg id="bracketLines" style="overflow:visible;position:absolute;top:0;left:0;pointer-events:none;z-index:1;"></svg>
-          <div id="bracket" class="bracket"></div>
+    <div class="bracket-main-layout">
+      <div class="panel">
+        <div class="eyebrow">Quadre del torneig</div>
+        <div class="legend">
+          <span class="chip">14 prèvies · 28 jugadors</span>
+          <span class="chip">Tots juguen la prèvia</span>
+          <span class="chip">Scroll ratolí = zoom · Click+arrastrar = moure</span>
         </div>
-        <div class="bracket-stage-hint">🔍 Scroll per zoom · Arrastrar per moure</div>
+        <div class="bracket-stage" id="bracketStage">
+          <div class="bracket-viewport" id="bracketViewport">
+            <svg id="bracketLines" style="overflow:visible;position:absolute;top:0;left:0;pointer-events:none;z-index:1;"></svg>
+            <div id="bracket" class="bracket"></div>
+          </div>
+          <div class="bracket-stage-hint">🔍 Scroll per zoom · Arrastrar per moure</div>
+        </div>
+      </div>
+
+      <!-- EN DIRECTE panel -->
+      <div class="endirecte-panel" id="endirectePanel">
+        <div class="endirecte-title">
+          <div class="endirecte-dot"></div>
+          Últims Partits
+        </div>
+        <div id="endirecteList">
+          <p style="font-size:12px;color:var(--muted);font-weight:700;text-align:center;padding:20px 0;">Encara no hi ha partits jugats.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- HORARI -->
   <section id="calendarView" class="hidden">
     <div class="panel">
-      <div class="eyebrow">Calendari</div>
+      <div class="eyebrow">Horari</div>
       <div class="schedule-header">
         <div>
-          <h2>Horari per patis</h2>
+          <h2>Calendari per patis</h2>
         </div>
         <div class="timer-clock" id="timerClock">
           <div class="timer-dot"></div>
@@ -949,27 +1127,13 @@ textarea{min-height:82px;resize:vertical}
       <div id="schedule" class="schedule"></div>
     </div>
   </section>
-
-  <!-- SIMULACIÓ -->
-  <section id="matchesView" class="hidden">
-    <div class="panel">
-      <div class="matches-section-header">
-        <div>
-          <div class="eyebrow">Simulació de Partits</div>
-          <h2>Reproductor</h2>
-        </div>
-        <span class="chip" id="matchesCount">0 partits</span>
-      </div>
-      <div id="matchesGrid" class="matches-grid"></div>
-    </div>
-  </section>
 </main>
 
-<!-- RESET OVERLAY -->
 <div id="resetOverlay" class="hidden">
   <div id="resetStep1" class="reset-card">
     <h3>⚠️ Reiniciar torneig</h3>
-    <p>Aquesta acció eliminarà tots els resultats, puntuacions, horaris i guanyadors.</p>
+    <p>Aquesta acció eliminarà tots els resultats, puntuacions, horaris i guanyadors. Els partits i jugadors quedaran intactes.</p>
+    <p style="margin-top:8px;"><strong>Segur que vols reiniciar el torneig?</strong></p>
     <div class="btn-row">
       <button id="resetCancel1" class="btn secondary">Cancel·lar</button>
       <button id="resetConfirm1" class="btn danger">Sí, continuar</button>
@@ -978,7 +1142,7 @@ textarea{min-height:82px;resize:vertical}
   <div id="resetStep2" class="reset-card hidden">
     <h3>Confirmació final</h3>
     <p>Escriu exactament per confirmar:</p>
-    <p style="background:#f1f1ec;border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px;color:#111;margin:10px 0;">El Torneig De Bàdminton Restart</p>
+    <p style="background:#f1f1ec;border-radius:12px;padding:10px 14px;font-weight:900;font-size:13px;color:#111;margin:10px 0;">El Torneig De Bàdminton Restart</p>
     <input id="resetTyped" class="input" type="text" placeholder="Escriu aquí…">
     <div id="resetError" class="error" style="text-align:left;"></div>
     <div class="btn-row">
@@ -990,7 +1154,44 @@ textarea{min-height:82px;resize:vertical}
 
 <div id="hoverCard" class="hover-card"></div>
 
-<!-- ADMIN -->
+<!-- SIMULATOR MODAL -->
+<div id="simModal" class="sim-modal hidden">
+  <div class="sim-box">
+    <div class="sim-header">
+      <div class="sim-title">🏸 Simulació del Partit</div>
+      <button class="sim-close" id="simClose">✕ Tancar</button>
+    </div>
+
+    <div class="sim-court-wrap" id="simCourtWrap">
+      <canvas id="simCanvas"></canvas>
+      <div class="sim-winner-banner" id="simWinnerBanner">
+        <div class="sim-winner-text" id="simWinnerText"></div>
+        <div class="sim-winner-sub" id="simWinnerSub"></div>
+      </div>
+    </div>
+
+    <div class="sim-scores">
+      <div class="sim-player-block" id="simP1Block">
+        <div class="sim-player-name" id="simP1Name">—</div>
+        <div class="sim-player-score" id="simScore1" style="color:#b7ff68;">0</div>
+      </div>
+      <div class="sim-vs-sep">VS</div>
+      <div class="sim-player-block" id="simP2Block">
+        <div class="sim-player-name" id="simP2Name">—</div>
+        <div class="sim-player-score" id="simScore2" style="color:#ff8c68;">0</div>
+      </div>
+    </div>
+
+    <div class="sim-controls">
+      <button class="sim-btn restart" id="simRestart">↺ Reiniciar</button>
+      <button class="sim-btn play" id="simPlayPause">▶ Jugar</button>
+      <button class="sim-btn stop" id="simStop">■ Stop</button>
+      <button class="sim-btn ff" id="simFF">⏩ × 2</button>
+    </div>
+    <div class="sim-status" id="simStatus">Preparat per jugar</div>
+  </div>
+</div>
+
 <section id="adminModal" class="admin-modal hidden">
   <div class="admin-box">
     <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
@@ -1005,7 +1206,7 @@ textarea{min-height:82px;resize:vertical}
       <div class="admin-grid">
         <div class="field">
           <label>Correu</label>
-          <input id="adminEmail" class="input" type="email" placeholder="correu@exemple.com">
+          <input id="adminEmail" class="input" type="email" placeholder="Example@Example">
         </div>
         <div class="field">
           <label>Contrasenya</label>
@@ -1022,50 +1223,18 @@ textarea{min-height:82px;resize:vertical}
         <button id="logoutAdmin" class="btn secondary">Sortir</button>
         <button id="openReset" class="btn danger">Reiniciar torneig</button>
       </div>
-      <h3 style="margin-top:24px;font-family:'Syne',sans-serif;">Dies de Festa</h3>
+      <h3 style="margin-top:24px;">Dies de Festa</h3>
       <p style="font-size:13px;color:var(--muted);margin:6px 0 12px;">Marca dies com a festa — apareixeran destacats a l'horari.</p>
       <div id="adminFestaDays" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;"></div>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;">
         <input id="festaDateInput" class="input" type="date" style="width:auto;margin-top:0;max-width:200px;" min="2026-04-28" max="2026-05-25">
         <button id="addFestaDay" class="btn secondary" style="white-space:nowrap;">+ Afegir festa</button>
       </div>
-      <h3 style="margin-top:24px;font-family:'Syne',sans-serif;">Partits</h3>
+      <h3 style="margin-top:24px;">Partits</h3>
       <div id="adminMatches"></div>
     </div>
   </div>
 </section>
-
-<!-- SIMULACIÓ MODAL -->
-<div id="simModal" class="hidden">
-  <div class="sim-header">
-    <div class="eyebrow">Simulació en Viu</div>
-    <div class="sim-match-title" id="simTitle">Jugador 1 vs Jugador 2</div>
-    <div class="sim-score-board">
-      <div class="sim-score-block">
-        <div class="sim-score-number" id="simScore1">0</div>
-        <div class="sim-score-name" id="simName1">Jugador 1</div>
-      </div>
-      <div class="sim-vs">—</div>
-      <div class="sim-score-block">
-        <div class="sim-score-number" id="simScore2">0</div>
-        <div class="sim-score-name" id="simName2">Jugador 2</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sim-court">
-    <canvas class="sim-canvas" id="simCanvas"></canvas>
-  </div>
-
-  <div class="sim-status" id="simStatus">Preparat per iniciar</div>
-
-  <div class="sim-controls">
-    <button class="sim-btn sim-btn-start" id="simStart">▶ Iniciar</button>
-    <button class="sim-btn sim-btn-stop hidden" id="simStop">⏹ Aturar</button>
-    <button class="sim-btn sim-btn-skip" id="simSkip">⏭ Punt directe</button>
-    <button class="sim-btn sim-btn-close" id="simClose">✕ Tancar</button>
-  </div>
-</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -1082,18 +1251,19 @@ const firebaseConfig = {
   measurementId: "G-1FCL9D6W1G"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
 const auth = getAuth(app);
 
-const ADMIN_EMAILS = ["hodelyproductions@gmail.com","Hugo@gmail.com"];
+// Two admins allowed
+const ADMIN_EMAILS = ["hodelyproductions@gmail.com", "Hugo@gmail.com"];
 const VERSION = "bracket-28-v1";
 const $ = id => document.getElementById(id);
 
 let typed = "";
 let tournament = null;
 
-// ── Horaris dels patis ──
+// ── Court times ──
 const PATIO1_START = { h:10, m:30 };
 const PATIO1_END   = { h:11, m:0  };
 const PATIO2_START = { h:12, m:50 };
@@ -1118,17 +1288,18 @@ function toISO(date){
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 }
 
-// ── Timer ──
 function startTimer(){
   function tick(){
     const now = new Date();
-    const timeStr = now.toLocaleTimeString("ca-ES",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const timeStr = now.toLocaleTimeString("ca-ES", {hour:"2-digit",minute:"2-digit",second:"2-digit"});
     const dateStr = new Intl.DateTimeFormat("ca-ES",{weekday:"long",day:"numeric",month:"long"}).format(now);
-    const el = $("timerTime"); const de = $("timerDate");
+    const el = $("timerTime");
+    const de = $("timerDate");
     if(el) el.textContent = timeStr;
-    if(de) de.textContent = dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
+    if(de) de.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
   }
-  tick(); setInterval(tick,1000);
+  tick();
+  setInterval(tick, 1000);
 }
 
 // ─────────────────────────────────────────────
@@ -1138,446 +1309,1028 @@ const initialTournament = {
   updatedAt: Date.now(),
   festaDays: [],
   matches: [
-    {id:"m1",  round:1,p1:"Nitzer Galindo",       p2:"Adam Singh Kahur",     score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m2",  round:1,p1:"Gerard Vallès",         p2:"Sami El Youssofi",     score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m3",  round:1,p1:"Olaguer Zapater",       p2:"Aran Creixell",        score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m4",  round:1,p1:"Eloi Martinez",         p2:"Adam Addahchouri",     score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m5",  round:1,p1:"Erik Fernandez",        p2:"Jan Gonzalez Queralt", score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m6",  round:1,p1:"Biel Cortés",           p2:"Haroun Abachri Cortés",score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m7",  round:1,p1:"Ibrahim Allouch",       p2:"Oriol Casas Barreda",  score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m8",  round:1,p1:"Oriol Rios Baez",       p2:"Pere Porta Córdoba",   score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m9",  round:1,p1:"Logan López Cobo",      p2:"Marc Pérez Trullols",  score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m10", round:1,p1:"Yago Vazquez Sorio",    p2:"Enric Gombau Ballús",  score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m11", round:1,p1:"Martí Bessols Carcasè", p2:"Reda Benhattal",       score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m12", round:1,p1:"Sergio Ortiz Herrera",  p2:"Jiddu Suárez Ibáñez", score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m13", round:1,p1:"Oways Benhattal",       p2:"Guim Ballester",       score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
-    {id:"m14", round:1,p1:"Jugador A",             p2:"Jugador B",            score1:"",score2:"",winner:"",date:"",court:"",description:"Prèvia.",image:""},
+    {id:"m1",  round:1, p1:"Nitzer Galindo",        p2:"Adam Singh Kahur",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m2",  round:1, p1:"Gerard Vallès",          p2:"Sami El Youssofi",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m3",  round:1, p1:"Olaguer Zapater",        p2:"Aran Creixell",         score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m4",  round:1, p1:"Eloi Martinez",          p2:"Adam Addahchouri",      score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m5",  round:1, p1:"Erik Fernandez",         p2:"Jan Gonzalez Queralt",  score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m6",  round:1, p1:"Biel Cortés",            p2:"Haroun Abachri Cortés", score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m7",  round:1, p1:"Ibrahim Allouch",        p2:"Oriol Casas Barreda",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m8",  round:1, p1:"Oriol Rios Baez",        p2:"Pere Porta Córdoba",    score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m9",  round:1, p1:"Logan López Cobo",       p2:"Marc Pérez Trullols",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m10", round:1, p1:"Yago Vazquez Sorio",     p2:"Enric Gombau Ballús",   score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m11", round:1, p1:"Martí Bessols Carcasè",  p2:"Reda Benhattal",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m12", round:1, p1:"Sergio Ortiz Herrera",   p2:"Jiddu Suárez Ibáñez",  score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m13", round:1, p1:"Oways Benhattal",        p2:"Guim Ballester",        score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
+    {id:"m14", round:1, p1:"Jugador A",              p2:"Jugador B",             score1:"", score2:"", winner:"", date:"", court:"", description:"Prèvia.", image:""},
 
-    {id:"m15",round:2,p1:"Guanyador M1", p2:"Guanyador M2", score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m16",round:2,p1:"Guanyador M3", p2:"Guanyador M4", score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m17",round:2,p1:"Guanyador M5", p2:"Guanyador M6", score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m18",round:2,p1:"Guanyador M7", p2:"Guanyador M8", score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m19",round:2,p1:"Guanyador M9", p2:"Guanyador M10",score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m20",round:2,p1:"Guanyador M11",p2:"Guanyador M12",score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
-    {id:"m21",round:2,p1:"Guanyador M13",p2:"Guanyador M14",score1:"",score2:"",winner:"",date:"",court:"",description:"Octaus de final.",image:""},
+    {id:"m15", round:2, p1:"Guanyador M1",  p2:"Guanyador M2",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m16", round:2, p1:"Guanyador M3",  p2:"Guanyador M4",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m17", round:2, p1:"Guanyador M5",  p2:"Guanyador M6",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m18", round:2, p1:"Guanyador M7",  p2:"Guanyador M8",  score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m19", round:2, p1:"Guanyador M9",  p2:"Guanyador M10", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m20", round:2, p1:"Guanyador M11", p2:"Guanyador M12", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
+    {id:"m21", round:2, p1:"Guanyador M13", p2:"Guanyador M14", score1:"", score2:"", winner:"", date:"", court:"", description:"Octaus de final.", image:""},
 
-    {id:"m22",round:3,p1:"Guanyador M15",p2:"Guanyador M16",score1:"",score2:"",winner:"",date:"",court:"",description:"Quarts de final.",image:""},
-    {id:"m23",round:3,p1:"Guanyador M17",p2:"Guanyador M18",score1:"",score2:"",winner:"",date:"",court:"",description:"Quarts de final.",image:""},
-    {id:"m24",round:3,p1:"Guanyador M19",p2:"Guanyador M20",score1:"",score2:"",winner:"",date:"",court:"",description:"Quarts de final.",image:""},
-    {id:"m25",round:3,p1:"Guanyador M21",p2:"—",            score1:"",score2:"",winner:"",date:"",court:"",description:"Quarts de final (bye).",image:""},
+    {id:"m22", round:3, p1:"Guanyador M15", p2:"Guanyador M16", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m23", round:3, p1:"Guanyador M17", p2:"Guanyador M18", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m24", round:3, p1:"Guanyador M19", p2:"Guanyador M20", score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final.", image:""},
+    {id:"m25", round:3, p1:"Guanyador M21", p2:"—",             score1:"", score2:"", winner:"", date:"", court:"", description:"Quarts de final (bye).", image:""},
 
-    {id:"m26",round:4,p1:"Guanyador M22",p2:"Guanyador M23",score1:"",score2:"",winner:"",date:"",court:"",description:"Semifinal.",image:""},
-    {id:"m27",round:4,p1:"Guanyador M24",p2:"Guanyador M25",score1:"",score2:"",winner:"",date:"",court:"",description:"Semifinal.",image:""},
+    {id:"m26", round:4, p1:"Guanyador M22", p2:"Guanyador M23", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
+    {id:"m27", round:4, p1:"Guanyador M24", p2:"Guanyador M25", score1:"", score2:"", winner:"", date:"", court:"", description:"Semifinal.", image:""},
 
-    {id:"m28",round:5,p1:"Guanyador M26",p2:"Guanyador M27",score1:"",score2:"",winner:"",date:"",court:"",description:"Final del torneig.",image:""}
+    {id:"m28", round:5, p1:"Guanyador M26", p2:"Guanyador M27", score1:"", score2:"", winner:"", date:"", court:"", description:"Final del torneig.", image:""}
   ]
 };
 
-// ── Layout constants ──
-const SLOT_H = 155, MATCH_W = 240, COL_GAP = 90;
-const TOTAL_SLOTS = 14, HEADER_H = 52, PAD = 24, SLOT_PAD = 10;
+const SLOT_H      = 155;
+const MATCH_W     = 240;
+const COL_GAP     = 90;
+const TOTAL_SLOTS = 14;
+const HEADER_H    = 52;
+const PAD         = 24;
+const SLOT_PAD    = 10;
 
 const slotMap = {
-  m1:0,m2:1,m3:2,m4:3,m5:4,m6:5,m7:6,
-  m8:7,m9:8,m10:9,m11:10,m12:11,m13:12,m14:13,
-  m15:0.5,m16:2.5,m17:4.5,m18:6.5,m19:8.5,m20:10.5,m21:12.5,
-  m22:1.5,m23:5.5,m24:9.5,m25:13,
-  m26:3.5,m27:11.5,
+  m1:0,  m2:1,  m3:2,  m4:3,  m5:4,  m6:5,  m7:6,
+  m8:7,  m9:8, m10:9, m11:10, m12:11, m13:12, m14:13,
+  m15:0.5, m16:2.5, m17:4.5, m18:6.5, m19:8.5, m20:10.5, m21:12.5,
+  m22:1.5, m23:5.5, m24:9.5, m25:13,
+  m26:3.5, m27:11.5,
   m28:7.0
 };
 
 const nextMap = {
-  m1:["m15","p1"],m2:["m15","p2"],
-  m3:["m16","p1"],m4:["m16","p2"],
-  m5:["m17","p1"],m6:["m17","p2"],
-  m7:["m18","p1"],m8:["m18","p2"],
-  m9:["m19","p1"],m10:["m19","p2"],
-  m11:["m20","p1"],m12:["m20","p2"],
-  m13:["m21","p1"],m14:["m21","p2"],
-  m15:["m22","p1"],m16:["m22","p2"],
-  m17:["m23","p1"],m18:["m23","p2"],
-  m19:["m24","p1"],m20:["m24","p2"],
+  m1: ["m15","p1"], m2: ["m15","p2"],
+  m3: ["m16","p1"], m4: ["m16","p2"],
+  m5: ["m17","p1"], m6: ["m17","p2"],
+  m7: ["m18","p1"], m8: ["m18","p2"],
+  m9: ["m19","p1"], m10:["m19","p2"],
+  m11:["m20","p1"], m12:["m20","p2"],
+  m13:["m21","p1"], m14:["m21","p2"],
+  m15:["m22","p1"], m16:["m22","p2"],
+  m17:["m23","p1"], m18:["m23","p2"],
+  m19:["m24","p1"], m20:["m24","p2"],
   m21:["m25","p1"],
-  m22:["m26","p1"],m23:["m26","p2"],
-  m24:["m27","p1"],m25:["m27","p2"],
-  m26:["m28","p1"],m27:["m28","p2"]
+  m22:["m26","p1"], m23:["m26","p2"],
+  m24:["m27","p1"], m25:["m27","p2"],
+  m26:["m28","p1"], m27:["m28","p2"]
 };
 
-const connections = Object.entries(nextMap).map(([from,[to]])=>[from,to]);
+const connections = Object.entries(nextMap).map(([from,[to]]) => [from,to]);
 
 const roundMeta = {
-  1:{title:"Prèvies",subtitle:"14 partits · 28 jugadors"},
-  2:{title:"Octaus de final",subtitle:"7 partits · 14 jugadors"},
-  3:{title:"Quarts de final",subtitle:"4 partits"},
-  4:{title:"Semifinals",subtitle:"2 partits"},
-  5:{title:"Final",subtitle:"1 partit"}
+  1:{title:"Prèvies",          subtitle:"14 partits · 28 jugadors"},
+  2:{title:"Octaus de final",  subtitle:"7 partits · 14 jugadors"},
+  3:{title:"Quarts de final",  subtitle:"4 partits"},
+  4:{title:"Semifinals",       subtitle:"2 partits"},
+  5:{title:"Final",            subtitle:"1 partit"}
 };
 
-// ── Zoom / Pan ──
-let vpScale=0.7,vpX=0,vpY=0;
-let isPanning=false,panStartX=0,panStartY=0,panStartVpX=0,panStartVpY=0;
+let vpScale = 0.7;
+let vpX = 0;
+let vpY = 0;
+let isPanning = false;
+let panStartX = 0;
+let panStartY = 0;
+let panStartVpX = 0;
+let panStartVpY = 0;
 
 function applyViewport(){
-  const vp=$("bracketViewport");
-  if(vp) vp.style.transform=`translate(${vpX}px,${vpY}px) scale(${vpScale})`;
+  const vp = $("bracketViewport");
+  if(vp) vp.style.transform = `translate(${vpX}px,${vpY}px) scale(${vpScale})`;
 }
 
 function initZoomPan(){
-  const stage=$("bracketStage");
+  const stage = $("bracketStage");
   if(!stage) return;
-  stage.addEventListener("wheel",e=>{
-    e.preventDefault();
-    const rect=stage.getBoundingClientRect();
-    const mouseX=e.clientX-rect.left, mouseY=e.clientY-rect.top;
-    const delta=e.deltaY>0?0.9:1.1;
-    const newScale=Math.min(2,Math.max(0.2,vpScale*delta));
-    vpX=mouseX-(mouseX-vpX)*(newScale/vpScale);
-    vpY=mouseY-(mouseY-vpY)*(newScale/vpScale);
-    vpScale=newScale;
-    applyViewport(); drawBracketLines();
-  },{passive:false});
 
-  stage.addEventListener("mousedown",e=>{
-    isPanning=true; panStartX=e.clientX; panStartY=e.clientY;
-    panStartVpX=vpX; panStartVpY=vpY;
+  stage.addEventListener("wheel", e=>{
+    e.preventDefault();
+    const rect   = stage.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const delta  = e.deltaY > 0 ? 0.9 : 1.1;
+    const newScale = Math.min(2, Math.max(0.2, vpScale * delta));
+    vpX = mouseX - (mouseX - vpX) * (newScale / vpScale);
+    vpY = mouseY - (mouseY - vpY) * (newScale / vpScale);
+    vpScale = newScale;
+    applyViewport();
+    drawBracketLines();
+  }, { passive: false });
+
+  stage.addEventListener("mousedown", e=>{
+    isPanning = true;
+    panStartX  = e.clientX;
+    panStartY  = e.clientY;
+    panStartVpX = vpX;
+    panStartVpY = vpY;
   });
-  window.addEventListener("mousemove",e=>{
+
+  window.addEventListener("mousemove", e=>{
     if(!isPanning) return;
-    vpX=panStartVpX+(e.clientX-panStartX);
-    vpY=panStartVpY+(e.clientY-panStartY);
+    vpX = panStartVpX + (e.clientX - panStartX);
+    vpY = panStartVpY + (e.clientY - panStartY);
     applyViewport();
   });
-  window.addEventListener("mouseup",()=>{ isPanning=false; });
 
-  let lastTouchDist=null;
-  stage.addEventListener("touchstart",e=>{
-    if(e.touches.length===1){isPanning=true;panStartX=e.touches[0].clientX;panStartY=e.touches[0].clientY;panStartVpX=vpX;panStartVpY=vpY;}
-    if(e.touches.length===2){lastTouchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}
-  },{passive:true});
-  stage.addEventListener("touchmove",e=>{
+  window.addEventListener("mouseup", ()=>{ isPanning = false; });
+
+  let lastTouchDist = null;
+  stage.addEventListener("touchstart", e=>{
+    if(e.touches.length === 1){
+      isPanning = true;
+      panStartX  = e.touches[0].clientX;
+      panStartY  = e.touches[0].clientY;
+      panStartVpX = vpX;
+      panStartVpY = vpY;
+    }
+    if(e.touches.length === 2){
+      lastTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  }, { passive:true });
+
+  stage.addEventListener("touchmove", e=>{
     e.preventDefault();
-    if(e.touches.length===1&&isPanning){vpX=panStartVpX+(e.touches[0].clientX-panStartX);vpY=panStartVpY+(e.touches[0].clientY-panStartY);applyViewport();}
-    if(e.touches.length===2&&lastTouchDist){const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);vpScale=Math.min(2,Math.max(0.2,vpScale*(dist/lastTouchDist)));lastTouchDist=dist;applyViewport();}
-  },{passive:false});
-  stage.addEventListener("touchend",()=>{ isPanning=false; lastTouchDist=null; });
+    if(e.touches.length === 1 && isPanning){
+      vpX = panStartVpX + (e.touches[0].clientX - panStartX);
+      vpY = panStartVpY + (e.touches[0].clientY - panStartY);
+      applyViewport();
+    }
+    if(e.touches.length === 2 && lastTouchDist){
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const delta = dist / lastTouchDist;
+      vpScale = Math.min(2, Math.max(0.2, vpScale * delta));
+      lastTouchDist = dist;
+      applyViewport();
+    }
+  }, { passive:false });
+
+  stage.addEventListener("touchend", ()=>{ isPanning = false; lastTouchDist = null; });
 }
 
 async function sha256(text){
-  const data=new TextEncoder().encode(text);
-  const hash=await crypto.subtle.digest("SHA-256",data);
+  const data = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest("SHA-256", data);
   return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 
 async function loadTournament(){
-  const ref=doc(db,"tournaments","main");
-  const snap=await getDoc(ref);
-  if(snap.exists()&&snap.data().version===VERSION){
-    tournament=snap.data();
-    if(!tournament.festaDays) tournament.festaDays=[];
+  const ref  = doc(db,"tournaments","main");
+  const snap = await getDoc(ref);
+
+  if(snap.exists() && snap.data().version === VERSION){
+    tournament = snap.data();
+    if(!tournament.festaDays) tournament.festaDays = [];
   } else {
-    tournament=JSON.parse(JSON.stringify(initialTournament));
+    tournament = JSON.parse(JSON.stringify(initialTournament));
   }
-  propagateWinners(); render();
-  onSnapshot(ref,s=>{
-    if(s.exists()&&s.data().version===VERSION){
-      tournament=s.data();
-      if(!tournament.festaDays) tournament.festaDays=[];
-      propagateWinners(); render();
+
+  propagateWinners();
+  render();
+
+  onSnapshot(ref, s=>{
+    if(s.exists() && s.data().version === VERSION){
+      tournament = s.data();
+      if(!tournament.festaDays) tournament.festaDays = [];
+      propagateWinners();
+      render();
     }
   });
 }
 
 function isPlaceholder(name){
-  return !name||name.startsWith("Guanyador")||name==="—";
+  return !name || name.startsWith("Guanyador") || name === "—";
 }
 
 function propagateWinners(){
   if(!tournament) return;
-  const base=JSON.parse(JSON.stringify(initialTournament));
-  const current=JSON.parse(JSON.stringify(tournament));
+  const base    = JSON.parse(JSON.stringify(initialTournament));
+  const current = JSON.parse(JSON.stringify(tournament));
+
   current.matches.forEach(match=>{
-    const orig=base.matches.find(x=>x.id===match.id);
-    if(orig){if(isPlaceholder(orig.p1))match.p1=orig.p1;if(isPlaceholder(orig.p2))match.p2=orig.p2;}
+    const orig = base.matches.find(x=>x.id===match.id);
+    if(orig){
+      if(isPlaceholder(orig.p1)) match.p1 = orig.p1;
+      if(isPlaceholder(orig.p2)) match.p2 = orig.p2;
+    }
   });
-  for(let pass=0;pass<6;pass++){
+
+  for(let pass=0; pass<6; pass++){
     current.matches.forEach(match=>{
-      if(match.winner&&nextMap[match.id]){
-        const[nextId,slot]=nextMap[match.id];
-        const next=current.matches.find(m=>m.id===nextId);
-        if(next) next[slot]=match.winner;
+      if(match.winner && nextMap[match.id]){
+        const [nextId, slot] = nextMap[match.id];
+        const next = current.matches.find(m=>m.id===nextId);
+        if(next) next[slot] = match.winner;
       }
     });
   }
-  tournament=current;
+
+  tournament = current;
 }
 
 function render(){
   renderBracket();
   renderSchedule();
-  renderMatches();
+  renderEndirecte();
   renderAdminFestaDays();
   renderAdminMatches();
 }
 
-// ── BRACKET ──────────────────────────────────────────────────────────────────
+// ── BRACKET RENDER ──────────────────────────────────────────────────────────
 function renderBracket(){
-  const bracket=$("bracket");
-  bracket.innerHTML="";
-  const CANVAS_H=TOTAL_SLOTS*SLOT_H;
-  Object.entries(roundMeta).forEach(([roundNum,meta])=>{
-    const col=document.createElement("div");
-    col.style.cssText=`position:relative;flex-shrink:0;width:${MATCH_W}px;height:${CANVAS_H+HEADER_H}px;`;
-    const header=document.createElement("div");
-    header.className="round-header";
-    header.style.cssText=`position:absolute;top:0;left:0;right:0;height:${HEADER_H}px;`;
-    header.innerHTML=`<div class="round-title">${meta.title}</div><div class="round-subtitle">${meta.subtitle}</div>`;
+  const bracket = $("bracket");
+  bracket.innerHTML = "";
+
+  const CANVAS_H = TOTAL_SLOTS * SLOT_H;
+
+  Object.entries(roundMeta).forEach(([roundNum, meta])=>{
+    const col = document.createElement("div");
+    col.style.cssText = `position:relative; flex-shrink:0; width:${MATCH_W}px; height:${CANVAS_H + HEADER_H}px;`;
+
+    const header = document.createElement("div");
+    header.className = "round-header";
+    header.style.cssText = `position:absolute; top:0; left:0; right:0; height:${HEADER_H}px;`;
+    header.innerHTML = `
+      <div class="round-title">${meta.title}</div>
+      <div class="round-subtitle">${meta.subtitle}</div>
+    `;
     col.appendChild(header);
-    tournament.matches.filter(m=>m.round===Number(roundNum)).forEach(match=>{
-      const slot=slotMap[match.id];
-      const topPx=HEADER_H+slot*SLOT_H+SLOT_PAD;
-      const played=match.score1!==""||match.score2!==""||match.winner!=="";
-      const hasWinner=match.winner!=="";
-      const card=document.createElement("div");
-      card.className=`match${match.bye?" bye":""}${played?" played":""}`;
-      card.dataset.id=match.id;
-      card.style.cssText=`position:absolute;top:${topPx}px;left:0;width:${MATCH_W}px;`;
-      card.innerHTML=`
+
+    const matches = tournament.matches.filter(m=>m.round===Number(roundNum));
+
+    matches.forEach(match=>{
+      const slot   = slotMap[match.id];
+      const topPx  = HEADER_H + slot * SLOT_H + SLOT_PAD;
+      const played    = match.score1!=="" || match.score2!=="" || match.winner!=="";
+      const hasWinner = match.winner !== "";
+
+      const card = document.createElement("div");
+      card.className = `match${match.bye ? " bye" : ""}${played ? " played" : ""}`;
+      card.dataset.id = match.id;
+      card.style.cssText = `position:absolute; top:${topPx}px; left:0; width:${MATCH_W}px;`;
+
+      card.innerHTML = `
         <div class="match-code">
           <span>${match.id.toUpperCase()}</span>
-          ${played?`<span class="match-played-badge">✓ Jugat</span>`:""}
+          ${played ? `<span class="match-played-badge">✓ Jugat</span>` : ""}
         </div>
-        <div class="player ${match.winner===match.p1?"winner":""} ${played&&match.winner!==match.p1?"loser":""}">
+
+        <div class="player ${match.winner===match.p1 ? "winner" : ""} ${played && match.winner!==match.p1 ? "loser" : ""}">
           <span class="player-name">${match.p1}</span>
-          ${played?`<span class="score">${match.score1||"-"}</span>`:""}
+          ${played ? `<span class="score">${match.score1 || "-"}</span>` : ""}
         </div>
-        <div class="player ${match.winner===match.p2?"winner":""} ${played&&match.winner!==match.p2?"loser":""}">
+
+        <div class="player ${match.winner===match.p2 ? "winner" : ""} ${played && match.winner!==match.p2 ? "loser" : ""}">
           <span class="player-name">${match.p2}</span>
-          ${played?`<span class="score">${match.score2||"-"}</span>`:""}
+          ${played ? `<span class="score">${match.score2 || "-"}</span>` : ""}
         </div>
-        ${hasWinner?`<div class="winner-badge">🏆 ${match.winner}</div>`:""}
+
+        ${hasWinner ? `<div class="winner-badge">🏆 ${match.winner}</div>` : ""}
       `;
-      addHover(card,match);
+
+      addHover(card, match);
       col.appendChild(card);
     });
+
     bracket.appendChild(col);
   });
+
   applyViewport();
-  setTimeout(drawBracketLines,80);
+  setTimeout(drawBracketLines, 80);
 }
 
 function drawBracketLines(){
-  const svg=$("bracketLines");
-  const viewport=$("bracketViewport");
-  if(!svg||!viewport) return;
-  const CANVAS_H=TOTAL_SLOTS*SLOT_H;
-  const totalH=CANVAS_H+HEADER_H+40;
-  const cols=Object.keys(roundMeta).length;
-  const totalW=cols*MATCH_W+(cols-1)*COL_GAP+PAD*2;
-  svg.setAttribute("width",totalW);svg.setAttribute("height",totalH);
-  svg.style.width=totalW+"px";svg.style.height=totalH+"px";
-  svg.innerHTML="";
+  const svg      = $("bracketLines");
+  const viewport = $("bracketViewport");
+  if(!svg || !viewport) return;
+
+  const CANVAS_H  = TOTAL_SLOTS * SLOT_H;
+  const totalH    = CANVAS_H + HEADER_H + 40;
+  const cols      = Object.keys(roundMeta).length;
+  const totalW    = cols * MATCH_W + (cols - 1) * COL_GAP + PAD * 2;
+
+  svg.setAttribute("width",  totalW);
+  svg.setAttribute("height", totalH);
+  svg.style.width  = totalW + "px";
+  svg.style.height = totalH + "px";
+  svg.innerHTML = "";
+
   function cardCentreRight(matchId){
-    const el=viewport.querySelector(`[data-id="${matchId}"]`);
+    const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
-    const col=el.parentElement;
-    return{x:col.offsetLeft+PAD+MATCH_W,y:PAD+col.offsetTop+el.offsetTop+el.offsetHeight/2};
+    const col = el.parentElement;
+    return {
+      x: col.offsetLeft + PAD + MATCH_W,
+      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
+    };
   }
+
   function cardCentreLeft(matchId){
-    const el=viewport.querySelector(`[data-id="${matchId}"]`);
+    const el = viewport.querySelector(`[data-id="${matchId}"]`);
     if(!el) return null;
-    const col=el.parentElement;
-    return{x:col.offsetLeft+PAD,y:PAD+col.offsetTop+el.offsetTop+el.offsetHeight/2};
+    const col = el.parentElement;
+    return {
+      x: col.offsetLeft + PAD,
+      y: PAD + col.offsetTop + el.offsetTop + el.offsetHeight / 2
+    };
   }
+
   connections.forEach(([fromId,toId])=>{
-    const from=cardCentreRight(fromId);
-    const to=cardCentreLeft(toId);
-    if(!from||!to) return;
-    const midX=from.x+(to.x-from.x)*0.5;
-    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+    const from = cardCentreRight(fromId);
+    const to   = cardCentreLeft(toId);
+    if(!from || !to) return;
+
+    const midX = from.x + (to.x - from.x) * 0.5;
+    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
     path.setAttribute("d",`M${from.x},${from.y} H${midX} V${to.y} H${to.x}`);
-    path.setAttribute("fill","none");path.setAttribute("stroke","#c8c8c0");
-    path.setAttribute("stroke-width","1.5");path.setAttribute("stroke-linecap","round");
+    path.setAttribute("fill","none");
+    path.setAttribute("stroke","#c8c8c0");
+    path.setAttribute("stroke-width","1.5");
+    path.setAttribute("stroke-linecap","round");
     path.setAttribute("stroke-linejoin","round");
     svg.appendChild(path);
   });
 }
 
-// ── SCHEDULE ─────────────────────────────────────────────────────────────────
+// ── EN DIRECTE (últims partits) ─────────────────────────────────────────────
+function renderEndirecte(){
+  const list = $("endirecteList");
+  if(!list || !tournament) return;
+
+  // Only played matches, newest first (by position in array reversed)
+  const played = tournament.matches.filter(m => m.winner !== "");
+  if(!played.length){
+    list.innerHTML = `<p style="font-size:12px;color:var(--muted);font-weight:700;text-align:center;padding:20px 0;">Encara no hi ha partits jugats.</p>`;
+    return;
+  }
+
+  // Reverse: show last played first
+  const sorted = [...played].reverse();
+  list.innerHTML = "";
+
+  sorted.forEach(match => {
+    const card = document.createElement("div");
+    card.className = "match-preview-card";
+
+    const roundLabel = roundMeta[match.round]?.title || `Ronda ${match.round}`;
+    const s1 = parseInt(match.score1) || 0;
+    const s2 = parseInt(match.score2) || 0;
+
+    card.innerHTML = `
+      <div class="mp-players">
+        <div class="mp-name ${match.winner === match.p1 ? 'winner-name' : ''}">${match.p1}</div>
+        <div class="mp-vs">vs</div>
+        <div class="mp-name ${match.winner === match.p2 ? 'winner-name' : ''}">${match.p2}</div>
+      </div>
+      <div class="mp-score">
+        <div class="mp-score-val ${match.winner === match.p1 ? 'winner-score' : ''}">${match.score1 || '0'}</div>
+        <div style="color:rgba(0,0,0,.2);font-size:18px;font-weight:900;line-height:1.8;">—</div>
+        <div class="mp-score-val ${match.winner === match.p2 ? 'winner-score' : ''}">${match.score2 || '0'}</div>
+      </div>
+      <div class="mp-round-badge">${roundLabel}</div>
+      <div class="mp-play-hint">🏸 Veure simulació</div>
+    `;
+
+    card.addEventListener("click", () => openSimulator(match));
+    list.appendChild(card);
+  });
+}
+
+// ── SIMULATOR ───────────────────────────────────────────────────────────────
+let simState = null;
+let simRAF   = null;
+
+function openSimulator(match){
+  const s1 = parseInt(match.score1) || 0;
+  const s2 = parseInt(match.score2) || 0;
+
+  simState = {
+    match,
+    targetScore1: s1,
+    targetScore2: s2,
+    score1: 0,
+    score2: 0,
+    running: false,
+    finished: false,
+    speed: 1,
+    // Ball
+    bx: 0.5, by: 0.5,
+    bvx: 0, bvy: 0,
+    // Rackets (x in 0..1, y in 0..1)
+    r1x: 0.12, r1y: 0.5,
+    r2x: 0.88, r2y: 0.5,
+    // Rally points
+    rallyTarget1: 0.15, rallyTarget2: 0.85,
+    // Tracking
+    ballOwner: 1, // 1 or 2 — who should hit next
+    rallyLength: 0,
+    maxRally: 6,
+    // Score events queue
+    pendingPoint: 0, // 1 or 2 meaning player scored, 0 = none
+    hitFlash: 0,
+    lastTime: null,
+  };
+
+  $("simP1Name").textContent = match.p1;
+  $("simP2Name").textContent = match.p2;
+  $("simScore1").textContent = "0";
+  $("simScore2").textContent = "0";
+  $("simStatus").textContent = "Preparat per jugar";
+  $("simWinnerBanner").classList.remove("show");
+  $("simPlayPause").textContent = "▶ Jugar";
+
+  $("simModal").classList.remove("hidden");
+  resizeSimCanvas();
+  drawSimFrame();
+}
+
+function resizeSimCanvas(){
+  const wrap = $("simCourtWrap");
+  const canvas = $("simCanvas");
+  if(!wrap || !canvas) return;
+  canvas.width  = wrap.offsetWidth;
+  canvas.height = wrap.offsetHeight;
+}
+
+function launchBall(state){
+  const angle = (Math.random() * 0.6 - 0.3) + (state.ballOwner === 1 ? 0 : Math.PI);
+  const spd = 0.55 + Math.random() * 0.25;
+  state.bvx = Math.cos(angle) * spd * (state.ballOwner === 1 ? 1 : -1);
+  state.bvy = Math.sin(angle) * spd;
+  state.bx  = state.ballOwner === 1 ? 0.18 : 0.82;
+  state.by  = state.r1y + (Math.random() * 0.14 - 0.07);
+  state.rallyLength = 0;
+  state.maxRally = 3 + Math.floor(Math.random() * 6);
+}
+
+function startSim(){
+  if(!simState || simState.finished) return;
+  simState.running = true;
+  $("simPlayPause").textContent = "⏸ Pausar";
+  $("simStatus").textContent = "En joc…";
+
+  if(simState.bvx === 0){
+    launchBall(simState);
+  }
+
+  simState.lastTime = performance.now();
+  cancelAnimationFrame(simRAF);
+  simRAF = requestAnimationFrame(simLoop);
+}
+
+function pauseSim(){
+  if(!simState) return;
+  simState.running = false;
+  $("simPlayPause").textContent = "▶ Jugar";
+  $("simStatus").textContent = "Pausat";
+  cancelAnimationFrame(simRAF);
+}
+
+function stopSim(){
+  if(!simState) return;
+  simState.running = false;
+  simState.finished = true;
+  cancelAnimationFrame(simRAF);
+  $("simPlayPause").textContent = "▶ Jugar";
+  $("simStatus").textContent = "Aturat";
+  drawSimFrame();
+}
+
+function restartSim(){
+  if(!simState) return;
+  cancelAnimationFrame(simRAF);
+  openSimulator(simState.match);
+}
+
+function simLoop(ts){
+  if(!simState || !simState.running) return;
+  const dt = Math.min((ts - (simState.lastTime || ts)) / 1000, 0.05) * simState.speed;
+  simState.lastTime = ts;
+  updateSim(dt);
+  drawSimFrame();
+  simRAF = requestAnimationFrame(simLoop);
+}
+
+function updateSim(dt){
+  const st = simState;
+  if(st.finished) return;
+
+  const W = $("simCanvas").width;
+  const H = $("simCanvas").height;
+
+  // Move ball
+  st.bx += st.bvx * dt;
+  st.by += st.bvy * dt;
+
+  // Bounce top/bottom
+  if(st.by < 0.05){ st.by = 0.05; st.bvy *= -0.85; }
+  if(st.by > 0.95){ st.by = 0.95; st.bvy *= -0.85; }
+
+  // Move rackets toward ball Y
+  const rSpeed = 1.4 * dt;
+  const deadzone = 0.04;
+
+  // Player 1 racket tracks ball when ball is on their side
+  if(st.bx < 0.5){
+    const dy1 = st.by - st.r1y;
+    if(Math.abs(dy1) > deadzone) st.r1y += Math.sign(dy1) * Math.min(Math.abs(dy1), rSpeed);
+  } else {
+    // Drift back to center slowly
+    st.r1y += (0.5 - st.r1y) * dt * 0.8;
+  }
+
+  // Player 2 racket
+  if(st.bx > 0.5){
+    const dy2 = st.by - st.r2y;
+    if(Math.abs(dy2) > deadzone) st.r2y += Math.sign(dy2) * Math.min(Math.abs(dy2), rSpeed);
+  } else {
+    st.r2y += (0.5 - st.r2y) * dt * 0.8;
+  }
+
+  st.r1y = Math.max(0.1, Math.min(0.9, st.r1y));
+  st.r2y = Math.max(0.1, Math.min(0.9, st.r2y));
+
+  // Determine if the rally is long enough to award a point
+  const totalPoints = st.score1 + st.score2;
+  const totalTarget = st.targetScore1 + st.targetScore2;
+
+  // Check collision with racket 1
+  if(st.bx < 0.18 && st.bvx < 0 && Math.abs(st.by - st.r1y) < 0.12){
+    st.rallyLength++;
+    st.hitFlash = 0.15;
+
+    // Should this end the rally with player 2 scoring?
+    const shouldMiss = shouldPlayerMiss(st, 1);
+    if(shouldMiss){
+      // Miss — ball goes off left
+      st.bvx = -0.6;
+    } else {
+      st.bvx = Math.abs(st.bvx) * (0.9 + Math.random() * 0.25);
+      st.bvy = (st.by - 0.5) * 1.5 + (Math.random() * 0.4 - 0.2);
+      st.ballOwner = 2;
+    }
+  }
+
+  // Check collision with racket 2
+  if(st.bx > 0.82 && st.bvx > 0 && Math.abs(st.by - st.r2y) < 0.12){
+    st.rallyLength++;
+    st.hitFlash = 0.15;
+
+    const shouldMiss = shouldPlayerMiss(st, 2);
+    if(shouldMiss){
+      st.bvx = 0.6;
+    } else {
+      st.bvx = -Math.abs(st.bvx) * (0.9 + Math.random() * 0.25);
+      st.bvy = (st.by - 0.5) * 1.5 + (Math.random() * 0.4 - 0.2);
+      st.ballOwner = 1;
+    }
+  }
+
+  // Ball goes off left → player 2 scores
+  if(st.bx < -0.02){
+    awardPoint(st, 2);
+    return;
+  }
+
+  // Ball goes off right → player 1 scores
+  if(st.bx > 1.02){
+    awardPoint(st, 1);
+    return;
+  }
+
+  if(st.hitFlash > 0) st.hitFlash -= dt * 3;
+}
+
+function shouldPlayerMiss(st, player){
+  const totalTarget = st.targetScore1 + st.targetScore2;
+  if(totalTarget === 0) return st.rallyLength >= st.maxRally;
+
+  if(st.rallyLength < 2) return false;
+  if(st.rallyLength >= st.maxRally) return true;
+
+  // Bias miss based on score targets
+  const s1 = st.score1, s2 = st.score2;
+  const t1 = st.targetScore1, t2 = st.targetScore2;
+
+  // If player 1 needs more points, player 2 should miss more
+  if(player === 2 && s1 < t1){
+    const deficit = (t1 - s1) / Math.max(1, totalTarget - (s1 + s2));
+    return Math.random() < deficit * 0.45;
+  }
+  if(player === 1 && s2 < t2){
+    const deficit = (t2 - s2) / Math.max(1, totalTarget - (s1 + s2));
+    return Math.random() < deficit * 0.45;
+  }
+  return false;
+}
+
+function awardPoint(st, player){
+  if(player === 1) st.score1++;
+  else st.score2++;
+
+  $("simScore1").textContent = st.score1;
+  $("simScore2").textContent = st.score2;
+
+  const t1 = st.targetScore1, t2 = st.targetScore2;
+
+  // Check if sim is over
+  if(st.score1 >= t1 && st.score2 >= t2){
+    // Both targets reached, done
+    finishSim(st);
+    return;
+  }
+
+  // Start new rally
+  st.ballOwner = player === 1 ? 2 : 1;
+  launchBall(st);
+}
+
+function finishSim(st){
+  st.running = false;
+  st.finished = true;
+  cancelAnimationFrame(simRAF);
+
+  const winner = st.score1 >= st.targetScore1 ? st.match.p1 : st.match.p2;
+  $("simWinnerText").textContent = `🏆 ${winner}`;
+  $("simWinnerSub").textContent = `Guanyador del partit · ${st.score1} — ${st.score2}`;
+  $("simWinnerBanner").classList.add("show");
+  $("simStatus").textContent = "Partit acabat";
+  $("simPlayPause").textContent = "▶ Jugar";
+  drawSimFrame();
+}
+
+function drawSimFrame(){
+  const canvas = $("simCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width;
+  const H = canvas.height;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Court background
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0, "#0d2e0d");
+  grad.addColorStop(1, "#152a15");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,W,H);
+
+  // Court lines
+  ctx.strokeStyle = "rgba(183,255,104,0.35)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(W*0.04, H*0.06, W*0.92, H*0.88);
+
+  // Side lines
+  ctx.strokeStyle = "rgba(183,255,104,0.2)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(W*0.04, H*0.16); ctx.lineTo(W*0.96, H*0.16);
+  ctx.moveTo(W*0.04, H*0.84); ctx.lineTo(W*0.96, H*0.84);
+  ctx.stroke();
+
+  // Service lines
+  ctx.beginPath();
+  ctx.moveTo(W*0.24, H*0.06); ctx.lineTo(W*0.24, H*0.94);
+  ctx.moveTo(W*0.76, H*0.06); ctx.lineTo(W*0.76, H*0.94);
+  ctx.stroke();
+
+  // Net
+  const netX = W * 0.5;
+  ctx.strokeStyle = "rgba(255,255,255,0.7)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(netX, H*0.06);
+  ctx.lineTo(netX, H*0.94);
+  ctx.stroke();
+
+  // Net mesh effect
+  ctx.strokeStyle = "rgba(255,255,255,0.18)";
+  ctx.lineWidth = 1;
+  for(let yy = H*0.1; yy < H*0.92; yy += H*0.055){
+    ctx.beginPath();
+    ctx.moveTo(netX - 6, yy);
+    ctx.lineTo(netX + 6, yy);
+    ctx.stroke();
+  }
+
+  // Net posts
+  ctx.fillStyle = "rgba(255,255,255,0.8)";
+  ctx.fillRect(netX-2, H*0.04, 4, H*0.92);
+
+  const st = simState;
+  if(!st) return;
+
+  // Draw rackets
+  drawRacket(ctx, W, H, st.r1x, st.r1y, "#b7ff68", "#2a6a00", st.match.p1, true, st);
+  drawRacket(ctx, W, H, st.r2x, st.r2y, "#ff8c68", "#6a2a00", st.match.p2, false, st);
+
+  // Draw shuttlecock
+  if(st.bvx !== 0 || st.bvy !== 0 || st.score1 > 0 || st.score2 > 0){
+    drawShuttlecock(ctx, W, H, st.bx, st.by, st.bvx, st.bvy, st.hitFlash);
+  }
+}
+
+function drawRacket(ctx, W, H, rx, ry, color, shadowColor, name, isLeft, st){
+  const x = rx * W;
+  const y = ry * H;
+  const facing = isLeft ? 1 : -1;
+
+  ctx.save();
+  ctx.translate(x, y);
+
+  // Shadow
+  ctx.shadowColor = shadowColor;
+  ctx.shadowBlur = 18;
+
+  // Racket frame (oval)
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.fillStyle = "rgba(183,255,104,0.06)";
+  ctx.beginPath();
+  ctx.ellipse(facing * 8, 0, 14, 20, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  // Strings
+  ctx.strokeStyle = color + "88";
+  ctx.lineWidth = 1;
+  for(let xi = -10; xi <= 10; xi += 5){
+    ctx.beginPath();
+    ctx.moveTo(facing * 8 + xi, -18);
+    ctx.lineTo(facing * 8 + xi, 18);
+    ctx.stroke();
+  }
+  for(let yi = -16; yi <= 16; yi += 5){
+    ctx.beginPath();
+    ctx.moveTo(facing * 8 - 12, yi);
+    ctx.lineTo(facing * 8 + 12, yi);
+    ctx.stroke();
+  }
+
+  // Handle
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(facing * (-4), 8);
+  ctx.lineTo(facing * (-22), 22);
+  ctx.stroke();
+
+  // Grip
+  ctx.strokeStyle = "#fff8";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(facing * (-8), 12);
+  ctx.lineTo(facing * (-20), 21);
+  ctx.stroke();
+
+  ctx.shadowBlur = 0;
+
+  // Player name below racket
+  ctx.font = "bold 11px Inter, sans-serif";
+  ctx.fillStyle = color;
+  ctx.textAlign = "center";
+  ctx.shadowColor = "rgba(0,0,0,.8)";
+  ctx.shadowBlur = 6;
+  const nameDisplay = name.split(" ").slice(0,2).join(" ");
+  ctx.fillText(nameDisplay, facing * 8, 38);
+
+  ctx.restore();
+}
+
+function drawShuttlecock(ctx, W, H, bx, by, bvx, bvy, flash){
+  const x = bx * W;
+  const y = by * H;
+  const speed = Math.sqrt(bvx*bvx + bvy*bvy);
+  const angle = Math.atan2(bvy, bvx);
+
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  // Glow when hit
+  if(flash > 0){
+    ctx.shadowColor = "#fff";
+    ctx.shadowBlur = 20 * flash;
+  }
+
+  // Cork base
+  ctx.fillStyle = "#fff";
+  ctx.beginPath();
+  ctx.arc(0, 0, 5, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Feathers
+  ctx.strokeStyle = "rgba(255,255,255,0.7)";
+  ctx.lineWidth = 1;
+  for(let i = 0; i < 7; i++){
+    const fAngle = (i / 7) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(-2, 0);
+    ctx.lineTo(-14 + Math.cos(fAngle)*5, Math.sin(fAngle)*6);
+    ctx.stroke();
+  }
+
+  // Feather ring
+  ctx.strokeStyle = "rgba(255,255,255,0.4)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.ellipse(-10, 0, 6, 8, 0, 0, Math.PI*2);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+// Simulator controls
+$("simPlayPause").addEventListener("click", ()=>{
+  if(!simState) return;
+  if(simState.finished){ restartSim(); return; }
+  if(simState.running) pauseSim(); else startSim();
+});
+
+$("simStop").addEventListener("click", stopSim);
+$("simRestart").addEventListener("click", restartSim);
+
+$("simFF").addEventListener("click", ()=>{
+  if(!simState) return;
+  simState.speed = simState.speed >= 4 ? 1 : simState.speed * 2;
+  $("simFF").textContent = `⏩ × ${simState.speed}`;
+});
+
+$("simClose").addEventListener("click", ()=>{
+  cancelAnimationFrame(simRAF);
+  if(simState) simState.running = false;
+  $("simModal").classList.add("hidden");
+});
+
+// ── SCHEDULE RENDER ─────────────────────────────────────────────────────────
 function renderSchedule(){
-  const schedule=$("schedule");
-  schedule.innerHTML="";
-  const now=new Date();
-  const todayISO=toISO(now);
-  const start=new Date(2026,3,29);
-  const end=new Date(2026,4,25);
-  for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
-    const iso=toISO(d);
-    const matches=tournament.matches.filter(m=>m.date===iso&&m.court);
-    const festaDays=tournament.festaDays||[];
-    const isFesta=festaDays.includes(iso);
-    const isToday=iso===todayISO;
-    const day=document.createElement("div");
-    let cls="day-card";
-    if(isFesta) cls+=" is-festa";
-    if(isToday) cls+=" is-today";
-    day.className=cls;
-    day.innerHTML=`
+  const schedule = $("schedule");
+  schedule.innerHTML = "";
+
+  const now    = new Date();
+  const todayISO = toISO(now);
+  const start  = new Date(2026,3,29);
+  const end    = new Date(2026,4,26);
+
+  for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
+    const iso     = toISO(d);
+    const matches = tournament.matches.filter(m=>m.date===iso && m.court);
+
+    const festaDays = tournament.festaDays || [];
+    const isFesta   = festaDays.includes(iso);
+    const isToday   = iso === todayISO;
+
+    const day = document.createElement("div");
+    let cls = "day-card";
+    if(isFesta)  cls += " is-festa";
+    if(isToday)  cls += " is-today";
+    day.className = cls;
+
+    day.innerHTML = `
       <div class="day-head">
         <strong>${new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d)}</strong>
         <div style="display:flex;gap:6px;align-items:center;">
-          ${isToday?`<span class="today-badge">📅 Avui</span>`:""}
+          ${isToday ? `<span class="today-badge">📅 Avui</span>` : ""}
           <span class="chip">${matches.length} partits</span>
         </div>
       </div>
-      ${isFesta?`<div class="festa-banner"><span class="festa-label">🎉 Festa</span></div>`:""}
+      ${isFesta ? `<div class="festa-banner"><span class="festa-label">🎉 Festa</span></div>` : ""}
       <div class="patio">
         <div class="patio-title">
-          <span>Pati 1 <small style="font-weight:600;color:#aaa;">10:30–11:00</small></span>
-          ${isToday&&isCourtPlaying("Pati 1",now)?`<span class="patio-playing">EN JOC</span>`:""}
+          <span>Pati 1 <small style="font-weight:700;color:#aaa;">10:30–11:00</small></span>
+          ${isToday && isCourtPlaying("Pati 1", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
         </div>
         <div class="patio-content" data-date="${iso}" data-court="Pati 1" data-today="${isToday}"></div>
       </div>
       <div class="patio">
         <div class="patio-title">
-          <span>Pati 2 <small style="font-weight:600;color:#aaa;">12:50–13:10</small></span>
-          ${isToday&&isCourtPlaying("Pati 2",now)?`<span class="patio-playing">EN JOC</span>`:""}
+          <span>Pati 2 <small style="font-weight:700;color:#aaa;">12:50–13:10</small></span>
+          ${isToday && isCourtPlaying("Pati 2", now) ? `<span class="patio-playing">EN JOC</span>` : ""}
         </div>
         <div class="patio-content" data-date="${iso}" data-court="Pati 2" data-today="${isToday}"></div>
       </div>
     `;
     schedule.appendChild(day);
   }
+
   document.querySelectorAll(".patio-content").forEach(box=>{
-    const date=box.dataset.date,court=box.dataset.court,isToday=box.dataset.today==="true";
-    const events=tournament.matches.filter(m=>m.date===date&&m.court===court);
-    if(!events.length){box.innerHTML=`<span style="color:var(--muted);font-size:12px;font-weight:600;">Sense partit</span>`;return;}
-    const nowNow=new Date();
+    const date    = box.dataset.date;
+    const court   = box.dataset.court;
+    const isToday = box.dataset.today === "true";
+    const events  = tournament.matches.filter(m=>m.date===date && m.court===court);
+
+    if(!events.length){
+      box.innerHTML = `<span style="color:var(--muted);font-size:12px;font-weight:800;">Sense partit</span>`;
+      return;
+    }
+
+    const nowNow = new Date();
     events.forEach(match=>{
-      const played=match.winner!=="";
-      const isLive=isToday&&isCourtPlaying(court,nowNow)&&!played;
-      const ev=document.createElement("div");
-      let evCls="event";
-      if(played) evCls+=" event-played"; else if(isLive) evCls+=" event-live";
-      ev.className=evCls;
-      let statusHtml="";
-      if(played) statusHtml=`<span class="event-status status-played">✓ Jugat · Guanya: ${match.winner}</span>`;
-      else if(isLive) statusHtml=`<span class="event-status status-live">🔴 En joc ara</span>`;
-      else statusHtml=`<span class="event-status status-pending">⏳ Pendent</span>`;
-      ev.innerHTML=`<b>${match.p1}</b> vs ${match.p2}${statusHtml}`;
-      addHover(ev,match);
+      const played   = match.winner !== "";
+      const isLive   = isToday && isCourtPlaying(court, nowNow) && !played;
+
+      const ev = document.createElement("div");
+      let evCls = "event";
+      if(played) evCls += " event-played";
+      else if(isLive) evCls += " event-live";
+      ev.className = evCls;
+
+      let statusHtml = "";
+      if(played){
+        statusHtml = `<span class="event-status status-played">✓ Jugat · Guanya: ${match.winner}</span>`;
+      } else if(isLive){
+        statusHtml = `<span class="event-status status-live">🔴 En joc ara</span>`;
+      } else {
+        statusHtml = `<span class="event-status status-pending">⏳ Pendent</span>`;
+      }
+
+      ev.innerHTML = `
+        <b>${match.id.toUpperCase()} · ${match.p1}</b><br>
+        vs ${match.p2}
+        ${statusHtml}
+      `;
+      addHover(ev, match);
       box.appendChild(ev);
     });
   });
-  const todayCard=document.querySelector(".day-card.is-today");
+
+  const todayCard = document.querySelector(".day-card.is-today");
   if(todayCard) setTimeout(()=>todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"}),300);
 }
 
-// ── MATCHES / SIMULACIÓ ───────────────────────────────────────────────────────
-function renderMatches(){
-  if(!$("matchesGrid")||!tournament) return;
-  const grid=$("matchesGrid");
-  grid.innerHTML="";
-
-  // Sort: played matches first (most recently played = highest id among played), then pending
-  const allMatches=[...tournament.matches];
-  const played=allMatches.filter(m=>m.winner!=="").reverse();
-  const pending=allMatches.filter(m=>m.winner==="");
-  const sorted=[...played,...pending];
-
-  $("matchesCount").textContent=`${allMatches.length} partits`;
-
-  sorted.forEach(match=>{
-    if(isPlaceholder(match.p1)||isPlaceholder(match.p2)) return; // skip unresolved
-    const isPlayed=match.winner!=="";
-    const card=document.createElement("div");
-    card.className=`match-card${isPlayed?" played-card":""}`;
-
-    const roundLabel=roundMeta[match.round]?.title||`Ronda ${match.round}`;
-
-    card.innerHTML=`
-      <div class="match-card-header">
-        <span class="match-round-badge">${roundLabel}</span>
-        ${isPlayed?`<span class="match-played-chip">✓ Jugat</span>`:""}
-      </div>
-      <div class="match-players">
-        <div class="match-player-row ${isPlayed&&match.winner===match.p1?"winner-row":""} ${isPlayed&&match.winner!==match.p1?"loser-row":""}">
-          <span>${match.p1}</span>
-          ${isPlayed?`<span class="match-score-badge">${match.score1||"—"}</span>`:""}
-        </div>
-        <div style="text-align:center;font-size:10px;color:var(--muted);font-weight:700;padding:2px 0;">VS</div>
-        <div class="match-player-row ${isPlayed&&match.winner===match.p2?"winner-row":""} ${isPlayed&&match.winner!==match.p2?"loser-row":""}">
-          <span>${match.p2}</span>
-          ${isPlayed?`<span class="match-score-badge">${match.score2||"—"}</span>`:""}
-        </div>
-      </div>
-      <button class="sim-launch-btn" data-p1="${escapeHtml(match.p1)}" data-p2="${escapeHtml(match.p2)}" data-id="${match.id}">
-        🏸 Simular partit
-      </button>
-    `;
-
-    grid.appendChild(card);
-  });
-
-  grid.querySelectorAll(".sim-launch-btn").forEach(btn=>{
-    btn.addEventListener("click",e=>{
-      e.stopPropagation();
-      openSim(btn.dataset.p1,btn.dataset.p2);
-    });
-  });
-}
-
-function addHover(element,match){
-  const hover=$("hoverCard");
-  element.addEventListener("mousemove",e=>{
-    hover.style.display="block";
-    hover.style.left=e.clientX+18+"px";
-    hover.style.top=e.clientY+18+"px";
-    hover.innerHTML=`
-      ${match.image?`<img src="${match.image}" alt="">`:""}
-      <strong>${match.p1} vs ${match.p2}</strong>
-      <p>${match.description||"Sense descripció."}</p>
+function addHover(element, match){
+  const hover = $("hoverCard");
+  element.addEventListener("mousemove", e=>{
+    hover.style.display = "block";
+    hover.style.left = e.clientX + 18 + "px";
+    hover.style.top  = e.clientY + 18 + "px";
+    hover.innerHTML = `
+      ${match.image ? `<img src="${match.image}" alt="Imatge">` : ""}
+      <strong>${match.id.toUpperCase()} · ${match.p1} vs ${match.p2}</strong>
+      <p>${match.description || "Sense descripció."}</p>
     `;
   });
-  element.addEventListener("mouseleave",()=>{ hover.style.display="none"; });
+  element.addEventListener("mouseleave", ()=>{ hover.style.display = "none"; });
 }
 
 function renderAdminFestaDays(){
-  if(!$("adminFestaDays")||!tournament) return;
-  const box=$("adminFestaDays");
-  box.innerHTML="";
-  const days=tournament.festaDays||[];
-  if(!days.length){box.innerHTML=`<span style="color:var(--muted);font-size:13px;font-weight:600;">Cap dia de festa afegit.</span>`;return;}
+  if(!$("adminFestaDays") || !tournament) return;
+  const box = $("adminFestaDays");
+  box.innerHTML = "";
+  const days = tournament.festaDays || [];
+  if(!days.length){
+    box.innerHTML = `<span style="color:var(--muted);font-size:13px;font-weight:700;">Cap dia de festa afegit.</span>`;
+    return;
+  }
   days.sort().forEach(iso=>{
-    const d=new Date(iso+"T00:00:00");
-    const label=new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d);
-    const chip=document.createElement("span");
-    chip.style.cssText="display:inline-flex;align-items:center;gap:6px;background:#fff0f0;border:1px solid #ffcfcf;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:#ff4b4b;";
-    chip.innerHTML=`🎉 ${label} <button data-iso="${iso}" style="background:none;color:#ff4b4b;font-size:15px;line-height:1;padding:0;margin:0;cursor:pointer;" title="Eliminar">×</button>`;
-    chip.querySelector("button").addEventListener("click",e=>{
-      tournament.festaDays=(tournament.festaDays||[]).filter(x=>x!==e.target.dataset.iso);
-      renderAdminFestaDays(); renderSchedule();
+    const d = new Date(iso + "T00:00:00");
+    const label = new Intl.DateTimeFormat("ca-ES",{weekday:"short",day:"numeric",month:"short"}).format(d);
+    const chip = document.createElement("span");
+    chip.style.cssText = "display:inline-flex;align-items:center;gap:6px;background:#fff0f0;border:1px solid #ffcfcf;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900;color:#ff4b4b;";
+    chip.innerHTML = `🎉 ${label} <button data-iso="${iso}" style="background:none;color:#ff4b4b;font-size:15px;line-height:1;padding:0;margin:0;cursor:pointer;" title="Eliminar">×</button>`;
+    chip.querySelector("button").addEventListener("click", e=>{
+      tournament.festaDays = (tournament.festaDays||[]).filter(x=>x!==e.target.dataset.iso);
+      renderAdminFestaDays();
+      renderSchedule();
     });
     box.appendChild(chip);
   });
 }
 
-$("addFestaDay").addEventListener("click",()=>{
-  const val=$("festaDateInput").value;
+$("addFestaDay").addEventListener("click", ()=>{
+  const val = $("festaDateInput").value;
   if(!val) return;
-  if(!tournament.festaDays) tournament.festaDays=[];
-  if(!tournament.festaDays.includes(val)){tournament.festaDays.push(val);renderAdminFestaDays();renderSchedule();}
-  $("festaDateInput").value="";
+  if(!tournament.festaDays) tournament.festaDays = [];
+  if(!tournament.festaDays.includes(val)){
+    tournament.festaDays.push(val);
+    renderAdminFestaDays();
+    renderSchedule();
+  }
+  $("festaDateInput").value = "";
 });
 
 function renderAdminMatches(){
-  if(!$("adminPanel")||$("adminPanel").classList.contains("hidden")||!tournament) return;
-  const box=$("adminMatches");
-  box.innerHTML="";
+  if(!$("adminPanel") || $("adminPanel").classList.contains("hidden") || !tournament) return;
+
+  const box = $("adminMatches");
+  box.innerHTML = "";
+
   tournament.matches.forEach((m,i)=>{
-    const div=document.createElement("div");
-    div.className="admin-match";
-    div.innerHTML=`
-      <strong>${roundMeta[m.round]?.title||"Ronda "+m.round} · ${m.id.toUpperCase()} — ${m.p1} vs ${m.p2}</strong>
+    const div = document.createElement("div");
+    div.className = "admin-match";
+
+    div.innerHTML = `
+      <strong>${roundMeta[m.round]?.title || "Ronda " + m.round} · ${m.id.toUpperCase()}</strong>
+
       <div class="admin-grid">
         ${field(i,"p1","Jugador 1",m.p1)}
         ${field(i,"p2","Jugador 2",m.p2)}
@@ -1585,521 +2338,203 @@ function renderAdminMatches(){
         ${field(i,"score2","Punts jugador 2",m.score2)}
         ${field(i,"winner","Guanyador",m.winner)}
         ${field(i,"date","Dia",m.date,"date")}
+
         <div class="field">
           <label>Pati</label>
           <select class="input admin-input" data-i="${i}" data-k="court">
-            <option value="" ${m.court===""?"selected":""}>Sense pati</option>
-            <option ${m.court==="Pati 1"?"selected":""}>Pati 1</option>
-            <option ${m.court==="Pati 2"?"selected":""}>Pati 2</option>
+            <option value="" ${m.court==="" ? "selected" : ""}>Sense pati</option>
+            <option ${m.court==="Pati 1" ? "selected" : ""}>Pati 1</option>
+            <option ${m.court==="Pati 2" ? "selected" : ""}>Pati 2</option>
           </select>
         </div>
+
         ${field(i,"image","URL imatge",m.image)}
       </div>
+
       <div class="field" style="margin-top:12px;">
         <label>Descripció</label>
         <textarea class="input admin-input" data-i="${i}" data-k="description">${escapeHtml(m.description)}</textarea>
       </div>
     `;
+
     box.appendChild(div);
   });
+
   document.querySelectorAll(".admin-input").forEach(input=>{
-    input.addEventListener("input",e=>{
-      const i=Number(e.target.dataset.i),k=e.target.dataset.k;
-      tournament.matches[i][k]=e.target.value;
-      propagateWinners();renderBracket();renderSchedule();renderMatches();
+    input.addEventListener("input", e=>{
+      const i = Number(e.target.dataset.i);
+      const k = e.target.dataset.k;
+      tournament.matches[i][k] = e.target.value;
+      propagateWinners();
+      renderBracket();
+      renderSchedule();
+      renderEndirecte();
     });
   });
 }
 
 function field(i,k,label,value,type="text"){
-  return`<div class="field"><label>${label}</label><input class="input admin-input" type="${type}" data-i="${i}" data-k="${k}" value="${escapeHtml(value)}"></div>`;
+  return `
+    <div class="field">
+      <label>${label}</label>
+      <input class="input admin-input" type="${type}" data-i="${i}" data-k="${k}" value="${escapeHtml(value)}">
+    </div>
+  `;
 }
 
 function escapeHtml(text=""){
-  return String(text).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
 }
 
-// ── Reset ──────────────────────────────────────────────────────────────────────
-const RESET_PHRASE="El Torneig De Bàdminton Restart";
+// ── Reset ────────────────────────────────────────────────────────────────────
+const RESET_PHRASE = "El Torneig De Bàdminton Restart";
 
 function openResetOverlay(){
-  $("resetStep1").classList.remove("hidden");$("resetStep2").classList.add("hidden");
-  $("resetTyped").value="";$("resetError").textContent="";
-  $("resetOverlay").classList.remove("hidden");$("adminModal").classList.add("hidden");
+  $("resetStep1").classList.remove("hidden");
+  $("resetStep2").classList.add("hidden");
+  $("resetTyped").value = "";
+  $("resetError").textContent = "";
+  $("resetOverlay").classList.remove("hidden");
+  $("adminModal").classList.add("hidden");
 }
 
 function closeResetOverlay(){
-  $("resetOverlay").classList.add("hidden");$("adminModal").classList.remove("hidden");
+  $("resetOverlay").classList.add("hidden");
+  $("adminModal").classList.remove("hidden");
 }
 
-$("openReset").addEventListener("click",openResetOverlay);
-$("resetCancel1").addEventListener("click",closeResetOverlay);
-$("resetCancel2").addEventListener("click",closeResetOverlay);
+$("openReset").addEventListener("click", openResetOverlay);
+$("resetCancel1").addEventListener("click", closeResetOverlay);
+$("resetCancel2").addEventListener("click", closeResetOverlay);
 
-$("resetConfirm1").addEventListener("click",()=>{
-  $("resetStep1").classList.add("hidden");$("resetStep2").classList.remove("hidden");
-  setTimeout(()=>$("resetTyped").focus(),100);
+$("resetConfirm1").addEventListener("click", ()=>{
+  $("resetStep1").classList.add("hidden");
+  $("resetStep2").classList.remove("hidden");
+  setTimeout(()=>$("resetTyped").focus(), 100);
 });
 
-$("resetConfirm2").addEventListener("click",async()=>{
-  const val=$("resetTyped").value.trim();
-  if(val!==RESET_PHRASE){$("resetError").textContent="El text no coincideix.";return;}
-  const clean=JSON.parse(JSON.stringify(initialTournament));
-  clean.updatedAt=Date.now();
+$("resetConfirm2").addEventListener("click", async()=>{
+  const val = $("resetTyped").value.trim();
+  if(val !== RESET_PHRASE){
+    $("resetError").textContent = "El text no coincideix. Torna-ho a intentar.";
+    return;
+  }
+
+  const clean = JSON.parse(JSON.stringify(initialTournament));
+  clean.updatedAt = Date.now();
+
   if(tournament){
     tournament.matches.filter(m=>m.round===1).forEach(m=>{
-      const target=clean.matches.find(x=>x.id===m.id);
-      if(target){target.p1=m.p1;target.p2=m.p2;}
+      const target = clean.matches.find(x=>x.id===m.id);
+      if(target){ target.p1 = m.p1; target.p2 = m.p2; }
     });
   }
-  await setDoc(doc(db,"tournaments","main"),clean);
-  tournament=clean; propagateWinners(); render(); closeResetOverlay();
+
+  await setDoc(doc(db,"tournaments","main"), clean);
+  tournament = clean;
+  propagateWinners();
+  render();
+  closeResetOverlay();
   alert("Torneig reiniciat correctament.");
 });
 
-// ── Auth & tabs ────────────────────────────────────────────────────────────────
-$("enterBtn").addEventListener("click",async()=>{
-  const pass=$("accessPassword").value.trim();
-  const hash=await sha256(pass);
-  const snap=await getDoc(doc(db,"config","private"));
-  if(!snap.exists()){$("lockError").textContent="No s'ha trobat la configuració d'accés.";return;}
-  if(hash===snap.data().passHash){
-    $("lock").classList.add("hidden");$("app").classList.remove("hidden");
-    await loadTournament(); startTimer(); initZoomPan();
-    vpX=10;vpY=10;vpScale=0.65;applyViewport();
+// ── Auth & tabs ──────────────────────────────────────────────────────────────
+$("enterBtn").addEventListener("click", async()=>{
+  const pass = $("accessPassword").value.trim();
+  const hash = await sha256(pass);
+  const snap = await getDoc(doc(db,"config","private"));
+
+  if(!snap.exists()){
+    $("lockError").textContent = "No s'ha trobat la configuració d'accés.";
+    return;
+  }
+
+  if(hash === snap.data().passHash){
+    $("lock").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    await loadTournament();
+    startTimer();
+    initZoomPan();
+    vpX = 10; vpY = 10;
+    vpScale = 0.65;
+    applyViewport();
   } else {
-    $("lockError").textContent="Contrasenya incorrecta.";
+    $("lockError").textContent = "Contrasenya incorrecta.";
   }
 });
 
-$("accessPassword").addEventListener("keydown",e=>{if(e.key==="Enter")$("enterBtn").click();});
+$("accessPassword").addEventListener("keydown", e=>{
+  if(e.key==="Enter") $("enterBtn").click();
+});
 
 document.querySelectorAll(".tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     tab.classList.add("active");
-    ["bracketView","calendarView","matchesView"].forEach(id=>$(id).classList.add("hidden"));
+    ["bracketView","calendarView"].forEach(id=>$(id).classList.add("hidden"));
     $(tab.dataset.view).classList.remove("hidden");
-    if(tab.dataset.view==="bracketView") setTimeout(drawBracketLines,100);
-    if(tab.dataset.view==="matchesView") renderMatches();
+    if(tab.dataset.view === "bracketView") setTimeout(drawBracketLines,100);
   });
 });
 
-document.addEventListener("keydown",e=>{
-  typed+=e.key.toLowerCase(); typed=typed.slice(-5);
-  if(typed==="astop") $("adminModal").classList.remove("hidden");
+document.addEventListener("keydown", e=>{
+  typed += e.key.toLowerCase();
+  typed = typed.slice(-5);
+  if(typed === "astop"){
+    $("adminModal").classList.remove("hidden");
+  }
 });
 
 $("closeAdmin").addEventListener("click",()=>$("adminModal").classList.add("hidden"));
 
-$("loginAdmin").addEventListener("click",async()=>{
-  const email=$("adminEmail").value.trim();
-  const password=$("adminPassword").value;
-  if(!ADMIN_EMAILS.includes(email)){$("adminError").textContent="Aquest correu no té permís.";return;}
+$("loginAdmin").addEventListener("click", async()=>{
+  const email    = $("adminEmail").value.trim();
+  const password = $("adminPassword").value;
+
+  if(!ADMIN_EMAILS.includes(email)){
+    $("adminError").textContent = "Aquest correu no té permís.";
+    return;
+  }
+
   try{
     await signInWithEmailAndPassword(auth,email,password);
-    $("adminError").textContent="";
-  }catch{$("adminError").textContent="No s'ha pogut iniciar sessió.";}
+    $("adminError").textContent = "";
+  }catch{
+    $("adminError").textContent = "No s'ha pogut iniciar sessió.";
+  }
 });
 
-onAuthStateChanged(auth,user=>{
-  if(user&&ADMIN_EMAILS.includes(user.email)){
-    $("adminLogin").classList.add("hidden");$("adminPanel").classList.remove("hidden");
-    renderAdminFestaDays();renderAdminMatches();
+onAuthStateChanged(auth, user=>{
+  if(user && ADMIN_EMAILS.includes(user.email)){
+    $("adminLogin").classList.add("hidden");
+    $("adminPanel").classList.remove("hidden");
+    renderAdminFestaDays();
+    renderAdminMatches();
   } else {
-    $("adminLogin").classList.remove("hidden");$("adminPanel").classList.add("hidden");
+    $("adminLogin").classList.remove("hidden");
+    $("adminPanel").classList.add("hidden");
   }
 });
 
 $("logoutAdmin").addEventListener("click",()=>signOut(auth));
 
-$("saveAll").addEventListener("click",async()=>{
-  propagateWinners(); tournament.version=VERSION; tournament.updatedAt=Date.now();
-  await setDoc(doc(db,"tournaments","main"),tournament);
+$("saveAll").addEventListener("click", async()=>{
+  propagateWinners();
+  tournament.version   = VERSION;
+  tournament.updatedAt = Date.now();
+  await setDoc(doc(db,"tournaments","main"), tournament);
   alert("Canvis guardats.");
 });
 
-window.addEventListener("resize",()=>{ if(tournament) drawBracketLines(); });
-
-// ══════════════════════════════════════════════════════════════════════════════
-// SIMULACIÓ ENGINE
-// ══════════════════════════════════════════════════════════════════════════════
-let simAF = null;
-let simRunning = false;
-let simScore = [0,0];
-let simP1="", simP2="";
-
-// Game state
-let ball = {};
-let racket1 = {}, racket2 = {};
-let netX = 0;
-const WINNING_SCORE = 21;
-
-function openSim(p1,p2){
-  simP1=p1; simP2=p2;
-  simScore=[0,0];
-  $("simTitle").textContent=`${p1} vs ${p2}`;
-  $("simName1").textContent=p1;$("simName2").textContent=p2;
-  $("simScore1").textContent="0";$("simScore2").textContent="0";
-  $("simStatus").textContent="Preparat per iniciar";
-  $("simStart").classList.remove("hidden");$("simStop").classList.add("hidden");
-  $("simModal").classList.remove("hidden");
-  initSimState();
-  drawStaticFrame();
-}
-
-$("simClose").addEventListener("click",()=>{
-  stopSim();
-  $("simModal").classList.add("hidden");
+window.addEventListener("resize",()=>{
+  if(tournament) drawBracketLines();
+  resizeSimCanvas();
+  if(simState) drawSimFrame();
 });
-
-$("simStart").addEventListener("click",()=>{
-  if(simRunning) return;
-  startSim();
-});
-
-$("simStop").addEventListener("click",()=>{
-  stopSim();
-  $("simStart").classList.remove("hidden");
-  $("simStop").classList.add("hidden");
-  $("simStatus").textContent="Aturat";
-});
-
-$("simSkip").addEventListener("click",()=>{
-  // Award a random point
-  awardPoint(Math.random()<0.5?0:1);
-});
-
-function initSimState(){
-  const canvas=$("simCanvas");
-  const W=canvas.clientWidth||680, H=canvas.clientHeight||382;
-  canvas.width=W; canvas.height=H;
-  netX=W/2;
-
-  ball={
-    x:W/4+Math.random()*W/2,
-    y:H/2+(Math.random()-0.5)*H*0.3,
-    vx:(Math.random()<0.5?1:-1)*(3+Math.random()*2),
-    vy:(Math.random()-0.5)*3,
-    r:7,
-    trail:[]
-  };
-
-  racket1={
-    x:W*0.12, y:H/2,
-    vy:0, targetY:H/2,
-    side:0, name:simP1,
-    color:"#b7ff68"
-  };
-  racket2={
-    x:W*0.88, y:H/2,
-    vy:0, targetY:H/2,
-    side:1, name:simP2,
-    color:"#4b8fff"
-  };
-}
-
-function startSim(){
-  if(simRunning) return;
-  simRunning=true;
-  $("simStart").classList.add("hidden");
-  $("simStop").classList.remove("hidden");
-  $("simStatus").textContent="En joc…";
-  simLoop();
-}
-
-function stopSim(){
-  simRunning=false;
-  if(simAF){cancelAnimationFrame(simAF);simAF=null;}
-}
-
-function awardPoint(playerIdx){
-  simScore[playerIdx]++;
-  const s1=$("simScore1"),s2=$("simScore2");
-  if(playerIdx===0){s1.classList.add("bump");setTimeout(()=>s1.classList.remove("bump"),300);}
-  else{s2.classList.add("bump");setTimeout(()=>s2.classList.remove("bump"),300);}
-  $("simScore1").textContent=simScore[0];
-  $("simScore2").textContent=simScore[1];
-
-  if(simScore[playerIdx]>=WINNING_SCORE){
-    stopSim();
-    const winner=playerIdx===0?simP1:simP2;
-    $("simStatus").textContent=`🏆 Guanya ${winner}!`;
-    $("simStart").classList.remove("hidden");
-    $("simStop").classList.add("hidden");
-    return;
-  }
-  $("simStatus").textContent=`Punt per ${playerIdx===0?simP1:simP2}! · ${simScore[0]}–${simScore[1]}`;
-  // Reset ball
-  const canvas=$("simCanvas");
-  const W=canvas.width,H=canvas.height;
-  // Ball goes toward the player who conceded (opposite side)
-  const dir=playerIdx===0?1:-1;
-  ball.x=W/2;ball.y=H/2;
-  ball.vx=dir*(4+Math.random()*2);
-  ball.vy=(Math.random()-0.5)*4;
-  ball.trail=[];
-  setTimeout(()=>{$("simStatus").textContent="En joc…";},900);
-}
-
-function simLoop(){
-  if(!simRunning){return;}
-  const canvas=$("simCanvas");
-  const ctx=canvas.getContext("2d");
-  const W=canvas.width,H=canvas.height;
-
-  update(W,H);
-  draw(ctx,W,H);
-  simAF=requestAnimationFrame(simLoop);
-}
-
-function update(W,H){
-  // Move ball
-  ball.trail.push({x:ball.x,y:ball.y});
-  if(ball.trail.length>14) ball.trail.shift();
-
-  ball.x+=ball.vx;
-  ball.y+=ball.vy;
-
-  // Gravity-like arc (shuttle deceleration up, acceleration down)
-  ball.vy+=0.06;
-
-  // Bounce off top/bottom
-  if(ball.y-ball.r<0){ball.y=ball.r;ball.vy=Math.abs(ball.vy)*0.88;}
-  if(ball.y+ball.r>H){ball.y=H-ball.r;ball.vy=-Math.abs(ball.vy)*0.88;}
-
-  // Racket AI: target the ball if ball is on their side
-  const RACKET_H=60,RACKET_W=14;
-
-  // Racket 1 tracks ball if ball is moving toward left, else centers
-  if(ball.vx<0){
-    racket1.targetY=ball.y;
-  } else {
-    racket1.targetY=H/2+(Math.random()-0.5)*H*0.1;
-  }
-
-  // Racket 2 tracks ball if ball is moving toward right, else centers
-  if(ball.vx>0){
-    racket2.targetY=ball.y;
-  } else {
-    racket2.targetY=H/2+(Math.random()-0.5)*H*0.1;
-  }
-
-  // Smooth movement for rackets
-  racket1.y+=(racket1.targetY-racket1.y)*0.12;
-  racket2.y+=(racket2.targetY-racket2.y)*0.12;
-
-  // Clamp
-  racket1.y=Math.max(RACKET_H/2+10,Math.min(H-RACKET_H/2-10,racket1.y));
-  racket2.y=Math.max(RACKET_H/2+10,Math.min(H-RACKET_H/2-10,racket2.y));
-
-  // Collision with racket 1 (left)
-  const r1left=racket1.x-RACKET_W/2, r1right=racket1.x+RACKET_W/2;
-  const r1top=racket1.y-RACKET_H/2, r1bot=racket1.y+RACKET_H/2;
-  if(ball.x-ball.r<=r1right&&ball.x+ball.r>=r1left&&ball.y>=r1top&&ball.y<=r1bot&&ball.vx<0){
-    ball.vx=Math.abs(ball.vx)*1.05;
-    ball.vy=(ball.y-racket1.y)/RACKET_H*6;
-    ball.x=r1right+ball.r;
-  }
-
-  // Collision with racket 2 (right)
-  const r2left=racket2.x-RACKET_W/2, r2right=racket2.x+RACKET_W/2;
-  const r2top=racket2.y-RACKET_H/2, r2bot=racket2.y+RACKET_H/2;
-  if(ball.x+ball.r>=r2left&&ball.x-ball.r<=r2right&&ball.y>=r2top&&ball.y<=r2bot&&ball.vx>0){
-    ball.vx=-Math.abs(ball.vx)*1.05;
-    ball.vy=(ball.y-racket2.y)/RACKET_H*6;
-    ball.x=r2left-ball.r;
-  }
-
-  // Speed cap
-  const maxSpd=12;
-  const spd=Math.hypot(ball.vx,ball.vy);
-  if(spd>maxSpd){ball.vx=ball.vx/spd*maxSpd;ball.vy=ball.vy/spd*maxSpd;}
-
-  // Scored?
-  if(ball.x<-30){
-    // Player 2 scores
-    awardPoint(1); return;
-  }
-  if(ball.x>W+30){
-    // Player 1 scores
-    awardPoint(0); return;
-  }
-}
-
-function draw(ctx,W,H){
-  // Background – green court
-  ctx.fillStyle="#1a7a1a";
-  ctx.fillRect(0,0,W,H);
-
-  // Court lines
-  ctx.strokeStyle="rgba(255,255,255,0.25)";ctx.lineWidth=1.5;
-  ctx.strokeRect(W*0.05,H*0.05,W*0.9,H*0.9);
-  ctx.beginPath();ctx.moveTo(W*0.05,H/2);ctx.lineTo(W*0.95,H/2);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(W*0.25,H*0.05);ctx.lineTo(W*0.25,H*0.95);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(W*0.75,H*0.05);ctx.lineTo(W*0.75,H*0.95);ctx.stroke();
-
-  // Net
-  const netGrad=ctx.createLinearGradient(netX-3,0,netX+3,0);
-  netGrad.addColorStop(0,"#ffffff");netGrad.addColorStop(0.5,"#e0e0e0");netGrad.addColorStop(1,"#ffffff");
-  ctx.fillStyle=netGrad;
-  ctx.fillRect(netX-3,H*0.05,6,H*0.9);
-
-  // Net mesh
-  ctx.strokeStyle="rgba(255,255,255,0.15)";ctx.lineWidth=0.8;
-  for(let y=H*0.05;y<H*0.95;y+=10){
-    ctx.beginPath();ctx.moveTo(netX-3,y);ctx.lineTo(netX+3,y);ctx.stroke();
-  }
-
-  // Net posts
-  ctx.fillStyle="#888";
-  ctx.fillRect(netX-4,H*0.03,8,12);
-  ctx.fillRect(netX-4,H*0.93,8,12);
-
-  // Ball trail
-  ball.trail.forEach((t,i)=>{
-    const alpha=i/ball.trail.length*0.35;
-    ctx.beginPath();
-    ctx.arc(t.x,t.y,ball.r*(0.4+i/ball.trail.length*0.6),0,Math.PI*2);
-    ctx.fillStyle=`rgba(255,220,60,${alpha})`;
-    ctx.fill();
-  });
-
-  // Ball (shuttlecock style)
-  drawShuttle(ctx,ball.x,ball.y,ball.r);
-
-  // Rackets
-  drawRacket(ctx,racket1,"#b7ff68",W,H);
-  drawRacket(ctx,racket2,"#4b8fff",W,H);
-
-  // Player names under rackets
-  ctx.font="bold 11px 'DM Sans',sans-serif";
-  ctx.textAlign="center";
-
-  // Name 1 with colored background chip
-  const name1Short=simP1.split(" ")[0];
-  const name1W=ctx.measureText(name1Short).width;
-  ctx.fillStyle="rgba(183,255,104,0.85)";
-  roundRect(ctx,racket1.x-name1W/2-6,racket1.y+38,name1W+12,20,6);
-  ctx.fill();
-  ctx.fillStyle="#1a3a00";
-  ctx.fillText(name1Short,racket1.x,racket1.y+52);
-
-  const name2Short=simP2.split(" ")[0];
-  const name2W=ctx.measureText(name2Short).width;
-  ctx.fillStyle="rgba(75,143,255,0.85)";
-  roundRect(ctx,racket2.x-name2W/2-6,racket2.y+38,name2W+12,20,6);
-  ctx.fill();
-  ctx.fillStyle="#001a3a";
-  ctx.fillText(name2Short,racket2.x,racket2.y+52);
-}
-
-function drawShuttle(ctx,x,y,r){
-  // Feathers (back cone)
-  const vx=ball.vx, vy=ball.vy;
-  const angle=Math.atan2(vy,vx);
-
-  ctx.save();
-  ctx.translate(x,y);
-  ctx.rotate(angle);
-
-  // Feather spread
-  const featherLen=r*2.8;
-  for(let i=-3;i<=3;i++){
-    const spread=(i/3)*0.5;
-    ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.lineTo(-featherLen,i*(r*0.5));
-    ctx.strokeStyle=`rgba(255,255,255,${0.5+Math.abs(i)/6*0.3})`;
-    ctx.lineWidth=1.2;
-    ctx.stroke();
-  }
-
-  // Cork (white ball at front)
-  ctx.beginPath();
-  ctx.arc(0,0,r*0.85,0,Math.PI*2);
-  const g=ctx.createRadialGradient(-r*0.3,-r*0.3,r*0.1,0,0,r*0.85);
-  g.addColorStop(0,"#fff");g.addColorStop(0.7,"#f5e070");g.addColorStop(1,"#c8a020");
-  ctx.fillStyle=g;
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawRacket(ctx,racket,color,W,H){
-  const RACKET_H=60,RACKET_W=14;
-  const x=racket.x,y=racket.y;
-
-  ctx.save();
-  ctx.translate(x,y);
-
-  // Handle
-  ctx.fillStyle="#5a3a1a";
-  ctx.fillRect(-RACKET_W/2-2,RACKET_H/2,RACKET_W+4,28);
-
-  // Grip tape
-  ctx.fillStyle="#222";
-  for(let i=0;i<4;i++){
-    ctx.fillRect(-RACKET_W/2,RACKET_H/2+4+i*6,RACKET_W,3);
-  }
-
-  // Frame (oval)
-  ctx.beginPath();
-  ctx.ellipse(0,0,RACKET_W/2+4,RACKET_H/2+6,0,0,Math.PI*2);
-  ctx.fillStyle=color;
-  ctx.fill();
-  ctx.strokeStyle="rgba(0,0,0,0.3)";ctx.lineWidth=2;ctx.stroke();
-
-  // String grid
-  ctx.strokeStyle="rgba(255,255,255,0.55)";ctx.lineWidth=0.9;
-  // Horizontal strings
-  for(let sy=-RACKET_H/2+4;sy<=RACKET_H/2-4;sy+=7){
-    const half=Math.sqrt(Math.max(0,1-Math.pow(sy/(RACKET_H/2+4),2)))*(RACKET_W/2+2);
-    ctx.beginPath();ctx.moveTo(-half,sy);ctx.lineTo(half,sy);ctx.stroke();
-  }
-  // Vertical strings
-  for(let sx=-RACKET_W/2+2;sx<=RACKET_W/2-2;sx+=5){
-    const half=Math.sqrt(Math.max(0,1-Math.pow(sx/(RACKET_W/2+4),2)))*(RACKET_H/2+4);
-    ctx.beginPath();ctx.moveTo(sx,-half);ctx.lineTo(sx,half);ctx.stroke();
-  }
-
-  // Player name ON racket
-  ctx.font="bold 9px 'DM Sans',sans-serif";
-  ctx.fillStyle="rgba(0,0,0,0.55)";
-  ctx.textAlign="center";
-  const nameShort=racket.name.split(" ")[0];
-  ctx.fillText(nameShort,0,3);
-
-  ctx.restore();
-}
-
-function roundRect(ctx,x,y,w,h,r){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
-  ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
-  ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
-  ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);
-  ctx.closePath();
-}
-
-function drawStaticFrame(){
-  const canvas=$("simCanvas");
-  const W=canvas.clientWidth||680,H=canvas.clientHeight||382;
-  canvas.width=W;canvas.height=H;
-  netX=W/2;
-  const ctx=canvas.getContext("2d");
-
-  // Green background
-  ctx.fillStyle="#1a7a1a";ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle="rgba(255,255,255,0.25)";ctx.lineWidth=1.5;
-  ctx.strokeRect(W*0.05,H*0.05,W*0.9,H*0.9);
-  const netGrad=ctx.createLinearGradient(netX-3,0,netX+3,0);
-  netGrad.addColorStop(0,"#ffffff");netGrad.addColorStop(1,"#e0e0e0");
-  ctx.fillStyle=netGrad;ctx.fillRect(netX-3,H*0.05,6,H*0.9);
-
-  racket1.y=H/2;racket2.y=H/2;
-  ball.x=W/4;ball.y=H/2;ball.vx=1;ball.vy=0;ball.trail=[];
-  draw(ctx,W,H);
-}
 </script>
 </body>
 </html>
