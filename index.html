@@ -953,21 +953,6 @@ $("resetConfirm2").addEventListener("click",async()=>{
   }
 })();
 
-  if(hash===snap.data().passHash){
-  localStorage.setItem("badminton_access_ok","1");
-  $("lock").classList.add("hidden");
-  $("app").classList.remove("hidden");
-
-  await loadTournament();
-  renderTodayBubble();
-
-  startTimer();
-  initZoomPan();
-  applyViewport();
-}else{
-  $("lockError").textContent="Contrasenya incorrecta.";
-}
-
 $("enterBtn").addEventListener("click",async()=>{
   const pass=$("accessPassword").value.trim(),hash=await sha256(pass);
   const snap=await getDoc(doc(db,"config","private"));
