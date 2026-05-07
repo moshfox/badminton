@@ -747,6 +747,9 @@ function renderTodayBubble(){
     </div>
   `).join("");
 }
+  $("todayBubbleHead").addEventListener("click", () => {
+  $("todayBubble").classList.toggle("open");
+});
 
 function showDayMessageIfNeeded(force=false){
   const msg=tournament?.dayMessage;
@@ -784,9 +787,11 @@ function checkUnderConstruction(){
     $("todayBubble").classList.add("hidden");
   }else{
     $("underConstruction").classList.add("hidden");
-    if(!localStorage.getItem("badminton_access_ok")){
-      $("lock").classList.remove("hidden");
-      $("app").classList.add("hidden");
+if(!localStorage.getItem("badminton_access_ok")){
+  $("lock").classList.remove("hidden");
+  $("app").classList.add("hidden");
+  $("todayBubble").classList.add("hidden");
+}
     }else{
       $("lock").classList.add("hidden");
       $("app").classList.remove("hidden");
