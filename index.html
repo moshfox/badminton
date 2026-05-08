@@ -239,6 +239,7 @@ textarea{min-height:82px;resize:vertical}
       <button class="tab active" data-view="bracketView">Bracket</button>
       <button class="tab" data-view="calendarView">Horari</button>
       <button class="tab" data-view="replayView">Partits</button>
+      <button class="tab" onclick="window.location.href='./predics.html'">Prediccions</button>
     </div>
   </section>
 
@@ -283,14 +284,9 @@ textarea{min-height:82px;resize:vertical}
           <div class="replay-stat"><b id="replayPendingStat">0</b><span>Pendents</span></div>
         </div>
       </div>
-      <div class="replay-toolbar">
-        <input id="replaySearch" class="input replay-search" type="search" placeholder="Buscar jugador o partit...">
-        <select id="replayFilter" class="input replay-filter">
-          <option value="played">Jugats</option>
-          <option value="all">Tots</option>
-          <option value="postponed">Ajornats</option>
-        </select>
-      </div>
+     <div class="replay-toolbar">
+  <input id="replaySearch" class="input replay-search" type="search" placeholder="Buscar jugador o partit...">
+</div>
       <div id="replayGrid" class="replay-grid"></div>
     </div>
   </section>
@@ -685,29 +681,50 @@ function patioHTML(court,time,iso,isToday,now){
 function renderReplayGrid(){
   const grid=$("replayGrid");if(!grid||!tournament)return;
   const search=($("replaySearch")?.value||"").toLowerCase().trim();
-  const filter=$("replayFilter")?.value||"played";
+
   const playedCount=tournament.matches.filter(m=>m.winner).length;
   $("replayPlayedStat").textContent=playedCount;
   $("replayPendingStat").textContent=tournament.matches.length-playedCount;
-  let list=[...tournament.matches];
-  if(filter==="played")list=list.filter(m=>m.winner);
-  if(filter==="postponed")list=list.filter(m=>isPostponed(m.id));
-  if(search)list=list.filter(m=>(`${m.id} ${m.p1} ${m.p2} ${m.winner}`.toLowerCase().includes(search)));
-  if(!list.length){grid.innerHTML=`<div class="empty-state">No hi ha partits amb aquest filtre.</div>`;return;}
+
+  let list=tournament.matches.filter(m=>m.winner);
+
+  if(search){
+    list=list.filter(m=>
+      (`${m.id} ${m.p1} ${m.p2} ${m.winner}`.toLowerCase().includes(search))
+    );
+  }
+
+  if(!list.length){
+    grid.innerHTML=`<div class="empty-state">No hi ha partits jugats amb aquesta cerca.</div>`;
+    return;
+  }
+
   grid.innerHTML="";
   list.reverse().forEach(match=>{
-    const played=!!match.winner;
     const card=document.createElement("div");
     card.className=`replay-card${isPostponed(match.id)?" postponed":""}`;
-    card.innerHTML=`<div class="replay-card-top"><span class="replay-round-pill">${match.id.toUpperCase()} · ${roundMeta[match.round]?.title||"Ronda"}</span><span class="replay-play-pill">${played?"▶ Obrir":"⏳ Pendent"}</span></div><div class="replay-title">${escapeHtml(match.p1)}<br><span style="color:var(--muted);font-weight:800;">contra</span><br>${escapeHtml(match.p2)}</div><div class="replay-score">${match.score1||0} — ${match.score2||0}</div>${played?`<div class="replay-winner">🏆 ${escapeHtml(match.winner)}</div>`:`<div class="replay-winner" style="color:#777;background:#f4f4ef;border-color:#e5e5df;">Encara no jugat</div>`}<div class="replay-bg-mark">🏸</div>`;
+    card.innerHTML=`
+      <div class="replay-card-top">
+        <span class="replay-round-pill">${match.id.toUpperCase()} · ${roundMeta[match.round]?.title||"Ronda"}</span>
+        <span class="replay-play-pill">▶ Obrir</span>
+      </div>
+      <div class="replay-title">
+        ${escapeHtml(match.p1)}<br>
+        <span style="color:var(--muted);font-weight:800;">contra</span><br>
+        ${escapeHtml(match.p2)}
+      </div>
+      <div class="replay-score">${match.score1||0} — ${match.score2||0}</div>
+      <div class="replay-winner">🏆 ${escapeHtml(match.winner)}</div>
+      <div class="replay-bg-mark">🏸</div>
+    `;
     card.addEventListener("click",()=>{
       window.open(`./repeticion.html?id=${encodeURIComponent(match.id)}`,"_blank");
     });
     grid.appendChild(card);
   });
 }
-$("replaySearch").addEventListener("input",renderReplayGrid);
-$("replayFilter").addEventListener("change",renderReplayGrid);
+  $("replaySearch").addEventListener("input",renderReplayGrid);
+
 
 function renderTodayBubble(){
   const bubble=$("todayBubble");if(!tournament||!bubble)return;
