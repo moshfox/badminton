@@ -792,8 +792,24 @@ async function setCoins(v){
   wallet={...wallet,coins:v};renderAll();
 }
 
+function isPlaceholder(n){
+  const x = String(n || "").trim().toLowerCase();
+
+  return !x ||
+    x === "—" ||
+    x === "-" ||
+    x === "null" ||
+    x === "undefined" ||
+    x.startsWith("guanyador") ||
+    x.includes("guanyador") ||
+    x.includes("winner") ||
+    x.includes("pendent") ||
+    x.includes("pendiente") ||
+    x.includes("pending");
+}
+
 function openMatches(){
-  return (tournament.matches||[]).filter(m=>
+  return (tournament.matches || []).filter(m =>
     isPlaceholder(m.winner) &&
     !isPlaceholder(m.p1) &&
     !isPlaceholder(m.p2)
@@ -801,7 +817,7 @@ function openMatches(){
 }
 
 function playedMatches(){
-  return (tournament.matches||[]).filter(m=>
+  return (tournament.matches || []).filter(m =>
     !isPlaceholder(m.winner) &&
     !isPlaceholder(m.p1) &&
     !isPlaceholder(m.p2)
