@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prediccions · Torneig de Bàdminton</title>
+<link rel="icon" type="image/png" href="./logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f4;
+  --paper:#fff;
+  --text:#111;
+  --muted:#777;
+  --line:#e3e3dd;
+  --soft:#f1f1ec;
+  --blue:#4d8dff;
+  --blueSoft:#eaf2ff;
+  --red:#ff6b6b;
+  --redSoft:#fff0f0;
+  --green:#b7ff68;
+  --shadow:0 18px 50px rgba(0,0,0,.07);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at top left,rgba(183,255,104,.28),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
+.hidden{display:none!important}
+a{text-decoration:none;color:inherit}
+.app{max-width:1250px;margin:auto;padding:16px}
+.topbar{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(247,247,244,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(227,227,221,.75);
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{
+  width:38px;height:38px;border-radius:13px;
+  background:#111;color:#fff;
+  display:grid;place-items:center;
+  font-weight:900;
+  box-shadow:0 10px 26px rgba(0,0,0,.12);
+}
+.brand-text{min-width:0}
+.brand-text b{display:block;letter-spacing:-.04em}
+.brand-text span{display:block;color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wallet-chip{
+  display:flex;align-items:center;gap:10px;
+  background:#111;color:#fff;
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.wallet-chip small{color:#bdbdbd;font-weight:800}
+.btn{
+  background:#111;color:#fff;
+  border-radius:999px;
+  padding:11px 15px;
+  font-weight:900;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.btn.secondary{background:#fff;color:#111;border:1px solid var(--line)}
+.btn.green{background:var(--green);color:#111}
+.btn.red{background:var(--red);color:#111}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chrome-tabs{
+  display:flex;
+  gap:8px;
+  padding:14px 0;
+  overflow-x:auto;
+}
+.chrome-tab{
+  background:#ecece6;
+  border:1px solid #ddddd5;
+  color:#555;
+  padding:12px 18px;
+  border-radius:18px 18px 8px 8px;
+  font-weight:900;
+  white-space:nowrap;
+  min-width:130px;
+}
+.chrome-tab.active{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
+  box-shadow:0 -4px 24px rgba(0,0,0,.05);
+}
+.page{
+  background:#fff;
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  border-radius:0 24px 24px 24px;
+  padding:18px;
+  min-height:calc(100vh - 150px);
+}
+.hero{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:end;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.eyebrow{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:var(--muted);
+  font-weight:900;
+}
+h1,h2,h3{margin:0;letter-spacing:-.06em}
+h1{font-size:clamp(34px,5vw,58px);line-height:.9}
+h2{font-size:32px}
+p{margin:0;color:var(--muted);line-height:1.45}
+.input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:16px;
+  padding:13px 15px;
+  outline:none;
+}
+.input:focus{border-color:#111}
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+.toolbar .input{max-width:330px}
+.matches{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:14px;
+}
+.match{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:#fff;
+  padding:15px;
+  transition:.16s ease;
+}
+.match:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.match-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border-radius:999px;
+  background:var(--soft);
+  border:1px solid var(--line);
+  padding:6px 10px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+}
+.names{
+  display:grid;
+  gap:7px;
+  margin-bottom:13px;
+}
+.name{
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-.05em;
+  padding:9px 12px;
+  border-radius:16px;
+}
+.name.blue{background:var(--blueSoft);color:#245dbb}
+.name.red{background:var(--redSoft);color:#c93535}
+.vs{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-left:3px}
+.percent-bar{
+  height:18px;
+  border-radius:999px;
+  background:#eee;
+  overflow:hidden;
+  display:flex;
+  border:1px solid #e4e4df;
+}
+.percent-blue{background:var(--blue);transition:.25s;width:50%}
+.percent-red{background:var(--red);transition:.25s;width:50%}
+.stats-line{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  font-weight:900;
+  margin-top:8px;
+}
+.stats-line span:first-child{color:#245dbb}
+.stats-line span:last-child{color:#c93535}
+.predict-btn{width:100%;margin-top:14px;background:#111;color:#fff}
+.empty{
+  border:1px dashed var(--line);
+  border-radius:22px;
+  background:#fff;
+  padding:28px;
+  color:var(--muted);
+  font-weight:900;
+  text-align:center;
+}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:16px;
+}
+.balance-card{
+  grid-column:span 5;
+  background:#111;
+  color:#fff;
+  border-radius:28px;
+  padding:22px;
+}
+.balance-card .big{
+  font-size:clamp(44px,6vw,72px);
+  font-weight:900;
+  letter-spacing:-.08em;
+  line-height:.9;
+  margin-top:12px;
+}
+.balance-card p{color:#cfcfcf;font-weight:800;margin-top:10px}
+.small-card{grid-column:span 7;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mini{
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:16px;
+  background:#fff;
+}
+.mini b{display:block;font-size:32px;letter-spacing:-.07em}
+.mini span{font-size:11px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{padding:13px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}
+th{background:#fafafa;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900}
+td{font-weight:800}
+tr:last-child td{border-bottom:0}
+.modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.38);
+  backdrop-filter:blur(12px);
+  z-index:80;
+  display:grid;
+  place-items:center;
+  padding:16px;
+}
+.modal-box{
+  width:min(920px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:30px;
+  padding:20px;
+  box-shadow:0 24px 70px rgba(0,0,0,.2);
+}
+.modal-head{
+  display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:18px;
+}
+.chart-card{
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:#fff;
+  padding:14px;
+  margin:14px 0;
+}
+.chart{
+  position:relative;
+  height:230px;
+  background:
+    linear-gradient(90deg,transparent calc(50% - 1px),#111 calc(50% - 1px),#111 calc(50% + 1px),transparent calc(50% + 1px)),
+    linear-gradient(#f5f5f0 1px,transparent 1px),
+    linear-gradient(90deg,#f5f5f0 1px,transparent 1px);
+  background-size:auto,100% 46px,46px 100%;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid var(--line);
+}
+.chart-half{
+  position:absolute;top:0;bottom:0;width:50%;opacity:.12;
+}
+.chart-half.blue{left:0;background:var(--blue)}
+.chart-half.red{right:0;background:var(--red)}
+.chart-svg{position:absolute;inset:0;width:100%;height:100%}
+.chart-labels{
+  display:flex;justify-content:space-between;font-size:12px;font-weight:900;margin-top:9px;
+}
+.chart-labels .blue{color:#245dbb}.chart-labels .red{color:#c93535}
+.bet-panel{
+  display:grid;
+  grid-template-columns:1fr 180px;
+  gap:12px;
+  align-items:end;
+}
+.choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.choice{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:18px;
+  padding:12px;
+  font-weight:900;
+  text-align:left;
+}
+.choice.blue.active{background:var(--blueSoft);border-color:var(--blue);color:#245dbb}
+.choice.red.active{background:var(--redSoft);border-color:var(--red);color:#c93535}
+.toast{
+  position:fixed;right:18px;bottom:18px;
+  background:#111;color:#fff;
+  border-radius:20px;
+  padding:14px 16px;
+  font-weight:900;
+  z-index:120;
+  opacity:0;
+  transform:translateY(16px);
+  pointer-events:none;
+  transition:.22s ease;
+  max-width:360px;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+.auth-actions{display:flex;gap:8px;flex-wrap:wrap}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.user-card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:14px;
+  display:grid;
+  gap:10px;
+}
+@media(max-width:850px){
+  .page{border-radius:22px}
+  .grid{grid-template-columns:1fr}
+  .balance-card,.small-card{grid-column:span 1}
+  .small-card{grid-template-columns:1fr}
+  .bet-panel{grid-template-columns:1fr}
+  .topbar{height:auto;padding:10px 0;align-items:flex-start}
+  .brand-text span{white-space:normal}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="./index.html">
+      <div class="logo">🏸</div>
+      <div class="brand-text">
+        <b>Prediccions</b>
+        <span>Rosa de Trigo Coins · Torneig de Bàdminton</span>
+      </div>
+    </a>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+      <div class="wallet-chip"><span id="topCoins">100</span> RDTC <small id="topTdbc">1000 TDBC</small></div>
+      <button id="loginBtn" class="btn green">Entrar +300</button>
+      <button id="logoutBtn" class="btn secondary hidden">Sortir</button>
+    </div>
+  </header>
+
+  <nav class="chrome-tabs">
+    <button class="chrome-tab active" data-page="homePage">Partits</button>
+    <button class="chrome-tab" data-page="walletPage">Wallet</button>
+    <button class="chrome-tab" data-page="resultsPage">Resultats</button>
+    <button class="chrome-tab" data-page="txPage">Transaccions</button>
+    <button class="chrome-tab" data-page="bankPage">Banc</button>
+  </nav>
+
+  <main class="page">
+    <section id="homePage">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Pàgina principal</div>
+          <h1>Partits oberts</h1>
+          <p style="margin-top:8px;">Tria un partit, mira com va el diner apostat i posa les teves RDTC.</p>
+        </div>
+        <div class="toolbar" style="margin:0;">
+          <input id="searchInput" class="input" placeholder="Buscar jugador...">
+          <select id="roundInput" class="input" style="max-width:180px;">
+            <option value="all">Totes</option>
+            <option value="1">Prèvies</option>
+            <option value="2">Octaus</option>
+            <option value="3">Quarts</option>
+            <option value="4">Semis</option>
+            <option value="5">Final</option>
+          </select>
+        </div>
+      </div>
+      <div id="matches" class="matches"></div>
+    </section>
+
+    <section id="walletPage" class="hidden">
+      <div class="grid">
+        <div class="balance-card">
+          <div class="eyebrow" style="color:#b7ff68;">Wallet</div>
+          <div class="big"><span id="walletCoins">100</span> RDTC</div>
+          <p>També tens <b id="walletTdbc">1000</b> TDBC. Canvi: 1 RDTC = 10 TDBC.</p>
+        </div>
+        <div class="small-card">
+          <div class="mini"><span>Apostes actives</span><b id="activeBets">0</b></div>
+          <div class="mini"><span>Guanyat</span><b id="wonCoins">0</b></div>
+          <div class="mini"><span>Deute</span><b id="debtCoins">0</b></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <h2>Les teves apostes</h2>
+        <div id="myBets" style="margin-top:12px;"></div>
+      </div>
+    </section>
+
+    <section id="resultsPage" class="hidden">
+      <div class="hero">
+        <div><div class="eyebrow">Partits acabats</div><h1>Resultats</h1></div>
+      </div>
+      <div id="results" class="matches"></div>
+    </section>
+
+    <section id="txPage" class="hidden">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Només apostes</div>
+          <h1>Transaccions</h1>
+          <p style="margin-top:8px;">Aquí només surt qui ha guanyat o perdut per apostar. Res d'admin ni regals.</p>
+        </div>
+      </div>
+      <div id="publicTx"></div>
+    </section>
+
+    <section id="bankPage" class="hidden">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Banc</div>
+          <h1>Préstecs</h1>
+          <p style="margin-top:8px;">Demanes RDTC i en 2 dies tornes x1.3. Si no, el banc cobra igual i pots quedar en negatiu.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="bet-panel">
+          <div>
+            <label>Quantitat RDTC</label>
+            <input id="loanAmount" class="input" type="number" min="1" value="100">
+          </div>
+          <button id="loanBtn" class="btn green">Demanar</button>
+        </div>
+        <p style="margin-top:10px;">Hauràs de tornar: <b id="loanPreview">130 RDTC</b></p>
+      </div>
+      <div id="loans" style="display:grid;gap:12px;margin-top:14px;"></div>
+    </section>
+  </main>
+</div>
+
+<section id="predictModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">Predicció</div>
+        <h2 id="modalTitle">Nom 1 vs Nom 2</h2>
+        <p id="modalSub">Diners apostats en temps real</p>
+      </div>
+      <button id="closePredict" class="btn secondary">Tancar</button>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart">
+        <div class="chart-half blue"></div>
+        <div class="chart-half red"></div>
+        <svg id="betChart" class="chart-svg" viewBox="0 0 900 230" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="chart-labels">
+        <span class="blue" id="chartP1">Nom 1</span>
+        <span>línia central</span>
+        <span class="red" id="chartP2">Nom 2</span>
+      </div>
+    </div>
+
+    <div class="choice-row">
+      <button id="chooseP1" class="choice blue">Nom 1</button>
+      <button id="chooseP2" class="choice red">Nom 2</button>
+    </div>
+
+    <div class="bet-panel">
+      <div>
+        <label>Rosa de Trigo Coins</label>
+        <input id="betAmount" class="input" type="number" min="1" value="10">
+      </div>
+      <button id="confirmBet" class="btn green">Predir</button>
+    </div>
+  </div>
+</section>
+
+<section id="authModal" class="modal hidden">
+  <div class="modal-box" style="width:min(560px,100%);">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">Compte opcional</div>
+        <h2>Entrar</h2>
+        <p>Amb Google o correu reps 300 RDTC una vegada.</p>
+      </div>
+      <button id="closeAuth" class="btn secondary">Tancar</button>
+    </div>
+    <button id="googleBtn" class="btn green" style="width:100%;margin-bottom:12px;">Entrar amb Google</button>
+    <div class="auth-actions">
+      <input id="emailInput" class="input" type="email" placeholder="correu@example.com" style="flex:1;min-width:220px;">
+      <input id="passInput" class="input" type="password" placeholder="contrasenya" style="flex:1;min-width:220px;">
+    </div>
+    <div class="auth-actions" style="margin-top:10px;">
+      <button id="emailLogin" class="btn secondary" style="flex:1;">Iniciar sessió</button>
+      <button id="emailSignup" class="btn" style="flex:1;">Crear compte</button>
+    </div>
+    <p id="authError" style="margin-top:10px;color:#ff4b4b;font-weight:900;"></p>
+  </div>
+</section>
+
+<section id="adminModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><div class="eyebrow">Admin</div><h2>Prediccions</h2></div>
+      <button id="closeAdmin" class="btn secondary">Tancar</button>
+    </div>
+    <div id="adminLogin">
+      <div class="admin-grid">
+        <input id="adminEmail" class="input" type="email" placeholder="email admin">
+        <input id="adminPass" class="input" type="password" placeholder="contrasenya">
+      </div>
+      <button id="adminEnter" class="btn green" style="margin-top:10px;">Entrar admin</button>
+      <p id="adminError" style="margin-top:10px;color:#ff4b4b;font-weight:900;"></p>
+    </div>
+    <div id="adminPanel" class="hidden">
+      <div class="admin-grid">
+        <div class="card">
+          <h3>Economia</h3>
+          <label>Multiplicador guany</label>
+          <input id="cfgWin" class="input" type="number" step="0.1">
+          <label style="margin-top:8px;">Multiplicador préstec</label>
+          <input id="cfgLoan" class="input" type="number" step="0.1">
+          <label style="margin-top:8px;">Bonus negatiu diari</label>
+          <input id="cfgNeg" class="input" type="number">
+          <button id="saveCfg" class="btn green" style="width:100%;margin-top:10px;">Guardar</button>
+        </div>
+        <div class="card">
+          <h3>Donar / treure RDTC</h3>
+          <select id="adminUserSelect" class="input" style="margin-top:10px;"></select>
+          <input id="adminCoins" class="input" type="number" value="50" style="margin-top:10px;">
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button id="giveCoins" class="btn green" style="flex:1;">Donar</button>
+            <button id="takeCoins" class="btn red" style="flex:1;">Treure</button>
+          </div>
+        </div>
+      </div>
+      <h3 style="margin-top:18px;">Usuaris</h3>
+      <div id="adminUsers" style="display:grid;gap:10px;margin-top:10px;"></div>
+    </div>
+  </div>
+</section>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc,
+  collection, addDoc, getDocs, onSnapshot, query, where, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword,
+  createUserWithEmailAndPassword, signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+/* FIREBASE 1: TORNEO NORMAL · SOLO LEE PARTIDOS */
+const tournamentFirebaseConfig = {
+  apiKey: "AIzaSyCdcQr8dLemM6ZbwwUSgEYMFFswJWUk0m4",
+  authDomain: "badminton-98ddd.firebaseapp.com",
+  projectId: "badminton-98ddd",
+  storageBucket: "badminton-98ddd.firebasestorage.app",
+  messagingSenderId: "118680568883",
+  appId: "1:118680568883:web:1e381457e460115c1c4f46",
+  measurementId: "G-1FCL9D6W1G"
+};
+
+/* FIREBASE 2: PREDICCIONES · USUARIOS, COINS, APUESTAS */
+const predictionsFirebaseConfig = {
+  apiKey: "AIzaSyDR3Qare9-DysBJQOmM3-RZ8fy1NGhhs-0",
+  authDomain: "prediccions-5962c.firebaseapp.com",
+  projectId: "prediccions-5962c",
+  storageBucket: "prediccions-5962c.firebasestorage.app",
+  messagingSenderId: "451953301657",
+  appId: "1:451953301657:web:2ed0ec03a83c78c819c008",
+  measurementId: "G-E99YVQV4TE"
+};
+
+const tourApp = initializeApp(tournamentFirebaseConfig, "torneig");
+const predApp = initializeApp(predictionsFirebaseConfig, "prediccions");
+const tourDB = getFirestore(tourApp);
+const db = getFirestore(predApp);
+const auth = getAuth(predApp);
+const googleProvider = new GoogleAuthProvider();
+
+const ADMIN_EMAILS = ["hodelyproductions@gmail.com", "hugo@gmail.com"];
+const $ = id => document.getElementById(id);
+const LS_KEY = "rdtc_guest_minimal_v2";
+
+let tournament = {matches:[]};
+let user = null;
+let wallet = null;
+let allBets = [];
+let myBets = [];
+let publicTx = [];
+let users = [];
+let selectedMatch = null;
+let selectedChoice = "";
+let typed = "";
+let economy = {
+  initialGuest:100,
+  accountBonus:300,
+  winMultiplier:2,
+  loanMultiplier:1.3,
+  negativeDailyBonus:50,
+  tdbcRate:10,
+  loanDays:2
+};
+
+function esc(t=""){return String(t).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function money(n){return Math.round((Number(n)||0)*100)/100}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>$("toast").classList.remove("show"),2500)}
+function isPlaceholder(n){return !n || n==="—" || String(n).startsWith("Guanyador")}
+function roundName(r){return {1:"Prèvies",2:"Octaus",3:"Quarts",4:"Semis",5:"Final"}[r]||"Ronda"}
+function guest(){
+  let g=JSON.parse(localStorage.getItem(LS_KEY)||"null");
+  if(!g){
+    g={uid:"guest_"+crypto.randomUUID(),name:"Visitant",coins:economy.initialGuest,lastNegativeBonus:""};
+    localStorage.setItem(LS_KEY,JSON.stringify(g));
+  }
+  return g;
+}
+function saveGuest(p){const g={...guest(),...p};localStorage.setItem(LS_KEY,JSON.stringify(g));}
+function uid(){return user?.uid || guest().uid}
+function uname(){return user?.displayName || user?.email || guest().name || "Visitant"}
+function isAdmin(){return user && ADMIN_EMAILS.includes((user.email||"").toLowerCase())}
+
+async function loadEconomy(){
+  const snap=await getDoc(doc(db,"system","economy"));
+  if(snap.exists()) economy={...economy,...snap.data()};
+  else await setDoc(doc(db,"system","economy"),economy);
+  $("cfgWin").value=economy.winMultiplier;
+  $("cfgLoan").value=economy.loanMultiplier;
+  $("cfgNeg").value=economy.negativeDailyBonus;
+}
+function listenTournament(){
+  onSnapshot(doc(tourDB,"tournaments","main"),s=>{
+    tournament=s.exists()?s.data():{matches:[]};
+    renderAll();
+    resolveFinishedBets();
+  });
+}
+async function ensureWallet(){
+  if(user){
+    const ref=doc(db,"users",user.uid);
+    const snap=await getDoc(ref);
+    if(!snap.exists()){
+      wallet={uid:user.uid,name:uname(),email:user.email||"",coins:economy.initialGuest+economy.accountBonus,createdAt:Date.now(),bonusClaimed:true,lastNegativeBonus:""};
+      await setDoc(ref,wallet);
+      await addPrivateTx("Bonus compte",economy.accountBonus);
+    }else{
+      wallet=snap.data();
+      if(!wallet.bonusClaimed){
+        await updateDoc(ref,{coins:money((wallet.coins||0)+economy.accountBonus),bonusClaimed:true});
+        await addPrivateTx("Bonus compte",economy.accountBonus);
+      }
+    }
+    onSnapshot(ref,s=>{if(s.exists()){wallet=s.data();applyNegativeBonus();renderAll();}});
+  }else{
+    wallet=guest();
+    applyNegativeBonus();
+  }
+}
+async function setCoins(v){
+  v=money(v);
+  if(user) await updateDoc(doc(db,"users",user.uid),{coins:v,name:uname(),email:user.email||""});
+  else saveGuest({coins:v});
+  wallet={...wallet,coins:v};
+  renderAll();
+}
+async function changeCoins(delta,label,type="private"){
+  await setCoins((wallet?.coins||0)+Number(delta));
+  if(type==="public") await addPublicTx(label,delta);
+  else await addPrivateTx(label,delta);
+}
+async function addPrivateTx(label,amount){
+  if(user) await addDoc(collection(db,"transactions"),{uid:uid(),name:uname(),label,amount:money(amount),public:false,createdAt:Date.now()});
+}
+async function addPublicTx(label,amount,matchId=selectedMatch?.id||""){
+  await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label,amount:money(amount),matchId,createdAt:Date.now()});
+}
+async function refreshBets(){
+  const snap=await getDocs(collection(db,"bets"));
+  allBets=snap.docs.map(d=>({id:d.id,...d.data()}));
+  myBets=allBets.filter(b=>b.uid===uid());
+}
+function listenBets(){
+  onSnapshot(collection(db,"bets"),s=>{
+    allBets=s.docs.map(d=>({id:d.id,...d.data()}));
+    myBets=allBets.filter(b=>b.uid===uid());
+    renderAll();
+    if(selectedMatch) renderChart();
+  });
+  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),s=>{
+    publicTx=s.docs.map(d=>({id:d.id,...d.data()}));
+    renderPublicTx();
+  });
+}
+
+function openMatches(){
+  return (tournament.matches||[]).filter(m=>!m.winner && !isPlaceholder(m.p1) && !isPlaceholder(m.p2));
+}
+function playedMatches(){
+  return (tournament.matches||[]).filter(m=>m.winner);
+}
+function totalsFor(match){
+  const rows=allBets.filter(b=>b.matchId===match.id);
+  const p1=rows.filter(b=>b.choice===match.p1).reduce((s,b)=>s+Number(b.amount||0),0);
+  const p2=rows.filter(b=>b.choice===match.p2).reduce((s,b)=>s+Number(b.amount||0),0);
+  const total=p1+p2;
+  return {p1,p2,total,p1Pct:total?Math.round(p1/total*100):50,p2Pct:total?100-Math.round(p1/total*100):50};
+}
+function renderMatches(){
+  const box=$("matches");
+  const search=($("searchInput").value||"").toLowerCase();
+  const round=$("roundInput").value;
+  let list=openMatches();
+  if(round!=="all") list=list.filter(m=>String(m.round)===round);
+  if(search) list=list.filter(m=>(m.p1+" "+m.p2).toLowerCase().includes(search));
+  if(!list.length){box.innerHTML=`<div class="empty">No hi ha partits oberts ara mateix.</div>`;return;}
+  box.innerHTML="";
+  list.forEach(m=>{
+    const t=totalsFor(m);
+    const mine=myBets.find(b=>b.matchId===m.id);
+    const div=document.createElement("div");
+    div.className="match";
+    div.innerHTML=`
+      <div class="match-top">
+        <span class="badge">${roundName(m.round)} · ${m.id.toUpperCase()}</span>
+        <span class="badge">${money(t.total)} RDTC</span>
+      </div>
+      <div class="names">
+        <div class="name blue">${esc(m.p1)}</div>
+        <div class="vs">vs</div>
+        <div class="name red">${esc(m.p2)}</div>
+      </div>
+      <div class="percent-bar">
+        <div class="percent-blue" style="width:${t.p1Pct}%"></div>
+        <div class="percent-red" style="width:${t.p2Pct}%"></div>
+      </div>
+      <div class="stats-line">
+        <span>${t.p1Pct}% · ${money(t.p1)} RDTC</span>
+        <span>${t.p2Pct}% · ${money(t.p2)} RDTC</span>
+      </div>
+      ${mine ? `<button class="btn secondary predict-btn" disabled>Ja has predit: ${esc(mine.choice)} · ${money(mine.amount)} RDTC</button>` : `<button class="btn predict-btn">Predir</button>`}
+    `;
+    const btn=div.querySelector(".predict-btn:not(:disabled)");
+    if(btn) btn.addEventListener("click",()=>openPredict(m));
+    box.appendChild(div);
+  });
+}
+function renderTop(){
+  const c=money(wallet?.coins??economy.initialGuest);
+  $("topCoins").textContent=c;
+  $("topTdbc").textContent=`${money(c*economy.tdbcRate)} TDBC`;
+  $("walletCoins").textContent=c;
+  $("walletTdbc").textContent=money(c*economy.tdbcRate);
+  $("loginBtn").classList.toggle("hidden",!!user);
+  $("logoutBtn").classList.toggle("hidden",!user);
+  $("activeBets").textContent=myBets.filter(b=>b.status==="pending").length;
+  $("wonCoins").textContent=money(myBets.filter(b=>b.status==="won").reduce((s,b)=>s+Number(b.payout||0),0));
+  renderLoans();
+  renderMyBets();
+}
+function renderMyBets(){
+  const box=$("myBets");
+  if(!myBets.length){box.innerHTML=`<div class="empty">Encara no tens apostes.</div>`;return;}
+  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Partit</th><th>Predicció</th><th>RDTC</th><th>Estat</th></tr></thead><tbody>${
+    myBets.slice().reverse().map(b=>`<tr><td>${esc(b.matchTitle)}</td><td>${esc(b.choice)}</td><td>${money(b.amount)}</td><td>${esc(b.status)}</td></tr>`).join("")
+  }</tbody></table></div>`;
+}
+function renderResults(){
+  const box=$("results");
+  const list=playedMatches().slice().reverse();
+  if(!list.length){box.innerHTML=`<div class="empty">Encara no hi ha resultats.</div>`;return;}
+  box.innerHTML=list.map(m=>`
+    <div class="match">
+      <div class="match-top"><span class="badge">${roundName(m.round)} · ${m.id.toUpperCase()}</span><span class="badge">Jugat</span></div>
+      <div class="names">
+        <div class="name blue">${esc(m.p1)} · ${esc(m.score1||0)}</div>
+        <div class="vs">guanya</div>
+        <div class="name red">${esc(m.p2)} · ${esc(m.score2||0)}</div>
+      </div>
+      <p><b>🏆 ${esc(m.winner)}</b></p>
+    </div>
+  `).join("");
+}
+function renderPublicTx(){
+  const box=$("publicTx");
+  if(!publicTx.length){box.innerHTML=`<div class="empty">Encara no hi ha transaccions públiques.</div>`;return;}
+  box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Usuari</th><th>Moviment</th><th>RDTC</th><th>Partit</th></tr></thead><tbody>${
+    publicTx.map(t=>`<tr><td>${esc(t.name)}</td><td>${esc(t.label)}</td><td style="color:${Number(t.amount)>=0?"#245dbb":"#c93535"}">${Number(t.amount)>=0?"+":""}${money(t.amount)}</td><td>${esc((t.matchId||"").toUpperCase())}</td></tr>`).join("")
+  }</tbody></table></div>`;
+}
+async function renderLoans(){
+  const loans=await getLoans();
+  $("debtCoins").textContent=money(loans.filter(l=>l.status==="active").reduce((s,l)=>s+Number(l.returnAmount||0),0));
+  const box=$("loans");
+  if(!loans.length){box.innerHTML=`<div class="empty">No tens préstecs.</div>`;return;}
+  box.innerHTML="";
+  loans.forEach(l=>{
+    const late=l.status==="active" && Date.now()>l.dueAt;
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
+        <div><h3>${money(l.amount)} RDTC → ${money(l.returnAmount)} RDTC</h3><p>Venciment: ${new Date(l.dueAt).toLocaleString("ca-ES")}</p></div>
+        <span class="badge">${l.status==="paid"?"Pagat":l.status==="charged"?"Cobrat":late?"Vençut":"Actiu"}</span>
+      </div>
+      ${l.status==="active"?`<button class="btn green pay-loan" style="margin-top:10px;">Tornar ara</button>`:""}
+    `;
+    const btn=div.querySelector(".pay-loan");
+    if(btn) btn.addEventListener("click",()=>payLoan(l));
+    box.appendChild(div);
+  });
+}
+function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderAdminIfOpen();}
+
+function openPredict(match){
+  selectedMatch=match;
+  selectedChoice="";
+  $("modalTitle").textContent=`${match.p1} vs ${match.p2}`;
+  $("chartP1").textContent=match.p1;
+  $("chartP2").textContent=match.p2;
+  $("chooseP1").textContent=match.p1;
+  $("chooseP2").textContent=match.p2;
+  $("chooseP1").classList.remove("active");
+  $("chooseP2").classList.remove("active");
+  $("predictModal").classList.remove("hidden");
+  renderChart();
+}
+function renderChart(){
+  if(!selectedMatch)return;
+  const rows=allBets.filter(b=>b.matchId===selectedMatch.id).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  let p1=0,p2=0;
+  const points=[];
+  rows.forEach((b,i)=>{
+    if(b.choice===selectedMatch.p1)p1+=Number(b.amount||0);
+    if(b.choice===selectedMatch.p2)p2+=Number(b.amount||0);
+    const diff=p1-p2;
+    points.push({i,diff,p1,p2});
+  });
+  const svg=$("betChart");
+  if(!points.length){
+    svg.innerHTML=`<text x="450" y="120" text-anchor="middle" font-size="16" font-weight="900" fill="#777">Encara no hi ha diners apostats</text>`;
+    return;
+  }
+  const max=Math.max(10,...points.map(p=>Math.abs(p.diff)));
+  const coords=points.map((p,i)=>{
+    const x=points.length===1?450:(i/(points.length-1))*860+20;
+    const y=115-(p.diff/max)*95;
+    return `${x},${y}`;
+  }).join(" ");
+  const last=points[points.length-1];
+  svg.innerHTML=`
+    <polyline points="${coords}" fill="none" stroke="${last.diff>=0?"#4d8dff":"#ff6b6b"}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${points.map((p,i)=>{
+      const x=points.length===1?450:(i/(points.length-1))*860+20;
+      const y=115-(p.diff/max)*95;
+      return `<circle cx="${x}" cy="${y}" r="5" fill="${p.diff>=0?"#4d8dff":"#ff6b6b"}"/>`;
+    }).join("")}
+    <text x="20" y="24" font-size="13" font-weight="900" fill="#245dbb">${esc(selectedMatch.p1)}: ${money(last.p1)} RDTC</text>
+    <text x="880" y="24" text-anchor="end" font-size="13" font-weight="900" fill="#c93535">${esc(selectedMatch.p2)}: ${money(last.p2)} RDTC</text>
+  `;
+}
+async function confirmPrediction(){
+  if(!selectedMatch)return;
+  const amount=money($("betAmount").value);
+  if(!selectedChoice)return toast("Tria un jugador.");
+  if(!amount || amount<=0)return toast("Quantitat incorrecta.");
+  if((wallet.coins||0)<amount)return toast("No tens prou RDTC.");
+  if(myBets.some(b=>b.matchId===selectedMatch.id))return toast("Ja has predit aquest partit.");
+  await setCoins((wallet.coins||0)-amount);
+  await addDoc(collection(db,"bets"),{
+    uid:uid(),name:uname(),matchId:selectedMatch.id,
+    matchTitle:`${selectedMatch.p1} vs ${selectedMatch.p2}`,
+    choice:selectedChoice,amount,status:"pending",createdAt:Date.now()
+  });
+  toast("Predicció guardada.");
+  $("predictModal").classList.add("hidden");
+}
+async function resolveFinishedBets(){
+  const played=playedMatches();
+  await refreshBets();
+  const pending=allBets.filter(b=>b.status==="pending");
+  for(const b of pending){
+    const m=played.find(x=>x.id===b.matchId);
+    if(!m)continue;
+    const won=b.choice===m.winner;
+    const payout=won?money(b.amount*economy.winMultiplier):0;
+    await updateDoc(doc(db,"bets",b.id),{status:won?"won":"lost",winner:m.winner,payout,resolvedAt:Date.now()});
+    if(won){
+      const us=await getDoc(doc(db,"users",b.uid));
+      if(us.exists()) await updateDoc(doc(db,"users",b.uid),{coins:money((us.data().coins||0)+payout)});
+    }
+    await addDoc(collection(db,"publicTransactions"),{
+      uid:b.uid,name:b.name,matchId:b.matchId,
+      label:won?`${b.name} ha guanyat ${payout} RDTC apostant per ${b.choice}`:`${b.name} ha perdut ${b.amount} RDTC apostant per ${b.choice}`,
+      amount:won?payout:-b.amount,createdAt:Date.now()
+    });
+  }
+}
+
+async function getLoans(){
+  if(!user)return JSON.parse(localStorage.getItem(LS_KEY+"_loans")||"[]");
+  const s=await getDocs(query(collection(db,"loans"),where("uid","==",uid())));
+  return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+}
+function saveLocalLoans(loans){localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans));}
+async function requestLoan(){
+  const amount=money($("loanAmount").value);
+  if(!amount||amount<=0)return toast("Quantitat incorrecta.");
+  const loan={uid:uid(),name:uname(),amount,returnAmount:money(amount*economy.loanMultiplier),dueAt:Date.now()+economy.loanDays*86400000,status:"active",createdAt:Date.now()};
+  if(user) await addDoc(collection(db,"loans"),loan);
+  else {const loans=await getLoans();loans.unshift({...loan,id:crypto.randomUUID()});saveLocalLoans(loans);}
+  await changeCoins(amount,"Préstec banc");
+  toast("Préstec concedit.");
+}
+async function payLoan(l){
+  if((wallet.coins||0)<l.returnAmount)return toast("No tens prou RDTC.");
+  if(user) await updateDoc(doc(db,"loans",l.id),{status:"paid",paidAt:Date.now()});
+  else {const loans=(await getLoans()).map(x=>x.id===l.id?{...x,status:"paid",paidAt:Date.now()}:x);saveLocalLoans(loans);}
+  await changeCoins(-l.returnAmount,"Préstec retornat");
+  toast("Préstec pagat.");
+}
+async function checkLoans(){
+  const loans=await getLoans();
+  let changed=false;
+  for(const l of loans){
+    if(l.status==="active" && Date.now()>l.dueAt){
+      if(user) await updateDoc(doc(db,"loans",l.id),{status:"charged",chargedAt:Date.now()});
+      else {l.status="charged";l.chargedAt=Date.now();changed=true;}
+      await changeCoins(-l.returnAmount,"Banc cobra préstec");
+    }
+  }
+  if(changed)saveLocalLoans(loans);
+}
+async function applyNegativeBonus(){
+  if(!wallet || (wallet.coins||0)>=0)return;
+  const today=new Date().toISOString().slice(0,10);
+  if(wallet.lastNegativeBonus===today)return;
+  if(user) await updateDoc(doc(db,"users",uid()),{coins:money((wallet.coins||0)+economy.negativeDailyBonus),lastNegativeBonus:today});
+  else saveGuest({coins:money((wallet.coins||0)+economy.negativeDailyBonus),lastNegativeBonus:today});
+}
+
+async function loadUsers(){
+  const s=await getDocs(collection(db,"users"));
+  users=s.docs.map(d=>({id:d.id,...d.data()}));
+}
+async function renderAdminIfOpen(){
+  if($("adminModal").classList.contains("hidden"))return;
+  $("adminLogin").classList.toggle("hidden",isAdmin());
+  $("adminPanel").classList.toggle("hidden",!isAdmin());
+  if(!isAdmin())return;
+  await loadUsers();
+  $("adminUserSelect").innerHTML=users.map(u=>`<option value="${u.uid}">${esc(u.name||u.email||u.uid)} · ${money(u.coins)} RDTC</option>`).join("");
+  $("adminUsers").innerHTML=users.length?users.map(u=>`
+    <div class="user-card">
+      <div><b>${esc(u.name||"Usuari")}</b><p>${esc(u.email||"")} · ${money(u.coins)} RDTC</p></div>
+      <button class="btn red delete-user" data-uid="${u.uid}">Borrar usuari</button>
+    </div>
+  `).join(""):`<div class="empty">No hi ha usuaris.</div>`;
+  document.querySelectorAll(".delete-user").forEach(b=>b.addEventListener("click",async()=>{
+    if(confirm("Borrar dades d'aquest usuari?")){await deleteDoc(doc(db,"users",b.dataset.uid));renderAdminIfOpen();}
+  }));
+}
+
+document.querySelectorAll(".chrome-tab").forEach(tab=>tab.addEventListener("click",()=>{
+  document.querySelectorAll(".chrome-tab").forEach(t=>t.classList.remove("active"));
+  tab.classList.add("active");
+  ["homePage","walletPage","resultsPage","txPage","bankPage"].forEach(id=>$(id).classList.toggle("hidden",id!==tab.dataset.page));
+}));
+$("searchInput").addEventListener("input",renderMatches);
+$("roundInput").addEventListener("change",renderMatches);
+$("closePredict").addEventListener("click",()=>$("predictModal").classList.add("hidden"));
+$("chooseP1").addEventListener("click",()=>{selectedChoice=selectedMatch.p1;$("chooseP1").classList.add("active");$("chooseP2").classList.remove("active");});
+$("chooseP2").addEventListener("click",()=>{selectedChoice=selectedMatch.p2;$("chooseP2").classList.add("active");$("chooseP1").classList.remove("active");});
+$("confirmBet").addEventListener("click",confirmPrediction);
+$("loanAmount").addEventListener("input",()=>$("loanPreview").textContent=`${money(Number($("loanAmount").value||0)*economy.loanMultiplier)} RDTC`);
+$("loanBtn").addEventListener("click",requestLoan);
+
+$("loginBtn").addEventListener("click",()=>$("authModal").classList.remove("hidden"));
+$("closeAuth").addEventListener("click",()=>$("authModal").classList.add("hidden"));
+$("googleBtn").addEventListener("click",async()=>{try{await signInWithPopup(auth,googleProvider);$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="No s'ha pogut entrar amb Google."}});
+$("emailLogin").addEventListener("click",async()=>{try{await signInWithEmailAndPassword(auth,$("emailInput").value,$("passInput").value);$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="Login incorrecte."}});
+$("emailSignup").addEventListener("click",async()=>{try{await createUserWithEmailAndPassword(auth,$("emailInput").value,$("passInput").value);$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="No s'ha pogut crear."}});
+$("logoutBtn").addEventListener("click",()=>signOut(auth));
+
+document.addEventListener("keydown",e=>{typed+=e.key.toLowerCase();typed=typed.slice(-5);if(typed==="astop"){$("adminModal").classList.remove("hidden");renderAdminIfOpen();}});
+$("closeAdmin").addEventListener("click",()=>$("adminModal").classList.add("hidden"));
+$("adminEnter").addEventListener("click",async()=>{
+  const email=$("adminEmail").value.trim().toLowerCase();
+  if(!ADMIN_EMAILS.includes(email)){ $("adminError").textContent="Aquest correu no és admin."; return; }
+  try{await signInWithEmailAndPassword(auth,email,$("adminPass").value);renderAdminIfOpen();}
+  catch(e){$("adminError").textContent="Login incorrecte."}
+});
+$("saveCfg").addEventListener("click",async()=>{
+  economy.winMultiplier=Number($("cfgWin").value)||2;
+  economy.loanMultiplier=Number($("cfgLoan").value)||1.3;
+  economy.negativeDailyBonus=Number($("cfgNeg").value)||50;
+  await setDoc(doc(db,"system","economy"),economy);
+  toast("Economia guardada.");
+});
+async function adminChange(delta){
+  const id=$("adminUserSelect").value;
+  const u=users.find(x=>x.uid===id);
+  if(!u)return;
+  await updateDoc(doc(db,"users",id),{coins:money((u.coins||0)+delta)});
+  toast("Coins actualitzades.");
+  renderAdminIfOpen();
+}
+$("giveCoins").addEventListener("click",()=>adminChange(Math.abs(Number($("adminCoins").value)||0)));
+$("takeCoins").addEventListener("click",()=>adminChange(-Math.abs(Number($("adminCoins").value)||0)));
+
+onAuthStateChanged(auth,async u=>{
+  user=u;
+  await ensureWallet();
+  await refreshBets();
+  await checkLoans();
+  renderAll();
+  renderAdminIfOpen();
+});
+
+(async function init(){
+  await loadEconomy();
+  listenTournament();
+  listenBets();
+  await ensureWallet();
+  await refreshBets();
+  await checkLoans();
+  renderAll();
+})();
+</script>
+</body>
+</html>
