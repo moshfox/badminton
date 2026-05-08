@@ -558,8 +558,36 @@ function normalizeTournament(){
   tournament.matches.forEach(m=>{m.image??="";m.description??="";m.date??="";m.court??="";});
 }
 
-function isPlaceholder(name){return !name||name.startsWith("Guanyador")||name==="—";}
+function isPlaceholder(n){
+  const x = String(n || "").trim().toLowerCase();
 
+  return !x ||
+    x === "—" ||
+    x === "-" ||
+    x === "null" ||
+    x === "undefined" ||
+    x.startsWith("guanyador") ||
+    x.includes("guanyador") ||
+    x.includes("winner") ||
+    x.includes("pendent") ||
+    x.includes("pendiente") ||
+    x.includes("pending");
+}
+  function openMatches(){
+  return (tournament.matches || []).filter(m =>
+    isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
+
+function playedMatches(){
+  return (tournament.matches || []).filter(m =>
+    !isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
 function propagateWinners(){
   const base=JSON.parse(JSON.stringify(initialTournament));
   const current=JSON.parse(JSON.stringify(tournament));
