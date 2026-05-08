@@ -694,7 +694,18 @@ function uname(){return wallet?.name||user?.displayName||user?.email||guest().na
 function normalizeMatch(m,i){
   const p1=m.p1||m.player1||m.nom1||m.name1||m.a||m.local||"";
   const p2=m.p2||m.player2||m.nom2||m.name2||m.b||m.visitant||"";
-  return{...m,id:String(m.id||m.matchId||`m${i+1}`),round:Number(m.round||m.ronda||1),p1:String(p1).trim(),p2:String(p2).trim(),winner:String(m.winner||m.guanyador||"").trim(),score1:m.score1??m.s1??"",score2:m.score2??m.s2??""};
+  const winner=m.winner||m.guanyador||m.guanyadorNom||m.winnerName||"";
+
+  return {
+    ...m,
+    id:String(m.id||m.matchId||`m${i+1}`),
+    round:Number(m.round||m.ronda||1),
+    p1:String(p1).trim(),
+    p2:String(p2).trim(),
+    winner:String(winner).trim(),
+    score1:m.score1??m.s1??"",
+    score2:m.score2??m.s2??""
+  };
 }
 
 async function loadEconomy(){
