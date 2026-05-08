@@ -655,12 +655,24 @@ function uname(){return user?.displayName || user?.email || guest().name || "Vis
 function isAdmin(){return user && ADMIN_EMAILS.includes((user.email||"").toLowerCase())}
 
 async function loadEconomy(){
-  const snap=await getDoc(doc(db,"system","economy"));
-  if(snap.exists()) economy={...economy,...snap.data()};
-  else await setDoc(doc(db,"system","economy"),economy);
-  $("cfgWin").value=economy.winMultiplier;
-  $("cfgLoan").value=economy.loanMultiplier;
-  $("cfgNeg").value=economy.negativeDailyBonus;
+  try{
+    const snap = await getDoc(doc(db,"system","economy"));
+
+    if(snap.exists()){
+      economy = {...economy, ...snap.data()};
+    }else{
+      console.warn("No existe system/economy. Usando economía local.");
+    }
+
+    $("cfgWin").value = economy.winMultiplier;
+    $("cfgLoan").value = economy.loanMultiplier;
+    $("cfgNeg").value = economy.negativeDailyBonus;
+  }catch(e){
+    console.error("Error cargando economía:", e);
+    $("cfgWin").value = economy.winMultiplier;
+    $("cfgLoan").value = economy.loanMultiplier;
+    $("cfgNeg").value = economy.negativeDailyBonus;
+  }
 }
 function listenTournament(){
   onSnapshot(doc(tourDB,"tournaments","main"),s=>{
@@ -893,6 +905,10 @@ function renderChart(){
   `;
 }
 async function confirmPrediction(){
+  if(!user){
+  $("authModal").classList.remove("hidden");
+  return toast("Has d'entrar amb compte per apostar.");
+}
   if(!selectedMatch)return;
   const amount=money($("betAmount").value);
   if(!selectedChoice)return toast("Tria un jugador.");
