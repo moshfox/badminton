@@ -700,18 +700,39 @@ function listenTournament(){
 }
 
 function listenBets(){
-  onSnapshot(collection(db,"bets"),snap=>{
-    allBets=snap.docs.map(d=>({id:d.id,...d.data()}));
-    myBets=allBets.filter(b=>b.uid===uid());
+  onSnapshot(collection(db,"bets"), snap=>{
+    allBets = snap.docs.map(d=>({id:d.id,...d.data()}));
+    myBets = allBets.filter(b=>b.uid===uid());
+
     renderAll();
-    if(selectedMatch)renderChart();
+
+    if(selectedMatch){
+      updateOddsDisplay(selectedMatch);
+      renderChart();
+
+      const mine = myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
+      if(mine){
+        $("placedInfo").textContent=`Has apostat ${money(mine.amount)} RDTC per ${mine.choice}`;
+        $("placedBadge").textContent=mine.status||"pendent";
+      }
+    }
+  }, err=>{
+    console.error("ERROR leyendo bets:", err);
+    toast("Firebase bloquea leer las apuestas.", true);
   });
 
-  // Transaccions: excloure les d'admin (matchId === "ADMIN")
-  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),snap=>{
-    publicTx=snap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>t.matchId!=="ADMIN");
+  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")), snap=>{
+    publicTx = snap.docs
+      .map(d=>({id:d.id,...d.data()}))
+      .filter(t=>t.matchId!=="ADMIN");
+
     renderPublicTx();
-  },err=>{console.warn(err);publicTx=[];renderPublicTx();});
+  }, err=>{
+    console.error("ERROR leyendo publicTransactions:", err);
+    publicTx=[];
+    renderPublicTx();
+    toast("Firebase bloquea leer transacciones.", true);
+  });
 }
 
 async function ensureWallet(){
@@ -1269,6 +1290,10 @@ async function changeBet(direction){
   const upd=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
   if(upd)$("placedInfo").textContent=`Has apostat ${money(upd.amount)} RDTC per ${upd.choice}`;
 }
+  $("changeAmount").value="";
+renderAll();
+renderChart();
+updateOddsDisplay(selectedMatch);
 
 async function resolveFinishedBets(){
   const played=playedMatches();
