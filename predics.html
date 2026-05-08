@@ -395,6 +395,8 @@ let selectedMatch = null;
 let selectedChoice = "";
 let activePage = "homePage";
 let walletUnsub = null;
+let adminUnlocked = false;
+let adminSecretBuffer = "";
 let economy = {
   initialGuest: 100,
   accountBonus: 300,
@@ -584,12 +586,15 @@ function renderTop(){
   $("walletTdbc").textContent = money(c * economy.tdbcRate);
   $("loginBtn").classList.toggle("hidden", !!user);
   $("logoutBtn").classList.toggle("hidden", !user);
-  $("adminTab").classList.toggle("hidden", !isAdmin());
+
+  // El panel Admin solo aparece si escribes astop y además estás con correo admin.
+  $("adminTab").classList.toggle("hidden", !(adminUnlocked && isAdmin()));
+
   $("activeBets").textContent = myBets.filter(b => b.status === "pending").length;
   $("wonCoins").textContent = money(myBets.filter(b => b.status === "won").reduce((s,b) => s + Number(b.payout || 0), 0));
   renderMyBets();
   renderLoans();
-  if(isAdmin()) renderAdminUsers();
+  if(adminUnlocked && isAdmin()) renderAdminUsers();
 }
 
 function renderMyBets(){
@@ -795,8 +800,8 @@ function renderAll(){
 }
 
 function activatePage(pageId){
-  if(pageId === "adminPage" && !isAdmin()){
-    toast("Només admins.");
+  if(pageId === "adminPage" && (!adminUnlocked || !isAdmin())){
+    toast("Escriu astop i entra amb un correu admin.");
     pageId = "homePage";
   }
   activePage = pageId;
@@ -903,6 +908,35 @@ async function payLoan(l){
 }
 
 document.querySelectorAll(".chrome-tab").forEach(tab => tab.addEventListener("click", () => activatePage(tab.dataset.page)));
+
+window.addEventListener("keydown", e => {
+  const tag = document.activeElement?.tagName?.toLowerCase();
+  const typing = tag === "input" || tag === "textarea" || document.activeElement?.isContentEditable;
+  if(typing) return;
+
+  adminSecretBuffer = (adminSecretBuffer + e.key.toLowerCase()).slice(-5);
+
+  if(adminSecretBuffer === "astop"){
+    adminSecretBuffer = "";
+
+    if(!user){
+      $("authModal").classList.remove("hidden");
+      toast("Entra amb un compte admin per obrir el panel.");
+      return;
+    }
+
+    if(!isAdmin()){
+      toast("Aquest correu no té permís d'admin.");
+      return;
+    }
+
+    adminUnlocked = true;
+    $("adminTab").classList.remove("hidden");
+    activatePage("adminPage");
+    loadAdminUsers();
+    toast("Panel admin obert.");
+  }
+});
 $("searchInput").addEventListener("input", renderMatches);
 $("roundInput").addEventListener("change", renderMatches);
 $("adminSearch").addEventListener("input", renderAdminUsers);
@@ -957,8 +991,12 @@ onAuthStateChanged(auth, async u => {
   await ensureWallet();
   myBets = allBets.filter(b => b.uid === uid());
   renderAll();
-  if(isAdmin()) loadAdminUsers();
-  else if(activePage === "adminPage") activatePage("homePage");
+  if(adminUnlocked && isAdmin()) loadAdminUsers();
+  else{
+    adminUnlocked = false;
+    $("adminTab").classList.add("hidden");
+    if(activePage === "adminPage") activatePage("homePage");
+  }
 });
 
 (async function init(){
@@ -972,4 +1010,57 @@ onAuthStateChanged(auth, async u => {
 </body>
 </html>
 
+<!--
+REGLAS RECOMENDADAS PARA EL FIREBASE DE PREDICCIONES: prediccions-5962c
+Pégalas en Firestore Rules de ese proyecto. Sin esto el panel admin no podrá escribir/borrar.
 
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.email in [
+        "hodelyproductions@gmail.com",
+        "hugo@gmail.com"
+      ];
+    }
+
+    match /system/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if signedIn() && request.auth.uid == userId;
+      allow update: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /bets/{betId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    match /publicTransactions/{txId} {
+      allow read: if true;
+      allow create: if signedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    match /loans/{loanId} {
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+  }
+}
+
+REGLAS DEL FIREBASE DEL TORNEO badminton-98ddd:
+Tu código lee /tournaments/main en badminton-98ddd, así que esas rules van en el proyecto del torneo, no en prediccions-5962c.
+-->
