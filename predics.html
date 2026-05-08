@@ -618,12 +618,13 @@ tr:hover td{background:#fafaf9}
 <div id="toast" class="toast"></div>
 
 <script type="module">
+<script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import{getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,collection,addDoc,getDocs,onSnapshot,query,where,orderBy}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,onAuthStateChanged,updateProfile}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-const tourCfg={apiKey:"AIzaSyCdcQr8dLemM6ZbwwUSgEYMFFswJWUk0m4",authDomain:"badminton-98ddd.firebaseapp.com",projectId:"badminton-98ddd",storageBucket:"badminton-98ddd.firebasestorage.app",messagingSenderId:"118680568883",appId:"1:118680568883:web:1e381457e460115c1c4f46",measurementId:"G-1FCL9D6W1G"};
-const predCfg={apiKey:"AIzaSyDR3Qare9-DysBJQOmM3-RZ8fy1NGhhs-0",authDomain:"prediccions-5962c.firebaseapp.com",projectId:"prediccions-5962c",storageBucket:"prediccions-5962c.firebasestorage.app",messagingSenderId:"451953301657",appId:"1:451953301657:web:2ed0ec03a83c78c819c008",measurementId:"G-E99YVQV4TE"};
+const tourCfg={apiKey:"AIzaSyCdcQr8dLemM6ZbwwUSgEYMFFswJWUk0m4",authDomain:"badminton-98ddd.firebaseapp.com",projectId:"badminton-98ddd",storageBucket:"badminton-98ddd.firebasestorage.app",messagingSenderId:"118680568883",appId:"1:118680568883:web:1e381457e460115c1c4f46"};
+const predCfg={apiKey:"AIzaSyDR3Qare9-DysBJQOmM3-RZ8fy1NGhhs-0",authDomain:"prediccions-5962c.firebaseapp.com",projectId:"prediccions-5962c",storageBucket:"prediccions-5962c.firebasestorage.app",messagingSenderId:"451953301657",appId:"1:451953301657:web:2ed0ec03a83c78c819c008"};
 
 const ADMIN_EMAILS=["hodelyproductions@gmail.com","hugo@gmail.com"];
 const tourApp=initializeApp(tourCfg,"torneig");
@@ -650,14 +651,13 @@ let activePage="homePage";
 let walletUnsub=null;
 let adminUnlocked=false;
 let adminSecretBuffer="";
-let economy={initialGuest:100,accountBonus:300,winMultiplier:2,loanMultiplier:1.3,negativeDailyBonus:50,tdbcRate:10,loanDays:2};
+let economy={initialGuest:100,accountBonus:300,winMultiplier:2,loanMultiplier:1.3,tdbcRate:10,loanDays:2};
 
 function esc(t=""){return String(t).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
 function money(n){return Math.round((Number(n)||0)*100)/100}
-function toastEl(){return $("toast")}
 
 function toast(t,err=false){
-  const el=toastEl();
+  const el=$("toast");
   el.textContent=t;
   el.classList.toggle("err",err);
   el.classList.add("show");
@@ -665,29 +665,44 @@ function toast(t,err=false){
   window._tt=setTimeout(()=>el.classList.remove("show"),2800);
 }
 
-function isAdmin(){return !!user?.email&&ADMIN_EMAILS.includes(user.email.toLowerCase())}
+function isAdmin(){
+  return !!user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
+}
+
 function isPlaceholder(n){
   const x=String(n||"").trim().toLowerCase();
-
   return !x ||
     x==="—" ||
     x==="-" ||
     x==="null" ||
     x==="undefined" ||
+    x.startsWith("guanyador") ||
     x.includes("guanyador") ||
     x.includes("winner") ||
     x.includes("pendent") ||
     x.includes("pendiente") ||
     x.includes("pending");
 }
-function roundName(r){return{1:"Prèvies",2:"Octaus",3:"Quarts",4:"Semis",5:"Final"}[Number(r)]||"Ronda"}
+
+function roundName(r){
+  return{1:"Prèvies",2:"Octaus",3:"Quarts",4:"Semis",5:"Final"}[Number(r)]||"Ronda";
+}
 
 function guest(){
   let g=JSON.parse(localStorage.getItem(LS_KEY)||"null");
-  if(!g){g={uid:"guest_"+crypto.randomUUID(),name:"Visitant",coins:economy.initialGuest,lastNegativeBonus:""};localStorage.setItem(LS_KEY,JSON.stringify(g));}
+  if(!g){
+    g={uid:"guest_"+crypto.randomUUID(),name:"Visitant",coins:economy.initialGuest,lastNegativeBonus:""};
+    localStorage.setItem(LS_KEY,JSON.stringify(g));
+  }
   return g;
 }
-function saveGuest(p){const g={...guest(),...p};localStorage.setItem(LS_KEY,JSON.stringify(g));wallet=g}
+
+function saveGuest(p){
+  const g={...guest(),...p};
+  localStorage.setItem(LS_KEY,JSON.stringify(g));
+  wallet=g;
+}
+
 function uid(){return user?.uid||guest().uid}
 function uname(){return wallet?.name||user?.displayName||user?.email||guest().name||"Visitant"}
 
@@ -696,7 +711,7 @@ function normalizeMatch(m,i){
   const p2=m.p2||m.player2||m.nom2||m.name2||m.b||m.visitant||"";
   const winner=m.winner||m.guanyador||m.guanyadorNom||m.winnerName||"";
 
-  return {
+  return{
     ...m,
     id:String(m.id||m.matchId||`m${i+1}`),
     round:Number(m.round||m.ronda||1),
@@ -708,8 +723,27 @@ function normalizeMatch(m,i){
   };
 }
 
+function openMatches(){
+  return(tournament.matches||[]).filter(m=>
+    isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
+
+function playedMatches(){
+  return(tournament.matches||[]).filter(m=>
+    !isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
+
 async function loadEconomy(){
-  try{const s=await getDoc(doc(db,"system","economy"));if(s.exists())economy={...economy,...s.data()};}catch(e){console.warn(e);}
+  try{
+    const s=await getDoc(doc(db,"system","economy"));
+    if(s.exists())economy={...economy,...s.data()};
+  }catch(e){console.warn(e)}
   updateLoanPreview();
 }
 
@@ -721,52 +755,54 @@ function listenTournament(){
   onSnapshot(doc(tourDB,"tournaments","main"),snap=>{
     const data=snap.exists()?snap.data():{matches:[]};
     tournament.matches=Array.isArray(data.matches)?data.matches.map(normalizeMatch):[];
-    renderAll();resolveFinishedBets();
-  },err=>{console.error(err);$("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`;});
+    renderAll();
+    resolveFinishedBets();
+  },err=>{
+    console.error(err);
+    $("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`;
+  });
 }
 
 function listenBets(){
-  onSnapshot(collection(db,"bets"), snap=>{
-    allBets = snap.docs.map(d=>({id:d.id,...d.data()}));
-    myBets = allBets.filter(b=>b.uid===uid());
+  onSnapshot(collection(db,"bets"),snap=>{
+    allBets=snap.docs.map(d=>({id:d.id,...d.data()}));
+    myBets=allBets.filter(b=>b.uid===uid());
 
     renderAll();
 
     if(selectedMatch){
       updateOddsDisplay(selectedMatch);
       renderChart();
-
-      const mine = myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
+      const mine=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
       if(mine){
         $("placedInfo").textContent=`Has apostat ${money(mine.amount)} RDTC per ${mine.choice}`;
         $("placedBadge").textContent=mine.status||"pendent";
       }
     }
-  }, err=>{
-    console.error("ERROR leyendo bets:", err);
-    toast("Firebase bloquea leer las apuestas.", true);
+  },err=>{
+    console.error("ERROR leyendo bets:",err);
+    toast("Firebase bloquea leer las apuestas.",true);
   });
 
-  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")), snap=>{
-    publicTx = snap.docs
-      .map(d=>({id:d.id,...d.data()}))
-      .filter(t=>t.matchId!=="ADMIN");
-
+  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),snap=>{
+    publicTx=snap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>t.matchId!=="ADMIN");
     renderPublicTx();
-  }, err=>{
-    console.error("ERROR leyendo publicTransactions:", err);
+  },err=>{
+    console.error("ERROR leyendo publicTransactions:",err);
     publicTx=[];
     renderPublicTx();
-    toast("Firebase bloquea leer transacciones.", true);
+    toast("Firebase bloquea leer transacciones.",true);
   });
 }
 
 async function ensureWallet(){
   if(walletUnsub){walletUnsub();walletUnsub=null;}
+
   if(user){
     const ref=doc(db,"users",user.uid);
     const snap=await getDoc(ref);
     const cleanName=user.displayName||user.email||"Usuari";
+
     if(!snap.exists()){
       wallet={uid:user.uid,name:cleanName,email:user.email||"",coins:economy.initialGuest+economy.accountBonus,bonusClaimed:true,deleted:false,createdAt:Date.now(),lastNegativeBonus:""};
       await setDoc(ref,wallet);
@@ -776,58 +812,39 @@ async function ensureWallet(){
       if(!wallet.name)u.name=cleanName;
       if(!wallet.email)u.email=user.email||"";
       if(wallet.deleted)u.deleted=false;
-      if(!wallet.bonusClaimed){u.coins=money((wallet.coins||0)+economy.accountBonus);u.bonusClaimed=true;}
+      if(!wallet.bonusClaimed){
+        u.coins=money((wallet.coins||0)+economy.accountBonus);
+        u.bonusClaimed=true;
+      }
       if(Object.keys(u).length)await updateDoc(ref,u);
     }
+
     walletUnsub=onSnapshot(ref,s=>{
-      if(s.exists()){wallet=s.data();if(wallet.deleted){toast("Compte desactivat.",true);signOut(auth);return;}renderAll();}
+      if(s.exists()){
+        wallet=s.data();
+        if(wallet.deleted){
+          toast("Compte desactivat.",true);
+          signOut(auth);
+          return;
+        }
+        renderAll();
+      }
     });
-  }else{wallet=guest();}
+  }else{
+    wallet=guest();
+  }
 }
 
 async function setCoins(v){
   v=money(v);
   if(user)await updateDoc(doc(db,"users",user.uid),{coins:v});
   else saveGuest({coins:v});
-  wallet={...wallet,coins:v};renderAll();
+  wallet={...wallet,coins:v};
+  renderAll();
 }
 
-function isPlaceholder(n){
-  const x = String(n || "").trim().toLowerCase();
-
-  return !x ||
-    x === "—" ||
-    x === "-" ||
-    x === "null" ||
-    x === "undefined" ||
-    x.startsWith("guanyador") ||
-    x.includes("guanyador") ||
-    x.includes("winner") ||
-    x.includes("pendent") ||
-    x.includes("pendiente") ||
-    x.includes("pending");
-}
-
-function openMatches(){
-  return (tournament.matches || []).filter(m =>
-    isPlaceholder(m.winner) &&
-    !isPlaceholder(m.p1) &&
-    !isPlaceholder(m.p2)
-  );
-}
-
-function playedMatches(){
-  return (tournament.matches || []).filter(m =>
-    !isPlaceholder(m.winner) &&
-    !isPlaceholder(m.p1) &&
-    !isPlaceholder(m.p2)
-  );
-}
-function playedMatches(){return(tournament.matches||[]).filter(m=>!!m.winner&&!isPlaceholder(m.p1)&&!isPlaceholder(m.p2))}
-
-// GLOBAL totals (all users)
 function totalsFor(match){
-  const rows=allBets.filter(b=>String(b.matchId)===String(match.id));
+  const rows=allBets.filter(b=>String(b.matchId)===String(match.id)&&b.status==="pending");
   const p1=rows.filter(b=>b.choice===match.p1).reduce((s,b)=>s+Number(b.amount||0),0);
   const p2=rows.filter(b=>b.choice===match.p2).reduce((s,b)=>s+Number(b.amount||0),0);
   const total=p1+p2;
@@ -836,10 +853,13 @@ function totalsFor(match){
 }
 
 function calcOdds(t){
-  if(!t.total||t.p1===t.p2)return{o1:2.0,o2:2.0};
+  if(!t.total||t.p1===t.p2)return{o1:2,o2:2};
   const o1=t.total/Math.max(t.p1,1);
   const o2=t.total/Math.max(t.p2,1);
-  return{o1:Math.max(1.01,Math.round(o1*100)/100),o2:Math.max(1.01,Math.round(o2*100)/100)};
+  return{
+    o1:Math.max(1.01,Math.round(o1*100)/100),
+    o2:Math.max(1.01,Math.round(o2*100)/100)
+  };
 }
 
 function renderHypeBanner(){
@@ -847,6 +867,7 @@ function renderHypeBanner(){
   const totalBets=allBets.filter(b=>b.status==="pending");
   const totalRDTC=totalBets.reduce((s,b)=>s+Number(b.amount||0),0);
   const banner=$("hypeBanner");
+
   if(open.length){
     banner.style.display="flex";
     $("hypeTotal").textContent=money(totalRDTC);
@@ -861,22 +882,31 @@ function renderMatches(){
   const box=$("matches");
   const search=($("searchInput").value||"").toLowerCase().trim();
   const round=$("roundInput").value;
+
   let list=openMatches();
   if(round!=="all")list=list.filter(m=>String(m.round)===String(round));
   if(search)list=list.filter(m=>`${m.p1} ${m.p2}`.toLowerCase().includes(search));
 
-  if(!tournament.matches.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🏸</span>No hi ha partits al Firebase encara.</div>`;return;}
-  if(!list.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🔍</span>No hi ha partits oberts ara mateix.</div>`;return;}
+  if(!tournament.matches.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">🏸</span>No hi ha partits al Firebase encara.</div>`;
+    return;
+  }
+
+  if(!list.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">🔍</span>No hi ha partits oberts ara mateix.</div>`;
+    return;
+  }
 
   box.innerHTML="";
   list.forEach(m=>{
     const t=totalsFor(m);
     const odds=calcOdds(t);
-    const mine=myBets.find(b=>String(b.matchId)===String(m.id));
-    const betCount=allBets.filter(b=>String(b.matchId)===String(m.id)).length;
+    const mine=myBets.find(b=>String(b.matchId)===String(m.id)&&b.status==="pending");
+    const betCount=allBets.filter(b=>String(b.matchId)===String(m.id)&&b.status==="pending").length;
     const winning=t.p1>t.p2?"p1":t.p1<t.p2?"p2":"none";
     const div=document.createElement("div");
     div.className="match";
+
     div.innerHTML=`
       <div class="match-top">
         <span class="badge">${roundName(m.round)}</span>
@@ -912,6 +942,7 @@ function renderMatches(){
         ${mine?"✏️ Modificar aposta":"🎯 Fer predicció →"}
       </button>
     `;
+
     div.querySelector(".predict-btn").addEventListener("click",()=>openPredict(m));
     box.appendChild(div);
   });
@@ -928,20 +959,29 @@ function renderTop(){
   $("adminTab").classList.toggle("hidden",!(adminUnlocked&&isAdmin()));
   $("activeBets").textContent=myBets.filter(b=>b.status==="pending").length;
   $("wonCoins").textContent=money(myBets.filter(b=>b.status==="won").reduce((s,b)=>s+Number(b.payout||0),0));
-  renderMyBets();renderLoans();
+  renderMyBets();
+  renderLoans();
   if(adminUnlocked&&isAdmin())renderAdminUsers();
 }
 
 function renderMyBets(){
   const box=$("myBets");
-  if(!myBets.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🎯</span>Encara no tens apostes.</div>`;return;}
+  if(!myBets.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">🎯</span>Encara no tens apostes.</div>`;
+    return;
+  }
   box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Partit</th><th>Predicció</th><th>RDTC</th><th>Estat</th></tr></thead><tbody>${myBets.slice().reverse().map(b=>`<tr><td>${esc(b.matchTitle)}</td><td><b>${esc(b.choice)}</b></td><td>${money(b.amount)}</td><td><span class="pill ${b.status||'pending'}">${esc(b.status||'pendent')}</span></td></tr>`).join("")}</tbody></table></div>`;
 }
 
 function renderResults(){
   const box=$("results");
   const list=playedMatches().slice().reverse();
-  if(!list.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🏆</span>Encara no hi ha resultats.</div>`;return;}
+
+  if(!list.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">🏆</span>Encara no hi ha resultats.</div>`;
+    return;
+  }
+
   box.innerHTML=list.map(m=>{
     const t=totalsFor(m);
     return`<div class="match">
@@ -950,13 +990,9 @@ function renderResults(){
         <span class="badge green">✅ Finalitzat</span>
       </div>
       <div class="names">
-        <div class="name${m.winner===m.p1?" winning-p1":""}" style="${m.winner===m.p1?"":"opacity:.5"}">
-          ${esc(m.p1)}${m.score1?` <b>·${esc(m.score1)}</b>`:""}
-        </div>
+        <div class="name${m.winner===m.p1?" winning-p1":""}" style="${m.winner===m.p1?"":"opacity:.5"}">${esc(m.p1)}${m.score1?` <b>·${esc(m.score1)}</b>`:""}</div>
         <div class="vs-mid">GUANYA</div>
-        <div class="name${m.winner===m.p2?" winning-p2":""}" style="${m.winner===m.p2?"":"opacity:.5"}">
-          ${esc(m.p2)}${m.score2?` <b>·${esc(m.score2)}</b>`:""}
-        </div>
+        <div class="name${m.winner===m.p2?" winning-p2":""}" style="${m.winner===m.p2?"":"opacity:.5"}">${esc(m.p2)}${m.score2?` <b>·${esc(m.score2)}</b>`:""}</div>
       </div>
       <p style="margin-top:8px;font-size:14px;font-weight:800">🏆 ${esc(m.winner)}</p>
       <p style="font-size:12px;color:var(--muted);margin-top:4px">${money(t.total)} RDTC apostats en total</p>
@@ -966,28 +1002,45 @@ function renderResults(){
 
 function renderPublicTx(){
   const box=$("publicTx");
-  // Filtra admin i mostra apostes + préstecs
   const filtered=publicTx.filter(t=>t.matchId!=="ADMIN");
-  if(!filtered.length){box.innerHTML=`<div class="empty"><span class="empty-icon">📋</span>Encara no hi ha transaccions.</div>`;return;}
+  if(!filtered.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">📋</span>Encara no hi ha transaccions.</div>`;
+    return;
+  }
   box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Usuari</th><th>Moviment</th><th>RDTC</th><th>Referència</th></tr></thead><tbody>${filtered.map(t=>`<tr><td><b>${esc(t.name)}</b></td><td>${esc(t.label)}</td><td style="font-weight:900;color:${Number(t.amount)>=0?"var(--blueDark)":"var(--redDark)"}">${Number(t.amount)>=0?"+":""}${money(t.amount)}</td><td style="font-size:11px;color:var(--muted)">${esc((t.matchId||"").toUpperCase())}</td></tr>`).join("")}</tbody></table></div>`;
 }
 
 async function getLoans(){
   if(!user)return JSON.parse(localStorage.getItem(LS_KEY+"_loans")||"[]");
-  try{const s=await getDocs(query(collection(db,"loans"),where("uid","==",uid())));return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));}
-  catch(e){console.warn(e);return[];}
+  try{
+    const s=await getDocs(query(collection(db,"loans"),where("uid","==",uid())));
+    return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  }catch(e){
+    console.warn(e);
+    return[];
+  }
 }
-function saveLocalLoans(loans){localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans))}
+
+function saveLocalLoans(loans){
+  localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans));
+}
 
 async function renderLoans(){
   const loans=await getLoans();
   $("debtCoins").textContent=money(loans.filter(l=>l.status==="active").reduce((s,l)=>s+Number(l.returnAmount||0),0));
-  const box=$("loans");if(!box)return;
-  if(!loans.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🏦</span>No tens préstecs actius.</div>`;return;}
+  const box=$("loans");
+  if(!box)return;
+
+  if(!loans.length){
+    box.innerHTML=`<div class="empty"><span class="empty-icon">🏦</span>No tens préstecs actius.</div>`;
+    return;
+  }
+
   box.innerHTML="";
   loans.forEach(l=>{
     const late=l.status==="active"&&Date.now()>l.dueAt;
-    const div=document.createElement("div");div.className="loan-card";
+    const div=document.createElement("div");
+    div.className="loan-card";
     div.innerHTML=`<div><h3>${money(l.amount)} RDTC → <span style="color:var(--redDark)">${money(l.returnAmount)} RDTC</span></h3><p style="font-size:12px;color:var(--muted);margin-top:4px">Venciment: ${new Date(l.dueAt).toLocaleString("ca-ES")}</p></div><div style="display:flex;align-items:center;gap:8px"><span class="badge ${l.status==="paid"?"green":late?"":"blue"}">${l.status==="paid"?"✅ Pagat":late?"⚠️ Vençut":"🟢 Actiu"}</span>${l.status==="active"?`<button class="btn green pay-loan">Tornar ara</button>`:""}</div>`;
     const btn=div.querySelector(".pay-loan");
     if(btn)btn.addEventListener("click",()=>payLoan(l));
@@ -1001,14 +1054,14 @@ async function loadAdminUsers(){
     const snap=await getDocs(collection(db,"users"));
     adminUsers=snap.docs.map(d=>({id:d.id,...d.data()})).filter(u=>!u.deleted);
     renderAdminUsers();
-  }catch(e){console.error(e);}
+  }catch(e){console.error(e)}
 }
 
-async function getAllLoansAdmin(){
+async function getUserActiveLoans(userId){
   try{
-    const snap=await getDocs(collection(db,"loans"));
+    const snap=await getDocs(query(collection(db,"loans"),where("uid","==",userId),where("status","==","active")));
     return snap.docs.map(d=>({id:d.id,...d.data()}));
-  }catch(e){return[];}
+  }catch(e){return[]}
 }
 
 function renderAdminUsers(){
@@ -1017,14 +1070,21 @@ function renderAdminUsers(){
   const s=($("adminSearch")?.value||"").toLowerCase().trim();
   let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));
   if(s)list=list.filter(u=>`${u.name||""} ${u.email||""} ${u.uid||u.id}`.toLowerCase().includes(s));
+
   $("adminUsersCount").textContent=adminUsers.length;
   $("adminTotalCoins").textContent=money(adminUsers.reduce((s,u)=>s+Number(u.coins||0),0));
   $("adminBetsCount").textContent=allBets.length;
-  if(!list.length){box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;return;}
+
+  if(!list.length){
+    box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;
+    return;
+  }
+
   box.innerHTML="";
   list.forEach(async u=>{
     const userLoans=await getUserActiveLoans(u.uid||u.id);
-    const div=document.createElement("div");div.className="admin-user";
+    const div=document.createElement("div");
+    div.className="admin-user";
     div.innerHTML=`
       <div class="admin-user-head">
         <div>
@@ -1052,6 +1112,7 @@ function renderAdminUsers(){
         </div>`).join("")}
       </div>`:""}
     `;
+
     div.querySelector(".add-coins").addEventListener("click",()=>adminChangeCoins(u,Number(div.querySelector(".admin-coins").value||0)));
     div.querySelector(".remove-coins").addEventListener("click",()=>adminChangeCoins(u,-Number(div.querySelector(".admin-coins").value||0)));
     div.querySelector(".save-name").addEventListener("click",()=>adminSaveName(u,div.querySelector(".admin-name").value.trim()));
@@ -1064,13 +1125,6 @@ function renderAdminUsers(){
   });
 }
 
-async function getUserActiveLoans(uid){
-  try{
-    const snap=await getDocs(query(collection(db,"loans"),where("uid","==",uid),where("status","==","active")));
-    return snap.docs.map(d=>({id:d.id,...d.data()}));
-  }catch(e){return[];}
-}
-
 async function adminPayLoan(loanId,loanUid,returnAmount){
   if(!isAdmin())return;
   if(!confirm(`Pagar el préstec de ${returnAmount} RDTC de la seva part?`))return;
@@ -1081,12 +1135,16 @@ async function adminPayLoan(loanId,loanUid,returnAmount){
     await addDoc(collection(db,"publicTransactions"),{uid:loanUid,name:targetName,label:`Préstec pagat per admin (${user.email}) per ${returnAmount} RDTC`,amount:0,matchId:"LOAN_ADMIN",createdAt:Date.now()});
     toast("✅ Préstec de l'usuari pagat.");
     await loadAdminUsers();
-  }catch(e){console.error(e);toast("Error en pagar el préstec.",true);}
+  }catch(e){
+    console.error(e);
+    toast("Error en pagar el préstec.",true);
+  }
 }
 
 async function adminChangeCoins(u,delta){
   if(!isAdmin())return toast("No ets admin.",true);
-  delta=money(delta);if(!delta)return toast("Quantitat incorrecta.",true);
+  delta=money(delta);
+  if(!delta)return toast("Quantitat incorrecta.",true);
   await adminSetCoins(u,money((u.coins||0)+delta),delta);
 }
 
@@ -1095,10 +1153,13 @@ async function adminSetCoins(u,newCoins,delta=null){
   try{
     newCoins=money(newCoins);
     await updateDoc(doc(db,"users",u.uid||u.id),{coins:newCoins,updatedAt:Date.now(),updatedBy:user.email});
-    // Transaccions admin NO es mostren públicament (matchId: "ADMIN")
     await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:u.name||u.email||"Usuari",label:delta===null?`Admin ha posat ${newCoins} RDTC`:`Admin ha ${delta>=0?"donat":"tret"} ${Math.abs(delta)} RDTC`,amount:delta===null?0:delta,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
-    toast("✅ RDTC actualitzats.");await loadAdminUsers();
-  }catch(e){console.error(e);toast("Error.",true);}
+    toast("✅ RDTC actualitzats.");
+    await loadAdminUsers();
+  }catch(e){
+    console.error(e);
+    toast("Error.",true);
+  }
 }
 
 async function adminSaveName(u,name){
@@ -1106,9 +1167,12 @@ async function adminSaveName(u,name){
   if(!name)return toast("El nom no pot estar buit.",true);
   try{
     await updateDoc(doc(db,"users",u.uid||u.id),{name,updatedAt:Date.now(),updatedBy:user.email});
-    await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name,label:`Nom canviat a ${name}`,amount:0,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
-    toast("Nom guardat.");await loadAdminUsers();
-  }catch(e){toast("Error.",true);}
+    await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:name,label:`Nom canviat a ${name}`,amount:0,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
+    toast("Nom guardat.");
+    await loadAdminUsers();
+  }catch(e){
+    toast("Error.",true);
+  }
 }
 
 async function deleteWhere(col,field,val){
@@ -1121,22 +1185,30 @@ async function adminDeleteUser(u){
   const id=u.uid||u.id;
   if(!confirm(`Borrar ${u.name||u.email||id}?`))return;
   try{
-    await addDoc(collection(db,"publicTransactions"),{uid:id,name:u.name||u.email||"Usuari",label:`Usuari borrat`,amount:0,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
+    await addDoc(collection(db,"publicTransactions"),{uid:id,name:u.name||u.email||"Usuari",label:"Usuari borrat",amount:0,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
     await deleteWhere("bets","uid",id);
     await deleteWhere("loans","uid",id);
     await updateDoc(doc(db,"users",id),{deleted:true,coins:0,deletedAt:Date.now(),deletedBy:user.email});
-    toast("Usuari borrat.");await loadAdminUsers();
-  }catch(e){toast("Error.",true);}
+    toast("Usuari borrat.");
+    await loadAdminUsers();
+  }catch(e){
+    toast("Error.",true);
+  }
 }
 
 async function adminGiveAll(amount){
   if(!isAdmin())return;
   if(!confirm(`Donar +${amount} RDTC a tots els usuaris?`))return;
   try{
-    for(const u of adminUsers)await updateDoc(doc(db,"users",u.uid||u.id),{coins:money((u.coins||0)+amount),updatedAt:Date.now()});
+    for(const u of adminUsers){
+      await updateDoc(doc(db,"users",u.uid||u.id),{coins:money((u.coins||0)+amount),updatedAt:Date.now()});
+    }
     await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${amount} RDTC a tots`,amount,matchId:"ADMIN",admin:user.email,createdAt:Date.now()});
-    toast("✅ RDTC donades a tots.");await loadAdminUsers();
-  }catch(e){toast("Error.",true);}
+    toast("✅ RDTC donades a tots.");
+    await loadAdminUsers();
+  }catch(e){
+    toast("Error.",true);
+  }
 }
 
 async function clearAllTransactions(){
@@ -1147,23 +1219,43 @@ async function clearAllTransactions(){
     const snap=await getDocs(collection(db,"publicTransactions"));
     await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,"publicTransactions",d.id))));
     toast("✅ Totes les transaccions esborrades.");
-  }catch(e){console.error(e);toast("Error en esborrar.",true);}
+  }catch(e){
+    console.error(e);
+    toast("Error en esborrar.",true);
+  }
 }
 
-function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderHypeBanner();}
+function renderAll(){
+  renderTop();
+  renderMatches();
+  renderResults();
+  renderPublicTx();
+  renderHypeBanner();
+}
 
 function activatePage(pageId){
-  if(pageId==="adminPage"&&(!adminUnlocked||!isAdmin())){toast("Escriu astop per accedir.",true);pageId="homePage";}
+  if(pageId==="adminPage"&&(!adminUnlocked||!isAdmin())){
+    toast("Escriu astop per accedir.",true);
+    pageId="homePage";
+  }
   activePage=pageId;
   document.querySelectorAll(".chrome-tab").forEach(t=>t.classList.toggle("active",t.dataset.page===pageId));
   ["homePage","walletPage","resultsPage","txPage","bankPage","adminPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
-  requestAnimationFrame(()=>{renderAll();if(pageId==="adminPage")loadAdminUsers();});
+  requestAnimationFrame(()=>{
+    renderAll();
+    if(pageId==="adminPage")loadAdminUsers();
+  });
 }
 
-/* MODAL PREDICCIÓ */
 function openPredict(match){
-  if(!match||isPlaceholder(match.p1)||isPlaceholder(match.p2)){toast("Partit no disponible.",true);return;}
-  selectedMatch=match;selectedChoice="";
+  if(!match||isPlaceholder(match.p1)||isPlaceholder(match.p2)){
+    toast("Partit no disponible.",true);
+    return;
+  }
+
+  selectedMatch=match;
+  selectedChoice="";
+
   $("modalTitle").textContent=`${match.p1} vs ${match.p2}`;
   $("chartP1").textContent=match.p1;
   $("chartP2").textContent=match.p2;
@@ -1173,8 +1265,9 @@ function openPredict(match){
   $("chooseP2").classList.remove("active");
   $("changeError").textContent="";
   updateOddsDisplay(match);
+  updateBetPreview();
 
-  const mine=myBets.find(b=>String(b.matchId)===String(match.id));
+  const mine=myBets.find(b=>String(b.matchId)===String(match.id)&&b.status==="pending");
   if(mine){
     $("newBetPanel").classList.add("hidden");
     $("placedPanel").classList.remove("hidden");
@@ -1182,8 +1275,8 @@ function openPredict(match){
     $("placedBadge").textContent=mine.status||"pendent";
     $("changeAmount").value="";
     selectedChoice=mine.choice;
-    if(mine.choice===match.p1){$("chooseP1").classList.add("active");}
-    else{$("chooseP2").classList.add("active");}
+    if(mine.choice===match.p1)$("chooseP1").classList.add("active");
+    else $("chooseP2").classList.add("active");
     $("chooseP1").disabled=mine.status!=="pending";
     $("chooseP2").disabled=mine.status!=="pending";
   }else{
@@ -1192,6 +1285,7 @@ function openPredict(match){
     $("chooseP1").disabled=false;
     $("chooseP2").disabled=false;
   }
+
   $("predictModal").classList.remove("hidden");
   renderChart();
 }
@@ -1209,24 +1303,24 @@ function updateBetPreview(){
   const amount=Number($("betAmount").value||0);
   const t=totalsFor(selectedMatch);
   const odds=calcOdds(t);
-  const side=selectedChoice===selectedMatch.p1?odds.o1:odds.o2;
-  const win=selectedChoice?money(amount*side-amount):money(amount*economy.winMultiplier-amount);
+  const side=selectedChoice===selectedMatch.p1?odds.o1:selectedChoice===selectedMatch.p2?odds.o2:economy.winMultiplier;
+  const win=money(amount*side-amount);
   $("betPreviewWin").textContent=`+${win} RDTC`;
 }
 
 function renderChart(){
   if(!selectedMatch)return;
-  // Apostes globals (tot el món)
-  const rows=allBets.filter(b=>String(b.matchId)===String(selectedMatch.id)).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+
+  const rows=allBets.filter(b=>String(b.matchId)===String(selectedMatch.id)&&b.status==="pending").sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
   let p1=0,p2=0;
   const points=[];
+
   rows.forEach(b=>{
     if(b.choice===selectedMatch.p1)p1+=Number(b.amount||0);
     if(b.choice===selectedMatch.p2)p2+=Number(b.amount||0);
     points.push({diff:p1-p2,p1,p2,ts:b.createdAt||0});
   });
 
-  // Actualitzar footer stats
   $("chartP1Val").textContent=`${money(p1)} RDTC`;
   $("chartP2Val").textContent=`${money(p2)} RDTC`;
 
@@ -1240,38 +1334,18 @@ function renderChart(){
 
   const max=Math.max(10,...points.map(p=>Math.abs(p.diff)));
   const midY=H/2;
-
-  // Línia central
-  const center=`<line x1="0" y1="${midY}" x2="${W}" y2="${midY}" stroke="#e8e8e0" stroke-width="1" stroke-dasharray="4,4"/>`;
-
-  // Àrea blava (p1 guanya)
-  const blueAreaPts=points.map((p,i)=>{
+  const coordsArr=points.map((p,i)=>{
     const x=points.length===1?W/2:(i/(points.length-1))*(W-PAD*2)+PAD;
     const y=midY-(p.diff/max)*(midY-PAD);
-    return`${x},${y}`;
+    return{x,y,diff:p.diff};
   });
-  const blueArea=`${PAD},${midY} ${blueAreaPts.join(" ")} ${points.length===1?W/2:(W-PAD)},${midY}`;
 
-  // Àrea vermella
-  const redArea=`${PAD},${midY} ${blueAreaPts.join(" ")} ${points.length===1?W/2:(W-PAD)},${midY}`;
-
-  const coords=blueAreaPts.join(" ");
-  const last=points[points.length-1];
+  const coords=coordsArr.map(p=>`${p.x},${p.y}`).join(" ");
+  const last=coordsArr[coordsArr.length-1];
   const lineCol=last.diff>=0?"#3d7fff":"#ff4f4f";
-  const fillCol=last.diff>=0?"rgba(61,127,255,.1)":"rgba(255,79,79,.1)";
+  const area=`${PAD},${midY} ${coords} ${points.length===1?W/2:(W-PAD)},${midY}`;
 
-  // Punts del gràfic
-  const dots=points.map((p,i)=>{
-    const x=points.length===1?W/2:(i/(points.length-1))*(W-PAD*2)+PAD;
-    const y=midY-(p.diff/max)*(midY-PAD);
-    return`<circle cx="${x}" cy="${y}" r="3.5" fill="${p.diff>=0?"#3d7fff":"#ff4f4f"}" opacity=".8"/>`;
-  }).join("");
-
-  // Últim punt destacat
-  const lp=points[points.length-1];
-  const lx=points.length===1?W/2:((points.length-1)/(points.length-1))*(W-PAD*2)+PAD;
-  const ly=midY-(lp.diff/max)*(midY-PAD);
-  const lastDot=`<circle cx="${lx}" cy="${ly}" r="6" fill="${lineCol}" opacity="1"/><circle cx="${lx}" cy="${ly}" r="10" fill="${lineCol}" opacity=".2"/>`;
+  const dots=coordsArr.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="${p.diff>=0?"#3d7fff":"#ff4f4f"}" opacity=".8"/>`).join("");
 
   svg.innerHTML=`
     <defs>
@@ -1280,125 +1354,261 @@ function renderChart(){
         <stop offset="100%" stop-color="${lineCol}" stop-opacity="0"/>
       </linearGradient>
     </defs>
-    ${center}
-    <polygon points="${blueArea}" fill="url(#areag)"/>
+    <line x1="0" y1="${midY}" x2="${W}" y2="${midY}" stroke="#e8e8e0" stroke-width="1" stroke-dasharray="4,4"/>
+    <polygon points="${area}" fill="url(#areag)"/>
     <polyline points="${coords}" fill="none" stroke="${lineCol}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     ${dots}
-    ${lastDot}
+    <circle cx="${last.x}" cy="${last.y}" r="6" fill="${lineCol}"/>
+    <circle cx="${last.x}" cy="${last.y}" r="10" fill="${lineCol}" opacity=".2"/>
     <text x="${PAD+4}" y="16" font-size="11" font-weight="800" fill="#3d7fff">${esc(selectedMatch.p1)}</text>
     <text x="${W-PAD-4}" y="16" text-anchor="end" font-size="11" font-weight="800" fill="#ff4f4f">${esc(selectedMatch.p2)}</text>
   `;
 }
 
-/* APOSTA NOVA */
 async function confirmPrediction(){
-  if(!user){$("authModal").classList.remove("hidden");toast("Has d'entrar per apostar.",true);return;}
+  if(!user){
+    $("authModal").classList.remove("hidden");
+    toast("Has d'entrar per apostar.",true);
+    return;
+  }
+
   if(!selectedMatch)return;
+
   const amount=money($("betAmount").value);
   if(!selectedChoice)return toast("Tria un jugador primer.",true);
   if(!amount||amount<=0)return toast("Quantitat incorrecta.",true);
   if((wallet?.coins||0)<amount)return toast("No tens prou RDTC.",true);
-  if(myBets.some(b=>String(b.matchId)===String(selectedMatch.id)))return toast("Ja has apostat. Modifica'l.",true);
+  if(myBets.some(b=>String(b.matchId)===String(selectedMatch.id)&&b.status==="pending"))return toast("Ja has apostat. Modifica'l.",true);
+
   try{
     const name=uname();
     await setCoins((wallet.coins||0)-amount);
-    await addDoc(collection(db,"bets"),{uid:uid(),name,matchId:selectedMatch.id,matchTitle:`${selectedMatch.p1} vs ${selectedMatch.p2}`,choice:selectedChoice,amount,originalAmount:amount,status:"pending",createdAt:Date.now()});
-    await addDoc(collection(db,"publicTransactions"),{uid:uid(),name,label:`${name} ha apostat ${amount} RDTC per ${selectedChoice}`,amount:-amount,matchId:selectedMatch.id,createdAt:Date.now()});
+    await addDoc(collection(db,"bets"),{
+      uid:uid(),
+      name,
+      matchId:selectedMatch.id,
+      matchTitle:`${selectedMatch.p1} vs ${selectedMatch.p2}`,
+      choice:selectedChoice,
+      amount,
+      originalAmount:amount,
+      status:"pending",
+      createdAt:Date.now()
+    });
+    await addDoc(collection(db,"publicTransactions"),{
+      uid:uid(),
+      name,
+      label:`${name} ha apostat ${amount} RDTC per ${selectedChoice}`,
+      amount:-amount,
+      matchId:selectedMatch.id,
+      createdAt:Date.now()
+    });
     toast("✅ Predicció guardada!");
     $("predictModal").classList.add("hidden");
-    selectedMatch=null;selectedChoice="";renderAll();
-  }catch(e){console.error(e);toast("Error en guardar.",true);}
+    selectedMatch=null;
+    selectedChoice="";
+    renderAll();
+  }catch(e){
+    console.error(e);
+    toast("Error en guardar.",true);
+  }
 }
 
-/* CANVIAR APOSTA */
 async function changeBet(direction){
   if(!user)return toast("Has d'entrar.",true);
   if(!selectedMatch)return;
-  const mine=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
+
+  const mine=myBets.find(b=>String(b.matchId)===String(selectedMatch.id)&&b.status==="pending");
   if(!mine)return toast("No tens cap aposta.",true);
-  if(mine.status!=="pending")return toast("Aposta ja resolta.",true);
+
   const delta=money($("changeAmount").value);
   $("changeError").textContent="";
-  if(!delta||delta<=0){$("changeError").textContent="Quantitat vàlida, si us plau.";return;}
+  if(!delta||delta<=0){
+    $("changeError").textContent="Quantitat vàlida, si us plau.";
+    return;
+  }
+
   const curr=money(mine.amount);
   const orig=money(mine.originalAmount||mine.amount);
-  if(direction==="down"){
-    const alreadyDec=money(orig-curr);
-    const canDec=money(MAX_DEC-alreadyDec);
-    if(canDec<=0){$("changeError").textContent=`Ja has baixat el màxim de ${MAX_DEC} RDTC.`;return;}
-    const act=Math.min(delta,canDec);
-    const newAmt=money(curr-act);
-    if(newAmt<1){$("changeError").textContent="Mínim 1 RDTC.";return;}
-    await setCoins(money((wallet.coins||0)+act));
-    await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});
-    await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha reduït la seva aposta ${act} RDTC`,amount:act,matchId:selectedMatch.id,createdAt:Date.now()});
-    if(act<delta)toast(`Baixat ${act} RDTC (límit de ${MAX_DEC} RDTC).`);
-    else toast(`Aposta reduïda a ${newAmt} RDTC.`);
-  }else{
-    if((wallet?.coins||0)<delta){$("changeError").textContent="No tens prou RDTC.";return;}
-    const newAmt=money(curr+delta);
-    await setCoins(money((wallet.coins||0)-delta));
-    await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});
-    await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pujat la seva aposta ${delta} RDTC`,amount:-delta,matchId:selectedMatch.id,createdAt:Date.now()});
-    toast(`Aposta augmentada a ${newAmt} RDTC.`);
+  let newAmt=curr;
+
+  try{
+    if(direction==="down"){
+      const alreadyDec=money(orig-curr);
+      const canDec=money(MAX_DEC-alreadyDec);
+
+      if(canDec<=0){
+        $("changeError").textContent=`Ja has baixat el màxim de ${MAX_DEC} RDTC.`;
+        return;
+      }
+
+      const act=Math.min(delta,canDec);
+      newAmt=money(curr-act);
+
+      if(newAmt<1){
+        $("changeError").textContent="Mínim 1 RDTC.";
+        return;
+      }
+
+      await setCoins(money((wallet.coins||0)+act));
+      await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});
+      await addDoc(collection(db,"publicTransactions"),{
+        uid:uid(),
+        name:uname(),
+        label:`${uname()} ha reduït la seva aposta ${act} RDTC`,
+        amount:act,
+        matchId:selectedMatch.id,
+        createdAt:Date.now()
+      });
+
+      toast(act<delta?`Baixat ${act} RDTC (límit de ${MAX_DEC} RDTC).`:`Aposta reduïda a ${newAmt} RDTC.`);
+    }else{
+      if((wallet?.coins||0)<delta){
+        $("changeError").textContent="No tens prou RDTC.";
+        return;
+      }
+
+      newAmt=money(curr+delta);
+
+      await setCoins(money((wallet.coins||0)-delta));
+      await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});
+      await addDoc(collection(db,"publicTransactions"),{
+        uid:uid(),
+        name:uname(),
+        label:`${uname()} ha pujat la seva aposta ${delta} RDTC`,
+        amount:-delta,
+        matchId:selectedMatch.id,
+        createdAt:Date.now()
+      });
+
+      toast(`Aposta augmentada a ${newAmt} RDTC.`);
+    }
+
+    $("changeAmount").value="";
+    $("placedInfo").textContent=`Has apostat ${newAmt} RDTC per ${mine.choice}`;
+    renderAll();
+    renderChart();
+    updateOddsDisplay(selectedMatch);
+  }catch(e){
+    console.error(e);
+    toast("Error modificant aposta.",true);
   }
-  $("changeAmount").value="";
-  const upd=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
-  if(upd)$("placedInfo").textContent=`Has apostat ${money(upd.amount)} RDTC per ${upd.choice}`;
 }
-  $("changeAmount").value="";
-renderAll();
-renderChart();
-updateOddsDisplay(selectedMatch);
 
 async function resolveFinishedBets(){
   const played=playedMatches();
   if(!played.length||!allBets.length)return;
+
   const pending=allBets.filter(b=>b.status==="pending");
+
   for(const b of pending){
-    const m=played.find(x=>String(x.id)===String(b.matchId));if(!m)continue;
+    const m=played.find(x=>String(x.id)===String(b.matchId));
+    if(!m)continue;
+
     const won=b.choice===m.winner;
     const payout=won?money(b.amount*economy.winMultiplier):0;
+
     try{
-      await updateDoc(doc(db,"bets",b.id),{status:won?"won":"lost",winner:m.winner,payout,resolvedAt:Date.now()});
-      if(won){const us=await getDoc(doc(db,"users",b.uid));if(us.exists())await updateDoc(doc(db,"users",b.uid),{coins:money((us.data().coins||0)+payout)});}
-      await addDoc(collection(db,"publicTransactions"),{uid:b.uid,name:b.name,matchId:b.matchId,label:won?`${b.name} ha guanyat ${payout} RDTC apostant per ${b.choice}`:`${b.name} ha perdut ${b.amount} RDTC apostant per ${b.choice}`,amount:won?payout:-b.amount,createdAt:Date.now()});
-    }catch(e){console.warn(e);}
+      await updateDoc(doc(db,"bets",b.id),{
+        status:won?"won":"lost",
+        winner:m.winner,
+        payout,
+        resolvedAt:Date.now()
+      });
+
+      if(won){
+        const us=await getDoc(doc(db,"users",b.uid));
+        if(us.exists())await updateDoc(doc(db,"users",b.uid),{coins:money((us.data().coins||0)+payout)});
+      }
+
+      await addDoc(collection(db,"publicTransactions"),{
+        uid:b.uid,
+        name:b.name,
+        matchId:b.matchId,
+        label:won?`${b.name} ha guanyat ${payout} RDTC apostant per ${b.choice}`:`${b.name} ha perdut ${b.amount} RDTC apostant per ${b.choice}`,
+        amount:won?payout:-b.amount,
+        createdAt:Date.now()
+      });
+    }catch(e){
+      console.warn(e);
+    }
   }
 }
 
 async function requestLoan(){
   const amount=money($("loanAmount").value);
   if(!amount||amount<=0)return toast("Quantitat incorrecta.",true);
-  const loan={uid:uid(),name:uname(),amount,returnAmount:money(amount*economy.loanMultiplier),dueAt:Date.now()+economy.loanDays*86400000,status:"active",createdAt:Date.now()};
+
+  const loan={
+    uid:uid(),
+    name:uname(),
+    amount,
+    returnAmount:money(amount*economy.loanMultiplier),
+    dueAt:Date.now()+economy.loanDays*86400000,
+    status:"active",
+    createdAt:Date.now()
+  };
+
   if(user)await addDoc(collection(db,"loans"),loan);
-  else{const loans=await getLoans();loans.unshift({...loan,id:crypto.randomUUID()});saveLocalLoans(loans);}
+  else{
+    const loans=await getLoans();
+    loans.unshift({...loan,id:crypto.randomUUID()});
+    saveLocalLoans(loans);
+  }
+
   await setCoins((wallet?.coins||0)+amount);
-  // Transacció de préstec: sí és pública (matchId: LOAN)
-  await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha demanat un préstec de ${amount} RDTC`,amount,matchId:"LOAN",createdAt:Date.now()});
+  await addDoc(collection(db,"publicTransactions"),{
+    uid:uid(),
+    name:uname(),
+    label:`${uname()} ha demanat un préstec de ${amount} RDTC`,
+    amount,
+    matchId:"LOAN",
+    createdAt:Date.now()
+  });
+
   toast("✅ Préstec concedit.");
 }
 
 async function payLoan(l){
   if((wallet?.coins||0)<l.returnAmount)return toast("No tens prou RDTC.",true);
+
   if(user)await updateDoc(doc(db,"loans",l.id),{status:"paid",paidAt:Date.now()});
-  else{const loans=(await getLoans()).map(x=>x.id===l.id?{...x,status:"paid",paidAt:Date.now()}:x);saveLocalLoans(loans);}
+  else{
+    const loans=(await getLoans()).map(x=>x.id===l.id?{...x,status:"paid",paidAt:Date.now()}:x);
+    saveLocalLoans(loans);
+  }
+
   await setCoins((wallet.coins||0)-l.returnAmount);
-  await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pagat un préstec de ${l.returnAmount} RDTC`,amount:-l.returnAmount,matchId:"LOAN",createdAt:Date.now()});
+  await addDoc(collection(db,"publicTransactions"),{
+    uid:uid(),
+    name:uname(),
+    label:`${uname()} ha pagat un préstec de ${l.returnAmount} RDTC`,
+    amount:-l.returnAmount,
+    matchId:"LOAN",
+    createdAt:Date.now()
+  });
+
   toast("✅ Préstec pagat.");
 }
 
-/* EVENTS */
 document.querySelectorAll(".chrome-tab").forEach(tab=>tab.addEventListener("click",()=>activatePage(tab.dataset.page)));
 
 window.addEventListener("keydown",e=>{
   const tag=document.activeElement?.tagName?.toLowerCase();
   if(tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable)return;
+
   adminSecretBuffer=(adminSecretBuffer+e.key.toLowerCase()).slice(-5);
+
   if(adminSecretBuffer==="astop"){
     adminSecretBuffer="";
-    if(!user){$("authModal").classList.remove("hidden");toast("Entra amb un compte admin.",true);return;}
-    if(!isAdmin()){toast("Sense permisos d'admin.",true);return;}
+    if(!user){
+      $("authModal").classList.remove("hidden");
+      toast("Entra amb un compte admin.",true);
+      return;
+    }
+    if(!isAdmin()){
+      toast("Sense permisos d'admin.",true);
+      return;
+    }
     adminUnlocked=true;
     $("adminTab").classList.remove("hidden");
     activatePage("adminPage");
@@ -1413,9 +1623,31 @@ $("adminSearch")?.addEventListener("input",renderAdminUsers);
 $("refreshAdmin").addEventListener("click",loadAdminUsers);
 $("adminGiveAll100").addEventListener("click",()=>adminGiveAll(100));
 $("clearAllTxBtn").addEventListener("click",clearAllTransactions);
-$("closePredict").addEventListener("click",()=>{$("predictModal").classList.add("hidden");selectedMatch=null;selectedChoice="";});
-$("chooseP1").addEventListener("click",()=>{if(!selectedMatch||$("chooseP1").disabled)return;selectedChoice=selectedMatch.p1;$("chooseP1").classList.add("active");$("chooseP2").classList.remove("active");updateBetPreview();updateOddsDisplay(selectedMatch);});
-$("chooseP2").addEventListener("click",()=>{if(!selectedMatch||$("chooseP2").disabled)return;selectedChoice=selectedMatch.p2;$("chooseP2").classList.add("active");$("chooseP1").classList.remove("active");updateBetPreview();updateOddsDisplay(selectedMatch);});
+
+$("closePredict").addEventListener("click",()=>{
+  $("predictModal").classList.add("hidden");
+  selectedMatch=null;
+  selectedChoice="";
+});
+
+$("chooseP1").addEventListener("click",()=>{
+  if(!selectedMatch||$("chooseP1").disabled)return;
+  selectedChoice=selectedMatch.p1;
+  $("chooseP1").classList.add("active");
+  $("chooseP2").classList.remove("active");
+  updateBetPreview();
+  updateOddsDisplay(selectedMatch);
+});
+
+$("chooseP2").addEventListener("click",()=>{
+  if(!selectedMatch||$("chooseP2").disabled)return;
+  selectedChoice=selectedMatch.p2;
+  $("chooseP2").classList.add("active");
+  $("chooseP1").classList.remove("active");
+  updateBetPreview();
+  updateOddsDisplay(selectedMatch);
+});
+
 $("betAmount").addEventListener("input",updateBetPreview);
 $("confirmBet").addEventListener("click",confirmPrediction);
 $("changeDown").addEventListener("click",()=>changeBet("down"));
@@ -1434,24 +1666,64 @@ document.querySelectorAll(".quick-btn").forEach(btn=>{
 });
 
 $("googleBtn").addEventListener("click",async()=>{
-  try{const c=await signInWithPopup(auth,googleProvider);if(c.user&&!c.user.displayName){const f=c.user.email?.split("@")[0]||"Usuari";await updateProfile(c.user,{displayName:f});}$("authModal").classList.add("hidden");}
-  catch(e){console.error(e);$("authError").textContent="No s'ha pogut entrar amb Google.";}
+  try{
+    const c=await signInWithPopup(auth,googleProvider);
+    if(c.user&&!c.user.displayName){
+      const f=c.user.email?.split("@")[0]||"Usuari";
+      await updateProfile(c.user,{displayName:f});
+    }
+    $("authModal").classList.add("hidden");
+  }catch(e){
+    console.error(e);
+    $("authError").textContent="No s'ha pogut entrar amb Google.";
+  }
 });
+
 $("emailLogin").addEventListener("click",async()=>{
-  try{await signInWithEmailAndPassword(auth,$("emailInput").value.trim(),$("passInput").value);$("authModal").classList.add("hidden");}
-  catch(e){console.error(e);$("authError").textContent="Login incorrecte.";}
+  try{
+    await signInWithEmailAndPassword(auth,$("emailInput").value.trim(),$("passInput").value);
+    $("authModal").classList.add("hidden");
+  }catch(e){
+    console.error(e);
+    $("authError").textContent="Login incorrecte.";
+  }
 });
+
 $("emailSignup").addEventListener("click",async()=>{
   try{
-    const name=$("nameInput").value.trim(),email=$("emailInput").value.trim(),pass=$("passInput").value;
-    if(!name){$("authError").textContent="Posa el teu nom.";return;}
-    if(!email||!pass){$("authError").textContent="Posa correu i contrasenya.";return;}
+    const name=$("nameInput").value.trim();
+    const email=$("emailInput").value.trim();
+    const pass=$("passInput").value;
+
+    if(!name){
+      $("authError").textContent="Posa el teu nom.";
+      return;
+    }
+    if(!email||!pass){
+      $("authError").textContent="Posa correu i contrasenya.";
+      return;
+    }
+
     const c=await createUserWithEmailAndPassword(auth,email,pass);
     await updateProfile(c.user,{displayName:name});
-    await setDoc(doc(db,"users",c.user.uid),{uid:c.user.uid,name,email:c.user.email||email,coins:economy.initialGuest+economy.accountBonus,bonusClaimed:true,deleted:false,createdAt:Date.now(),lastNegativeBonus:""});
+    await setDoc(doc(db,"users",c.user.uid),{
+      uid:c.user.uid,
+      name,
+      email:c.user.email||email,
+      coins:economy.initialGuest+economy.accountBonus,
+      bonusClaimed:true,
+      deleted:false,
+      createdAt:Date.now(),
+      lastNegativeBonus:""
+    });
+
     $("authModal").classList.add("hidden");
-  }catch(e){console.error(e);$("authError").textContent="No s'ha pogut crear el compte.";}
+  }catch(e){
+    console.error(e);
+    $("authError").textContent="No s'ha pogut crear el compte.";
+  }
 });
+
 $("logoutBtn").addEventListener("click",()=>signOut(auth));
 
 onAuthStateChanged(auth,async u=>{
@@ -1459,8 +1731,13 @@ onAuthStateChanged(auth,async u=>{
   await ensureWallet();
   myBets=allBets.filter(b=>b.uid===uid());
   renderAll();
+
   if(adminUnlocked&&isAdmin())loadAdminUsers();
-  else{adminUnlocked=false;$("adminTab").classList.add("hidden");if(activePage==="adminPage")activatePage("homePage");}
+  else{
+    adminUnlocked=false;
+    $("adminTab").classList.add("hidden");
+    if(activePage==="adminPage")activatePage("homePage");
+  }
 });
 
 (async function init(){
@@ -1471,5 +1748,4 @@ onAuthStateChanged(auth,async u=>{
   activatePage("homePage");
 })();
 </script>
-</body>
 </html>
