@@ -666,7 +666,20 @@ function toast(t,err=false){
 }
 
 function isAdmin(){return !!user?.email&&ADMIN_EMAILS.includes(user.email.toLowerCase())}
-function isPlaceholder(n){const x=String(n||"").trim().toLowerCase();return!x||x==="—"||x==="-"||x.includes("guanyador")||x.includes("winner")||x.includes("pendent")}
+function isPlaceholder(n){
+  const x=String(n||"").trim().toLowerCase();
+
+  return !x ||
+    x==="—" ||
+    x==="-" ||
+    x==="null" ||
+    x==="undefined" ||
+    x.includes("guanyador") ||
+    x.includes("winner") ||
+    x.includes("pendent") ||
+    x.includes("pendiente") ||
+    x.includes("pending");
+}
 function roundName(r){return{1:"Prèvies",2:"Octaus",3:"Quarts",4:"Semis",5:"Final"}[Number(r)]||"Ronda"}
 
 function guest(){
@@ -768,7 +781,21 @@ async function setCoins(v){
   wallet={...wallet,coins:v};renderAll();
 }
 
-function openMatches(){return(tournament.matches||[]).filter(m=>!m.winner&&!isPlaceholder(m.p1)&&!isPlaceholder(m.p2))}
+function openMatches(){
+  return (tournament.matches||[]).filter(m=>
+    isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
+
+function playedMatches(){
+  return (tournament.matches||[]).filter(m=>
+    !isPlaceholder(m.winner) &&
+    !isPlaceholder(m.p1) &&
+    !isPlaceholder(m.p2)
+  );
+}
 function playedMatches(){return(tournament.matches||[]).filter(m=>!!m.winner&&!isPlaceholder(m.p1)&&!isPlaceholder(m.p2))}
 
 // GLOBAL totals (all users)
