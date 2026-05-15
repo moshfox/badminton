@@ -272,14 +272,80 @@ const $=id=>document.getElementById(id);
 const LS_KEY="rdtc_guest_v10_caixes_ok";
 const MAX_DEC=10;
 const MAX_LOAN=800;
-const BOX_ORDER=["cheap","normal","plus","mythic","supreme","Luck"];
+const BOX_ORDER=["cheap","normal","plus","mythic","supreme","luck"];
+
 const BOX_TYPES={
-  normal:{id:"normal",name:"Caixa normal",icon:"🎁",price:60,min:5,max:100,desc:"La típica del dia. Premi de 5 a 100 RDTC.",class:"normal",weights:[5,10,15,20,30,40,50,70,100]},
-  cheap:{id:"cheap",name:"Caixa barata",icon:"📦",price:40,min:5,max:100,desc:"Més barata, però amb més probabilitat de premis baixos.",class:"cheap",weights:[5,5,10,10,15,20,25,40,100]},
-  plus:{id:"plus",name:"Caixa millorada",icon:"💎",price:80,min:5,max:100,desc:"Més probabilitat de premis alts entre 5 i 100 RDTC.",class:"plus",weights:[20,30,40,50,60,75,90,100,100]},
-  mythic:{id:"mythic",name:"Caixa mítica",icon:"🔮",price:150,min:100,max:300,desc:"Rang gran: de 100 a 300 RDTC.",class:"mythic",weights:[100,120,150,170,200,230,260,280,300]},
-  supreme:{id:"supreme",name:"Caixa suprema",icon:"👑",price:400,min:200,max:800,desc:"Suprema: de 150 a 800 RDTC.",class:"supreme",weights:[150,150,250,250,300,300,350,450,550,650,750,800]}
-  Luck:{id:"Luck",name:"Caixa Luck",icon:"👑",price:400,min:200,max:800,desc:"Suprema: de 150 a 800 RDTC.",class:"Luck",weights:[150,150,250,250,300,300,350,450,550,650,750,800]}
+  normal:{
+    id:"normal",
+    name:"Caixa normal",
+    icon:"🎁",
+    price:60,
+    min:5,
+    max:100,
+    desc:"La típica del dia. Premi de 5 a 100 RDTC.",
+    class:"normal",
+    weights:[5,10,15,20,30,40,50,70,100]
+  },
+
+  cheap:{
+    id:"cheap",
+    name:"Caixa barata",
+    icon:"📦",
+    price:40,
+    min:5,
+    max:100,
+    desc:"Més barata, però amb més probabilitat de premis baixos.",
+    class:"cheap",
+    weights:[5,5,10,10,15,20,25,40,100]
+  },
+
+  plus:{
+    id:"plus",
+    name:"Caixa millorada",
+    icon:"💎",
+    price:80,
+    min:5,
+    max:100,
+    desc:"Més probabilitat de premis alts entre 5 i 100 RDTC.",
+    class:"plus",
+    weights:[20,30,40,50,60,75,90,100,100]
+  },
+
+  mythic:{
+    id:"mythic",
+    name:"Caixa mítica",
+    icon:"🔮",
+    price:150,
+    min:100,
+    max:300,
+    desc:"Rang gran: de 100 a 300 RDTC.",
+    class:"mythic",
+    weights:[100,120,150,170,200,230,260,280,300]
+  },
+
+  supreme:{
+    id:"supreme",
+    name:"Caixa suprema",
+    icon:"👑",
+    price:400,
+    min:150,
+    max:800,
+    desc:"Suprema: de 150 a 800 RDTC.",
+    class:"supreme",
+    weights:[150,150,250,250,300,300,350,450,550,650,750,800]
+  },
+
+  luck:{
+    id:"luck",
+    name:"Caixa Luck",
+    icon:"🍀",
+    price:250,
+    min:1,
+    max:1000,
+    desc:"Caixa de sort: pot tocar molt poc o muchísimo.",
+    class:"luck",
+    weights:[1,5,10,20,50,100,150,250,500,1000]
+  }
 };
 
 let tournament={matches:[]},user=null,wallet=null,allBets=[],myBets=[],publicTx=[],adminUsers=[],userBoxes=[],allUserBoxes=[],allBoxes=[];
