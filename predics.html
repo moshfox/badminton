@@ -65,6 +65,11 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 @keyframes softPop{0%{transform:scale(.92);opacity:.4}100%{transform:scale(1);opacity:1}}@keyframes boxBounce{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-8px) scale(1.02)}70%{transform:translateY(2px) scale(.99)}}@keyframes boxShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-8deg) scale(1.08)}75%{transform:rotate(8deg) scale(1.08)}}@keyframes spinAura{to{transform:rotate(360deg)}}@keyframes particle{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.4);opacity:0}}@keyframes boxRemove{to{opacity:0;transform:scale(.85) translateY(12px);filter:blur(4px)}}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.balance-card,.small-card{grid-column:span 1}.small-card{grid-template-columns:1fr 1fr}.page{padding:18px}.admin-bet-row{grid-template-columns:1fr}.box-hero{grid-template-columns:1fr}.admin-inner-tabs{width:100%}.admin-inner-tab{flex:1}}
 @media(max-width:600px){.small-card{grid-template-columns:1fr}.choice-row{grid-template-columns:1fr}.change-row{grid-template-columns:1fr}.bet-row{flex-direction:column}.app{padding:0 12px 40px}.hype-stats{gap:16px}.box-store{grid-template-columns:1fr}.inventory-grid{grid-template-columns:1fr}}
+.box-card.luck .box-price{
+  background:var(--purpleSoft);
+  color:var(--purpleDark);
+  border-color:#d7c8ff;
+}
 </style>
 </head>
 <body>
