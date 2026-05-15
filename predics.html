@@ -278,7 +278,53 @@ function calcOdds(t){if(!t.total||t.p1===t.p2)return{o1:2.0,o2:2.0};const o1=t.t
 
 function listenTournament(){onSnapshot(doc(tourDB,"tournaments","main"),snap=>{const data=snap.exists()?snap.data():{matches:[]};tournament.matches=Array.isArray(data.matches)?data.matches.map(normalizeMatch):[];renderAll();resolveFinishedBets();},err=>{console.error(err);$("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`})}
 function listenBets(){onSnapshot(collection(db,"bets"),snap=>{allBets=snap.docs.map(d=>({id:d.id,...d.data()}));myBets=allBets.filter(b=>b.uid===uid());renderAll();if(selectedMatch)renderChart()});onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),snap=>{publicTx=snap.docs.map(d=>({id:d.id,...d.data()}));renderPublicTx();renderAdminTransactions()},err=>{console.warn(err);publicTx=[];renderPublicTx();renderAdminTransactions()})}
-function listenBoxes(){if(boxesUnsub){boxesUnsub();boxesUnsub=null}if(allBoxesUnsub){allBoxesUnsub();allBoxesUnsub=null}if(user){boxesUnsub=onSnapshot(query(collection(db,"boxes"),where("uid","==",uid()),orderBy("createdAt","desc")),snap=>{userBoxes=snap.docs.map(d=>({id:d.id,...d.data()}));renderBoxes();renderTop()})}else{userBoxes=JSON.parse(localStorage.getItem(LS_KEY+"_boxes")||"[]");renderBoxes()}if(isAdmin()){allBoxesUnsub=onSnapshot(collection(db,"boxes"),snap=>{allBoxes=snap.docs.map(d=>({id:d.id,...d.data()}));renderAdminBoxesStats();renderAdminBoxesUsers()})}}
+function listenBoxes(){
+  if(boxesUnsub){
+    boxesUnsub();
+    boxesUnsub = null;
+  }
+
+  if(allBoxesUnsub){
+    allBoxesUnsub();
+    allBoxesUnsub = null;
+  }
+
+  if(!user){
+    userBoxes = [];
+    renderBoxes();
+    return;
+  }
+
+  boxesUnsub = onSnapshot(
+    query(collection(db,"boxes"), where("uid","==",user.uid)),
+    snap => {
+      userBoxes = snap.docs
+        .map(d => ({id:d.id, ...d.data()}))
+        .sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+
+      renderBoxes();
+      renderTop();
+    },
+    err => {
+      console.error("ERROR ESCUCHANDO CAJAS:", err);
+      toast("Error cargando cajas: " + (err.code || err.message), true);
+    }
+  );
+
+  if(isAdmin()){
+    allBoxesUnsub = onSnapshot(
+      collection(db,"boxes"),
+      snap => {
+        allBoxes = snap.docs.map(d => ({id:d.id, ...d.data()}));
+        renderAdminBoxesStats();
+        renderAdminBoxesUsers();
+      },
+      err => {
+        console.error("ERROR ADMIN CAJAS:", err);
+      }
+    );
+  }
+}
 async function ensureWallet(){if(walletUnsub){walletUnsub();walletUnsub=null}if(user){const ref=doc(db,"users",user.uid);const snap=await getDoc(ref);const cleanName=user.displayName||user.email||"Usuari";if(!snap.exists()){wallet={uid:user.uid,name:cleanName,email:user.email||"",coins:economy.initialGuest+economy.accountBonus,bonusClaimed:true,deleted:false,createdAt:Date.now(),lastNegativeBonus:"",lastDailyBox:""};await setDoc(ref,wallet)}else{wallet=snap.data();const u={};if(!wallet.name)u.name=cleanName;if(!wallet.email)u.email=user.email||"";if(wallet.deleted)u.deleted=false;if(!wallet.bonusClaimed){u.coins=money((wallet.coins||0)+economy.accountBonus);u.bonusClaimed=true}if(!wallet.lastDailyBox)u.lastDailyBox="";if(Object.keys(u).length)await updateDoc(ref,u)}walletUnsub=onSnapshot(ref,s=>{if(s.exists()){wallet=s.data();if(wallet.deleted){toast("Compte desactivat.",true);signOut(auth);return}renderAll()}})}else wallet=guest()}
 async function setCoins(v){v=money(v);if(user)await updateDoc(doc(db,"users",user.uid),{coins:v});else saveGuest({coins:v});wallet={...wallet,coins:v};renderAll()}
 
@@ -295,7 +341,51 @@ function saveLocalBoxes(boxes){localStorage.setItem(LS_KEY+"_boxes",JSON.stringi
 async function addBoxToUser(target,type="normal",source="admin",qty=1){const t=BOX_TYPES[type]||BOX_TYPES.normal;const docs=[];for(let i=0;i<qty;i++)docs.push({uid:target.uid||target.id,name:target.name||target.email||"Usuari",email:target.email||"",type:t.id,typeName:t.name,opened:false,source,createdAt:Date.now()+i});if(target.uid===uid()&&!user){const arr=localBoxes();saveLocalBoxes([...docs.map(x=>({...x,id:crypto.randomUUID()})),...arr]);return}for(const b of docs)await addDoc(collection(db,"boxes"),b)}
 function rollPrize(type){const t=BOX_TYPES[type]||BOX_TYPES.normal;const arr=t.weights||[t.min,t.max];return arr[Math.floor(Math.random()*arr.length)]}
 async function claimDailyBox(){if(!user){$("authModal").classList.remove("hidden");toast("Has d'entrar per reclamar la caja diaria.",true);return}if((wallet?.lastDailyBox||"")===todayKey())return toast("Ya has reclamado la caja de hoy.",true);await addBoxToUser({uid:uid(),name:uname(),email:user.email},"normal","daily",1);await updateDoc(doc(db,"users",uid()),{lastDailyBox:todayKey()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha reclamat una caja diaria`,amount:0,matchId:"BOX_DAILY",createdAt:Date.now()});toast("🎁 Caja diaria añadida.")}
-async function buyBox(type){if(!user){$("authModal").classList.remove("hidden");toast("Has d'entrar per comprar cajas.",true);return}const t=BOX_TYPES[type];if(!t)return;if((wallet?.coins||0)<t.price)return toast("No tens prou RDTC per comprar aquesta caja.",true);await setCoins((wallet.coins||0)-t.price);await addBoxToUser({uid:uid(),name:uname(),email:user.email},type,"shop",1);await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha comprat ${t.name}`,amount:-t.price,matchId:"BOX_BUY",createdAt:Date.now()});toast(`✅ ${t.name} comprada.`)}
+async function buyBox(type){
+  try{
+    if(!user){
+      $("authModal").classList.remove("hidden");
+      toast("Has d'entrar per comprar cajas.",true);
+      return;
+    }
+
+    const t = BOX_TYPES[type];
+    if(!t) return toast("Tipo de caja no existe.", true);
+
+    if((wallet?.coins || 0) < t.price){
+      return toast("No tens prou RDTC per comprar aquesta caja.", true);
+    }
+
+    await updateDoc(doc(db,"users",user.uid),{
+      coins: money((wallet.coins || 0) - t.price)
+    });
+
+    await addDoc(collection(db,"boxes"),{
+      uid: user.uid,
+      name: uname(),
+      email: user.email || "",
+      type: t.id,
+      typeName: t.name,
+      opened: false,
+      source: "shop",
+      createdAt: Date.now()
+    });
+
+    await addDoc(collection(db,"publicTransactions"),{
+      uid: user.uid,
+      name: uname(),
+      label: `${uname()} ha comprat ${t.name}`,
+      amount: -t.price,
+      matchId: "BOX_BUY",
+      createdAt: Date.now()
+    });
+
+    toast(`✅ ${t.name} comprada.`);
+  }catch(e){
+    console.error("ERROR COMPRANDO CAJA:", e);
+    toast("Error comprando caja: " + (e.code || e.message), true);
+  }
+}
 function renderBoxes(){renderBoxStore();const closed=userBoxes.filter(b=>!b.opened).length;if($("boxesClosedCount"))$("boxesClosedCount").textContent=closed;const btn=$("claimDailyBoxBtn");if(btn&&wallet)btn.disabled=(wallet.lastDailyBox||"")===todayKey();if($("refreshBoxesBtn"))$("refreshBoxesBtn").classList.toggle("hidden",!(adminUnlocked&&isAdmin()));const box=$("boxesInventory");if(!box)return;if(!user){box.innerHTML=`<div class="empty"><span class="empty-icon">🔐</span>Entra con tu cuenta para guardar cajas y abrirlas.</div>`;return}if(!userBoxes.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🎁</span>No tienes cajas todavía. Reclama la diaria o compra una.</div>`;return}box.innerHTML="";userBoxes.forEach(b=>{const t=BOX_TYPES[b.type]||BOX_TYPES.normal;const div=document.createElement("div");div.className=`inventory-box ${b.opened?"opened":""}`;div.dataset.boxId=b.id;div.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="box-icon" style="width:44px;height:44px;font-size:22px">${t.icon}</div><span class="badge ${b.opened?"green":"gold"}">${b.opened?"Abierta":"Sin abrir"}</span></div><div><h3>${esc(t.name)}</h3><p class="sub" style="margin-top:4px">${b.opened?`Premio: ${money(b.prize||0)} RDTC`:`Premio posible: ${t.min} - ${t.max} RDTC`}</p></div>${b.opened?"":`<button class="btn green open-box" data-id="${esc(b.id)}">✨ Abrir caja</button>`}`;const op=div.querySelector(".open-box");if(op)op.addEventListener("click",()=>openBoxModal(b.id));box.appendChild(div)})}
 function openBoxModal(id){selectedBox=userBoxes.find(b=>b.id===id);if(!selectedBox)return;const t=BOX_TYPES[selectedBox.type]||BOX_TYPES.normal;$("boxOpenTitle").textContent=`Abrir ${t.name}`;$("roulette").textContent=t.icon;$("roulette").classList.remove("spin","win");$("boxPrizeResult").classList.add("hidden");$("startOpenBoxBtn").disabled=false;$("startOpenBoxBtn").textContent="Abrir ahora";$("boxOpenModal").classList.remove("hidden")}
 async function startOpenBox(){if(!selectedBox||selectedBox.opened)return;const t=BOX_TYPES[selectedBox.type]||BOX_TYPES.normal;const prize=rollPrize(selectedBox.type);const card=document.querySelector(`[data-box-id="${CSS.escape(selectedBox.id)}"]`);if(card)card.classList.add("opening");$("startOpenBoxBtn").disabled=true;$("roulette").classList.add("spin");$("roulette").classList.remove("win");$("boxPrizeResult").classList.add("hidden");let spins=0;const interval=setInterval(()=>{$("roulette").textContent=`${t.icon} ${rollPrize(selectedBox.type)} RDTC`;spins++;if(spins>18){clearInterval(interval);finishOpenBox(prize)}},95)}
