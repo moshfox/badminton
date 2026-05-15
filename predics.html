@@ -58,18 +58,13 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
   position:relative;
   z-index:5;
   pointer-events:auto;
-}.box-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:#111;color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.12);transition:.2s}.box-card:hover .box-icon{transform:rotate(-4deg) scale(1.05)}.box-card.normal .box-icon{background:#111}.box-card.cheap .box-icon{background:var(--cyan);color:#fff}.box-card.plus .box-icon{background:var(--blue);color:#fff}.box-card.mythic .box-icon{background:var(--purple);color:#fff}.box-card.supreme .box-icon{background:linear-gradient(135deg,#111,#f5c842);color:#fff}.box-card.luck .box-icon{background:var(--purple);color:#fff}.box-card h3{font-size:17px}.box-card p{font-size:12px;color:var(--muted);line-height:1.45}.box-price{display:inline-flex;align-items:center;gap:7px;width:max-content;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line)}.box-price b{font-size:28px;font-weight:900;letter-spacing:-.06em}.box-price span{font-size:11px;font-weight:800;color:inherit}.box-card.cheap .box-price{background:var(--cyanSoft);color:var(--cyanDark);border-color:#b8f3ff}.box-card.normal .box-price{background:var(--soft);color:#111}.box-card.plus .box-price{background:var(--blueSoft);color:var(--blueDark);border-color:#c7dcff}.box-card.mythic .box-price{background:var(--purpleSoft);color:var(--purpleDark);border-color:#d7c8ff}.box-card.supreme .box-price{background:linear-gradient(135deg,var(--goldSoft),#fff);color:var(--goldDark);border-color:#f3dc7a}
+}.box-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:#111;color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.12);transition:.2s}.box-card:hover .box-icon{transform:rotate(-4deg) scale(1.05)}.box-card.normal .box-icon{background:#111}.box-card.cheap .box-icon{background:var(--cyan);color:#fff}.box-card.plus .box-icon{background:var(--blue);color:#fff}.box-card.mythic .box-icon{background:var(--purple);color:#fff}.box-card.supreme .box-icon{background:linear-gradient(135deg,#111,#f5c842);color:#fff}.box-card h3{font-size:17px}.box-card p{font-size:12px;color:var(--muted);line-height:1.45}.box-price{display:inline-flex;align-items:center;gap:7px;width:max-content;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line)}.box-price b{font-size:28px;font-weight:900;letter-spacing:-.06em}.box-price span{font-size:11px;font-weight:800;color:inherit}.box-card.cheap .box-price{background:var(--cyanSoft);color:var(--cyanDark);border-color:#b8f3ff}.box-card.normal .box-price{background:var(--soft);color:#111}.box-card.plus .box-price{background:var(--blueSoft);color:var(--blueDark);border-color:#c7dcff}.box-card.mythic .box-price{background:var(--purpleSoft);color:var(--purpleDark);border-color:#d7c8ff}.box-card.supreme .box-price{background:linear-gradient(135deg,var(--goldSoft),#fff);color:var(--goldDark);border-color:#f3dc7a}
 .inventory-grid,.opened-boxes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.inventory-box{border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;display:grid;gap:10px;position:relative;overflow:hidden;transition:.2s ease;box-shadow:0 10px 26px rgba(0,0,0,.04)}.inventory-box:before{content:"";position:absolute;right:-35px;bottom:-55px;width:140px;height:140px;border-radius:50%;background:var(--goldSoft);opacity:.75}.inventory-box>*{position:relative}.inventory-box:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(0,0,0,.075);border-color:#d2d2c8}.inventory-box.opening{animation:boxBounce .65s ease}.inventory-box.opening .box-icon{animation:boxShake .5s infinite}.inventory-box.removing{animation:boxRemove .45s ease forwards}
 .spin-stage{background:#111;border-radius:22px;padding:18px;color:#fff;margin-bottom:14px;overflow:hidden;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 42px rgba(0,0,0,.16);height:156px;display:flex;align-items:center}.spin-stage:before{content:"";position:absolute;inset:-80px;background:conic-gradient(from 0deg,transparent,rgba(245,200,66,.25),transparent,rgba(168,239,82,.18),transparent);animation:spinAura 2.5s linear infinite}.roulette-pointer{position:absolute;top:14px;bottom:14px;left:50%;transform:translateX(-50%);z-index:5;width:4px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 5px rgba(245,200,66,.18)}.roulette-track{position:relative;z-index:2;height:120px;display:flex;align-items:center;gap:10px;will-change:transform;transform:translateX(0)}.roulette-track.spinning{transition:transform 4.2s cubic-bezier(.08,.88,.12,1)}.roulette-item{flex:0 0 104px;height:82px;border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:900;font-size:18px;color:#111;border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px rgba(0,0,0,.16)}.roulette-item.low{background:#eef2f7}.roulette-item.mid{background:#dff7d3;color:#275a09}.roulette-item.good{background:#dcebff;color:var(--blueDark)}.roulette-item.epic{background:#f0e9ff;color:var(--purpleDark)}.roulette-item.legend{background:linear-gradient(135deg,#fff3bd,#f5c842);color:var(--goldDark)}
 .prize-big{font-size:48px;font-weight:900;letter-spacing:-.08em;color:var(--green);animation:softPop .45s ease}.box-open-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}.box-open-particles span{position:absolute;top:50%;left:50%;font-size:20px;animation:particle .9s ease forwards}
 @keyframes softPop{0%{transform:scale(.92);opacity:.4}100%{transform:scale(1);opacity:1}}@keyframes boxBounce{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-8px) scale(1.02)}70%{transform:translateY(2px) scale(.99)}}@keyframes boxShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-8deg) scale(1.08)}75%{transform:rotate(8deg) scale(1.08)}}@keyframes spinAura{to{transform:rotate(360deg)}}@keyframes particle{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.4);opacity:0}}@keyframes boxRemove{to{opacity:0;transform:scale(.85) translateY(12px);filter:blur(4px)}}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.balance-card,.small-card{grid-column:span 1}.small-card{grid-template-columns:1fr 1fr}.page{padding:18px}.admin-bet-row{grid-template-columns:1fr}.box-hero{grid-template-columns:1fr}.admin-inner-tabs{width:100%}.admin-inner-tab{flex:1}}
 @media(max-width:600px){.small-card{grid-template-columns:1fr}.choice-row{grid-template-columns:1fr}.change-row{grid-template-columns:1fr}.bet-row{flex-direction:column}.app{padding:0 12px 40px}.hype-stats{gap:16px}.box-store{grid-template-columns:1fr}.inventory-grid{grid-template-columns:1fr}}
-.box-card.luck .box-price{
-  background:var(--purpleSoft);
-  color:var(--purpleDark);
-  border-color:#d7c8ff;
-}
 </style>
 </head>
 <body>
@@ -203,7 +198,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
         <div style="border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px;background:#fff">
           <div class="toolbar" style="margin:0;align-items:end">
             <div style="flex:1;min-width:220px"><div class="section-label">Buscar usuari</div><input id="adminBoxSearch" class="input" placeholder="Nom, email o UID..."></div>
-            <div><div class="section-label">Tipus de caixa</div><select id="adminBoxType" class="input"><option value="normal">Normal diària</option><option value="cheap">Barata</option><option value="plus">Millorada</option><option value="mythic">Mítica</option><option value="supreme">Suprema</option><option value="luck">Luck</option></select></div>
+            <div><div class="section-label">Tipus de caixa</div><select id="adminBoxType" class="input"><option value="normal">Normal diària</option><option value="cheap">Barata</option><option value="plus">Millorada</option><option value="mythic">Mítica</option><option value="supreme">Suprema</option></select></div>
             <div><div class="section-label">Quantitat</div><input id="adminBoxQty" class="input" type="number" min="1" value="1" style="max-width:120px"></div>
           </div>
         </div>
@@ -277,80 +272,13 @@ const $=id=>document.getElementById(id);
 const LS_KEY="rdtc_guest_v10_caixes_ok";
 const MAX_DEC=10;
 const MAX_LOAN=800;
-const BOX_ORDER=["cheap","normal","plus","mythic","supreme","luck"];
-
+const BOX_ORDER=["cheap","normal","plus","mythic","supreme"];
 const BOX_TYPES={
-  normal:{
-    id:"normal",
-    name:"Caixa normal",
-    icon:"🎁",
-    price:60,
-    min:5,
-    max:100,
-    desc:"La típica del dia. Premi de 5 a 100 RDTC.",
-    class:"normal",
-    weights:[5,10,15,20,30,40,50,70,100]
-  },
-
-  cheap:{
-    id:"cheap",
-    name:"Caixa barata",
-    icon:"📦",
-    price:40,
-    min:5,
-    max:100,
-    desc:"Més barata, però amb més probabilitat de premis baixos.",
-    class:"cheap",
-    weights:[5,5,10,10,15,20,25,40,100]
-  },
-
-  plus:{
-    id:"plus",
-    name:"Caixa millorada",
-    icon:"💎",
-    price:80,
-    min:5,
-    max:100,
-    desc:"Més probabilitat de premis alts entre 5 i 100 RDTC.",
-    class:"plus",
-    weights:[20,30,40,50,60,75,90,100,100]
-  },
-
-  mythic:{
-    id:"mythic",
-    name:"Caixa mítica",
-    icon:"🔮",
-    price:150,
-    min:100,
-    max:300,
-    desc:"Rang gran: de 100 a 300 RDTC.",
-    class:"mythic",
-    weights:[100,120,150,170,200,230,260,280,300]
-  },
-
-  supreme:{
-    id:"supreme",
-    name:"Caixa suprema",
-    icon:"👑",
-    price:400,
-    min:150,
-    max:800,
-    desc:"Suprema: de 150 a 800 RDTC.",
-    class:"supreme",
-    weights:[150,150,250,250,300,300,350,450,550,650,750,800]
-  },
-
-  luck:{
-    id:"luck",
-    name:"Caixa Luck",
-    icon:"🍀",
-    price:400,
-    min:1,
-    max:1000,
-    desc:"Caixa de sort: pot tocar molt poc o muchísimo.",
-    class:"luck",
-    weights:[1,1,1,1,1,1,1,1,1,1,1000]
-  }
+  normal:{id:"normal",name:"Caixa normal",icon:"🎁",price:60,min:5,max:100,desc:"La típica del dia. Premi de 5 a 100 RDTC.",class:"normal",weights:[5,10,15,20,30,40,50,70,100]},
+  cheap:{id:"cheap",name:"Caixa barata",icon:"📦",price:40,min:5,max:100,desc:"Més barata, però amb més probabilitat de premis baixos.",class:"cheap",weights:[5,5,10,10,15,20,25,40,100]},
+  plus:{id:"plus",name:"Caixa millorada",icon:"💎",price:80,min:5,max:100,desc:"Més probabilitat de premis alts entre 5 i 100 RDTC.",class:"plus",weights:[20,30,40,50,60,75,90,100,100]},
+  mythic:{id:"mythic",name:"Caixa mítica",icon:"🔮",price:150,min:100,max:300,desc:"Rang gran: de 100 a 300 RDTC.",class:"mythic",weights:[100,120,150,170,200,230,260,280,300]},
+  supreme:{id:"supreme",name:"Caixa suprema",icon:"👑",price:400,min:200,max:800,desc:"Suprema: de 150 a 800 RDTC.",class:"supreme",weights:[150,150,250,250,300,300,350,450,550,650,750,800]}
 };
 
 let tournament={matches:[]},user=null,wallet=null,allBets=[],myBets=[],publicTx=[],adminUsers=[],userBoxes=[],allUserBoxes=[],allBoxes=[];
