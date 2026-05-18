@@ -80,6 +80,17 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 /* === ACHIEVEMENTS SCROLLER (kept for other uses) === */
 .achievements-scroller{overflow:hidden;position:relative;margin-bottom:22px}.achievements-scroller:after{content:"";position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,#fff,transparent);pointer-events:none;z-index:2}.achievements-track{display:flex;gap:14px;animation:scrollAch 40s linear infinite;width:max-content}.achievements-track:hover{animation-play-state:paused}.achievement{width:200px;flex-shrink:0;border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.04);transition:.2s}.achievement:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.08)}.achievement.unlocked{border-color:transparent;background:linear-gradient(135deg,#fff,#f5fff0);box-shadow:0 8px 22px rgba(168,239,82,.15)}.achievement.locked{opacity:.6}.achievement-icon{font-size:28px;margin-bottom:8px}.achievement-name{font-size:13px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}.achievement-desc{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4}.achievement-rank{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}.achievement-rank.bronze{background:#f0e0c0;color:#8b5a00}.achievement-rank.silver{background:#e8e8e8;color:#555}.achievement-rank.gold{background:var(--goldSoft);color:var(--goldDark)}.achievement-rank.diamond{background:linear-gradient(135deg,#e0f0ff,#d0e0ff);color:#1a4fa8}.achievement-rank.legend{background:linear-gradient(135deg,#1a1a2e,#302b63);color:#fff}.achievement-rank.infinity{background:linear-gradient(135deg,#1a0500,#ff6b35);color:#fff}@keyframes scrollAch{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
+
+/* === ESCAPARATES AUTOMÀTICS D'ASSOLIMENTS === */
+.achievement-showcase{border:1.5px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#fff,#fafaf8);padding:18px;margin-bottom:22px;overflow:hidden;position:relative;box-shadow:0 14px 34px rgba(0,0,0,.045)}
+.achievement-showcase.locked-zone{background:linear-gradient(180deg,#fff,#fbfbff)}
+.showcase-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}.showcase-head b{font-size:18px;font-weight:900;letter-spacing:-.04em}.showcase-head span{font-size:12px;color:var(--muted);font-weight:700}
+.showcase-viewport{overflow-x:auto;overflow-y:hidden;cursor:grab;scrollbar-width:none;-ms-overflow-style:none}.showcase-viewport::-webkit-scrollbar{display:none}.showcase-viewport:active{cursor:grabbing}
+.showcase-track{display:flex;gap:14px;width:max-content;animation:showcaseMove 32s ease-in-out infinite alternate}.showcase-viewport:hover .showcase-track,.showcase-viewport.dragging .showcase-track{animation-play-state:paused}
+.showcase-track.reverse{animation-direction:alternate-reverse}
+.showcase-track .achievement-card{width:250px;min-height:165px;flex:0 0 250px;margin:0}
+@keyframes showcaseMove{0%{transform:translateX(0)}100%{transform:translateX(-45%)}}
+
 /* Admin cards panel */
 .admin-cards-panel{border:1.5px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#fff,#fafaf8);padding:18px;box-shadow:0 16px 42px rgba(0,0,0,.045)}
 
@@ -105,12 +116,11 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
   <nav class="chrome-tabs">
     <button class="chrome-tab active" data-page="homePage">🏸 Partits</button>
     <button class="chrome-tab" data-page="walletPage">💰 Wallet</button>
-    <button class="chrome-tab" data-page="resultsPage">🏆 Resultats</button>
     <button class="chrome-tab" data-page="txPage">📋 Transaccions</button>
     <button class="chrome-tab" data-page="bankPage">🏦 Banc</button>
     <button class="chrome-tab" data-page="boxesPage">🎁 Caixes</button>
     <button class="chrome-tab" data-page="cardsPage">🃏 Cartes</button>
-    <button class="chrome-tab" data-page="achievementsPage">🏅 Logros</button>
+    <button class="chrome-tab" data-page="achievementsPage">🏅 Assoliments</button>
     <button id="adminTab" class="chrome-tab hidden" data-page="adminPage">⚙️ Admin</button>
     <button id="adminBoxesTab" class="chrome-tab hidden" data-page="adminBoxesPage">🎁 Admin caixes</button>
     <button id="adminCardsTab" class="chrome-tab hidden" data-page="adminCardsPage">🃏 Admin cartes</button>
@@ -229,21 +239,25 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
     <section id="achievementsPage" class="hidden">
       <div class="cards-hero" style="background:linear-gradient(135deg,#111,#1a1a2e,#302b63)">
         <div class="eyebrow" style="color:rgba(168,239,82,.8)">Assoliments</div>
-        <h1 style="color:#fff;font-size:clamp(28px,4vw,48px)">🏅 Logros RDTC</h1>
+        <h1 style="color:#fff;font-size:clamp(28px,4vw,48px)">🏅 Assoliments RDTC</h1>
         <p class="sub" style="color:rgba(255,255,255,.6)">Guanya apostes, obre caixes, col·lecciona cartes. Aconsegueix-los jugant, no es compren!</p>
         <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap">
           <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center"><div style="font-size:24px;font-weight:900;color:var(--green)" id="achUnlockedCount">0</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:800;text-transform:uppercase;letter-spacing:.12em">Desbloquejats</div></div>
-          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center"><div style="font-size:24px;font-weight:900;color:var(--gold)" id="achTotalCount">0</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:800;text-transform:uppercase;letter-spacing:.12em">Total logros</div></div>
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center"><div style="font-size:24px;font-weight:900;color:var(--gold)" id="achTotalCount">0</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:800;text-transform:uppercase;letter-spacing:.12em">Total assoliments</div></div>
         </div>
       </div>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
-        <button class="btn secondary ach-filter active" data-filter="all">Tots</button>
-        <button class="btn secondary ach-filter" data-filter="unlocked">✅ Desbloquejats</button>
-        <button class="btn secondary ach-filter" data-filter="locked">🔒 Bloquejats</button>
+      <div class="achievement-showcase">
+        <div class="showcase-head"><div><b>✅ Els que ja tens</b><span>Es mou sol, però també el pots arrossegar.</span></div><span id="achOwnedMini" class="badge green">0</span></div>
+        <div class="showcase-viewport" id="achUnlockedViewport"><div id="achievementsUnlockedTrack" class="showcase-track"></div></div>
       </div>
 
-      <div id="achievementsGrid" class="achievements-page-grid"></div>
+      <div class="achievement-showcase locked-zone">
+        <div class="showcase-head"><div><b>🔒 Els que encara et falten</b><span>El museu de la frustració elegant.</span></div><span id="achLockedMini" class="badge purple">0</span></div>
+        <div class="showcase-viewport" id="achLockedViewport"><div id="achievementsLockedTrack" class="showcase-track reverse"></div></div>
+      </div>
+
+      <div id="achievementsGrid" class="achievements-page-grid hidden"></div>
     </section>
 
     <!-- ADMIN USERS -->
@@ -308,6 +322,15 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
           <h3 style="color:var(--purpleDark);margin-bottom:4px">🎁 Donar caixes a tothom</h3>
           <p class="sub" style="margin-bottom:14px">Botó separat perquè no es premi sense voler.</p>
           <button id="adminGiveBoxAll" class="btn purple">🎁 Donar a tots</button>
+        </div>
+        <div class="danger-section" style="margin-top:18px">
+          <h3 style="color:var(--redDark);margin-bottom:4px">⚠️ Neteja global de caixes</h3>
+          <p class="sub" style="margin-bottom:14px">Això elimina documents de caixes. No resta ni toca els RDTC que ja s'han entregat.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="adminClearClosedBoxes" class="btn red">🗑 Esborrar totes les caixes sense obrir</button>
+            <button id="adminClearOpenedBoxes" class="btn red">🧹 Esborrar l'historial de caixes obertes</button>
+            <button id="adminClearAllBoxes" class="btn red">💣 Esborrar TOTES les caixes</button>
+          </div>
         </div>
       </div>
     </section>
@@ -456,47 +479,44 @@ let DYNAMIC_CARDS = [];
 let ALL_CARDS = [...STATIC_CARDS];
 
 function buildDynamicCards(matches){
-  const dyn = [];
-  const byRound = {};
-  matches.forEach(m => {
-    const r = Number(m.round||1);
-    if(!byRound[r]) byRound[r]=[];
-    if(m.p1&&!isPlaceholder(m.p1)) byRound[r].push({name:m.p1, matchId:m.id});
-    if(m.p2&&!isPlaceholder(m.p2)) byRound[r].push({name:m.p2, matchId:m.id});
-  });
-
+  const bestByPlayer = {};
   const roundInfo = {
     1:{rank:"basic",   icon:"🏸", priceBase:150, roundName:"Prèvies"},
     2:{rank:"octavos", icon:"🎯", priceBase:300, roundName:"Octaus"},
     3:{rank:"quartos", icon:"⚔️", priceBase:500, roundName:"Quarts"},
-    4:{rank:"semis",   icon:"🔥", priceBase:800, roundName:"Semis"},
+    4:{rank:"semis",   icon:"🔥", priceBase:800, roundName:"Semifinals"},
     5:{rank:"final",   icon:"👑", priceBase:1500,roundName:"Final"},
   };
 
-  const seen = new Set();
-  Object.keys(byRound).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
-    const info = roundInfo[r]||roundInfo[1];
-    byRound[r].forEach(p=>{
-      // avoid duplicates (same player in multiple rounds => use highest round)
-      const key = p.name.toLowerCase().trim();
-      if(seen.has(key)) return;
-      seen.add(key);
-      const safeId = "c_p_"+key.replace(/[^a-z0-9]/g,"_").slice(0,30)+"_r"+r;
-      dyn.push({
-        id: safeId,
-        name: p.name,
-        round: info.roundName,
-        rank: info.rank,
-        icon: info.icon,
-        price: info.priceBase,
-        desc: `Carta de ${p.name}. Participant de ${info.roundName}.`,
-        shopOnly: false,
-        matchId: p.matchId
-      });
+  matches.forEach(m=>{
+    const r=Number(m.round||1);
+    [m.p1,m.p2].forEach(name=>{
+      if(!name||isPlaceholder(name))return;
+      const clean=String(name).trim();
+      const key=clean.toLowerCase();
+      if(!bestByPlayer[key]||r>bestByPlayer[key].round){
+        bestByPlayer[key]={name:clean,round:r,matchId:m.id};
+      }
     });
   });
 
-  return dyn;
+  return Object.values(bestByPlayer)
+    .sort((a,b)=>a.round-b.round||a.name.localeCompare(b.name))
+    .map(p=>{
+      const info=roundInfo[p.round]||roundInfo[1];
+      const safeId="c_p_"+p.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"").slice(0,36)+"_r"+p.round;
+      return {
+        id:safeId,
+        name:p.name,
+        round:info.roundName,
+        rank:info.rank,
+        icon:info.icon,
+        price:info.priceBase,
+        desc:`Carta de ${p.name}. La seva rareza és ${info.roundName} perquè aquesta és la ronda més alta on ha arribat.`,
+        shopOnly:false,
+        matchId:p.matchId
+      };
+    });
 }
 
 function rebuildAllCards(){
@@ -743,23 +763,9 @@ function computeAchievementStats(){
   };
 }
 
-function renderAchievementsPage(){
-  const grid=$("achievementsGrid");if(!grid)return;
-  const stats=computeAchievementStats();
-  const unlocked=new Set(ACHIEVEMENTS.filter(a=>a.check(stats)).map(a=>a.id));
-  let list=ACHIEVEMENTS;
-  if(activeAchFilter==="unlocked")list=ACHIEVEMENTS.filter(a=>unlocked.has(a.id));
-  else if(activeAchFilter==="locked")list=ACHIEVEMENTS.filter(a=>!unlocked.has(a.id));
-
-  const uCount=ACHIEVEMENTS.filter(a=>unlocked.has(a.id)).length;
-  if($("achUnlockedCount"))$("achUnlockedCount").textContent=uCount;
-  if($("achTotalCount"))$("achTotalCount").textContent=ACHIEVEMENTS.length;
-
-  grid.innerHTML="";
-  list.forEach(a=>{
-    const isUnlocked=unlocked.has(a.id);
-    const div=document.createElement("div");div.className=`achievement-card ${isUnlocked?"unlocked":"locked"}`;
-    div.innerHTML=`
+function achievementCardHTML(a,isUnlocked){
+  return `
+    <div class="achievement-card ${isUnlocked?"unlocked":"locked"}">
       <div class="achievement-card-top">
         <div class="achievement-card-icon">${a.icon}</div>
         <div style="flex:1">
@@ -770,10 +776,47 @@ function renderAchievementsPage(){
       </div>
       <div class="achievement-card-desc">${esc(a.desc)}</div>
       ${a.id==="ach_infinity_card"?`<div style="background:linear-gradient(135deg,#fff3ee,#fff7d8);border:1.5px solid #ffc4a0;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--infinityDark)">⚡ Recompensa: +${INFINITY_CARD_BONUS} RDTC automàticament!</div>`:""}
-    `;
-    grid.appendChild(div);
-  });
+    </div>`;
 }
+
+function makeShowcaseDraggable(viewport){
+  if(!viewport||viewport.dataset.dragReady)return;
+  viewport.dataset.dragReady="1";
+  let down=false,startX=0,startLeft=0;
+  viewport.addEventListener("pointerdown",e=>{down=true;viewport.classList.add("dragging");startX=e.clientX;startLeft=viewport.scrollLeft;viewport.setPointerCapture?.(e.pointerId)});
+  viewport.addEventListener("pointermove",e=>{if(!down)return;viewport.scrollLeft=startLeft-(e.clientX-startX)});
+  ["pointerup","pointercancel","pointerleave"].forEach(ev=>viewport.addEventListener(ev,()=>{down=false;viewport.classList.remove("dragging")}));
+}
+
+function renderAchievementsPage(){
+  const stats=computeAchievementStats();
+  const unlockedSet=new Set(ACHIEVEMENTS.filter(a=>a.check(stats)).map(a=>a.id));
+  const unlockedList=ACHIEVEMENTS.filter(a=>unlockedSet.has(a.id));
+  const lockedList=ACHIEVEMENTS.filter(a=>!unlockedSet.has(a.id));
+
+  if($("achUnlockedCount"))$("achUnlockedCount").textContent=unlockedList.length;
+  if($("achTotalCount"))$("achTotalCount").textContent=ACHIEVEMENTS.length;
+  if($("achOwnedMini"))$("achOwnedMini").textContent=`${unlockedList.length} aconseguits`;
+  if($("achLockedMini"))$("achLockedMini").textContent=`${lockedList.length} pendents`;
+
+  const unlockedTrack=$("achievementsUnlockedTrack");
+  const lockedTrack=$("achievementsLockedTrack");
+  if(unlockedTrack){
+    unlockedTrack.innerHTML=unlockedList.length
+      ? [...unlockedList,...unlockedList].map(a=>achievementCardHTML(a,true)).join("")
+      : `<div class="empty" style="width:320px"><span class="empty-icon">🏅</span>Encara no tens cap assoliment. Primera missió: aposta o obre una caixa.</div>`;
+  }
+  if(lockedTrack){
+    lockedTrack.innerHTML=lockedList.length
+      ? [...lockedList,...lockedList].map(a=>achievementCardHTML(a,false)).join("")
+      : `<div class="empty" style="width:320px"><span class="empty-icon">👑</span>Els tens tots. Literalment mode llegenda.</div>`;
+  }
+
+  makeShowcaseDraggable($("achUnlockedViewport"));
+  makeShowcaseDraggable($("achLockedViewport"));
+
+  const grid=$("achievementsGrid");
+  if(grid)grid.innerHTML=ACHIEVEMENTS.map(a=>achievementCardHTML(a,unlockedSet.has(a.id))).join("");
 
 async function checkAchievements(){
   if(!user||!wallet)return;
@@ -784,7 +827,7 @@ async function checkAchievements(){
   const updated=[...already,...newUnlocked.map(a=>a.id)];
   await updateDoc(doc(db,"users",user.uid),{achievements:updated});
   for(const a of newUnlocked){
-    toast(`🏅 Logro desbloquejat: ${a.name}!`);
+    toast(`🏅 Assoliment desbloquejat: ${a.name}!`);
     // Special reward for infinity card achievement
     if(a.id==="ach_infinity_card"){
       await new Promise(r=>setTimeout(r,800));
@@ -814,9 +857,9 @@ function rollBoxPrize(type){
     if(infinityCard)return{type:"card",card:infinityCard};
   }
 
-  // Normal card drop (~80% of remaining after infinity check)
+  // Normal card drop: aprox. 1 carta per cada 3 premis de RDTC
   const availableCards=ALL_CARDS.filter(c=>allowedRanks.includes(c.rank)&&c.rank!=="infinity");
-  const isCardDrop=availableCards.length>0&&Math.random()<0.80;
+  const isCardDrop=availableCards.length>0&&Math.random()<0.25;
   if(isCardDrop){
     const card=availableCards[Math.floor(Math.random()*availableCards.length)];
     return{type:"card",card};
@@ -1084,7 +1127,7 @@ function renderAdminUsers(){
   box.innerHTML="";
   list.forEach(async u=>{
     const userLoans=await getUserActiveLoans(u.uid||u.id);const div=document.createElement("div");div.className="admin-user";
-    div.innerHTML=`<div class="admin-user-head"><div><b style="font-size:15px;letter-spacing:-.03em">${esc(u.name||"Sense nom")}</b><p style="font-size:12px;color:var(--muted)">${esc(u.email||"Sense email")}</p></div><span class="badge accent">${money(u.coins||0)} RDTC</span></div><input class="input admin-name" value="${esc(u.name||"")}" placeholder="Nom" style="font-size:13px"><div class="admin-actions"><input class="input admin-coins" type="number" value="100" placeholder="RDTC" style="font-size:13px"><button class="btn green add-coins" style="font-size:12px">＋ Donar</button><button class="btn red remove-coins" style="font-size:12px">− Treure</button></div><div class="admin-actions-2"><button class="btn secondary save-name" style="font-size:12px">Guardar nom</button><button class="btn blue set-zero" style="font-size:12px">Posar 0</button><button class="btn red delete-user" style="font-size:12px">Borrar usuari</button></div>${userLoans.length?`<div style="border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px"><div class="section-label">Préstecs actius (${userLoans.length})</div>${userLoans.map(l=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)"><span style="font-size:12px;font-weight:700">${money(l.amount)} → ${money(l.returnAmount)} RDTC</span><button class="btn secondary pay-loan-admin" data-lid="${esc(l.id)}" data-luid="${esc(u.uid||u.id)}" data-ret="${l.returnAmount}" style="font-size:11px;padding:5px 10px">Pagar per ell</button></div>`).join("")}</div>`:""}`;
+    div.innerHTML=`<div class="admin-user-head"><div><b style="font-size:15px;letter-spacing:-.03em">${esc(u.name||"Sense nom")}</b><p style="font-size:12px;color:var(--muted)">${esc(u.email||"Sense email")}</p></div><span class="badge accent">${money(u.coins||0)} RDTC</span></div><input class="input admin-name" value="${esc(u.name||"")}" placeholder="Nom" style="font-size:13px"><div class="admin-actions"><input class="input admin-coins" type="number" value="100" placeholder="RDTC" style="font-size:13px"><button class="btn green add-coins" style="font-size:12px">＋ Donar</button><button class="btn red remove-coins" style="font-size:12px">− Treure</button></div><div class="admin-actions-2"><button class="btn secondary save-name" style="font-size:12px">Guardar nom</button><button class="btn blue set-zero" style="font-size:12px">Posar 0</button><button class="btn red delete-user" style="font-size:12px">Esborrar usuari</button></div>${userLoans.length?`<div style="border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px"><div class="section-label">Préstecs actius (${userLoans.length})</div>${userLoans.map(l=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)"><span style="font-size:12px;font-weight:700">${money(l.amount)} → ${money(l.returnAmount)} RDTC</span><button class="btn secondary pay-loan-admin" data-lid="${esc(l.id)}" data-luid="${esc(u.uid||u.id)}" data-ret="${l.returnAmount}" style="font-size:11px;padding:5px 10px">Pagar per ell</button></div>`).join("")}</div>`:""}`;
     div.querySelector(".add-coins").addEventListener("click",()=>adminChangeCoins(u,Number(div.querySelector(".admin-coins").value||0)));
     div.querySelector(".remove-coins").addEventListener("click",()=>adminChangeCoins(u,-Number(div.querySelector(".admin-coins").value||0)));
     div.querySelector(".save-name").addEventListener("click",()=>adminSaveName(u,div.querySelector(".admin-name").value.trim()));
@@ -1094,8 +1137,8 @@ function renderAdminUsers(){
     box.appendChild(div)
   })
 }
-function renderAdminTransactions(){if(!isAdmin()||!$("adminTransactions"))return;const box=$("adminTransactions");const list=publicTx.slice();if(!list.length){box.innerHTML=`<div class="empty"><span class="empty-icon">📋</span>No hi ha transaccions.</div>`;return}box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Usuari</th><th>Moviment</th><th>RDTC</th><th>Ref</th><th>Acció</th></tr></thead><tbody>${list.map(t=>`<tr><td><b>${esc(t.name||"?")}</b></td><td>${esc(t.label||"")}</td><td style="font-weight:900;color:${Number(t.amount)>=0?"var(--blueDark)":"var(--redDark)"}">${Number(t.amount)>=0?"+":""}${money(t.amount)}</td><td>${esc(t.matchId||"")}</td><td><button class="btn red delete-tx" data-id="${esc(t.id)}" style="font-size:12px;padding:6px 10px">Borrar</button></td></tr>`).join("")}</tbody></table></div>`;box.querySelectorAll(".delete-tx").forEach(btn=>btn.addEventListener("click",()=>adminDeleteTransaction(btn.dataset.id)))}
-async function adminDeleteTransaction(id){if(!isAdmin())return;if(!confirm("Borrar aquesta transacció individual?"))return;try{await deleteDoc(doc(db,"publicTransactions",id));toast("Transacció borrada.")}catch(e){toast("No s'ha pogut borrar.",true)}}
+function renderAdminTransactions(){if(!isAdmin()||!$("adminTransactions"))return;const box=$("adminTransactions");const list=publicTx.slice();if(!list.length){box.innerHTML=`<div class="empty"><span class="empty-icon">📋</span>No hi ha transaccions.</div>`;return}box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Usuari</th><th>Moviment</th><th>RDTC</th><th>Ref</th><th>Acció</th></tr></thead><tbody>${list.map(t=>`<tr><td><b>${esc(t.name||"?")}</b></td><td>${esc(t.label||"")}</td><td style="font-weight:900;color:${Number(t.amount)>=0?"var(--blueDark)":"var(--redDark)"}">${Number(t.amount)>=0?"+":""}${money(t.amount)}</td><td>${esc(t.matchId||"")}</td><td><button class="btn red delete-tx" data-id="${esc(t.id)}" style="font-size:12px;padding:6px 10px">Esborrar</button></td></tr>`).join("")}</tbody></table></div>`;box.querySelectorAll(".delete-tx").forEach(btn=>btn.addEventListener("click",()=>adminDeleteTransaction(btn.dataset.id)))}
+async function adminDeleteTransaction(id){if(!isAdmin())return;if(!confirm("Esborrar aquesta transacció individual?"))return;try{await deleteDoc(doc(db,"publicTransactions",id));toast("Transacció esesborrada.")}catch(e){toast("No s'ha pogut esborrar.",true)}}
 function renderAdminBetsUsers(){
   if(!isAdmin()||!$("adminBetsUsers"))return;const box=$("adminBetsUsers");const grouped={};allBets.forEach(b=>{const id=b.uid||"unknown";if(!grouped[id])grouped[id]=[];grouped[id].push(b)});
   const ids=Object.keys(grouped);const totalAmount=allBets.reduce((s,b)=>s+Number(b.amount||0),0);const pending=allBets.filter(b=>b.status==="pending").length;const won=allBets.filter(b=>b.status==="won").length;const lost=allBets.filter(b=>b.status==="lost").length;
@@ -1105,7 +1148,51 @@ function renderAdminBetsUsers(){
   ids.forEach(id=>{const u=adminUsers.find(x=>(x.uid||x.id)===id);const name=u?.name||grouped[id][0]?.name||id;const email=u?.email||"";const total=grouped[id].reduce((s,b)=>s+Number(b.amount||0),0);const pend=grouped[id].filter(b=>b.status==="pending").length;const div=document.createElement("div");div.className="admin-bet-person";div.innerHTML=`<div class="admin-bet-person-top"><div class="admin-bet-person-meta"><b>${esc(name)}</b><p>${esc(email||id)}</p></div><div class="admin-bet-person-stats"><span class="badge gold">${money(total)} RDTC</span><span class="badge blue">${grouped[id].length} apostes</span><span class="badge ${pend?"purple":"green"}">${pend} pendents</span></div></div><button class="btn blue admin-bet-toggle open-user-bets">👁 Veure / editar apostes</button><div class="user-bets-list hidden"></div>`;const listBox=div.querySelector(".user-bets-list");div.querySelector(".open-user-bets").addEventListener("click",()=>{listBox.classList.toggle("hidden");div.querySelector(".open-user-bets").textContent=listBox.classList.contains("hidden")?"👁 Veure / editar apostes":"↑ Amagar apostes";listBox.innerHTML=grouped[id].slice().reverse().map(b=>`<div class="admin-bet-row"><div><div class="admin-bet-title">${esc(b.matchTitle||b.matchId)}</div><div class="admin-bet-sub"><span class="admin-bet-choice">🎯 ${esc(b.choice)}</span><span class="admin-bet-money">${money(b.amount)} RDTC</span><span class="pill ${b.status||"pending"}">${esc(b.status||"pending")}</span></div></div><input class="input bet-admin-amount" type="number" min="1" value="${money(b.amount)}"><button class="btn green save-admin-bet" data-bid="${esc(b.id)}">Guardar</button><button class="btn red delete-admin-bet" data-bid="${esc(b.id)}">Treure</button></div>`).join("");listBox.querySelectorAll(".save-admin-bet").forEach(btn=>btn.addEventListener("click",()=>{const row=btn.closest(".admin-bet-row");adminSetBetAmount(btn.dataset.bid,Number(row.querySelector(".bet-admin-amount").value||0))}));listBox.querySelectorAll(".delete-admin-bet").forEach(btn=>btn.addEventListener("click",()=>adminDeleteBet(btn.dataset.bid)))});box.appendChild(div)})
 }
 function renderAdminBoxesStats(){if(!isAdmin())return;const closed=allBoxes.filter(b=>!b.opened).length;const opened=allBoxes.filter(b=>b.opened).length;const total=allBoxes.filter(b=>b.opened).reduce((s,b)=>s+Number(b.prize||0),0);if($("adminBoxesClosed"))$("adminBoxesClosed").textContent=closed;if($("adminBoxesOpened"))$("adminBoxesOpened").textContent=opened;if($("adminBoxesPrizeTotal"))$("adminBoxesPrizeTotal").textContent=money(total)}
-function renderAdminBoxesUsers(){if(!isAdmin()||!$("adminBoxUsers"))return;const box=$("adminBoxUsers");const s=($("adminBoxSearch")?.value||"").toLowerCase().trim();let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));if(s)list=list.filter(u=>`${u.name||""} ${u.email||""} ${u.uid||u.id}`.toLowerCase().includes(s));if(!list.length){box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;return}box.innerHTML="";list.forEach(u=>{const userId=u.uid||u.id;const boxes=allBoxes.filter(b=>b.uid===userId);const closed=boxes.filter(b=>!b.opened).length;const div=document.createElement("div");div.className="admin-user";div.innerHTML=`<div class="admin-user-head"><div><b>${esc(u.name||"Sense nom")}</b><p style="font-size:12px;color:var(--muted)">${esc(u.email||userId)}</p></div><span class="badge purple">${closed} caixes</span></div><p class="sub" style="margin:0">Total caixes: <b style="color:#111">${boxes.length}</b> · Obertes: <b style="color:#111">${boxes.filter(b=>b.opened).length}</b></p><button class="btn purple give-box-one">🎁 Donar caixa seleccionada</button>`;div.querySelector(".give-box-one").addEventListener("click",()=>adminGiveBoxToUser(u));box.appendChild(div)})}
+function renderAdminBoxesUsers(){
+  if(!isAdmin()||!$("adminBoxUsers"))return;
+  const box=$("adminBoxUsers");
+  const s=($("adminBoxSearch")?.value||"").toLowerCase().trim();
+  let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));
+  if(s)list=list.filter(u=>`${u.name||""} ${u.email||""} ${u.uid||u.id}`.toLowerCase().includes(s));
+  if(!list.length){box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;return}
+  box.innerHTML="";
+  list.forEach(u=>{
+    const userId=u.uid||u.id;
+    const boxes=allBoxes.filter(b=>b.uid===userId);
+    const closed=boxes.filter(b=>!b.opened).length;
+    const opened=boxes.filter(b=>b.opened).length;
+    const prizeGiven=boxes.filter(b=>b.opened).reduce((sum,b)=>sum+Number(b.prize||0),0);
+    const div=document.createElement("div");div.className="admin-user";
+    div.innerHTML=`<div class="admin-user-head"><div><b>${esc(u.name||"Sense nom")}</b><p style="font-size:12px;color:var(--muted)">${esc(u.email||userId)}</p></div><span class="badge purple">${closed} caixes</span></div><p class="sub" style="margin:0">Total: <b style="color:#111">${boxes.length}</b> · Obertes: <b style="color:#111">${opened}</b> · Premis donats: <b style="color:#111">${money(prizeGiven)} RDTC</b></p><button class="btn purple give-box-one">🎁 Donar caixa seleccionada</button><div class="admin-actions-2"><button class="btn red delete-user-closed" style="font-size:11px">Esborrar sense obrir</button><button class="btn red delete-user-opened" style="font-size:11px">Esborrar historial</button><button class="btn red delete-user-all" style="font-size:11px">Esborrar totes</button></div>`;
+    div.querySelector(".give-box-one").addEventListener("click",()=>adminGiveBoxToUser(u));
+    div.querySelector(".delete-user-closed").addEventListener("click",()=>adminDeleteUserBoxes(u,"closed"));
+    div.querySelector(".delete-user-opened").addEventListener("click",()=>adminDeleteUserBoxes(u,"opened"));
+    div.querySelector(".delete-user-all").addEventListener("click",()=>adminDeleteUserBoxes(u,"all"));
+    box.appendChild(div);
+  })
+}
+async function deleteBoxDocs(list){
+  await Promise.all(list.map(b=>deleteDoc(doc(db,"boxes",b.id))));
+}
+async function adminDeleteUserBoxes(u,mode="all"){
+  if(!isAdmin())return;
+  const id=u.uid||u.id;
+  const boxes=allBoxes.filter(b=>b.uid===id).filter(b=>mode==="all"?true:mode==="opened"?!!b.opened:!b.opened);
+  if(!boxes.length)return toast("No hi ha caixes per esborrar.",true);
+  const label=mode==="opened"?"l'historial de caixes obertes":mode==="closed"?"les caixes sense obrir":"totes les caixes";
+  if(!confirm(`Esborrar ${label} de ${u.name||u.email||id}? Els RDTC ja donats NO es tocaran.`))return;
+  try{await deleteBoxDocs(boxes);toast("✅ Caixes esborrades sense tocar els RDTC.")}catch(e){toast("Error esborrant caixes.",true)}
+}
+async function adminClearBoxes(mode="all"){
+  if(!isAdmin())return;
+  const boxes=allBoxes.filter(b=>mode==="all"?true:mode==="opened"?!!b.opened:!b.opened);
+  if(!boxes.length)return toast("No hi ha caixes per esborrar.",true);
+  const label=mode==="opened"?"TOT l'historial de caixes obertes":mode==="closed"?"TOTES les caixes sense obrir":"TOTES les caixes de tots els usuaris";
+  if(!confirm(`Segur que vols esborrar ${label}?`))return;
+  if(!confirm("Doble confirmació: això només esborra caixes/historial, NO resta RDTC ja entregats."))return;
+  try{await deleteBoxDocs(boxes);toast("✅ Neteja feta. Els RDTC donats es mantenen.")}catch(e){toast("Error esborrant caixes.",true)}
+}
+
 async function adminGiveBoxToUser(u){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));try{await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin",qty);await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:u.name||u.email||"Usuari",label:`Admin ha donat ${qty} ${BOX_TYPES[type]?.name||type}`,amount:0,matchId:"BOX_ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast(`🎁 ${qty} caixa(es) donades a ${u.name||u.email}.`)}catch(e){toast("Error donant caixa.",true)}}
 async function adminGiveBoxAll(){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));if(!confirm(`Donar ${qty} ${BOX_TYPES[type]?.name||type} a tots els usuaris?`))return;try{for(const u of adminUsers)await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin_all",qty);await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${qty} ${BOX_TYPES[type]?.name||type} a tots`,amount:0,matchId:"BOX_ADMIN_ALL",admin:user.email,adminAction:true,createdAt:Date.now()});toast("🎁 Caixes donades a tots.")}catch(e){toast("Error donant caixes.",true)}}
 async function adminSetBetAmount(betId,newAmount){if(!isAdmin())return;newAmount=money(newAmount);if(!newAmount||newAmount<1)return toast("Quantitat incorrecta.",true);const bet=allBets.find(b=>b.id===betId);if(!bet)return toast("Aposta no trobada.",true);try{await updateDoc(doc(db,"bets",betId),{amount:newAmount,updatedAt:Date.now(),updatedBy:user.email});await addDoc(collection(db,"publicTransactions"),{uid:bet.uid,name:bet.name||"Usuari",label:`Admin ha canviat una aposta a ${newAmount} RDTC`,amount:0,matchId:bet.matchId,admin:user.email,adminAction:true,createdAt:Date.now()});toast("Aposta actualitzada.")}catch(e){toast("Error actualitzant aposta.",true)}}
@@ -1115,16 +1202,16 @@ async function adminChangeCoins(u,delta){if(!isAdmin())return toast("No ets admi
 async function adminSetCoins(u,newCoins,delta=null){if(!isAdmin())return;try{newCoins=money(newCoins);await updateDoc(doc(db,"users",u.uid||u.id),{coins:newCoins,updatedAt:Date.now(),updatedBy:user.email});await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:u.name||u.email||"Usuari",label:delta===null?`Admin ha posat ${newCoins} RDTC`:`Admin ha ${delta>=0?"donat":"tret"} ${Math.abs(delta)} RDTC`,amount:delta===null?0:delta,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast("✅ RDTC actualitzats.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function adminSaveName(u,name){if(!isAdmin())return;if(!name)return toast("El nom no pot estar buit.",true);try{await updateDoc(doc(db,"users",u.uid||u.id),{name,updatedAt:Date.now(),updatedBy:user.email});await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name,label:`Nom canviat a ${name}`,amount:0,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast("Nom guardat.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function deleteWhere(col,field,val){const snap=await getDocs(query(collection(db,col),where(field,"==",val)));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,col,d.id))))}
-async function adminDeleteUser(u){if(!isAdmin())return;const id=u.uid||u.id;if(!confirm(`Borrar ${u.name||u.email||id}?`))return;try{await addDoc(collection(db,"publicTransactions"),{uid:id,name:u.name||u.email||"Usuari",label:`Usuari borrat`,amount:0,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});await deleteWhere("bets","uid",id);await deleteWhere("loans","uid",id);await deleteWhere("boxes","uid",id);await deleteWhere("cards","uid",id);await updateDoc(doc(db,"users",id),{deleted:true,coins:0,deletedAt:Date.now(),deletedBy:user.email});toast("Usuari borrat.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
+async function adminDeleteUser(u){if(!isAdmin())return;const id=u.uid||u.id;if(!confirm(`Esborrar ${u.name||u.email||id}?`))return;try{await addDoc(collection(db,"publicTransactions"),{uid:id,name:u.name||u.email||"Usuari",label:`Usuari esesborrat`,amount:0,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});await deleteWhere("bets","uid",id);await deleteWhere("loans","uid",id);await deleteWhere("boxes","uid",id);await deleteWhere("cards","uid",id);await updateDoc(doc(db,"users",id),{deleted:true,coins:0,deletedAt:Date.now(),deletedBy:user.email});toast("Usuari esesborrat.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function adminGiveAll(amount){if(!isAdmin())return;if(!confirm(`Donar +${amount} RDTC a tots els usuaris?`))return;try{for(const u of adminUsers)await updateDoc(doc(db,"users",u.uid||u.id),{coins:money((u.coins||0)+amount),updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${amount} RDTC a tots`,amount,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast("✅ RDTC donades a tots.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function clearAllTransactions(){if(!isAdmin())return;if(!confirm("Segur que vols esborrar TOTES les transaccions?"))return;if(!confirm("DOBLE CONFIRMACIÓ: Confirmes que vols esborrar totes les transaccions públiques?"))return;try{const snap=await getDocs(collection(db,"publicTransactions"));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,"publicTransactions",d.id))));toast("✅ Totes les transaccions esborrades.")}catch(e){toast("Error en esborrar.",true)}}
 
-function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats();renderAchievementsPage()}
+function renderAll(){renderTop();renderMatches();renderPublicTx();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats();renderAchievementsPage()}
 function activatePage(pageId){
   if((pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage")&&(!adminUnlocked||!isAdmin())){toast("Escriu astop per accedir.",true);pageId="homePage"}
   activePage=pageId;
   document.querySelectorAll(".chrome-tab").forEach(t=>t.classList.toggle("active",t.dataset.page===pageId));
-  ["homePage","walletPage","resultsPage","txPage","bankPage","boxesPage","cardsPage","achievementsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
+  ["homePage","walletPage","txPage","bankPage","boxesPage","cardsPage","achievementsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
   requestAnimationFrame(()=>{
     renderAll();
     if(pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage"){loadAdminUsers();listenBoxes();listenCards()}
@@ -1189,6 +1276,9 @@ $("refreshAdminCards").addEventListener("click",()=>{loadAdminUsers();renderAdmi
 $("adminGiveAll100").addEventListener("click",()=>adminGiveAll(100));
 $("clearAllTxBtn").addEventListener("click",clearAllTransactions);
 $("adminGiveBoxAll").addEventListener("click",adminGiveBoxAll);
+$("adminClearClosedBoxes")?.addEventListener("click",()=>adminClearBoxes("closed"));
+$("adminClearOpenedBoxes")?.addEventListener("click",()=>adminClearBoxes("opened"));
+$("adminClearAllBoxes")?.addEventListener("click",()=>adminClearBoxes("all"));
 $("adminGiveCardAll").addEventListener("click",adminGiveCardAll);
 $("claimDailyBoxBtn").addEventListener("click",claimDailyBox);
 $("refreshBoxesBtn").addEventListener("click",()=>{listenBoxes();renderBoxes()});
