@@ -732,7 +732,7 @@ function rollBoxPrize(type){
   const allowedRanks=BOX_CARD_DROPS[type]||["basic"];
   const availableCards=ALL_CARDS.filter(c=>allowedRanks.includes(c.rank));
   // 1 card per every 3 RDTC prizes (roughly 25% chance)
-  const isCardDrop=availableCards.length>0&&Math.random()<0.25;
+const isCardDrop = availableCards.length > 0 && Math.random() < 0.80;
   if(isCardDrop){
     const card=availableCards[Math.floor(Math.random()*availableCards.length)];
     return{type:"card",card};
@@ -952,7 +952,9 @@ async function finishOpenBox(prizeRoll,boxId){
     await updateDoc(doc(db,"boxes",boxId),updateData);
     const card=document.querySelector(`[data-box-id="${CSS.escape(boxId)}"]`);
     if(card){card.classList.remove("opening");card.classList.add("removing");setTimeout(()=>card.remove(),450)}
-    allUserBoxes=allUserBoxes.map(b=>b.id===boxId?{...b,...updateData}:b);
+    allUserBoxes = allUserBoxes.map(b =>
+  b.id === boxId ? { ...b, ...updateData } : b
+);
     userBoxes=userBoxes.filter(b=>b.id!==boxId);
     renderTop();checkAchievements();
   }catch(e){console.error(e);toast("Error obrint la caixa: "+(e.code||e.message),true)}
