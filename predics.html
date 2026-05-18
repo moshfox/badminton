@@ -817,6 +817,7 @@ function renderAchievementsPage(){
 
   const grid=$("achievementsGrid");
   if(grid)grid.innerHTML=ACHIEVEMENTS.map(a=>achievementCardHTML(a,unlockedSet.has(a.id))).join("");
+}
 
 async function checkAchievements(){
   if(!user||!wallet)return;
