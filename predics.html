@@ -16,6 +16,7 @@
   --gold:#f5c842;--goldSoft:#fff7d8;--goldDark:#8a6800;
   --purple:#8b5cf6;--purpleSoft:#f0e9ff;--purpleDark:#4c1d95;
   --cyan:#06b6d4;--cyanSoft:#e5fbff;--cyanDark:#075985;
+  --infinity:#ff6b35;--infinitySoft:#fff3ee;--infinityDark:#a33200;
   --r:20px;--rm:14px;--rs:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -25,13 +26,14 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 .topbar{height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:20;background:rgba(245,245,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:11px}.logo{width:38px;height:38px;border-radius:12px;background:#111;color:#fff;display:grid;place-items:center;font-size:19px;box-shadow:0 4px 14px rgba(0,0,0,.2);flex-shrink:0}.brand-text b{display:block;font-size:14px;letter-spacing:-.04em;line-height:1.2}.brand-text span{display:block;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .topbar-right{display:flex;gap:8px;align-items:center}.wallet-chip{display:flex;align-items:center;gap:6px;background:#111;color:#fff;border-radius:999px;padding:8px 16px;font-weight:800;font-size:14px;letter-spacing:-.02em}
-.btn{background:#111;color:#fff;border-radius:999px;padding:9px 18px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:6px;letter-spacing:-.01em}.btn:hover{opacity:.88;transform:translateY(-1px)}.btn.secondary{background:transparent;color:#111;border:1.5px solid var(--line)}.btn.green{background:var(--green);color:var(--greenDark)}.btn.red{background:var(--red);color:#fff}.btn.blue{background:var(--blue);color:#fff}.btn.gold{background:var(--gold);color:var(--goldDark)}.btn.purple{background:var(--purple);color:#fff}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn{background:#111;color:#fff;border-radius:999px;padding:9px 18px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:6px;letter-spacing:-.01em}.btn:hover{opacity:.88;transform:translateY(-1px)}.btn.secondary{background:transparent;color:#111;border:1.5px solid var(--line)}.btn.green{background:var(--green);color:var(--greenDark)}.btn.red{background:var(--red);color:#fff}.btn.blue{background:var(--blue);color:#fff}.btn.gold{background:var(--gold);color:var(--goldDark)}.btn.purple{background:var(--purple);color:#fff}.btn.infinity{background:linear-gradient(135deg,#ff6b35,#f5c842);color:#fff;animation:infinityPulse 2s ease infinite}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+@keyframes infinityPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.4)}50%{box-shadow:0 0 0 8px rgba(255,107,53,0)}}
 .chrome-tabs{display:flex;gap:4px;padding:14px 0 0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}.chrome-tabs::-webkit-scrollbar{display:none}.chrome-tab{background:transparent;border:1.5px solid transparent;color:var(--muted);padding:9px 18px;border-radius:12px 12px 0 0;font-weight:800;font-size:13px;white-space:nowrap;letter-spacing:-.02em;border-bottom:0}.chrome-tab:hover:not(.active){background:rgba(0,0,0,.04);color:#555}.chrome-tab.active{background:#fff;color:#111;border-color:var(--line);border-bottom-color:#fff}
 .page{background:#fff;border:1.5px solid var(--line);border-top:0;border-radius:0 16px 16px 16px;padding:28px;min-height:calc(100vh - 160px)}
 .hero{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:24px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);font-weight:800;margin-bottom:6px}h1{font-size:clamp(28px,4vw,48px);line-height:.92;letter-spacing:-.06em;font-weight:900}h2{font-size:26px;font-weight:900;letter-spacing:-.05em}h3{font-size:16px;font-weight:800;letter-spacing:-.03em}p.sub{color:var(--muted);font-size:13px;margin-top:8px;line-height:1.5}
 .hype-banner{background:#111;color:#fff;border-radius:var(--r);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}.hype-banner b{font-size:22px;font-weight:900;letter-spacing:-.05em;line-height:1}.hype-banner span{font-size:13px;color:#aaa;margin-top:3px;display:block}.hype-stats{display:flex;gap:28px;flex-wrap:wrap}.hype-stat{text-align:center}.hype-stat .val{font-size:24px;font-weight:900;letter-spacing:-.05em;color:var(--green)}.hype-stat .lab{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center}.input{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;outline:none;font-size:14px;font-weight:500;color:var(--text);transition:.15s}.input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.06)}.input::placeholder{color:#bbb}.toolbar .input{max-width:280px}select.input{cursor:pointer;max-width:170px}
-.matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}.match{border:1.5px solid var(--line);border-radius:var(--r);background:#fff;padding:18px;transition:.18s ease;position:relative;overflow:hidden}.match:hover{border-color:#bbb;transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.08)}.match-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;background:var(--soft);border:1.5px solid var(--line);padding:4px 10px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em}.badge.accent{background:#111;color:#fff;border-color:#111}.badge.green{background:#dcf5c0;color:#3a6b0e;border-color:#c0e89a}.badge.gold{background:#fef5cc;color:var(--goldDark);border-color:#f5e090}.badge.blue{background:var(--blueSoft);color:var(--blueDark);border-color:#bcd5ff}.badge.purple{background:var(--purpleSoft);color:var(--purpleDark);border-color:#d5c4ff}
+.matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}.match{border:1.5px solid var(--line);border-radius:var(--r);background:#fff;padding:18px;transition:.18s ease;position:relative;overflow:hidden}.match:hover{border-color:#bbb;transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.08)}.match-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;background:var(--soft);border:1.5px solid var(--line);padding:4px 10px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em}.badge.accent{background:#111;color:#fff;border-color:#111}.badge.green{background:#dcf5c0;color:#3a6b0e;border-color:#c0e89a}.badge.gold{background:#fef5cc;color:var(--goldDark);border-color:#f5e090}.badge.blue{background:var(--blueSoft);color:var(--blueDark);border-color:#bcd5ff}.badge.purple{background:var(--purpleSoft);color:var(--purpleDark);border-color:#d5c4ff}.badge.infinity{background:linear-gradient(135deg,#fff3ee,#fff7d8);color:var(--infinityDark);border-color:#ffc4a0}
 .names{display:grid;gap:0;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);margin-bottom:12px}.name{font-size:17px;font-weight:900;letter-spacing:-.04em;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;background:#fff}.name:first-child{border-bottom:1.5px solid var(--line)}.name.winning-p1{background:linear-gradient(90deg,var(--blueSoft),#fff);color:var(--blueDark)}.name.winning-p2{background:linear-gradient(90deg,var(--redSoft),#fff);color:var(--redDark)}.vs-mid{display:flex;align-items:center;justify-content:center;padding:6px;background:var(--soft);font-size:10px;font-weight:900;color:var(--muted);letter-spacing:.2em;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
 .percent-bar{height:6px;border-radius:999px;background:#eee;overflow:hidden;display:flex;margin-bottom:8px}.percent-blue{background:var(--blue);transition:.4s}.percent-red{background:var(--red);transition:.4s}.stats-line{display:flex;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:12px}.stats-line .s-blue{color:var(--blueDark)}.stats-line .s-red{color:var(--redDark)}.predict-btn{width:100%;background:#111;color:#fff;border-radius:12px;padding:11px;font-size:14px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:8px}.predict-btn.placed{background:var(--blueSoft);color:var(--blueDark);border:1.5px solid rgba(61,127,255,.25)}.bet-tag{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--soft);border-radius:10px;font-size:12px;font-weight:800;color:#555;margin-bottom:10px}.bet-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .empty{border:2px dashed var(--line);border-radius:16px;background:var(--soft);padding:40px 24px;color:var(--muted);font-weight:800;text-align:center;font-size:13px}.empty-icon{font-size:28px;display:block;margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-bottom:18px}.balance-card{grid-column:span 5;background:#111;color:#fff;border-radius:22px;padding:24px;background-image:radial-gradient(circle at top right,rgba(168,239,82,.1),transparent 55%)}.balance-card .eyebrow{color:var(--green);margin-bottom:8px}.balance-card .big{font-size:clamp(40px,5vw,62px);font-weight:900;letter-spacing:-.08em;line-height:.88;margin:6px 0}.balance-card p{color:#aaa;font-size:12px;margin-top:10px}.small-card{grid-column:span 7;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini{border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff}.mini b{display:block;font-size:28px;letter-spacing:-.06em;font-weight:900;margin-top:4px}.mini span{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
@@ -46,11 +48,14 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 .box-hero{background:#111;color:#fff;border-radius:26px;padding:28px;margin-bottom:18px;display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:center;overflow:hidden;position:relative;box-shadow:0 20px 54px rgba(0,0,0,.13)}.box-hero:before{content:"";position:absolute;right:-90px;top:-120px;width:360px;height:360px;background:radial-gradient(circle,rgba(245,200,66,.33),transparent 65%);pointer-events:none}.box-hero h1{color:#fff}.box-hero p{color:#bdbdbd}.box-hero-card{position:relative;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:18px;backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}.box-count{font-size:54px;line-height:.9;font-weight:900;letter-spacing:-.08em;color:var(--gold);animation:softPop .55s ease}
 .box-store{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:22px}.box-card{border:1.5px solid var(--line);background:#fff;border-radius:22px;padding:18px;display:grid;gap:12px;position:relative;overflow:hidden;transition:.2s;box-shadow:0 10px 28px rgba(0,0,0,.04)}.box-card:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(0,0,0,.085);border-color:#d2d2c8}.box-card:before{content:"";position:absolute;inset:auto -40px -70px auto;width:160px;height:160px;border-radius:50%;background:var(--soft);z-index:0}.box-card:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0),rgba(245,200,66,.07));opacity:0;transition:.2s}.box-card:hover:after{opacity:1}.box-card:before,.box-card:after{pointer-events:none}.box-card>*{position:relative;z-index:1}.buy-box{position:relative;z-index:5;pointer-events:auto}.box-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:#111;color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.12);transition:.2s}.box-card:hover .box-icon{transform:rotate(-4deg) scale(1.05)}.box-card.normal .box-icon{background:#111}.box-card.cheap .box-icon{background:var(--cyan);color:#fff}.box-card.plus .box-icon{background:var(--blue);color:#fff}.box-card.mythic .box-icon{background:var(--purple);color:#fff}.box-card.supreme .box-icon{background:linear-gradient(135deg,#111,#f5c842);color:#fff}.box-card.flash .box-icon{background:linear-gradient(135deg,#ff4f4f,#f5c842);color:#fff}.box-card h3{font-size:17px}.box-card p{font-size:12px;color:var(--muted);line-height:1.45}.box-price{display:inline-flex;align-items:center;gap:7px;width:max-content;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line)}.box-price b{font-size:28px;font-weight:900;letter-spacing:-.06em}.box-price span{font-size:11px;font-weight:800;color:inherit}.box-card.cheap .box-price{background:var(--cyanSoft);color:var(--cyanDark);border-color:#b8f3ff}.box-card.normal .box-price{background:var(--soft);color:#111}.box-card.plus .box-price{background:var(--blueSoft);color:var(--blueDark);border-color:#c7dcff}.box-card.mythic .box-price{background:var(--purpleSoft);color:var(--purpleDark);border-color:#d7c8ff}.box-card.supreme .box-price{background:linear-gradient(135deg,var(--goldSoft),#fff);color:var(--goldDark);border-color:#f3dc7a}.box-card.flash .box-price{background:linear-gradient(135deg,#fff0f0,var(--goldSoft));color:var(--redDark);border-color:#ffc0a0}
 .inventory-grid,.opened-boxes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.inventory-box{border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;display:grid;gap:10px;position:relative;overflow:hidden;transition:.2s ease;box-shadow:0 10px 26px rgba(0,0,0,.04)}.inventory-box:before{content:"";position:absolute;right:-35px;bottom:-55px;width:140px;height:140px;border-radius:50%;background:var(--goldSoft);opacity:.75}.inventory-box>*{position:relative}.inventory-box:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(0,0,0,.075);border-color:#d2d2c8}.inventory-box.opening{animation:boxBounce .65s ease}.inventory-box.opening .box-icon{animation:boxShake .5s infinite}.inventory-box.removing{animation:boxRemove .45s ease forwards}
-.spin-stage{background:#111;border-radius:22px;padding:18px;color:#fff;margin-bottom:14px;overflow:hidden;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 42px rgba(0,0,0,.16);height:156px;display:flex;align-items:center}.spin-stage:before{content:"";position:absolute;inset:-80px;background:conic-gradient(from 0deg,transparent,rgba(245,200,66,.25),transparent,rgba(168,239,82,.18),transparent);animation:spinAura 2.5s linear infinite}.roulette-pointer{position:absolute;top:14px;bottom:14px;left:50%;transform:translateX(-50%);z-index:5;width:4px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 5px rgba(245,200,66,.18)}.roulette-track{position:relative;z-index:2;height:120px;display:flex;align-items:center;gap:10px;will-change:transform;transform:translateX(0)}.roulette-track.spinning{transition:transform 4.2s cubic-bezier(.08,.88,.12,1)}.roulette-item{flex:0 0 104px;height:82px;border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:900;font-size:18px;color:#111;border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px rgba(0,0,0,.16)}.roulette-item.low{background:#eef2f7}.roulette-item.mid{background:#dff7d3;color:#275a09}.roulette-item.good{background:#dcebff;color:var(--blueDark)}.roulette-item.epic{background:#f0e9ff;color:var(--purpleDark)}.roulette-item.legend{background:linear-gradient(135deg,#fff3bd,#f5c842);color:var(--goldDark)}.roulette-item.card-prize{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;font-size:11px;border:2px solid rgba(168,239,82,.4)}
+.spin-stage{background:#111;border-radius:22px;padding:18px;color:#fff;margin-bottom:14px;overflow:hidden;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 42px rgba(0,0,0,.16);height:156px;display:flex;align-items:center}.spin-stage:before{content:"";position:absolute;inset:-80px;background:conic-gradient(from 0deg,transparent,rgba(245,200,66,.25),transparent,rgba(168,239,82,.18),transparent);animation:spinAura 2.5s linear infinite}.roulette-pointer{position:absolute;top:14px;bottom:14px;left:50%;transform:translateX(-50%);z-index:5;width:4px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 5px rgba(245,200,66,.18)}.roulette-track{position:relative;z-index:2;height:120px;display:flex;align-items:center;gap:10px;will-change:transform;transform:translateX(0)}.roulette-track.spinning{transition:transform 4.2s cubic-bezier(.08,.88,.12,1)}.roulette-item{flex:0 0 104px;height:82px;border-radius:18px;display:grid;place-items:center;text-align:center;font-weight:900;font-size:18px;color:#111;border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px rgba(0,0,0,.16)}.roulette-item.low{background:#eef2f7}.roulette-item.mid{background:#dff7d3;color:#275a09}.roulette-item.good{background:#dcebff;color:var(--blueDark)}.roulette-item.epic{background:#f0e9ff;color:var(--purpleDark)}.roulette-item.legend{background:linear-gradient(135deg,#fff3bd,#f5c842);color:var(--goldDark)}.roulette-item.card-prize{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;font-size:11px;border:2px solid rgba(168,239,82,.4)}.roulette-item.infinity-prize{background:linear-gradient(135deg,#1a0500,#ff6b35);color:#fff;font-size:11px;border:2px solid rgba(255,200,50,.6);animation:infinityGlow 1s ease infinite}@keyframes infinityGlow{0%,100%{box-shadow:0 0 10px rgba(255,107,53,.5)}50%{box-shadow:0 0 30px rgba(255,200,50,.8)}}
 .prize-big{font-size:48px;font-weight:900;letter-spacing:-.08em;color:var(--green);animation:softPop .45s ease}.box-open-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}.box-open-particles span{position:absolute;top:50%;left:50%;font-size:20px;animation:particle .9s ease forwards}
 
 /* === FLASH BOX COUNTER === */
 .flash-box-banner{background:linear-gradient(135deg,#1a0a00,#3d1a00);border:2px solid rgba(245,200,66,.4);border-radius:22px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:relative;overflow:hidden}.flash-box-banner:before{content:"⚡";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.08}.flash-box-timer{font-size:32px;font-weight:900;letter-spacing:-.05em;color:var(--gold);font-variant-numeric:tabular-nums}.flash-box-label{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#aaa;font-weight:800;margin-bottom:4px}.flash-box-desc{font-size:13px;color:#ddd;margin-top:4px}.flash-available{background:rgba(168,239,82,.15);border:1.5px solid rgba(168,239,82,.3);border-radius:14px;padding:12px 18px;text-align:center}.flash-available b{display:block;font-size:22px;font-weight:900;color:var(--green)}.flash-available span{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+
+/* === INFINITY CARD SPECIAL === */
+.card.rank-infinity{background:linear-gradient(135deg,#0d0d0d,#1a0500,#ff6b35,#f5c842);background-size:200% 200%;animation:infinityCardShimmer 3s ease infinite;border:2px solid rgba(255,200,50,.6)}.card.rank-infinity .card-shine{background:linear-gradient(135deg,rgba(255,255,255,.25) 0%,transparent 50%,rgba(255,200,50,.15) 100%)}.card.rank-infinity .card-icon{animation:infinityIconSpin 4s ease infinite}@keyframes infinityCardShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@keyframes infinityIconSpin{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.15) rotate(5deg)}}
 
 /* === CARDS SYSTEM === */
 .cards-hero{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;border-radius:26px;padding:28px;margin-bottom:24px;position:relative;overflow:hidden}.cards-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(245,200,66,.15),transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(139,92,246,.2),transparent 50%)}.cards-hero>*{position:relative}.cards-hero h1{color:#fff;font-size:clamp(32px,5vw,56px)}.cards-hero p{color:rgba(255,255,255,.6)}
@@ -59,7 +64,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 /* Card visual */
 .card{width:140px;height:200px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:.25s;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,.15)}.card:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 20px 48px rgba(0,0,0,.25)}.card-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,transparent 50%,rgba(255,255,255,.05) 100%);pointer-events:none}.card-rank-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;padding:2px 6px;border-radius:999px;background:rgba(0,0,0,.3);color:rgba(255,255,255,.8)}.card-icon{font-size:32px;margin-bottom:8px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}.card-name{font-size:11px;font-weight:900;letter-spacing:-.01em;line-height:1.2;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}.card-round{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;opacity:.7;margin-top:4px;color:#fff}.card-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.4);color:#fff;font-size:10px;font-weight:900;border-radius:999px;padding:2px 6px}
 /* Card ranks colors */
-.card.rank-basic{background:linear-gradient(135deg,#4a5568,#2d3748)}.card.rank-octavos{background:linear-gradient(135deg,#065f46,#047857)}.card.rank-quartos{background:linear-gradient(135deg,#1e40af,#1d4ed8)}.card.rank-semis{background:linear-gradient(135deg,#6d28d9,#7c3aed)}.card.rank-final{background:linear-gradient(135deg,#92400e,#b45309);border:2px solid rgba(245,200,66,.6)}.card.rank-final:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.1),transparent);pointer-events:none}
+.card.rank-basic{background:linear-gradient(135deg,#4a5568,#2d3748)}.card.rank-octavos{background:linear-gradient(135deg,#065f46,#047857)}.card.rank-quartos{background:linear-gradient(135deg,#1e40af,#1d4ed8)}.card.rank-semis{background:linear-gradient(135deg,#6d28d9,#7c3aed)}.card.rank-final{background:linear-gradient(135deg,#92400e,#b45309);border:2px solid rgba(245,200,66,.6)}.card.rank-final:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.1),transparent);pointer-events:none}.card.rank-winner{background:linear-gradient(135deg,#78350f,#d97706,#f59e0b);border:2px solid rgba(255,220,100,.8)}.card.rank-winner:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);pointer-events:none}
 .card.locked{filter:grayscale(.9) brightness(.5);cursor:default}.card.locked:hover{transform:none;box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
 /* Museum/escaparate */
@@ -68,8 +73,12 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 /* Card shop */
 .card-shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}.card-shop-item{border:1.5px solid var(--line);border-radius:20px;background:#fff;padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:.2s;box-shadow:0 8px 22px rgba(0,0,0,.04)}.card-shop-item:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(0,0,0,.08);border-color:#ccc}
 
-/* === ACHIEVEMENTS === */
-.achievements-scroller{overflow:hidden;position:relative;margin-bottom:22px}.achievements-scroller:after{content:"";position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,#fff,transparent);pointer-events:none;z-index:2}.achievements-track{display:flex;gap:14px;animation:scrollAch 40s linear infinite;width:max-content}.achievements-track:hover{animation-play-state:paused}.achievement{width:200px;flex-shrink:0;border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.04);transition:.2s}.achievement:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.08)}.achievement.unlocked{border-color:transparent;background:linear-gradient(135deg,#fff,#f5fff0);box-shadow:0 8px 22px rgba(168,239,82,.15)}.achievement.locked{opacity:.6}.achievement-icon{font-size:28px;margin-bottom:8px}.achievement-name{font-size:13px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}.achievement-desc{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4}.achievement-rank{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}.achievement-rank.bronze{background:#f0e0c0;color:#8b5a00}.achievement-rank.silver{background:#e8e8e8;color:#555}.achievement-rank.gold{background:var(--goldSoft);color:var(--goldDark)}.achievement-rank.diamond{background:linear-gradient(135deg,#e0f0ff,#d0e0ff);color:#1a4fa8}.achievement-rank.legend{background:linear-gradient(135deg,#1a1a2e,#302b63);color:#fff}@keyframes scrollAch{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* === ACHIEVEMENTS PAGE === */
+.achievements-page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px}.achievement-card{border:1.5px solid var(--line);border-radius:20px;padding:18px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.04);transition:.2s;display:flex;flex-direction:column;gap:8px}.achievement-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.08)}.achievement-card.unlocked{border-color:transparent;background:linear-gradient(135deg,#fff,#f5fff0);box-shadow:0 8px 22px rgba(168,239,82,.2)}.achievement-card.locked{opacity:.65}.achievement-card-top{display:flex;align-items:center;gap:12px}.achievement-card-icon{font-size:32px;width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:var(--soft);flex-shrink:0}.achievement-card.unlocked .achievement-card-icon{background:linear-gradient(135deg,#dcffd0,#a8ef52);box-shadow:0 8px 20px rgba(168,239,82,.3)}.achievement-card-name{font-size:15px;font-weight:900;letter-spacing:-.03em}.achievement-card-desc{font-size:12px;color:var(--muted);font-weight:600;line-height:1.5}.achievement-rank-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;width:max-content}.achievement-rank-badge.bronze{background:#f0e0c0;color:#8b5a00}.achievement-rank-badge.silver{background:#e8e8e8;color:#555}.achievement-rank-badge.gold{background:var(--goldSoft);color:var(--goldDark)}.achievement-rank-badge.diamond{background:linear-gradient(135deg,#e0f0ff,#d0e0ff);color:#1a4fa8}.achievement-rank-badge.legend{background:linear-gradient(135deg,#1a1a2e,#302b63);color:#fff}.achievement-rank-badge.infinity{background:linear-gradient(135deg,#1a0500,#ff6b35);color:#fff}
+.achievement-unlocked-check{font-size:18px;margin-left:auto}
+
+/* === ACHIEVEMENTS SCROLLER (kept for other uses) === */
+.achievements-scroller{overflow:hidden;position:relative;margin-bottom:22px}.achievements-scroller:after{content:"";position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,#fff,transparent);pointer-events:none;z-index:2}.achievements-track{display:flex;gap:14px;animation:scrollAch 40s linear infinite;width:max-content}.achievements-track:hover{animation-play-state:paused}.achievement{width:200px;flex-shrink:0;border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.04);transition:.2s}.achievement:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.08)}.achievement.unlocked{border-color:transparent;background:linear-gradient(135deg,#fff,#f5fff0);box-shadow:0 8px 22px rgba(168,239,82,.15)}.achievement.locked{opacity:.6}.achievement-icon{font-size:28px;margin-bottom:8px}.achievement-name{font-size:13px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}.achievement-desc{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4}.achievement-rank{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}.achievement-rank.bronze{background:#f0e0c0;color:#8b5a00}.achievement-rank.silver{background:#e8e8e8;color:#555}.achievement-rank.gold{background:var(--goldSoft);color:var(--goldDark)}.achievement-rank.diamond{background:linear-gradient(135deg,#e0f0ff,#d0e0ff);color:#1a4fa8}.achievement-rank.legend{background:linear-gradient(135deg,#1a1a2e,#302b63);color:#fff}.achievement-rank.infinity{background:linear-gradient(135deg,#1a0500,#ff6b35);color:#fff}@keyframes scrollAch{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* Admin cards panel */
 .admin-cards-panel{border:1.5px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#fff,#fafaf8);padding:18px;box-shadow:0 16px 42px rgba(0,0,0,.045)}
@@ -101,6 +110,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
     <button class="chrome-tab" data-page="bankPage">🏦 Banc</button>
     <button class="chrome-tab" data-page="boxesPage">🎁 Caixes</button>
     <button class="chrome-tab" data-page="cardsPage">🃏 Cartes</button>
+    <button class="chrome-tab" data-page="achievementsPage">🏅 Logros</button>
     <button id="adminTab" class="chrome-tab hidden" data-page="adminPage">⚙️ Admin</button>
     <button id="adminBoxesTab" class="chrome-tab hidden" data-page="adminBoxesPage">🎁 Admin caixes</button>
     <button id="adminCardsTab" class="chrome-tab hidden" data-page="adminCardsPage">🃏 Admin cartes</button>
@@ -165,7 +175,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
         <div>
           <div class="flash-box-label">⚡ Caixa Flash del dia</div>
           <b style="color:var(--gold);font-size:20px;font-weight:900">Caixa Flash ⚡</b>
-          <div class="flash-box-desc">1 RDTC o 1000 RDTC. Disponible 2 hores al dia. No la perdis!</div>
+          <div class="flash-box-desc">1 RDTC o 1000 RDTC. Pot donar la carta ∞ Infinity! Disponible 2 hores al dia.</div>
         </div>
         <div style="text-align:center">
           <div class="flash-box-label">Propera obertura</div>
@@ -178,7 +188,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
         </div>
       </div>
 
-      <div class="hero" style="margin-bottom:14px"><div><div class="eyebrow">Botiga</div><h2>Comprar caixes</h2><p class="sub">Normal, barata, millorada, mítica i suprema. Totes poden donar cartes!</p></div></div>
+      <div class="hero" style="margin-bottom:14px"><div><div class="eyebrow">Botiga</div><h2>Comprar caixes</h2><p class="sub">Normal, barata, millorada, mítica i suprema. Totes poden donar cartes! La Suprema té 5% de carta Infinity.</p></div></div>
       <div id="boxStore" class="box-store"></div>
       <div class="hero" style="margin-bottom:14px"><div><div class="eyebrow">Inventari</div><h2>Les teves caixes</h2></div><button id="refreshBoxesBtn" class="btn secondary hidden">↻ Actualitzar</button></div>
       <div id="boxesInventory" class="inventory-grid"><div class="empty"><span class="empty-icon">🎁</span>Carregant caixes...</div></div>
@@ -201,7 +211,6 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
       <div class="cards-tabs">
         <button class="btn secondary cards-tab active" data-cards-panel="cardsMuseum">🖼 Museu</button>
         <button class="btn secondary cards-tab" data-cards-panel="cardsShop">🛒 Botiga</button>
-        <button class="btn secondary cards-tab" data-cards-panel="cardsAchievements">🏅 Logros</button>
       </div>
 
       <!-- Museum -->
@@ -211,22 +220,30 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 
       <!-- Shop -->
       <div id="cardsShop" class="hidden">
-        <div class="hero" style="margin-bottom:16px"><div><div class="eyebrow">Botiga de cartes</div><h2>Comprar cartes</h2><p class="sub">Les cartes de les caixes surten més barates. Compra directament aquí.</p></div></div>
+        <div class="hero" style="margin-bottom:16px"><div><div class="eyebrow">Botiga de cartes</div><h2>Comprar cartes</h2><p class="sub">Les cartes de les caixes surten més barates. La carta ∞ Infinity no es pot comprar, només surt a les caixes!</p></div></div>
         <div id="cardShopGrid" class="card-shop-grid"></div>
       </div>
+    </section>
 
-      <!-- Achievements -->
-      <div id="cardsAchievements" class="hidden">
-        <div class="hero" style="margin-bottom:16px"><div><div class="eyebrow">Els teus assoliments</div><h2>Logros</h2><p class="sub">Aconsegueix-los jugant. No es compren!</p></div></div>
-        <div class="section-label" style="margin-bottom:12px">Desbloquejats</div>
-        <div class="achievements-scroller" id="unlockedAchScroller">
-          <div class="achievements-track" id="unlockedAchTrack"></div>
-        </div>
-        <div class="section-label" style="margin:18px 0 12px">Per desbloquejar</div>
-        <div class="achievements-scroller" id="lockedAchScroller">
-          <div class="achievements-track" id="lockedAchTrack"></div>
+    <!-- ACHIEVEMENTS PAGE (separate tab) -->
+    <section id="achievementsPage" class="hidden">
+      <div class="cards-hero" style="background:linear-gradient(135deg,#111,#1a1a2e,#302b63)">
+        <div class="eyebrow" style="color:rgba(168,239,82,.8)">Assoliments</div>
+        <h1 style="color:#fff;font-size:clamp(28px,4vw,48px)">🏅 Logros RDTC</h1>
+        <p class="sub" style="color:rgba(255,255,255,.6)">Guanya apostes, obre caixes, col·lecciona cartes. Aconsegueix-los jugant, no es compren!</p>
+        <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center"><div style="font-size:24px;font-weight:900;color:var(--green)" id="achUnlockedCount">0</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:800;text-transform:uppercase;letter-spacing:.12em">Desbloquejats</div></div>
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center"><div style="font-size:24px;font-weight:900;color:var(--gold)" id="achTotalCount">0</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:800;text-transform:uppercase;letter-spacing:.12em">Total logros</div></div>
         </div>
       </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+        <button class="btn secondary ach-filter active" data-filter="all">Tots</button>
+        <button class="btn secondary ach-filter" data-filter="unlocked">✅ Desbloquejats</button>
+        <button class="btn secondary ach-filter" data-filter="locked">🔒 Bloquejats</button>
+      </div>
+
+      <div id="achievementsGrid" class="achievements-page-grid"></div>
     </section>
 
     <!-- ADMIN USERS -->
@@ -282,7 +299,7 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
         <div style="border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px;background:#fff">
           <div class="toolbar" style="margin:0;align-items:end">
             <div style="flex:1;min-width:220px"><div class="section-label">Buscar usuari</div><input id="adminBoxSearch" class="input" placeholder="Nom, email o UID..."></div>
-            <div><div class="section-label">Tipus de caixa</div><select id="adminBoxType" class="input"><option value="normal">Normal diària</option><option value="cheap">Barata</option><option value="plus">Millorada</option><option value="mythic">Mítica</option><option value="supreme">Suprema</option></select></div>
+            <div><div class="section-label">Tipus de caixa</div><select id="adminBoxType" class="input"><option value="normal">Normal diària</option><option value="cheap">Barata</option><option value="plus">Millorada</option><option value="mythic">Mítica</option><option value="supreme">Suprema</option><option value="flash">Flash ⚡</option></select></div>
             <div><div class="section-label">Quantitat</div><input id="adminBoxQty" class="input" type="number" min="1" value="1" style="max-width:120px"></div>
           </div>
         </div>
@@ -403,54 +420,99 @@ const LS_KEY="rdtc_guest_v10_caixes_ok";
 const MAX_DEC=10;
 const MAX_LOAN=800;
 const BOX_ORDER=["cheap","normal","plus","mythic","supreme"];
+const INFINITY_CARD_BONUS=5000;
 
 // ===========================
-// CARD DEFINITIONS
+// CARD RANKS
 // ===========================
 const CARD_RANKS = {
-  basic: { name:"Bàsica", color:"#4a5568", label:"Bàsica" },
-  octavos: { name:"Octaus", color:"#047857", label:"Octaus" },
-  quartos: { name:"Quarts", color:"#1d4ed8", label:"Quarts" },
-  semis: { name:"Semis", color:"#7c3aed", label:"Semis" },
-  final: { name:"Final", color:"#b45309", label:"Final" }
+  basic:   { name:"Bàsica",    color:"#4a5568", label:"Bàsica" },
+  octavos: { name:"Octaus",    color:"#047857", label:"Octaus" },
+  quartos: { name:"Quarts",    color:"#1d4ed8", label:"Quarts" },
+  semis:   { name:"Semis",     color:"#7c3aed", label:"Semis" },
+  final:   { name:"Final",     color:"#b45309", label:"Final" },
+  winner:  { name:"Guanyador", color:"#d97706", label:"Guanyador" },
+  infinity:{ name:"∞ Infinity",color:"#ff6b35", label:"∞ Infinity" }
 };
 
-const ALL_CARDS = [
-  // BASIC - Prèvies
-  {id:"c_torneig",     name:"Torneig de Bàdminton", round:"Prèvies", rank:"basic", icon:"🏸", price:150, desc:"La carta del torneig oficial RDTC."},
-  {id:"c_prev_p1",     name:"Jugador Prèvies 1",    round:"Prèvies", rank:"basic", icon:"🏸", price:150, desc:"Participant de les prèvies."},
-  {id:"c_prev_p2",     name:"Jugador Prèvies 2",    round:"Prèvies", rank:"basic", icon:"🏸", price:150, desc:"Participant de les prèvies."},
-  {id:"c_prev_p3",     name:"Jugador Prèvies 3",    round:"Prèvies", rank:"basic", icon:"🏸", price:150, desc:"Participant de les prèvies."},
-  {id:"c_prev_p4",     name:"Jugador Prèvies 4",    round:"Prèvies", rank:"basic", icon:"🏸", price:150, desc:"Participant de les prèvies."},
-  // OCTAVOS
-  {id:"c_oct_p1",      name:"Octau 1",              round:"Octaus",  rank:"octavos", icon:"🎯", price:300, desc:"Jugador dels octaus de final."},
-  {id:"c_oct_p2",      name:"Octau 2",              round:"Octaus",  rank:"octavos", icon:"🎯", price:300, desc:"Jugador dels octaus de final."},
-  {id:"c_oct_p3",      name:"Octau 3",              round:"Octaus",  rank:"octavos", icon:"🎯", price:300, desc:"Jugador dels octaus de final."},
-  {id:"c_oct_p4",      name:"Octau 4",              round:"Octaus",  rank:"octavos", icon:"🎯", price:300, desc:"Jugador dels octaus de final."},
-  {id:"c_ho_aconseguit",name:"Ho he aconseguit!",   round:"Octaus",  rank:"octavos", icon:"✊", price:400, desc:"Per als que arriben als octaus."},
-  // QUARTOS
-  {id:"c_qua_p1",      name:"Quart 1",              round:"Quarts",  rank:"quartos", icon:"⚔️", price:500, desc:"Jugador dels quarts de final."},
-  {id:"c_qua_p2",      name:"Quart 2",              round:"Quarts",  rank:"quartos", icon:"⚔️", price:500, desc:"Jugador dels quarts de final."},
-  {id:"c_qua_p3",      name:"Quart 3",              round:"Quarts",  rank:"quartos", icon:"⚔️", price:500, desc:"Jugador dels quarts de final."},
-  {id:"c_qua_p4",      name:"Quart 4",              round:"Quarts",  rank:"quartos", icon:"⚔️", price:500, desc:"Jugador dels quarts de final."},
-  // SEMIS
-  {id:"c_semi_p1",     name:"Semifinalista 1",      round:"Semis",   rank:"semis", icon:"🔥", price:800, desc:"Un dels quatre semifinalistes."},
-  {id:"c_semi_p2",     name:"Semifinalista 2",      round:"Semis",   rank:"semis", icon:"🔥", price:800, desc:"Un dels quatre semifinalistes."},
-  {id:"c_semi_rosa",   name:"Rosa de Trigo",        round:"Semis",   rank:"semis", icon:"🌹", price:1000, desc:"La llegenda de les semis. Rosa de Trigo."},
-  // FINAL
-  {id:"c_final_p1",    name:"Finalista 1",          round:"Final",   rank:"final", icon:"👑", price:1500, desc:"Finalista del torneig."},
-  {id:"c_final_p2",    name:"Finalista 2",          round:"Final",   rank:"final", icon:"👑", price:1500, desc:"Finalista del torneig."},
-  {id:"c_la_final",    name:"LA FINAL",             round:"Final",   rank:"final", icon:"🏆", price:2000, desc:"La carta definitiva. Només per als elegits."},
+// ===========================
+// DYNAMIC CARDS — built from tournament matches
+// Static base cards + dynamic match-based cards
+// ===========================
+
+// Static special cards (always present regardless of matches)
+const STATIC_CARDS = [
+  {id:"c_torneig",      name:"Torneig de Bàdminton", round:"Especial",  rank:"basic",    icon:"🏸",  price:150,  desc:"La carta del torneig oficial RDTC.", shopOnly:false},
+  {id:"c_ho_aconseguit",name:"Ho he aconseguit!",     round:"Especial",  rank:"octavos",  icon:"✊",  price:400,  desc:"Per als que arriben als octaus.", shopOnly:false},
+  {id:"c_semi_rosa",    name:"Rosa de Trigo",         round:"Semis",     rank:"semis",    icon:"🌹",  price:1000, desc:"La llegenda de les semis. Rosa de Trigo.", shopOnly:false},
+  {id:"c_la_final",     name:"LA FINAL",              round:"Final",     rank:"final",    icon:"🏆",  price:2000, desc:"La carta definitiva. Només per als elegits.", shopOnly:false},
+  {id:"c_guanyador",    name:"Guanyador del Torneig", round:"Especial",  rank:"winner",   icon:"👑",  price:3000, desc:"La carta del campió. El nom del guanyador del torneig.", shopOnly:false},
+  {id:"c_infinity",     name:"∞ Infinity",             round:"Especial",  rank:"infinity", icon:"♾️",  price:0,    desc:"La carta més rara. Només surt a caixes Flash (20%) o Suprema (5%). Et dóna 5.000 RDTC instantàniament. No es pot comprar!", shopOnly:true, uncraftable:true},
 ];
 
-// Which cards can drop from which boxes (by rank)
+// Dynamic cards are built from tournament matches
+// This will be populated once matches load
+let DYNAMIC_CARDS = [];
+let ALL_CARDS = [...STATIC_CARDS];
+
+function buildDynamicCards(matches){
+  const dyn = [];
+  const byRound = {};
+  matches.forEach(m => {
+    const r = Number(m.round||1);
+    if(!byRound[r]) byRound[r]=[];
+    if(m.p1&&!isPlaceholder(m.p1)) byRound[r].push({name:m.p1, matchId:m.id});
+    if(m.p2&&!isPlaceholder(m.p2)) byRound[r].push({name:m.p2, matchId:m.id});
+  });
+
+  const roundInfo = {
+    1:{rank:"basic",   icon:"🏸", priceBase:150, roundName:"Prèvies"},
+    2:{rank:"octavos", icon:"🎯", priceBase:300, roundName:"Octaus"},
+    3:{rank:"quartos", icon:"⚔️", priceBase:500, roundName:"Quarts"},
+    4:{rank:"semis",   icon:"🔥", priceBase:800, roundName:"Semis"},
+    5:{rank:"final",   icon:"👑", priceBase:1500,roundName:"Final"},
+  };
+
+  const seen = new Set();
+  Object.keys(byRound).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+    const info = roundInfo[r]||roundInfo[1];
+    byRound[r].forEach(p=>{
+      // avoid duplicates (same player in multiple rounds => use highest round)
+      const key = p.name.toLowerCase().trim();
+      if(seen.has(key)) return;
+      seen.add(key);
+      const safeId = "c_p_"+key.replace(/[^a-z0-9]/g,"_").slice(0,30)+"_r"+r;
+      dyn.push({
+        id: safeId,
+        name: p.name,
+        round: info.roundName,
+        rank: info.rank,
+        icon: info.icon,
+        price: info.priceBase,
+        desc: `Carta de ${p.name}. Participant de ${info.roundName}.`,
+        shopOnly: false,
+        matchId: p.matchId
+      });
+    });
+  });
+
+  return dyn;
+}
+
+function rebuildAllCards(){
+  ALL_CARDS = [...DYNAMIC_CARDS, ...STATIC_CARDS];
+}
+
+// ===========================
+// BOX CARD DROPS (which ranks can appear in which box)
+// ===========================
 const BOX_CARD_DROPS = {
   cheap:   ["basic"],
   normal:  ["basic","octavos"],
   plus:    ["basic","octavos","quartos"],
   mythic:  ["octavos","quartos","semis"],
-  supreme: ["quartos","semis","final"],
-  flash:   ["basic","octavos","quartos","semis","final"]
+  supreme: ["quartos","semis","final","winner"],  // + 5% infinity
+  flash:   ["basic","octavos","quartos","semis","final","winner"] // + 20% infinity
 };
 
 // ===========================
@@ -461,32 +523,35 @@ const BOX_TYPES={
   cheap:{id:"cheap",name:"Caixa barata",icon:"📦",price:40,min:5,max:100,desc:"Més barata, pot donar cartes Bàsiques.",class:"cheap",weights:[5,5,5,5,10,10,10,15,15,20,20,25,30,40,50,70,100]},
   plus:{id:"plus",name:"Caixa millorada",icon:"💎",price:80,min:5,max:100,desc:"Pot donar cartes fins a Quarts.",class:"plus",weights:[5,10,15,20,25,30,40,50,60,70,75,80,90,100]},
   mythic:{id:"mythic",name:"Caixa mítica",icon:"🔮",price:150,min:100,max:300,desc:"Rang gran: de 100 a 300 RDTC. Cartes fins a Semis.",class:"mythic",weights:[100,100,100,110,120,130,140,150,150,170,200,230,260,280,300]},
-  supreme:{id:"supreme",name:"Caixa suprema",icon:"👑",price:400,min:200,max:800,desc:"Suprema: de 200 a 800 RDTC. Pot donar cartes Finals!",class:"supreme",weights:[200,220,240,250,260,280,300,320,350,380,400,450,550,650,750,800]},
-  flash:{id:"flash",name:"Caixa Flash ⚡",icon:"⚡",price:1,min:1,max:1000,desc:"1 RDTC o 1000 RDTC. Alta risc, alta recompensa!",class:"flash",weights:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1000]}
+  supreme:{id:"supreme",name:"Caixa suprema",icon:"👑",price:400,min:200,max:800,desc:"Suprema: de 200 a 800 RDTC. Cartes Finals + 5% de carta ∞ Infinity!",class:"supreme",weights:[200,220,240,250,260,280,300,320,350,380,400,450,550,650,750,800]},
+  flash:{id:"flash",name:"Caixa Flash ⚡",icon:"⚡",price:1,min:1,max:1000,desc:"1 RDTC o 1000 RDTC. 20% de carta ∞ Infinity. Alta risc, alta recompensa!",class:"flash",weights:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1000]}
 };
 
 // ===========================
 // ACHIEVEMENTS
 // ===========================
 const ACHIEVEMENTS = [
-  {id:"ach_first_bet",    name:"Primera aposta",        desc:"Aposta per primera vegada",        icon:"🎯", rank:"bronze", check:(s)=>s.totalBets>=1},
-  {id:"ach_1000rdtc",     name:"Mil·lonari RDTC",       desc:"Acumula 1.000 RDTC",               icon:"💰", rank:"silver", check:(s)=>s.maxCoins>=1000},
-  {id:"ach_bet400",       name:"Tot o res",             desc:"Aposta +400 RDTC en una sola jugada",icon:"🎲",rank:"silver", check:(s)=>s.maxSingleBet>=400},
-  {id:"ach_open10",       name:"Obrecaixes",            desc:"Obre 10 caixes",                   icon:"🎁", rank:"bronze", check:(s)=>s.boxesOpened>=10},
-  {id:"ach_open50",       name:"Adicte a les caixes",   desc:"Obre 50 caixes",                   icon:"📦", rank:"gold",   check:(s)=>s.boxesOpened>=50},
-  {id:"ach_win5",         name:"Endevina-ho",           desc:"Guanya 5 apostes",                 icon:"✅", rank:"bronze", check:(s)=>s.betsWon>=5},
-  {id:"ach_win_semi",     name:"Ull de llince",         desc:"Encerta una semifinal",             icon:"🔥", rank:"gold",   check:(s)=>s.wonSemis>=1},
-  {id:"ach_win_final",    name:"Oracle",                desc:"Encerta la final! Ultra rar.",      icon:"🏆", rank:"legend", check:(s)=>s.wonFinals>=1},
-  {id:"ach_5cards",       name:"Col·leccionista",       desc:"Aconsegueix 5 cartes",             icon:"🃏", rank:"bronze", check:(s)=>s.totalCards>=5},
-  {id:"ach_20cards",      name:"Museu propi",           desc:"Aconsegueix 20 cartes",            icon:"🖼", rank:"silver", check:(s)=>s.totalCards>=20},
-  {id:"ach_final_card",   name:"La carta sagrada",      desc:"Aconsegueix la carta LA FINAL",    icon:"👑", rank:"diamond",check:(s)=>s.hasCard_c_la_final},
-  {id:"ach_rosa",         name:"Rosa de Trigo fan",     desc:"Aconsegueix la carta Rosa de Trigo",icon:"🌹",rank:"diamond",check:(s)=>s.hasCard_c_semi_rosa},
-  {id:"ach_flash_win",    name:"Sort boja",             desc:"Guanya 1000 RDTC a la caixa flash",icon:"⚡", rank:"legend", check:(s)=>s.flashWin1000>=1},
-  {id:"ach_loan",         name:"En deute",              desc:"Demana un préstec al banc",        icon:"🏦", rank:"bronze", check:(s)=>s.totalLoans>=1},
-  {id:"ach_5000rdtc",     name:"Tresorer",              desc:"Acumula 5.000 RDTC",               icon:"💎", rank:"gold",   check:(s)=>s.maxCoins>=5000},
-  {id:"ach_win20",        name:"Imbatible",             desc:"Guanya 20 apostes",                icon:"🌟", rank:"diamond",check:(s)=>s.betsWon>=20},
-  {id:"ach_buy_supreme",  name:"Gran despesa",          desc:"Compra una caixa suprema",         icon:"🔱", rank:"silver", check:(s)=>s.supremeBought>=1},
-  {id:"ach_3ranks_cards", name:"Diversificat",          desc:"Tens cartes de 3 rangs diferents", icon:"🎨", rank:"silver", check:(s)=>s.cardRanks>=3},
+  {id:"ach_first_bet",     name:"Primera aposta",         desc:"Aposta per primera vegada",                  icon:"🎯", rank:"bronze",   check:(s)=>s.totalBets>=1},
+  {id:"ach_1000rdtc",      name:"Mil·lonari RDTC",        desc:"Acumula 1.000 RDTC",                         icon:"💰", rank:"silver",   check:(s)=>s.maxCoins>=1000},
+  {id:"ach_bet400",        name:"Tot o res",               desc:"Aposta +400 RDTC en una sola jugada",        icon:"🎲", rank:"silver",   check:(s)=>s.maxSingleBet>=400},
+  {id:"ach_open10",        name:"Obrecaixes",              desc:"Obre 10 caixes",                             icon:"🎁", rank:"bronze",   check:(s)=>s.boxesOpened>=10},
+  {id:"ach_open50",        name:"Adicte a les caixes",     desc:"Obre 50 caixes",                             icon:"📦", rank:"gold",     check:(s)=>s.boxesOpened>=50},
+  {id:"ach_win5",          name:"Endevina-ho",             desc:"Guanya 5 apostes",                           icon:"✅", rank:"bronze",   check:(s)=>s.betsWon>=5},
+  {id:"ach_win_semi",      name:"Ull de llince",           desc:"Encerta una semifinal",                      icon:"🔥", rank:"gold",     check:(s)=>s.wonSemis>=1},
+  {id:"ach_win_final",     name:"Oracle",                  desc:"Encerta la final! Ultra rar.",               icon:"🏆", rank:"legend",   check:(s)=>s.wonFinals>=1},
+  {id:"ach_5cards",        name:"Col·leccionista",         desc:"Aconsegueix 5 cartes",                       icon:"🃏", rank:"bronze",   check:(s)=>s.totalCards>=5},
+  {id:"ach_20cards",       name:"Museu propi",             desc:"Aconsegueix 20 cartes",                      icon:"🖼", rank:"silver",   check:(s)=>s.totalCards>=20},
+  {id:"ach_final_card",    name:"La carta sagrada",        desc:"Aconsegueix la carta LA FINAL",              icon:"👑", rank:"diamond",  check:(s)=>s.hasCard_c_la_final},
+  {id:"ach_rosa",          name:"Rosa de Trigo fan",       desc:"Aconsegueix la carta Rosa de Trigo",         icon:"🌹", rank:"diamond",  check:(s)=>s.hasCard_c_semi_rosa},
+  {id:"ach_flash_win",     name:"Sort boja",               desc:"Guanya 1000 RDTC a la caixa flash",          icon:"⚡", rank:"legend",   check:(s)=>s.flashWin1000>=1},
+  {id:"ach_loan",          name:"En deute",                desc:"Demana un préstec al banc",                  icon:"🏦", rank:"bronze",   check:(s)=>s.totalLoans>=1},
+  {id:"ach_5000rdtc",      name:"Tresorer",                desc:"Acumula 5.000 RDTC",                         icon:"💎", rank:"gold",     check:(s)=>s.maxCoins>=5000},
+  {id:"ach_win20",         name:"Imbatible",               desc:"Guanya 20 apostes",                          icon:"🌟", rank:"diamond",  check:(s)=>s.betsWon>=20},
+  {id:"ach_buy_supreme",   name:"Gran despesa",            desc:"Compra una caixa suprema",                   icon:"🔱", rank:"silver",   check:(s)=>s.supremeBought>=1},
+  {id:"ach_3ranks_cards",  name:"Diversificat",            desc:"Tens cartes de 3 rangs diferents",           icon:"🎨", rank:"silver",   check:(s)=>s.cardRanks>=3},
+  {id:"ach_infinity_card", name:"∞ La Carta Impossible",   desc:"Aconsegueix la carta ∞ Infinity. Rebràs 5.000 RDTC!",icon:"♾️",rank:"infinity",check:(s)=>s.hasCard_c_infinity},
+  {id:"ach_winner_card",   name:"El Llegendari",           desc:"Aconsegueix la carta del Guanyador del Torneig",icon:"🏅",rank:"legend",  check:(s)=>s.hasCard_c_guanyador},
+  {id:"ach_10000rdtc",     name:"Emperador RDTC",          desc:"Acumula 10.000 RDTC",                        icon:"🏰", rank:"legend",   check:(s)=>s.maxCoins>=10000},
 ];
 
 let tournament={matches:[]},user=null,wallet=null,allBets=[],myBets=[],publicTx=[],adminUsers=[],userBoxes=[],allUserBoxes=[],allBoxes=[];
@@ -494,6 +559,7 @@ let userCards=[],allUserCards=[],adminAllCards=[];
 let selectedMatch=null,selectedChoice="",activePage="homePage",walletUnsub=null,boxesUnsub=null,allBoxesUnsub=null,cardsUnsub=null,adminCardsUnsub=null,adminUnlocked=false,adminSecretBuffer="",selectedBox=null,openingBox=false;
 let economy={initialGuest:100,accountBonus:300,winMultiplier:2,loanMultiplier:1.3,negativeDailyBonus:50,loanDays:2};
 let activeCardsPanel="cardsMuseum";
+let activeAchFilter="all";
 let flashBoxSchedule={openAt:0,closeAt:0};
 
 function esc(t=""){return String(t).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
@@ -520,36 +586,21 @@ function calcOdds(t){if(!t.total||t.p1===t.p2)return{o1:2.0,o2:2.0};const o1=t.t
 // FLASH BOX SCHEDULE
 // ===========================
 function generateFlashSchedule(){
-  const now=new Date();
-  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  // Use date as seed for deterministic random hours
+  const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   const seed=(today.getFullYear()*10000+today.getMonth()*100+today.getDate());
   const rng=(()=>{let s=seed;return()=>{s=(s*1664525+1013904223)&0xffffffff;return Math.abs(s)/0x80000000}});
-  const r=rng();
-  // Random hour between 8 and 22
-  const openHour=8+Math.floor(r()*14);
-  const openMin=Math.floor(r()*60);
+  const r=rng();const openHour=8+Math.floor(r()*14);const openMin=Math.floor(r()*60);
   const openAt=new Date(today);openAt.setHours(openHour,openMin,0,0);
-  const closeAt=new Date(openAt.getTime()+2*3600000);// 2 hours window
+  const closeAt=new Date(openAt.getTime()+2*3600000);
   return{openAt:openAt.getTime(),closeAt:closeAt.getTime()};
 }
 function initFlashSchedule(){flashBoxSchedule=generateFlashSchedule();updateFlashTimer()}
 function updateFlashTimer(){
-  const now=Date.now();
-  const {openAt,closeAt}=flashBoxSchedule;
+  const now=Date.now();const{openAt,closeAt}=flashBoxSchedule;
   const timerEl=$("flashTimer");const availDiv=$("flashAvailableDiv");if(!timerEl)return;
-  if(now>=openAt&&now<closeAt){
-    // Available!
-    timerEl.textContent="DISPONIBLE ⚡";timerEl.style.color="#a8ef52";
-    if(availDiv)availDiv.style.display="block";
-  } else if(now<openAt){
-    const diff=openAt-now;const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);
-    timerEl.textContent=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;timerEl.style.color="var(--gold)";
-    if(availDiv)availDiv.style.display="none";
-  } else {
-    timerEl.textContent="Fins demà";timerEl.style.color="var(--muted)";
-    if(availDiv)availDiv.style.display="none";
-  }
+  if(now>=openAt&&now<closeAt){timerEl.textContent="DISPONIBLE ⚡";timerEl.style.color="#a8ef52";if(availDiv)availDiv.style.display="block"}
+  else if(now<openAt){const diff=openAt-now;const h=Math.floor(diff/3600000);const m=Math.floor((diff%3600000)/60000);const s=Math.floor((diff%60000)/1000);timerEl.textContent=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;timerEl.style.color="var(--gold)";if(availDiv)availDiv.style.display="none"}
+  else{timerEl.textContent="Fins demà";timerEl.style.color="var(--muted)";if(availDiv)availDiv.style.display="none"}
 }
 
 // ===========================
@@ -566,61 +617,65 @@ function renderCardEl(cardDef,count=1,locked=false){
 function openCardDetail(cardDef,count){
   $("cardDetailTitle").textContent=cardDef.name;
   const owned=userCards.filter(c=>c.cardId===cardDef.id).length;
+  const isInfinity=cardDef.rank==="infinity";
   $("cardDetailContent").innerHTML=`
     <div style="display:flex;justify-content:center;margin-bottom:20px">${renderCardEl(cardDef,owned).outerHTML}</div>
     <h3>${esc(cardDef.name)}</h3>
     <p style="color:var(--muted);margin:8px 0 16px;font-size:14px">${esc(cardDef.desc)}</p>
+    ${isInfinity?`<div style="background:linear-gradient(135deg,#fff3ee,#fff7d8);border:1.5px solid #ffc4a0;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center"><b style="font-size:18px;color:var(--infinityDark)">⚡ Bonus: +${INFINITY_CARD_BONUS} RDTC!</b><p style="font-size:12px;color:var(--muted);margin-top:4px">Per obtenir-la. No es pot comprar!</p></div>`:""}
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <span class="badge gold">Rang: ${CARD_RANKS[cardDef.rank]?.name||cardDef.rank}</span>
       <span class="badge blue">Ronda: ${esc(cardDef.round)}</span>
       <span class="badge ${owned>0?"green":""}">Tens: ${owned}</span>
+      ${isInfinity?`<span class="badge infinity">Solo caixes</span>`:""}
     </div>
   `;
   $("cardDetailModal").classList.remove("hidden");
 }
 
 function getUserCardCounts(){
-  const counts={};userCards.forEach(c=>{counts[c.cardId]=(counts[c.cardId]||0)+1});
-  return counts;
+  const counts={};userCards.forEach(c=>{counts[c.cardId]=(counts[c.cardId]||0)+1});return counts;
 }
 
 function renderCardsMuseum(){
   const box=$("cardsMuseumContent");if(!box)return;
   const counts=getUserCardCounts();
-  const byRank={basic:[],octavos:[],quartos:[],semis:[],final:[]};
-  ALL_CARDS.forEach(c=>byRank[c.rank]?.push(c));
-  const rankOrder=["basic","octavos","quartos","semis","final"];
-  const rankLabels={basic:"🟤 Bàsiques — Prèvies",octavos:"🟢 Octaus de Final",quartos:"🔵 Quarts de Final",semis:"🟣 Semifinals",final:"🟡 Final"};
+  const byRank={basic:[],octavos:[],quartos:[],semis:[],final:[],winner:[],infinity:[]};
+  ALL_CARDS.forEach(c=>{if(byRank[c.rank])byRank[c.rank].push(c)});
+  const rankOrder=["basic","octavos","quartos","semis","final","winner","infinity"];
+  const rankLabels={
+    basic:"🟤 Bàsiques — Prèvies",
+    octavos:"🟢 Octaus de Final",
+    quartos:"🔵 Quarts de Final",
+    semis:"🟣 Semifinals",
+    final:"🟡 Final",
+    winner:"🏅 Guanyador",
+    infinity:"♾️ Infinity — Ultra rar"
+  };
   let html=`<div class="museum">`;
   rankOrder.forEach(rank=>{
-    const cards=byRank[rank]||[];
+    const cards=byRank[rank]||[];if(!cards.length)return;
     const ownedCount=cards.filter(c=>counts[c.id]>0).length;
-    html+=`<div class="museum-section"><div class="museum-section-title">${rankLabels[rank]} <span class="badge ${ownedCount===cards.length?"green":""}"> ${ownedCount}/${cards.length}</span></div><div class="museum-row" id="museumRow_${rank}"></div></div>`;
+    html+=`<div class="museum-section"><div class="museum-section-title">${rankLabels[rank]} <span class="badge ${ownedCount===cards.length&&cards.length>0?"green":""}"> ${ownedCount}/${cards.length}</span></div><div class="museum-row" id="museumRow_${rank}"></div></div>`;
   });
   html+=`</div>`;
   box.innerHTML=html;
   rankOrder.forEach(rank=>{
-    const cards=byRank[rank]||[];
-    const row=$(`museumRow_${rank}`);if(!row)return;
-    cards.forEach(c=>{
-      const count=counts[c.id]||0;
-      const el=renderCardEl(c,count,count===0);
-      row.appendChild(el);
-    });
+    const cards=byRank[rank]||[];const row=$(`museumRow_${rank}`);if(!row)return;
+    cards.forEach(c=>{const count=counts[c.id]||0;const el=renderCardEl(c,count,count===0);row.appendChild(el)});
   });
-  // Update hero counts
   const total=Object.values(counts).reduce((s,v)=>s+v,0);
   if($("cardsOwnedCount"))$("cardsOwnedCount").textContent=total;
   if($("cardsTotalCount"))$("cardsTotalCount").textContent=ALL_CARDS.length;
 }
 
 function renderCardShop(){
-  const box=$("cardShopGrid");if(!box)return;
-  box.innerHTML="";
-  ALL_CARDS.forEach(c=>{
+  const box=$("cardShopGrid");if(!box)return;box.innerHTML="";
+  const shopCards=ALL_CARDS.filter(c=>!c.uncraftable);
+  shopCards.forEach(c=>{
     const owned=(getUserCardCounts()[c.id]||0);
     const div=document.createElement("div");div.className="card-shop-item";
-    div.innerHTML=`<div class="card ${cardRankClass(c.rank)}" style="width:110px;height:156px;pointer-events:none;flex-shrink:0"><div class="card-shine"></div><div class="card-rank-badge">${CARD_RANKS[c.rank]?.label||c.rank}</div><div class="card-icon" style="font-size:24px">${c.icon}</div><div class="card-name" style="font-size:10px">${esc(c.name)}</div><div class="card-round" style="font-size:8px">${esc(c.round)}</div></div><div style="text-align:center"><div style="font-size:12px;font-weight:900;letter-spacing:-.02em">${esc(c.name)}</div><div style="font-size:10px;color:var(--muted);margin:2px 0">${CARD_RANKS[c.rank]?.name}</div><div style="font-size:11px;color:var(--muted);margin-bottom:6px">Tens: <b>${owned}</b></div><div style="font-size:20px;font-weight:900;color:var(--goldDark)">${c.price} RDTC</div></div><button class="btn ${c.rank==="final"?"gold":c.rank==="semis"?"purple":c.rank==="quartos"?"blue":"green"} buy-card-btn" data-id="${c.id}" style="width:100%">Comprar</button>`;
+    div.innerHTML=`<div class="card ${cardRankClass(c.rank)}" style="width:110px;height:156px;pointer-events:none;flex-shrink:0"><div class="card-shine"></div><div class="card-rank-badge">${CARD_RANKS[c.rank]?.label||c.rank}</div><div class="card-icon" style="font-size:24px">${c.icon}</div><div class="card-name" style="font-size:10px">${esc(c.name)}</div><div class="card-round" style="font-size:8px">${esc(c.round)}</div></div><div style="text-align:center"><div style="font-size:12px;font-weight:900;letter-spacing:-.02em">${esc(c.name)}</div><div style="font-size:10px;color:var(--muted);margin:2px 0">${CARD_RANKS[c.rank]?.name}</div><div style="font-size:11px;color:var(--muted);margin-bottom:6px">Tens: <b>${owned}</b></div><div style="font-size:20px;font-weight:900;color:var(--goldDark)">${c.price} RDTC</div></div><button class="btn ${c.rank==="final"||c.rank==="winner"?"gold":c.rank==="semis"?"purple":c.rank==="quartos"?"blue":"green"} buy-card-btn" data-id="${c.id}" style="width:100%">Comprar</button>`;
     div.querySelector(".buy-card-btn").addEventListener("click",()=>buyCard(c.id));
     box.appendChild(div);
   });
@@ -629,59 +684,48 @@ function renderCardShop(){
 async function buyCard(cardId){
   if(!user){$("authModal").classList.remove("hidden");toast("Has d'entrar per comprar cartes.",true);return}
   const c=ALL_CARDS.find(x=>x.id===cardId);if(!c)return;
+  if(c.uncraftable)return toast("Aquesta carta no es pot comprar. Surt a les caixes!",true);
   if((wallet?.coins||0)<c.price)return toast("No tens prou RDTC.",true);
   try{
     const now=Date.now();
     await updateDoc(doc(db,"users",user.uid),{coins:money((wallet.coins||0)-c.price),updatedAt:now});
     await addDoc(collection(db,"cards"),{uid:user.uid,name:uname(),email:user.email||"",cardId:c.id,cardName:c.name,rank:c.rank,source:"shop",createdAt:now});
     await addDoc(collection(db,"publicTransactions"),{uid:user.uid,name:uname(),label:`${uname()} ha comprat la carta "${c.name}"`,amount:-c.price,matchId:"CARD_BUY",createdAt:now});
-    toast(`🃏 Carta "${c.name}" comprada!`);
-    checkAchievements();
+    toast(`🃏 Carta "${c.name}" comprada!`);checkAchievements();
   }catch(e){toast("Error comprant carta.",true)}
 }
 
 async function giveCardToUser(target,cardId,source="admin",qty=1){
-  const c=ALL_CARDS.find(x=>x.id===cardId);if(!c)return;
-  const now=Date.now();
-  for(let i=0;i<qty;i++){
-    await addDoc(collection(db,"cards"),{uid:target.uid||target.id,name:target.name||"Usuari",email:target.email||"",cardId:c.id,cardName:c.name,rank:c.rank,source,createdAt:now+i});
-  }
+  const c=ALL_CARDS.find(x=>x.id===cardId);if(!c)return;const now=Date.now();
+  for(let i=0;i<qty;i++){await addDoc(collection(db,"cards"),{uid:target.uid||target.id,name:target.name||"Usuari",email:target.email||"",cardId:c.id,cardName:c.name,rank:c.rank,source,createdAt:now+i})}
 }
 
 function listenCards(){
   if(cardsUnsub){cardsUnsub();cardsUnsub=null}
   if(!user){userCards=[];renderCardsPage();return}
   cardsUnsub=onSnapshot(query(collection(db,"cards"),where("uid","==",user.uid)),snap=>{
-    userCards=snap.docs.map(d=>({id:d.id,...d.data()}));
-    allUserCards=userCards;
-    renderCardsPage();
-    checkAchievements();
+    userCards=snap.docs.map(d=>({id:d.id,...d.data()}));allUserCards=userCards;
+    renderCardsPage();renderAchievementsPage();checkAchievements();
   });
   if(isAdmin()&&adminUnlocked){
     if(adminCardsUnsub)adminCardsUnsub();
-    adminCardsUnsub=onSnapshot(collection(db,"cards"),snap=>{
-      adminAllCards=snap.docs.map(d=>({id:d.id,...d.data()}));
-      renderAdminCardsStats();renderAdminCardUsers();
-    });
+    adminCardsUnsub=onSnapshot(collection(db,"cards"),snap=>{adminAllCards=snap.docs.map(d=>({id:d.id,...d.data()}));renderAdminCardsStats();renderAdminCardUsers()});
   }
 }
 
 function renderCardsPage(){
   if(activeCardsPanel==="cardsMuseum")renderCardsMuseum();
   else if(activeCardsPanel==="cardsShop")renderCardShop();
-  else if(activeCardsPanel==="cardsAchievements")renderAchievements();
 }
 
 // ===========================
-// ACHIEVEMENTS
+// ACHIEVEMENTS PAGE (separate tab)
 // ===========================
 function computeAchievementStats(){
-  const bets=myBets;const boxes=allUserBoxes;const loans=JSON.parse(localStorage.getItem(LS_KEY+"_loans")||"[]");
-  const cardCounts=getUserCardCounts();
-  const ranks=new Set(userCards.map(c=>c.rank));
+  const bets=myBets;const boxes=allUserBoxes;
+  const cardCounts=getUserCardCounts();const ranks=new Set(userCards.map(c=>c.rank));
   return{
-    totalBets:bets.length,
-    betsWon:bets.filter(b=>b.status==="won").length,
+    totalBets:bets.length,betsWon:bets.filter(b=>b.status==="won").length,
     maxCoins:money(wallet?.coins||0),
     maxSingleBet:bets.reduce((m,b)=>Math.max(m,Number(b.amount||0)),0),
     boxesOpened:boxes.filter(b=>b.opened).length,
@@ -690,27 +734,45 @@ function computeAchievementStats(){
     totalCards:Object.values(cardCounts).reduce((s,v)=>s+v,0),
     hasCard_c_la_final:(cardCounts["c_la_final"]||0)>0,
     hasCard_c_semi_rosa:(cardCounts["c_semi_rosa"]||0)>0,
+    hasCard_c_infinity:(cardCounts["c_infinity"]||0)>0,
+    hasCard_c_guanyador:(cardCounts["c_guanyador"]||0)>0,
     flashWin1000:boxes.filter(b=>b.type==="flash"&&b.prize===1000).length,
-    totalLoans:bets.length>0?1:0,// simplified
+    totalLoans:1,// simplified
     supremeBought:boxes.filter(b=>b.type==="supreme").length,
     cardRanks:ranks.size,
   };
 }
 
-function renderAchievements(){
-  const unlockedTrack=$("unlockedAchTrack");const lockedTrack=$("lockedAchTrack");
-  if(!unlockedTrack||!lockedTrack)return;
+function renderAchievementsPage(){
+  const grid=$("achievementsGrid");if(!grid)return;
   const stats=computeAchievementStats();
-  const unlocked=ACHIEVEMENTS.filter(a=>a.check(stats));
-  const locked=ACHIEVEMENTS.filter(a=>!a.check(stats));
-  function achHTML(a,isUnlocked){
-    return`<div class="achievement ${isUnlocked?"unlocked":"locked"}"><div class="achievement-icon">${a.icon}</div><div class="achievement-name">${esc(a.name)}</div><div class="achievement-desc">${esc(a.desc)}</div><span class="achievement-rank ${a.rank}">${a.rank.toUpperCase()}</span></div>`;
-  }
-  // Duplicate for infinite scroll
-  const uHTML=(unlocked.length?unlocked:ACHIEVEMENTS.slice(0,3)).map(a=>achHTML(a,true)).join("");
-  const lHTML=(locked.length?locked:ACHIEVEMENTS.slice(3)).map(a=>achHTML(a,false)).join("");
-  unlockedTrack.innerHTML=uHTML+uHTML;
-  lockedTrack.innerHTML=lHTML+lHTML;
+  const unlocked=new Set(ACHIEVEMENTS.filter(a=>a.check(stats)).map(a=>a.id));
+  let list=ACHIEVEMENTS;
+  if(activeAchFilter==="unlocked")list=ACHIEVEMENTS.filter(a=>unlocked.has(a.id));
+  else if(activeAchFilter==="locked")list=ACHIEVEMENTS.filter(a=>!unlocked.has(a.id));
+
+  const uCount=ACHIEVEMENTS.filter(a=>unlocked.has(a.id)).length;
+  if($("achUnlockedCount"))$("achUnlockedCount").textContent=uCount;
+  if($("achTotalCount"))$("achTotalCount").textContent=ACHIEVEMENTS.length;
+
+  grid.innerHTML="";
+  list.forEach(a=>{
+    const isUnlocked=unlocked.has(a.id);
+    const div=document.createElement("div");div.className=`achievement-card ${isUnlocked?"unlocked":"locked"}`;
+    div.innerHTML=`
+      <div class="achievement-card-top">
+        <div class="achievement-card-icon">${a.icon}</div>
+        <div style="flex:1">
+          <div class="achievement-card-name">${esc(a.name)}</div>
+          <span class="achievement-rank-badge ${a.rank}">${a.rank.toUpperCase()}</span>
+        </div>
+        ${isUnlocked?`<div class="achievement-unlocked-check">✅</div>`:`<div class="achievement-unlocked-check" style="color:var(--muted)">🔒</div>`}
+      </div>
+      <div class="achievement-card-desc">${esc(a.desc)}</div>
+      ${a.id==="ach_infinity_card"?`<div style="background:linear-gradient(135deg,#fff3ee,#fff7d8);border:1.5px solid #ffc4a0;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--infinityDark)">⚡ Recompensa: +${INFINITY_CARD_BONUS} RDTC automàticament!</div>`:""}
+    `;
+    grid.appendChild(div);
+  });
 }
 
 async function checkAchievements(){
@@ -721,22 +783,46 @@ async function checkAchievements(){
   if(!newUnlocked.length)return;
   const updated=[...already,...newUnlocked.map(a=>a.id)];
   await updateDoc(doc(db,"users",user.uid),{achievements:updated});
-  newUnlocked.forEach(a=>toast(`🏅 Logro desbloquejat: ${a.name}!`));
+  for(const a of newUnlocked){
+    toast(`🏅 Logro desbloquejat: ${a.name}!`);
+    // Special reward for infinity card achievement
+    if(a.id==="ach_infinity_card"){
+      await new Promise(r=>setTimeout(r,800));
+      await updateDoc(doc(db,"users",user.uid),{coins:money((wallet?.coins||0)+INFINITY_CARD_BONUS)});
+      await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha aconseguit la carta ∞ Infinity i ha rebut ${INFINITY_CARD_BONUS} RDTC de bonus!`,amount:INFINITY_CARD_BONUS,matchId:"INFINITY_BONUS",createdAt:Date.now()});
+      await new Promise(r=>setTimeout(r,400));
+      toast(`♾️ BONUS: +${INFINITY_CARD_BONUS} RDTC per la carta Infinity!`);
+    }
+  }
+  renderAchievementsPage();
 }
 
 // ===========================
-// PRIZE WITH CARD POSSIBILITY
+// PRIZE ROLLING WITH INFINITY SUPPORT
 // ===========================
 function rollBoxPrize(type){
   const t=BOX_TYPES[type]||BOX_TYPES.normal;
   const allowedRanks=BOX_CARD_DROPS[type]||["basic"];
-  const availableCards=ALL_CARDS.filter(c=>allowedRanks.includes(c.rank));
-  // 1 card per every 3 RDTC prizes (roughly 25% chance)
-const isCardDrop = availableCards.length > 0 && Math.random() < 0.80;
+
+  // Check for Infinity card drop first
+  let infinityChance=0;
+  if(type==="flash") infinityChance=0.20;
+  else if(type==="supreme") infinityChance=0.05;
+
+  if(infinityChance>0&&Math.random()<infinityChance){
+    const infinityCard=ALL_CARDS.find(c=>c.id==="c_infinity");
+    if(infinityCard)return{type:"card",card:infinityCard};
+  }
+
+  // Normal card drop (~80% of remaining after infinity check)
+  const availableCards=ALL_CARDS.filter(c=>allowedRanks.includes(c.rank)&&c.rank!=="infinity");
+  const isCardDrop=availableCards.length>0&&Math.random()<0.80;
   if(isCardDrop){
     const card=availableCards[Math.floor(Math.random()*availableCards.length)];
     return{type:"card",card};
   }
+
+  // RDTC prize
   const arr=t.weights||[t.min,t.max];
   const amount=arr[Math.floor(Math.random()*arr.length)];
   return{type:"rdtc",amount};
@@ -744,10 +830,8 @@ const isCardDrop = availableCards.length > 0 && Math.random() < 0.80;
 
 function prizeClass(v,type){const t=BOX_TYPES[type]||BOX_TYPES.normal;const ratio=(Number(v)-t.min)/Math.max(1,(t.max-t.min));if(ratio>=.85)return"legend";if(ratio>=.65)return"epic";if(ratio>=.42)return"good";if(ratio>=.22)return"mid";return"low"}
 function buildPrizeTrack(type,finalPrize=null){
-  const t=BOX_TYPES[type]||BOX_TYPES.normal;
-  const base=[];for(let i=0;i<42;i++)base.push(t.weights[i%t.weights.length]);
-  if(finalPrize!==null&&typeof finalPrize==="number")base[34]=finalPrize;
-  return base;
+  const t=BOX_TYPES[type]||BOX_TYPES.normal;const base=[];for(let i=0;i<42;i++)base.push(t.weights[i%t.weights.length]);
+  if(finalPrize!==null&&typeof finalPrize==="number")base[34]=finalPrize;return base;
 }
 function renderRouletteTrack(type,finalPrize=null){
   const track=$("rouletteTrack");if(!track)return;
@@ -755,30 +839,39 @@ function renderRouletteTrack(type,finalPrize=null){
   const arr=buildPrizeTrack(type,finalPrize);
   track.innerHTML=arr.map((v,i)=>{
     if(i===34&&typeof finalPrize==="object"&&finalPrize?.type==="card"){
-      const c=finalPrize.card;return`<div class="roulette-item card-prize">${c.icon}<br><small style="font-size:9px">${esc(c.name).substring(0,12)}</small></div>`;
+      const c=finalPrize.card;
+      const isInfCard=c.rank==="infinity";
+      return`<div class="roulette-item ${isInfCard?"infinity-prize":"card-prize"}">${c.icon}<br><small style="font-size:9px">${esc(c.name).substring(0,12)}</small></div>`;
     }
     return`<div class="roulette-item ${prizeClass(v,type)}">${v}<br><small>RDTC</small></div>`
   }).join("");
   return arr;
 }
 
-function listenTournament(){onSnapshot(doc(tourDB,"tournaments","main"),snap=>{const data=snap.exists()?snap.data():{matches:[]};tournament.matches=Array.isArray(data.matches)?data.matches.map(normalizeMatch):[];renderAll();resolveFinishedBets();},err=>{$("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`})}
-function listenBets(){onSnapshot(collection(db,"bets"),snap=>{allBets=snap.docs.map(d=>({id:d.id,...d.data()}));myBets=allBets.filter(b=>b.uid===uid());renderAll();if(selectedMatch)renderChart()});onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),snap=>{publicTx=snap.docs.map(d=>({id:d.id,...d.data()}));renderPublicTx();renderAdminTransactions()},err=>{console.warn(err);publicTx=[];renderPublicTx();renderAdminTransactions()})}
+function listenTournament(){
+  onSnapshot(doc(tourDB,"tournaments","main"),snap=>{
+    const data=snap.exists()?snap.data():{matches:[]};
+    tournament.matches=Array.isArray(data.matches)?data.matches.map(normalizeMatch):[];
+    // Rebuild dynamic cards from matches
+    DYNAMIC_CARDS=buildDynamicCards(tournament.matches);
+    rebuildAllCards();
+    renderAll();resolveFinishedBets();
+  },err=>{$("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`})
+}
+function listenBets(){
+  onSnapshot(collection(db,"bets"),snap=>{allBets=snap.docs.map(d=>({id:d.id,...d.data()}));myBets=allBets.filter(b=>b.uid===uid());renderAll();if(selectedMatch)renderChart()});
+  onSnapshot(query(collection(db,"publicTransactions"),orderBy("createdAt","desc")),snap=>{publicTx=snap.docs.map(d=>({id:d.id,...d.data()}));renderPublicTx();renderAdminTransactions()},err=>{console.warn(err);publicTx=[];renderPublicTx();renderAdminTransactions()})
+}
 
 function listenBoxes(){
-  if(boxesUnsub){boxesUnsub();boxesUnsub=null}
-  if(allBoxesUnsub){allBoxesUnsub();allBoxesUnsub=null}
+  if(boxesUnsub){boxesUnsub();boxesUnsub=null}if(allBoxesUnsub){allBoxesUnsub();allBoxesUnsub=null}
   if(!user){userBoxes=[];allUserBoxes=[];renderBoxes();return}
   boxesUnsub=onSnapshot(query(collection(db,"boxes"),where("uid","==",user.uid)),snap=>{
     allUserBoxes=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-    userBoxes=allUserBoxes.filter(b=>!b.opened);
-    renderBoxes();renderTop();
+    userBoxes=allUserBoxes.filter(b=>!b.opened);renderBoxes();renderTop();
   },err=>{console.error(err);toast("Error carregant caixes: "+(err.code||err.message),true)});
   if(isAdmin()&&adminUnlocked){
-    allBoxesUnsub=onSnapshot(collection(db,"boxes"),snap=>{
-      allBoxes=snap.docs.map(d=>({id:d.id,...d.data()}));
-      renderAdminBoxesStats();renderAdminBoxesUsers();
-    });
+    allBoxesUnsub=onSnapshot(collection(db,"boxes"),snap=>{allBoxes=snap.docs.map(d=>({id:d.id,...d.data()}));renderAdminBoxesStats();renderAdminBoxesUsers()});
   }
 }
 
@@ -796,7 +889,7 @@ async function ensureWallet(){
       if(!wallet.lastDailyBox)u.lastDailyBox="";if(!wallet.achievements)u.achievements=[];
       if(Object.keys(u).length)await updateDoc(ref,u);
     }
-    walletUnsub=onSnapshot(ref,s=>{if(s.exists()){wallet=s.data();if(wallet.deleted){toast("Compte desactivat.",true);signOut(auth);return}renderAll()}});
+    walletUnsub=onSnapshot(ref,s=>{if(s.exists()){wallet=s.data();if(wallet.deleted){toast("Compte desactivat.",true);signOut(auth);return}renderAll();renderAchievementsPage()}});
   }else wallet=guest()
 }
 async function setCoins(v){v=money(v);if(user)await updateDoc(doc(db,"users",user.uid),{coins:v});else saveGuest({coins:v});wallet={...wallet,coins:v};renderAll()}
@@ -829,19 +922,17 @@ function renderPublicTx(){const box=$("publicTx");const filtered=publicTx.filter
 
 function renderBoxStore(){
   const box=$("boxStore");if(!box)return;
-  const allTypes=[...BOX_ORDER];// don't show flash in regular store (it has its own section)
-  box.innerHTML=allTypes.map(id=>{
+  box.innerHTML=BOX_ORDER.map(id=>{
     const t=BOX_TYPES[id];
     return`<div class="box-card ${t.class}"><div class="box-icon">${t.icon}</div><div><h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p></div><div class="box-price"><b>${t.price}</b><span>RDTC</span></div><button type="button" class="btn ${t.id==="supreme"?"gold":t.id==="mythic"?"purple":"green"} buy-box" data-type="${t.id}">Comprar caixa</button></div>`;
   }).join("");
   box.querySelectorAll(".buy-box").forEach(btn=>btn.addEventListener("click",()=>buyBox(btn.dataset.type)));
 }
-function localBoxes(){return JSON.parse(localStorage.getItem(LS_KEY+"_boxes")||"[]")}
-function saveLocalBoxes(boxes){localStorage.setItem(LS_KEY+"_boxes",JSON.stringify(boxes));allUserBoxes=boxes.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));userBoxes=allUserBoxes.filter(b=>!b.opened);renderBoxes()}
+
 async function addBoxToUser(target,type="normal",source="admin",qty=1){
   const t=BOX_TYPES[type]||BOX_TYPES.normal;const docs=[];
   for(let i=0;i<qty;i++)docs.push({uid:target.uid||target.id,name:target.name||target.email||"Usuari",email:target.email||"",type:t.id,typeName:t.name,opened:false,source,createdAt:Date.now()+i});
-  if(target.uid===uid()&&!user){const arr=localBoxes();saveLocalBoxes([...docs.map(x=>({...x,id:crypto.randomUUID()})),...arr]);return}
+  if(target.uid===uid()&&!user){const arr=JSON.parse(localStorage.getItem(LS_KEY+"_boxes")||"[]");localStorage.setItem(LS_KEY+"_boxes",JSON.stringify([...docs.map(x=>({...x,id:crypto.randomUUID()})),...arr]));allUserBoxes=[...docs,...allUserBoxes];userBoxes=allUserBoxes.filter(b=>!b.opened);renderBoxes();return}
   for(const b of docs)await addDoc(collection(db,"boxes"),b);
 }
 
@@ -859,15 +950,11 @@ async function buyBox(type){
     const t=BOX_TYPES[type];if(!t)return toast("Aquest tipus de caixa no existeix.",true);
     if((wallet?.coins||0)<t.price)return toast("No tens prou RDTC per comprar aquesta caixa.",true);
     const now=Date.now();
-    if(type==="flash"){
-      const{openAt,closeAt}=flashBoxSchedule;
-      if(now<openAt||now>=closeAt)return toast("La caixa flash no està disponible ara.",true);
-    }
+    if(type==="flash"){const{openAt,closeAt}=flashBoxSchedule;if(now<openAt||now>=closeAt)return toast("La caixa flash no està disponible ara.",true)}
     await updateDoc(doc(db,"users",user.uid),{coins:money((wallet.coins||0)-t.price),updatedAt:now});
     await addDoc(collection(db,"boxes"),{uid:user.uid,name:uname(),email:user.email||"",type:t.id,typeName:t.name,opened:false,source:"shop",createdAt:now});
     await addDoc(collection(db,"publicTransactions"),{uid:user.uid,name:uname(),label:`${uname()} ha comprat ${t.name}`,amount:-t.price,matchId:"BOX_BUY",createdAt:now});
-    toast(`✅ ${t.name} comprada.`);
-    checkAchievements();
+    toast(`✅ ${t.name} comprada.`);checkAchievements();
   }catch(e){console.error(e);toast("Error comprant caixa: "+(e.code||e.message),true)}
 }
 function renderBoxes(){
@@ -883,7 +970,7 @@ function renderBoxes(){
     const t=BOX_TYPES[b.type]||BOX_TYPES.normal;const div=document.createElement("div");div.className="inventory-box";div.dataset.boxId=b.id;
     div.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="box-icon" style="width:44px;height:44px;font-size:22px">${t.icon}</div><span class="badge gold">Sense obrir</span></div><div><h3>${esc(t.name)}</h3><p class="sub" style="margin-top:4px">Premi possible: ${t.min} - ${t.max} RDTC + cartes!</p></div><button class="btn green open-box" data-id="${esc(b.id)}">✨ Obrir caixa</button>`;
     div.querySelector(".open-box").addEventListener("click",()=>openBoxModal(b.id));box.appendChild(div);
-  })
+  });
   renderOpenedBoxesHistory();
 }
 function renderOpenedBoxesHistory(){
@@ -892,10 +979,10 @@ function renderOpenedBoxesHistory(){
   const opened=allUserBoxes.filter(b=>b.opened).sort((a,b)=>(b.openedAt||b.createdAt||0)-(a.openedAt||a.createdAt||0));
   if(!opened.length){box.innerHTML=`<div class="empty"><span class="empty-icon">📜</span>Encara no has obert cap caixa.</div>`;return}
   box.innerHTML=opened.map(b=>{
-    const t=BOX_TYPES[b.type]||BOX_TYPES.normal;
-    const isCard=b.prizeType==="card";
+    const t=BOX_TYPES[b.type]||BOX_TYPES.normal;const isCard=b.prizeType==="card";
     const cardDef=isCard?ALL_CARDS.find(c=>c.id===b.prizeCardId):null;
-    return`<div class="inventory-box"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="box-icon" style="width:44px;height:44px;font-size:22px">${t.icon}</div><span class="badge green">Oberta</span></div><div><h3>${esc(t.name)}</h3><p class="sub" style="margin-top:4px">${isCard?`🃏 Carta: ${cardDef?.name||"?"}`:"Premi guanyat"}</p></div>${isCard?`<div style="background:var(--purpleSoft);border:1.5px solid #d7c8ff;border-radius:12px;padding:8px 12px;font-size:13px;font-weight:800;color:var(--purpleDark)">🃏 ${esc(cardDef?.name||"Carta")}</div>`:`<div class="box-price" style="background:var(--goldSoft);color:var(--goldDark);border-color:#f3dc7a"><b>${money(b.prize||0)}</b><span>RDTC</span></div>`}<p style="font-size:11px;color:var(--muted);font-weight:700">${b.openedAt?new Date(b.openedAt).toLocaleString("ca-ES"):""}</p></div>`;
+    const isInfCard=cardDef?.rank==="infinity";
+    return`<div class="inventory-box" style="${isInfCard?"border:2px solid rgba(255,107,53,.4);background:linear-gradient(135deg,#fff,#fff3ee)":""}"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="box-icon" style="width:44px;height:44px;font-size:22px">${t.icon}</div><span class="badge green">Oberta</span></div><div><h3>${esc(t.name)}</h3><p class="sub" style="margin-top:4px">${isCard?`🃏 Carta: ${cardDef?.name||"?"}`:"Premi guanyat"}</p></div>${isCard?`<div style="background:${isInfCard?"linear-gradient(135deg,#fff3ee,#fff7d8);border:1.5px solid #ffc4a0":"var(--purpleSoft);border:1.5px solid #d7c8ff"};border-radius:12px;padding:8px 12px;font-size:13px;font-weight:800;color:${isInfCard?"var(--infinityDark)":"var(--purpleDark)"}">🃏 ${esc(cardDef?.name||"Carta")}${isInfCard?` <small>+${INFINITY_CARD_BONUS} RDTC!</small>`:""}</div>`:`<div class="box-price" style="background:var(--goldSoft);color:var(--goldDark);border-color:#f3dc7a"><b>${money(b.prize||0)}</b><span>RDTC</span></div>`}<p style="font-size:11px;color:var(--muted);font-weight:700">${b.openedAt?new Date(b.openedAt).toLocaleString("ca-ES"):""}</p></div>`;
   }).join("");
 }
 function openBoxModal(id){
@@ -911,7 +998,6 @@ async function startOpenBox(){
   if(openingBox||!selectedBox||selectedBox.opened)return;
   openingBox=true;
   const boxId=selectedBox.id;const type=selectedBox.type;const t=BOX_TYPES[type]||BOX_TYPES.normal;
-  // Roll prize
   const prizeRoll=rollBoxPrize(type);
   const card=document.querySelector(`[data-box-id="${CSS.escape(boxId)}"]`);if(card)card.classList.add("opening");
   $("startOpenBoxBtn").disabled=true;$("boxPrizeResult").classList.add("hidden");
@@ -925,12 +1011,14 @@ async function startOpenBox(){
 async function finishOpenBox(prizeRoll,boxId){
   const stage=document.querySelector(".spin-stage");const old=stage.querySelector(".box-open-particles");if(old)old.remove();
   const particles=document.createElement("div");particles.className="box-open-particles";
-  ["✨","💥","⭐","🎁","💰","⚡","🌟","🔥"].forEach((x,i)=>{const s=document.createElement("span");s.textContent=x;s.style.setProperty("--x",`${Math.cos(i/8*Math.PI*2)*150}px`);s.style.setProperty("--y",`${Math.sin(i/8*Math.PI*2)*95}px`);particles.appendChild(s)});
+  const isInfCard=prizeRoll.type==="card"&&prizeRoll.card?.rank==="infinity";
+  const emojis=isInfCard?["♾️","⚡","💥","🌟","✨","🔥","💰","👑"]:["✨","💥","⭐","🎁","💰","⚡","🌟","🔥"];
+  emojis.forEach((x,i)=>{const s=document.createElement("span");s.textContent=x;s.style.setProperty("--x",`${Math.cos(i/8*Math.PI*2)*150}px`);s.style.setProperty("--y",`${Math.sin(i/8*Math.PI*2)*95}px`);particles.appendChild(s)});
   stage.appendChild(particles);
   const prizeBox=$("boxPrizeResult");const prizeDisplay=$("boxPrizeDisplay");
   if(prizeRoll.type==="card"){
-    const c=prizeRoll.card;
-    prizeDisplay.innerHTML=`<div style="font-size:32px;margin-bottom:8px">🃏</div><div style="font-size:22px;font-weight:900;color:var(--purpleDark)">${esc(c.name)}</div><div style="font-size:13px;color:var(--muted);margin-top:4px">Carta ${CARD_RANKS[c.rank]?.name}</div>`;
+    const c=prizeRoll.card;const isInf=c.rank==="infinity";
+    prizeDisplay.innerHTML=`<div style="font-size:${isInf?"48px":"32px"};margin-bottom:8px">${c.icon}</div><div style="font-size:${isInf?"28px":"22px"};font-weight:900;color:${isInf?"var(--infinityDark)":"var(--purpleDark)"}">🃏 ${esc(c.name)}</div><div style="font-size:13px;color:var(--muted);margin-top:4px">Carta ${CARD_RANKS[c.rank]?.name}</div>${isInf?`<div style="margin-top:12px;background:linear-gradient(135deg,#fff3ee,#fff7d8);border:1.5px solid #ffc4a0;border-radius:12px;padding:10px 16px;font-size:18px;font-weight:900;color:var(--infinityDark)">⚡ +${INFINITY_CARD_BONUS} RDTC bonus!</div>`:""}`;
     prizeBox.classList.remove("hidden");
   }else{
     prizeDisplay.innerHTML=`<div class="section-label">Premi guanyat</div><div class="prize-big">${money(prizeRoll.amount)} RDTC</div>`;
@@ -941,7 +1029,8 @@ async function finishOpenBox(prizeRoll,boxId){
     if(prizeRoll.type==="card"){
       updateData.prizeType="card";updateData.prizeCardId=prizeRoll.card.id;updateData.prize=0;
       await addDoc(collection(db,"cards"),{uid:uid(),name:uname(),email:user?.email||"",cardId:prizeRoll.card.id,cardName:prizeRoll.card.name,rank:prizeRoll.card.rank,source:"box",createdAt:Date.now()});
-      await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha obert una caixa i ha obtingut la carta "${prizeRoll.card.name}"`,amount:0,matchId:"BOX_CARD",createdAt:Date.now()});
+      const isInf=prizeRoll.card.rank==="infinity";
+      await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha obert una caixa i ha obtingut la carta "${prizeRoll.card.name}"${isInf?` (+${INFINITY_CARD_BONUS} RDTC bonus!)` :""}`,amount:isInf?INFINITY_CARD_BONUS:0,matchId:"BOX_CARD",createdAt:Date.now()});
       toast(`🃏 Has obtingut la carta "${prizeRoll.card.name}"!`);
     }else{
       updateData.prizeType="rdtc";updateData.prize=prizeRoll.amount;
@@ -950,11 +1039,9 @@ async function finishOpenBox(prizeRoll,boxId){
       toast(`🎉 Has guanyat ${prizeRoll.amount} RDTC.`);
     }
     await updateDoc(doc(db,"boxes",boxId),updateData);
-    const card=document.querySelector(`[data-box-id="${CSS.escape(boxId)}"]`);
-    if(card){card.classList.remove("opening");card.classList.add("removing");setTimeout(()=>card.remove(),450)}
-    allUserBoxes = allUserBoxes.map(b =>
-  b.id === boxId ? { ...b, ...updateData } : b
-);
+    const cardEl=document.querySelector(`[data-box-id="${CSS.escape(boxId)}"]`);
+    if(cardEl){cardEl.classList.remove("opening");cardEl.classList.add("removing");setTimeout(()=>cardEl.remove(),450)}
+    allUserBoxes=allUserBoxes.map(b=>b.id===boxId?{...b,...updateData}:b);
     userBoxes=userBoxes.filter(b=>b.id!==boxId);
     renderTop();checkAchievements();
   }catch(e){console.error(e);toast("Error obrint la caixa: "+(e.code||e.message),true)}
@@ -963,19 +1050,11 @@ async function finishOpenBox(prizeRoll,boxId){
 
 // Admin cards
 function renderAdminCardsStats(){
-  if(!isAdmin())return;
-  const total=adminAllCards.length;
-  const users=new Set(adminAllCards.map(c=>c.uid)).size;
-  const unique=new Set(adminAllCards.map(c=>c.cardId)).size;
-  const bought=adminAllCards.filter(c=>c.source==="shop").length;
-  if($("adminCardsTotalGiven"))$("adminCardsTotalGiven").textContent=total;
-  if($("adminCardsUsersCount"))$("adminCardsUsersCount").textContent=users;
-  if($("adminCardsUnique"))$("adminCardsUnique").textContent=unique;
-  if($("adminCardsBought"))$("adminCardsBought").textContent=bought;
+  if(!isAdmin())return;const total=adminAllCards.length;const users=new Set(adminAllCards.map(c=>c.uid)).size;const unique=new Set(adminAllCards.map(c=>c.cardId)).size;const bought=adminAllCards.filter(c=>c.source==="shop").length;
+  if($("adminCardsTotalGiven"))$("adminCardsTotalGiven").textContent=total;if($("adminCardsUsersCount"))$("adminCardsUsersCount").textContent=users;if($("adminCardsUnique"))$("adminCardsUnique").textContent=unique;if($("adminCardsBought"))$("adminCardsBought").textContent=bought;
 }
 function renderAdminCardUsers(){
-  if(!isAdmin()||!$("adminCardUsers"))return;
-  const box=$("adminCardUsers");const s=($("adminCardSearch")?.value||"").toLowerCase().trim();let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));
+  if(!isAdmin()||!$("adminCardUsers"))return;const box=$("adminCardUsers");const s=($("adminCardSearch")?.value||"").toLowerCase().trim();let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));
   if(s)list=list.filter(u=>`${u.name||""} ${u.email||""} ${u.uid||u.id}`.toLowerCase().includes(s));
   if(!list.length){box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;return}
   box.innerHTML="";
@@ -994,7 +1073,6 @@ async function adminGiveCardAll(){if(!isAdmin())return;const cardId=$("adminCard
 function populateAdminCardSelect(){const sel=$("adminCardSelect");if(!sel)return;sel.innerHTML=ALL_CARDS.map(c=>`<option value="${c.id}">[${CARD_RANKS[c.rank]?.label}] ${esc(c.name)}</option>`).join("")}
 
 async function getLoans(){if(!user)return JSON.parse(localStorage.getItem(LS_KEY+"_loans")||"[]");try{const s=await getDocs(query(collection(db,"loans"),where("uid","==",uid())));return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))}catch(e){return[]}}
-function saveLocalLoans(loans){localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans))}
 async function renderLoans(){const loans=await getLoans();if($("debtCoins"))$("debtCoins").textContent=money(loans.filter(l=>l.status==="active").reduce((s,l)=>s+Number(l.returnAmount||0),0));const box=$("loans");if(!box)return;if(!loans.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🏦</span>No tens préstecs actius.</div>`;return}box.innerHTML="";loans.forEach(l=>{const late=l.status==="active"&&Date.now()>l.dueAt;const div=document.createElement("div");div.className="loan-card";div.innerHTML=`<div><h3>${money(l.amount)} RDTC → <span style="color:var(--redDark)">${money(l.returnAmount)} RDTC</span></h3><p style="font-size:12px;color:var(--muted);margin-top:4px">Venciment: ${new Date(l.dueAt).toLocaleString("ca-ES")}</p></div><div style="display:flex;align-items:center;gap:8px"><span class="badge ${l.status==="paid"?"green":late?"":"blue"}">${l.status==="paid"?"✅ Pagat":late?"⚠️ Vençut":"🟢 Actiu"}</span>${l.status==="active"?`<button class="btn green pay-loan">Tornar ara</button>`:""}</div>`;const btn=div.querySelector(".pay-loan");if(btn)btn.addEventListener("click",()=>payLoan(l));box.appendChild(div)})}
 async function loadAdminUsers(){if(!isAdmin())return;try{const snap=await getDocs(collection(db,"users"));adminUsers=snap.docs.map(d=>({id:d.id,...d.data()})).filter(u=>!u.deleted);renderAdminUsers();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminCardUsers();renderAdminCardsStats()}catch(e){console.error(e)}}
 async function getUserActiveLoans(userId){try{const snap=await getDocs(query(collection(db,"loans"),where("uid","==",userId),where("status","==","active")));return snap.docs.map(d=>({id:d.id,...d.data()}))}catch(e){return[]}}
@@ -1028,8 +1106,8 @@ function renderAdminBetsUsers(){
 }
 function renderAdminBoxesStats(){if(!isAdmin())return;const closed=allBoxes.filter(b=>!b.opened).length;const opened=allBoxes.filter(b=>b.opened).length;const total=allBoxes.filter(b=>b.opened).reduce((s,b)=>s+Number(b.prize||0),0);if($("adminBoxesClosed"))$("adminBoxesClosed").textContent=closed;if($("adminBoxesOpened"))$("adminBoxesOpened").textContent=opened;if($("adminBoxesPrizeTotal"))$("adminBoxesPrizeTotal").textContent=money(total)}
 function renderAdminBoxesUsers(){if(!isAdmin()||!$("adminBoxUsers"))return;const box=$("adminBoxUsers");const s=($("adminBoxSearch")?.value||"").toLowerCase().trim();let list=adminUsers.slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||"")));if(s)list=list.filter(u=>`${u.name||""} ${u.email||""} ${u.uid||u.id}`.toLowerCase().includes(s));if(!list.length){box.innerHTML=`<div class="empty">Cap usuari trobat.</div>`;return}box.innerHTML="";list.forEach(u=>{const userId=u.uid||u.id;const boxes=allBoxes.filter(b=>b.uid===userId);const closed=boxes.filter(b=>!b.opened).length;const div=document.createElement("div");div.className="admin-user";div.innerHTML=`<div class="admin-user-head"><div><b>${esc(u.name||"Sense nom")}</b><p style="font-size:12px;color:var(--muted)">${esc(u.email||userId)}</p></div><span class="badge purple">${closed} caixes</span></div><p class="sub" style="margin:0">Total caixes: <b style="color:#111">${boxes.length}</b> · Obertes: <b style="color:#111">${boxes.filter(b=>b.opened).length}</b></p><button class="btn purple give-box-one">🎁 Donar caixa seleccionada</button>`;div.querySelector(".give-box-one").addEventListener("click",()=>adminGiveBoxToUser(u));box.appendChild(div)})}
-async function adminGiveBoxToUser(u){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));try{await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin",qty);await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:u.name||u.email||"Usuari",label:`Admin ha donat ${qty} ${BOX_TYPES[type].name}`,amount:0,matchId:"BOX_ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast(`🎁 ${qty} caixa(es) donades a ${u.name||u.email}.`)}catch(e){toast("Error donant caixa.",true)}}
-async function adminGiveBoxAll(){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));if(!confirm(`Donar ${qty} ${BOX_TYPES[type].name} a tots els usuaris?`))return;try{for(const u of adminUsers)await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin_all",qty);await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${qty} ${BOX_TYPES[type].name} a tots`,amount:0,matchId:"BOX_ADMIN_ALL",admin:user.email,adminAction:true,createdAt:Date.now()});toast("🎁 Caixes donades a tots.")}catch(e){toast("Error donant caixes.",true)}}
+async function adminGiveBoxToUser(u){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));try{await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin",qty);await addDoc(collection(db,"publicTransactions"),{uid:u.uid||u.id,name:u.name||u.email||"Usuari",label:`Admin ha donat ${qty} ${BOX_TYPES[type]?.name||type}`,amount:0,matchId:"BOX_ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast(`🎁 ${qty} caixa(es) donades a ${u.name||u.email}.`)}catch(e){toast("Error donant caixa.",true)}}
+async function adminGiveBoxAll(){if(!isAdmin())return;const type=$("adminBoxType").value;const qty=Math.max(1,Number($("adminBoxQty").value||1));if(!confirm(`Donar ${qty} ${BOX_TYPES[type]?.name||type} a tots els usuaris?`))return;try{for(const u of adminUsers)await addBoxToUser({uid:u.uid||u.id,name:u.name||u.email||"Usuari",email:u.email||""},type,"admin_all",qty);await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${qty} ${BOX_TYPES[type]?.name||type} a tots`,amount:0,matchId:"BOX_ADMIN_ALL",admin:user.email,adminAction:true,createdAt:Date.now()});toast("🎁 Caixes donades a tots.")}catch(e){toast("Error donant caixes.",true)}}
 async function adminSetBetAmount(betId,newAmount){if(!isAdmin())return;newAmount=money(newAmount);if(!newAmount||newAmount<1)return toast("Quantitat incorrecta.",true);const bet=allBets.find(b=>b.id===betId);if(!bet)return toast("Aposta no trobada.",true);try{await updateDoc(doc(db,"bets",betId),{amount:newAmount,updatedAt:Date.now(),updatedBy:user.email});await addDoc(collection(db,"publicTransactions"),{uid:bet.uid,name:bet.name||"Usuari",label:`Admin ha canviat una aposta a ${newAmount} RDTC`,amount:0,matchId:bet.matchId,admin:user.email,adminAction:true,createdAt:Date.now()});toast("Aposta actualitzada.")}catch(e){toast("Error actualitzant aposta.",true)}}
 async function adminDeleteBet(betId){if(!isAdmin())return;const bet=allBets.find(b=>b.id===betId);if(!bet)return;if(!confirm("Treure aquesta aposta?"))return;try{await deleteDoc(doc(db,"bets",betId));await addDoc(collection(db,"publicTransactions"),{uid:bet.uid,name:bet.name||"Usuari",label:`Admin ha eliminat una aposta de ${money(bet.amount)} RDTC`,amount:0,matchId:bet.matchId,admin:user.email,adminAction:true,createdAt:Date.now()});toast("Aposta eliminada.")}catch(e){toast("Error eliminant aposta.",true)}}
 async function adminPayLoan(loanId,loanUid,returnAmount){if(!isAdmin())return;if(!confirm(`Pagar el préstec de ${returnAmount} RDTC de la seva part?`))return;try{await updateDoc(doc(db,"loans",loanId),{status:"paid",paidAt:Date.now(),paidByAdmin:user.email});const targetUser=await getDoc(doc(db,"users",loanUid));const targetName=targetUser.exists()?targetUser.data().name||loanUid:loanUid;await addDoc(collection(db,"publicTransactions"),{uid:loanUid,name:targetName,label:`Préstec pagat per admin (${user.email}) per ${returnAmount} RDTC`,amount:0,matchId:"LOAN_ADMIN",createdAt:Date.now()});toast("✅ Préstec de l'usuari pagat.");await loadAdminUsers()}catch(e){toast("Error en pagar el préstec.",true)}}
@@ -1039,25 +1117,26 @@ async function adminSaveName(u,name){if(!isAdmin())return;if(!name)return toast(
 async function deleteWhere(col,field,val){const snap=await getDocs(query(collection(db,col),where(field,"==",val)));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,col,d.id))))}
 async function adminDeleteUser(u){if(!isAdmin())return;const id=u.uid||u.id;if(!confirm(`Borrar ${u.name||u.email||id}?`))return;try{await addDoc(collection(db,"publicTransactions"),{uid:id,name:u.name||u.email||"Usuari",label:`Usuari borrat`,amount:0,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});await deleteWhere("bets","uid",id);await deleteWhere("loans","uid",id);await deleteWhere("boxes","uid",id);await deleteWhere("cards","uid",id);await updateDoc(doc(db,"users",id),{deleted:true,coins:0,deletedAt:Date.now(),deletedBy:user.email});toast("Usuari borrat.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function adminGiveAll(amount){if(!isAdmin())return;if(!confirm(`Donar +${amount} RDTC a tots els usuaris?`))return;try{for(const u of adminUsers)await updateDoc(doc(db,"users",u.uid||u.id),{coins:money((u.coins||0)+amount),updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${amount} RDTC a tots`,amount,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast("✅ RDTC donades a tots.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
-async function clearAllTransactions(){if(!isAdmin())return;if(!confirm("Segur que vols esborrar TOTES les transaccions? Això és irreversible."))return;if(!confirm("DOBLE CONFIRMACIÓ: Confirmes que vols esborrar totes les transaccions públiques?"))return;try{const snap=await getDocs(collection(db,"publicTransactions"));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,"publicTransactions",d.id))));toast("✅ Totes les transaccions esborrades.")}catch(e){toast("Error en esborrar.",true)}}
+async function clearAllTransactions(){if(!isAdmin())return;if(!confirm("Segur que vols esborrar TOTES les transaccions?"))return;if(!confirm("DOBLE CONFIRMACIÓ: Confirmes que vols esborrar totes les transaccions públiques?"))return;try{const snap=await getDocs(collection(db,"publicTransactions"));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,"publicTransactions",d.id))));toast("✅ Totes les transaccions esborrades.")}catch(e){toast("Error en esborrar.",true)}}
 
-function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats()}
+function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats();renderAchievementsPage()}
 function activatePage(pageId){
   if((pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage")&&(!adminUnlocked||!isAdmin())){toast("Escriu astop per accedir.",true);pageId="homePage"}
   activePage=pageId;
   document.querySelectorAll(".chrome-tab").forEach(t=>t.classList.toggle("active",t.dataset.page===pageId));
-  ["homePage","walletPage","resultsPage","txPage","bankPage","boxesPage","cardsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
+  ["homePage","walletPage","resultsPage","txPage","bankPage","boxesPage","cardsPage","achievementsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
   requestAnimationFrame(()=>{
     renderAll();
     if(pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage"){loadAdminUsers();listenBoxes();listenCards()}
     if(pageId==="cardsPage")renderCardsPage();
+    if(pageId==="achievementsPage")renderAchievementsPage();
   })
 }
 function activateAdminPanel(panelId){document.querySelectorAll(".admin-inner-tab").forEach(b=>b.classList.toggle("active",b.dataset.adminPanel===panelId));["adminUsersPanel","adminTransactionsPanel","adminBetsPanel"].forEach(id=>$(id).classList.toggle("hidden",id!==panelId));renderAdminTransactions();renderAdminBetsUsers()}
 function activateCardsPanel(panelId){
   activeCardsPanel=panelId;
   document.querySelectorAll(".cards-tab").forEach(b=>b.classList.toggle("active",b.dataset.cardsPanel===panelId));
-  ["cardsMuseum","cardsShop","cardsAchievements"].forEach(id=>$(id).classList.toggle("hidden",id!==panelId));
+  ["cardsMuseum","cardsShop"].forEach(id=>$(id).classList.toggle("hidden",id!==panelId));
   renderCardsPage();
 }
 function openPredict(match){
@@ -1071,10 +1150,10 @@ function updateOddsDisplay(match){if(!match)return;const t=totalsFor(match);cons
 function updateBetPreview(){if(!selectedMatch)return;const amount=Number($("betAmount").value||0);const t=totalsFor(selectedMatch);const odds=calcOdds(t);const side=selectedChoice===selectedMatch.p1?odds.o1:odds.o2;const win=selectedChoice?money(amount*side-amount):money(amount*economy.winMultiplier-amount);$("betPreviewWin").textContent=`+${win} RDTC`}
 function renderChart(){if(!selectedMatch)return;const rows=allBets.filter(b=>String(b.matchId)===String(selectedMatch.id)).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));let p1=0,p2=0;const points=[];rows.forEach(b=>{if(b.choice===selectedMatch.p1)p1+=Number(b.amount||0);if(b.choice===selectedMatch.p2)p2+=Number(b.amount||0);points.push({diff:p1-p2,p1,p2,ts:b.createdAt||0})});$("chartP1Val").textContent=`${money(p1)} RDTC`;$("chartP2Val").textContent=`${money(p2)} RDTC`;const svg=$("betChart");const W=800,H=180,PAD=24;if(!points.length){svg.innerHTML=`<text x="400" y="95" text-anchor="middle" font-size="13" font-weight="700" fill="#bbb">Sense apostes encara — sigues el primer!</text>`;return}const max=Math.max(10,...points.map(p=>Math.abs(p.diff)));const midY=H/2;const coordsArr=points.map((p,i)=>{const x=points.length===1?W/2:(i/(points.length-1))*(W-PAD*2)+PAD;const y=midY-(p.diff/max)*(midY-PAD);return{x,y,p}});const coords=coordsArr.map(o=>`${o.x},${o.y}`).join(" ");const last=points[points.length-1];const lineCol=last.diff>=0?"#3d7fff":"#ff4f4f";const area=`${PAD},${midY} ${coords} ${points.length===1?W/2:(W-PAD)},${midY}`;const dots=coordsArr.map(o=>`<circle cx="${o.x}" cy="${o.y}" r="3.5" fill="${o.p.diff>=0?"#3d7fff":"#ff4f4f"}" opacity=".8"/>`).join("");const lp=coordsArr[coordsArr.length-1];svg.innerHTML=`<defs><linearGradient id="areag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${lineCol}" stop-opacity=".18"/><stop offset="100%" stop-color="${lineCol}" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="${midY}" x2="${W}" y2="${midY}" stroke="#e8e8e0" stroke-width="1" stroke-dasharray="4,4"/><polygon points="${area}" fill="url(#areag)"/><polyline points="${coords}" fill="none" stroke="${lineCol}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${dots}<circle cx="${lp.x}" cy="${lp.y}" r="6" fill="${lineCol}"/><circle cx="${lp.x}" cy="${lp.y}" r="10" fill="${lineCol}" opacity=".2"/><text x="${PAD+4}" y="16" font-size="11" font-weight="800" fill="#3d7fff">${esc(selectedMatch.p1)}</text><text x="${W-PAD-4}" y="16" text-anchor="end" font-size="11" font-weight="800" fill="#ff4f4f">${esc(selectedMatch.p2)}</text>`}
 async function confirmPrediction(){if(!user){$("authModal").classList.remove("hidden");toast("Has d'entrar per apostar.",true);return}if(bettingBlockedNow()){toast("Ara no es pot apostar perquè els admins estan donant els resultats de les prediccions.",true);return}if(!selectedMatch)return;const amount=money($("betAmount").value);if(!selectedChoice)return toast("Tria un jugador primer.",true);if(!amount||amount<=0)return toast("Quantitat incorrecta.",true);if((wallet?.coins||0)<amount)return toast("No tens prou RDTC.",true);if(myBets.some(b=>String(b.matchId)===String(selectedMatch.id)))return toast("Ja has apostat. Modifica-la.",true);try{const name=uname();await setCoins((wallet.coins||0)-amount);await addDoc(collection(db,"bets"),{uid:uid(),name,matchId:selectedMatch.id,matchTitle:`${selectedMatch.p1} vs ${selectedMatch.p2}`,matchRound:selectedMatch.round||0,choice:selectedChoice,amount,originalAmount:amount,status:"pending",createdAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name,label:`${name} ha apostat ${amount} RDTC per ${selectedChoice}`,amount:-amount,matchId:selectedMatch.id,createdAt:Date.now()});toast("✅ Predicció guardada!");$("predictModal").classList.add("hidden");selectedMatch=null;selectedChoice="";renderAll();checkAchievements()}catch(e){toast("Error en guardar.",true)}}
-async function changeBet(direction){if(!user)return toast("Has d'entrar.",true);if(bettingBlockedNow()){toast("Ara no es pot modificar l'aposta perquè els admins estan donant els resultats de les prediccions.",true);return}if(!selectedMatch)return;const mine=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));if(!mine)return toast("No tens cap aposta.",true);if(mine.status!=="pending")return toast("Aposta ja resolta.",true);const delta=money($("changeAmount").value);$("changeError").textContent="";if(!delta||delta<=0){$("changeError").textContent="Quantitat vàlida, si us plau.";return}const curr=money(mine.amount);const orig=money(mine.originalAmount||mine.amount);if(direction==="down"){const alreadyDec=money(orig-curr);const canDec=money(MAX_DEC-alreadyDec);if(canDec<=0){$("changeError").textContent=`Ja has baixat el màxim de ${MAX_DEC} RDTC.`;return}const act=Math.min(delta,canDec);const newAmt=money(curr-act);if(newAmt<1){$("changeError").textContent="Mínim 1 RDTC.";return}await setCoins(money((wallet.coins||0)+act));await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha reduït la seva aposta ${act} RDTC`,amount:act,matchId:selectedMatch.id,createdAt:Date.now()});toast(act<delta?`Baixat ${act} RDTC (límit de ${MAX_DEC} RDTC).`:`Aposta reduïda a ${newAmt} RDTC.`)}else{if((wallet?.coins||0)<delta){$("changeError").textContent="No tens prou RDTC.";return}const newAmt=money(curr+delta);await setCoins(money((wallet.coins||0)-delta));await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pujat la seva aposta ${delta} RDTC`,amount:-delta,matchId:selectedMatch.id,createdAt:Date.now()});toast(`Aposta augmentada a ${newAmt} RDTC.`)}$("changeAmount").value=""}
+async function changeBet(direction){if(!user)return toast("Has d'entrar.",true);if(bettingBlockedNow()){toast("Ara no es pot modificar l'aposta.",true);return}if(!selectedMatch)return;const mine=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));if(!mine)return toast("No tens cap aposta.",true);if(mine.status!=="pending")return toast("Aposta ja resolta.",true);const delta=money($("changeAmount").value);$("changeError").textContent="";if(!delta||delta<=0){$("changeError").textContent="Quantitat vàlida, si us plau.";return}const curr=money(mine.amount);const orig=money(mine.originalAmount||mine.amount);if(direction==="down"){const alreadyDec=money(orig-curr);const canDec=money(MAX_DEC-alreadyDec);if(canDec<=0){$("changeError").textContent=`Ja has baixat el màxim de ${MAX_DEC} RDTC.`;return}const act=Math.min(delta,canDec);const newAmt=money(curr-act);if(newAmt<1){$("changeError").textContent="Mínim 1 RDTC.";return}await setCoins(money((wallet.coins||0)+act));await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha reduït la seva aposta ${act} RDTC`,amount:act,matchId:selectedMatch.id,createdAt:Date.now()});toast(act<delta?`Baixat ${act} RDTC (límit de ${MAX_DEC} RDTC).`:`Aposta reduïda a ${newAmt} RDTC.`)}else{if((wallet?.coins||0)<delta){$("changeError").textContent="No tens prou RDTC.";return}const newAmt=money(curr+delta);await setCoins(money((wallet.coins||0)-delta));await updateDoc(doc(db,"bets",mine.id),{amount:newAmt,updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pujat la seva aposta ${delta} RDTC`,amount:-delta,matchId:selectedMatch.id,createdAt:Date.now()});toast(`Aposta augmentada a ${newAmt} RDTC.`)}$("changeAmount").value=""}
 async function resolveFinishedBets(){const played=playedMatches();if(!played.length||!allBets.length)return;const pending=allBets.filter(b=>b.status==="pending");for(const b of pending){const m=played.find(x=>String(x.id)===String(b.matchId));if(!m)continue;const won=b.choice===m.winner;const payout=won?money(b.amount*economy.winMultiplier):0;try{await updateDoc(doc(db,"bets",b.id),{status:won?"won":"lost",winner:m.winner,payout,resolvedAt:Date.now()});if(won){const us=await getDoc(doc(db,"users",b.uid));if(us.exists())await updateDoc(doc(db,"users",b.uid),{coins:money((us.data().coins||0)+payout)})}await addDoc(collection(db,"publicTransactions"),{uid:b.uid,name:b.name,matchId:b.matchId,label:won?`${b.name} ha guanyat ${payout} RDTC apostant per ${b.choice}`:`${b.name} ha perdut ${b.amount} RDTC apostant per ${b.choice}`,amount:won?payout:-b.amount,createdAt:Date.now()})}catch(e){console.warn(e)}}}
-async function requestLoan(){const amount=money($("loanAmount").value);if(!amount||amount<=0)return toast("Quantitat incorrecta.",true);if(amount>MAX_LOAN)return toast("El màxim que pots demanar al banc és 800 RDTC.",true);const loan={uid:uid(),name:uname(),amount,returnAmount:money(amount*economy.loanMultiplier),dueAt:Date.now()+economy.loanDays*86400000,status:"active",createdAt:Date.now()};if(user)await addDoc(collection(db,"loans"),loan);else{const loans=await getLoans();loans.unshift({...loan,id:crypto.randomUUID()});saveLocalLoans(loans)}await setCoins((wallet?.coins||0)+amount);await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha demanat un préstec de ${amount} RDTC`,amount,matchId:"LOAN",createdAt:Date.now()});toast("✅ Préstec concedit.");checkAchievements()}
-async function payLoan(l){if((wallet?.coins||0)<l.returnAmount)return toast("No tens prou RDTC.",true);if(user)await updateDoc(doc(db,"loans",l.id),{status:"paid",paidAt:Date.now()});else{const loans=(await getLoans()).map(x=>x.id===l.id?{...x,status:"paid",paidAt:Date.now()}:x);saveLocalLoans(loans)}await setCoins((wallet.coins||0)-l.returnAmount);await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pagat un préstec de ${l.returnAmount} RDTC`,amount:-l.returnAmount,matchId:"LOAN",createdAt:Date.now()});toast("✅ Préstec pagat.")}
+async function requestLoan(){const amount=money($("loanAmount").value);if(!amount||amount<=0)return toast("Quantitat incorrecta.",true);if(amount>MAX_LOAN)return toast("El màxim que pots demanar al banc és 800 RDTC.",true);const loan={uid:uid(),name:uname(),amount,returnAmount:money(amount*economy.loanMultiplier),dueAt:Date.now()+economy.loanDays*86400000,status:"active",createdAt:Date.now()};if(user)await addDoc(collection(db,"loans"),loan);else{const loans=await getLoans();loans.unshift({...loan,id:crypto.randomUUID()});localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans))}await setCoins((wallet?.coins||0)+amount);await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha demanat un préstec de ${amount} RDTC`,amount,matchId:"LOAN",createdAt:Date.now()});toast("✅ Préstec concedit.");checkAchievements()}
+async function payLoan(l){if((wallet?.coins||0)<l.returnAmount)return toast("No tens prou RDTC.",true);if(user)await updateDoc(doc(db,"loans",l.id),{status:"paid",paidAt:Date.now()});else{const loans=(await getLoans()).map(x=>x.id===l.id?{...x,status:"paid",paidAt:Date.now()}:x);localStorage.setItem(LS_KEY+"_loans",JSON.stringify(loans))}await setCoins((wallet.coins||0)-l.returnAmount);await addDoc(collection(db,"publicTransactions"),{uid:uid(),name:uname(),label:`${uname()} ha pagat un préstec de ${l.returnAmount} RDTC`,amount:-l.returnAmount,matchId:"LOAN",createdAt:Date.now()});toast("✅ Préstec pagat.")}
 
 // ===========================
 // EVENT LISTENERS
@@ -1082,6 +1161,11 @@ async function payLoan(l){if((wallet?.coins||0)<l.returnAmount)return toast("No 
 document.querySelectorAll(".chrome-tab").forEach(tab=>tab.addEventListener("click",()=>activatePage(tab.dataset.page)));
 document.querySelectorAll(".admin-inner-tab").forEach(tab=>tab.addEventListener("click",()=>activateAdminPanel(tab.dataset.adminPanel)));
 document.querySelectorAll(".cards-tab").forEach(tab=>tab.addEventListener("click",()=>activateCardsPanel(tab.dataset.cardsPanel)));
+document.querySelectorAll(".ach-filter").forEach(btn=>btn.addEventListener("click",()=>{
+  activeAchFilter=btn.dataset.filter;
+  document.querySelectorAll(".ach-filter").forEach(b=>b.classList.toggle("active",b===btn));
+  renderAchievementsPage();
+}));
 
 window.addEventListener("keydown",e=>{
   const tag=document.activeElement?.tagName?.toLowerCase();
@@ -1127,23 +1211,19 @@ $("emailSignup").addEventListener("click",async()=>{try{const name=$("nameInput"
 $("logoutBtn").addEventListener("click",()=>signOut(auth));
 
 onAuthStateChanged(auth,async u=>{
-  user=u;
-  await ensureWallet();
-  myBets=allBets.filter(b=>b.uid===uid());
-  listenBoxes();listenCards();
-  renderAll();
+  user=u;await ensureWallet();myBets=allBets.filter(b=>b.uid===uid());
+  listenBoxes();listenCards();renderAll();renderAchievementsPage();
   if(adminUnlocked&&isAdmin())loadAdminUsers();
   else{adminUnlocked=false;$("adminTab").classList.add("hidden");$("adminBoxesTab").classList.add("hidden");$("adminCardsTab").classList.add("hidden");if(["adminPage","adminBoxesPage","adminCardsPage"].includes(activePage))activatePage("homePage")}
 });
 
-// Flash timer loop
 setInterval(updateFlashTimer,1000);
 
 (async function init(){
   await loadEconomy();await ensureWallet();
   initFlashSchedule();
   listenTournament();listenBets();listenBoxes();listenCards();
-  renderBoxStore();renderCardShop();
+  renderBoxStore();renderCardShop();renderAchievementsPage();
   activatePage("homePage");
 })();
 </script>
