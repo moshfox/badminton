@@ -940,20 +940,6 @@ function renderRouletteTrack(type, finalPrize = null) {
 
   return arr;
 }
-function renderRouletteTrack(type,finalPrize=null){
-  const track=$("rouletteTrack");if(!track)return;
-  track.classList.remove("spinning");track.style.transition="none";track.style.transform="translateX(0)";
-  const arr=buildPrizeTrack(type,finalPrize);
-  track.innerHTML=arr.map((v,i)=>{
-    if(i===34&&typeof finalPrize==="object"&&finalPrize?.type==="card"){
-      const c=finalPrize.card;
-      const isInfCard=c.rank==="infinity";
-      return`<div class="roulette-item ${isInfCard?"infinity-prize":"card-prize"}">${c.icon}<br><small style="font-size:9px">${esc(c.name).substring(0,12)}</small></div>`;
-    }
-    return`<div class="roulette-item ${prizeClass(v,type)}">${v}<br><small>RDTC</small></div>`
-  }).join("");
-  return arr;
-}
 
 function listenTournament(){
   onSnapshot(doc(tourDB,"tournaments","main"),snap=>{
