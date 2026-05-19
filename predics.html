@@ -873,9 +873,72 @@ function rollBoxPrize(type){
 }
 
 function prizeClass(v,type){const t=BOX_TYPES[type]||BOX_TYPES.normal;const ratio=(Number(v)-t.min)/Math.max(1,(t.max-t.min));if(ratio>=.85)return"legend";if(ratio>=.65)return"epic";if(ratio>=.42)return"good";if(ratio>=.22)return"mid";return"low"}
-function buildPrizeTrack(type,finalPrize=null){
-  const t=BOX_TYPES[type]||BOX_TYPES.normal;const base=[];for(let i=0;i<42;i++)base.push(t.weights[i%t.weights.length]);
-  if(finalPrize!==null&&typeof finalPrize==="number")base[34]=finalPrize;return base;
+function buildPrizeTrack(type, finalPrize = null) {
+  const t = BOX_TYPES[type] || BOX_TYPES.normal;
+  const allowedRanks = BOX_CARD_DROPS[type] || ["basic"];
+  const availableCards = ALL_CARDS.filter(c =>
+    allowedRanks.includes(c.rank) || (type === "supreme" && c.rank === "infinity") || (type === "flash" && c.rank === "infinity")
+  );
+
+  const base = [];
+
+  for (let i = 0; i < 42; i++) {
+    const showCard = availableCards.length > 0 && Math.random() < 0.28;
+
+    if (showCard) {
+      const c = availableCards[Math.floor(Math.random() * availableCards.length)];
+      base.push({ type: "card", card: c });
+    } else {
+      base.push({
+        type: "rdtc",
+        amount: t.weights[i % t.weights.length]
+      });
+    }
+  }
+
+  if (finalPrize !== null) {
+    if (typeof finalPrize === "number") {
+      base[34] = { type: "rdtc", amount: finalPrize };
+    } else if (typeof finalPrize === "object") {
+      base[34] = finalPrize;
+    }
+  }
+
+  return base;
+}
+
+function renderRouletteTrack(type, finalPrize = null) {
+  const track = $("rouletteTrack");
+  if (!track) return;
+
+  track.classList.remove("spinning");
+  track.style.transition = "none";
+  track.style.transform = "translateX(0)";
+
+  const arr = buildPrizeTrack(type, finalPrize);
+
+  track.innerHTML = arr.map(v => {
+    if (v.type === "card") {
+      const c = v.card;
+      const isInfCard = c.rank === "infinity";
+      return `
+        <div class="roulette-item ${isInfCard ? "infinity-prize" : "card-prize"}">
+          <div style="font-size:24px">${c.icon}</div>
+          <small style="font-size:9px;line-height:1.1">
+            ${esc(c.name).substring(0, 13)}
+          </small>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="roulette-item ${prizeClass(v.amount, type)}">
+        ${v.amount}<br><small>RDTC</small>
+      </div>
+    `;
+  }).join("");
+
+  return arr;
 }
 function renderRouletteTrack(type,finalPrize=null){
   const track=$("rouletteTrack");if(!track)return;
