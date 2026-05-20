@@ -661,6 +661,11 @@ $("emailLogin").addEventListener("click",async()=>{try{await signInWithEmailAndP
 $("emailSignup").addEventListener("click",async()=>{try{const name=$("nameInput").value.trim(),email=$("emailInput").value.trim(),pass=$("passInput").value;if(!name){$("authError").textContent="Posa el teu nom.";return}if(!email||!pass){$("authError").textContent="Posa correu i contrasenya.";return}const c=await createUserWithEmailAndPassword(auth,email,pass);await updateProfile(c.user,{displayName:name});await setDoc(doc(db,"users",c.user.uid),{uid:c.user.uid,name,email:c.user.email||email,coins:economy.initialGuest+economy.accountBonus,bonusClaimed:true,deleted:false,createdAt:Date.now(),lastNegativeBonus:"",lastDailyBox:""});$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="No s'ha pogut crear el compte."}});
 $("logoutBtn").addEventListener("click",()=>signOut(auth));
 onAuthStateChanged(auth,async u=>{user=u;await ensureWallet();myBets=allBets.filter(b=>b.uid===uid());listenBoxes();listenNotifications();renderAll();if(adminUnlocked&&isAdmin())loadAdminUsers();else{adminUnlocked=false;$("adminTab").classList.add("hidden");$("adminBoxesTab").classList.add("hidden");if(activePage==="adminPage"||activePage==="adminBoxesPage")activatePage("homePage")}});
-(async function init(){await loadEconomy();await ensureWallet();listenTournament();listenBets();listenBoxes();listenNotifications();renderBoxStore();activatePage("homePage")})();
+function initialPageFromQuery(){
+  const page=new URLSearchParams(window.location.search).get("page");
+  if(page==="notifs")return"notificationsPage";
+  return page||"homePage";
+}
+(async function init(){await loadEconomy();await ensureWallet();listenTournament();listenBets();listenBoxes();listenNotifications();renderBoxStore();activatePage(initialPageFromQuery())})();
 </script>
 </body>
