@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/png" href="./logo.png">
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://www.gstatic.com; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://*.firebaseio.com https://firebasestorage.googleapis.com https://firebasestorage.app https://firestore.googleapis.com https://www.googleapis.com https://*.googleapis.com https://www.gstatic.com; img-src 'self' data: https:; font-src https://fonts.gstatic.com;">
 <title>Prediccions · Torneig de Bàdminton</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -39,7 +38,6 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
 .percent-bar{height:6px;border-radius:999px;background:#eee;overflow:hidden;display:flex;margin-bottom:8px}.percent-blue{background:var(--blue);transition:.4s}.percent-red{background:var(--red);transition:.4s}.stats-line{display:flex;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:12px}.stats-line .s-blue{color:var(--blueDark)}.stats-line .s-red{color:var(--redDark)}.predict-btn{width:100%;background:#111;color:#fff;border-radius:12px;padding:11px;font-size:14px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:8px}.predict-btn.placed{background:var(--blueSoft);color:var(--blueDark);border:1.5px solid rgba(61,127,255,.25)}.bet-tag{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--soft);border-radius:10px;font-size:12px;font-weight:800;color:#555;margin-bottom:10px}.bet-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .empty{border:2px dashed var(--line);border-radius:16px;background:var(--soft);padding:40px 24px;color:var(--muted);font-weight:800;text-align:center;font-size:13px}.empty-icon{font-size:28px;display:block;margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-bottom:18px}.balance-card{grid-column:span 5;background:#111;color:#fff;border-radius:22px;padding:24px;background-image:radial-gradient(circle at top right,rgba(168,239,82,.1),transparent 55%)}.balance-card .eyebrow{color:var(--green);margin-bottom:8px}.balance-card .big{font-size:clamp(40px,5vw,62px);font-weight:900;letter-spacing:-.08em;line-height:.88;margin:6px 0}.balance-card p{color:#aaa;font-size:12px;margin-top:10px}.small-card{grid-column:span 7;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini{border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff}.mini b{display:block;font-size:28px;letter-spacing:-.06em;font-weight:900;margin-top:4px}.mini span{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
 .table-wrap{overflow:auto;border:1.5px solid var(--line);border-radius:16px;background:#fff}table{border-collapse:collapse;width:100%;min-width:680px}th,td{padding:12px 15px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:middle}th{background:#fafaf8;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:900}td{font-weight:600}tr:last-child td{border-bottom:0}.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800}.pill.won{background:#dcffd0;color:#1e7e00}.pill.lost{background:var(--redSoft);color:var(--redDark)}.pill.pending{background:#fff9e0;color:#a07000}
-.notifications-shell{display:grid;gap:12px}.notifications-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px;border:1.5px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#fff,#fafaf7)}.notifications-count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 8px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;font-weight:900;margin-left:6px}.notification-list{display:grid;gap:12px}.notification-card{border:1.5px solid var(--line);border-radius:20px;background:#fff;padding:18px;display:grid;gap:12px;box-shadow:0 10px 26px rgba(0,0,0,.04);transition:.18s}.notification-card:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,0,0,.07);border-color:#d5d5ca}.notification-card.unread{background:linear-gradient(180deg,#fff,#fbfbff);border-color:#dfe8ff}.notification-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.notification-title{font-size:17px;font-weight:900;letter-spacing:-.04em}.notification-time{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.notification-body{font-size:13px;line-height:1.6;color:#444}.notification-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.notification-empty{border:2px dashed var(--line);border-radius:16px;background:var(--soft);padding:40px 24px;color:var(--muted);font-weight:800;text-align:center;font-size:13px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(16px);z-index:80;display:grid;place-items:center;padding:16px}.modal-box{width:min(860px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;padding:24px;box-shadow:0 28px 70px rgba(0,0,0,.2)}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:20px}
 .chart-wrap{border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fafaf8;margin-bottom:18px}.chart-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1.5px solid var(--line)}.chart-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.chart-live{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--blue)}.chart-live-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pulse 1.5s infinite}@keyframes pulse{50%{opacity:.4}}.chart-area{position:relative;height:180px;background:#fff}.chart-svg{position:absolute;inset:0;width:100%;height:100%}.chart-footer{display:grid;grid-template-columns:1fr 1fr;border-top:1.5px solid var(--line)}.chart-stat{padding:10px 16px;text-align:center}.chart-stat:first-child{border-right:1.5px solid var(--line)}.chart-stat .val{font-size:18px;font-weight:900;letter-spacing:-.04em}.chart-stat .lab{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-top:2px}
 .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.choice{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-weight:800;text-align:left;font-size:14px;display:flex;align-items:center;gap:10px}.choice-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}.choice.blue .choice-dot{background:var(--blue)}.choice.red .choice-dot{background:var(--red)}.choice.blue.active{background:var(--blueSoft);border-color:var(--blue);color:var(--blueDark)}.choice.red.active{background:var(--redSoft);border-color:var(--red);color:var(--redDark)}.choice-odds{margin-left:auto;font-size:12px;font-weight:800;opacity:.7}
@@ -119,7 +117,6 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
     <button class="chrome-tab active" data-page="homePage">🏸 Partits</button>
     <button class="chrome-tab" data-page="walletPage">💰 Wallet</button>
     <button class="chrome-tab" data-page="txPage">📋 Transaccions</button>
-    <button class="chrome-tab" data-page="notificationsPage">🔔 Notificacions <span id="notifCount" class="notifications-count">0</span></button>
     <button class="chrome-tab" data-page="bankPage">🏦 Banc</button>
     <button class="chrome-tab" data-page="boxesPage">🎁 Caixes</button>
     <button class="chrome-tab" data-page="cardsPage">🃏 Cartes</button>
@@ -165,21 +162,6 @@ button,input,select{font:inherit}button{border:0;cursor:pointer;transition:.15s}
       <div id="publicTx"></div>
     </section>
 
-    <section id="notificationsPage" class="hidden">
-      <div class="hero">
-        <div class="hero-text"><div class="eyebrow">Avisos personals</div><h1>Notificacions</h1><p class="sub">Missatges per al teu compte, ordenats de més nous a més antics. Pots marcar-les com a revisades manualment quan vulguis.</p></div>
-      </div>
-      <div class="notifications-shell">
-        <div class="notifications-top">
-          <div>
-            <div class="section-label">Pendents de revisar</div>
-            <h3><span id="notifPendingCount">0</span> notificacions visibles</h3>
-          </div>
-          <button id="refreshNotifications" class="btn secondary">↻ Actualitzar</button>
-        </div>
-        <div id="notificationsList" class="notification-list"></div>
-      </div>
-    </section>
     <!-- BANK -->
     <section id="bankPage" class="hidden">
       <div class="hero"><div class="hero-text"><div class="eyebrow">Banc RDTC</div><h1>Préstecs</h1><p class="sub">Demana RDTC ara i torna ×1.3 en 2 dies. Màxim 800 RDTC.</p></div></div>
@@ -594,8 +576,7 @@ const ACHIEVEMENTS = [
 
 let tournament={matches:[]},user=null,wallet=null,allBets=[],myBets=[],publicTx=[],adminUsers=[],userBoxes=[],allUserBoxes=[],allBoxes=[];
 let userCards=[],allUserCards=[],adminAllCards=[];
-let notifications=[];
-let selectedMatch=null,selectedChoice="",activePage="homePage",walletUnsub=null,boxesUnsub=null,allBoxesUnsub=null,notificationsUnsub=null,cardsUnsub=null,adminCardsUnsub=null,adminUnlocked=false,adminSecretBuffer="",selectedBox=null,openingBox=false;
+let selectedMatch=null,selectedChoice="",activePage="homePage",walletUnsub=null,boxesUnsub=null,allBoxesUnsub=null,cardsUnsub=null,adminCardsUnsub=null,adminUnlocked=false,adminSecretBuffer="",selectedBox=null,openingBox=false;
 let economy={initialGuest:100,accountBonus:300,winMultiplier:2,loanMultiplier:1.3,negativeDailyBonus:50,loanDays:2};
 let activeCardsPanel="cardsMuseum";
 let activeAchFilter="all";
@@ -621,15 +602,6 @@ function playedMatches(){return(tournament.matches||[]).filter(m=>!!m.winner&&!i
 function totalsFor(match){const rows=allBets.filter(b=>String(b.matchId)===String(match.id));const p1=rows.filter(b=>b.choice===match.p1).reduce((s,b)=>s+Number(b.amount||0),0);const p2=rows.filter(b=>b.choice===match.p2).reduce((s,b)=>s+Number(b.amount||0),0);const total=p1+p2;const p1Pct=total?Math.round((p1/total)*100):50;return{p1,p2,total,p1Pct,p2Pct:100-p1Pct}}
 function calcOdds(t){if(!t.total||t.p1===t.p2)return{o1:2.0,o2:2.0};const o1=t.total/Math.max(t.p1,1);const o2=t.total/Math.max(t.p2,1);return{o1:Math.max(1.01,Math.round(o1*100)/100),o2:Math.max(1.01,Math.round(o2*100)/100)}}
 
-function listenNotifications(){
-  if(notificationsUnsub){notificationsUnsub();notificationsUnsub=null}
-  if(!user){notifications=[];renderNotifications();return}
-  notificationsUnsub=onSnapshot(query(collection(db,"notifications"),where("uid","==",user.uid)),snap=>{
-    notifications=snap.docs.map(d=>({id:d.id,...d.data()})).filter(n=>!n.dismissed).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-    renderNotifications();
-    renderTop();
-  },err=>{console.error(err);notifications=[];renderNotifications()})
-}
 // ===========================
 // FLASH BOX SCHEDULE
 // ===========================
@@ -1030,43 +1002,16 @@ function renderMatches(){
   })
 }
 function renderTop(){
-  const c=money(wallet?.coins??economy.initialGuest);$("topCoins").textContent=c;$("walletCoins").textContent=c;$("loginBtn").classList.toggle("hidden",!!user);$("logoutBtn").classList.toggle("hidden",!user);
-  const showAdmin=adminUnlocked&&isAdmin();$("adminTab").classList.toggle("hidden",!showAdmin);$("adminBoxesTab").classList.toggle("hidden",!showAdmin);if($("refreshBoxesBtn"))$("refreshBoxesBtn").classList.toggle("hidden",!showAdmin);
-  if($("notifCount"))$("notifCount").textContent=notifications.length;
-  $("adminCardsTab").classList.toggle("hidden",!showAdmin);
+  const c=money(wallet?.coins??economy.initialGuest);$("topCoins").textContent=c;$("walletCoins").textContent=c;
+  $("loginBtn").classList.toggle("hidden",!!user);$("logoutBtn").classList.toggle("hidden",!user);
+  const showAdmin=adminUnlocked&&isAdmin();$("adminTab").classList.toggle("hidden",!showAdmin);$("adminBoxesTab").classList.toggle("hidden",!showAdmin);$("adminCardsTab").classList.toggle("hidden",!showAdmin);
+  if($("refreshBoxesBtn"))$("refreshBoxesBtn").classList.toggle("hidden",!showAdmin);
   $("activeBets").textContent=myBets.filter(b=>b.status==="pending").length;$("wonCoins").textContent=money(myBets.filter(b=>b.status==="won").reduce((s,b)=>s+Number(b.payout||0),0));
   renderMyBets();renderLoans();renderBoxes();if(showAdmin){renderAdminUsers();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderAdminCardsStats();renderAdminCardUsers()}
 }
 function renderMyBets(){const box=$("myBets");if(!box)return;if(!myBets.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🎯</span>Encara no tens apostes.</div>`;return}box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Partit</th><th>Predicció</th><th>RDTC</th><th>Estat</th></tr></thead><tbody>${myBets.slice().reverse().map(b=>`<tr><td>${esc(b.matchTitle)}</td><td><b>${esc(b.choice)}</b></td><td>${money(b.amount)}</td><td><span class="pill ${b.status||'pending'}">${esc(b.status||'pendent')}</span></td></tr>`).join("")}</tbody></table></div>`}
 function renderResults(){const box=$("results");const list=playedMatches().slice().reverse();if(!list.length){box.innerHTML=`<div class="empty"><span class="empty-icon">🏆</span>Encara no hi ha resultats.</div>`;return}box.innerHTML=list.map(m=>{const t=totalsFor(m);return`<div class="match"><div class="match-top"><span class="badge">${roundName(m.round)}</span><span class="badge green">✅ Finalitzat</span></div><div class="names"><div class="name${m.winner===m.p1?" winning-p1":""}" style="${m.winner===m.p1?"":"opacity:.5"}">${esc(m.p1)}${m.score1?` <b>·${esc(m.score1)}</b>`:""}</div><div class="vs-mid">GUANYA</div><div class="name${m.winner===m.p2?" winning-p2":""}" style="${m.winner===m.p2?"":"opacity:.5"}">${esc(m.p2)}${m.score2?` <b>·${esc(m.score2)}</b>`:""}</div></div><p style="margin-top:8px;font-size:14px;font-weight:800">🏆 ${esc(m.winner)}</p><p style="font-size:12px;color:var(--muted);margin-top:4px">${money(t.total)} RDTC apostats en total</p></div>`}).join("")}
 function renderPublicTx(){const box=$("publicTx");const filtered=publicTx.filter(t=>!t.adminAction&&!String(t.matchId||"").startsWith("BOX_ADMIN")&&t.matchId!=="ADMIN");if(!filtered.length){box.innerHTML=`<div class="empty"><span class="empty-icon">📋</span>Encara no hi ha transaccions.</div>`;return}box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Usuari</th><th>Moviment</th><th>RDTC</th><th>Referència</th></tr></thead><tbody>${filtered.map(t=>`<tr><td><b>${esc(t.name)}</b></td><td>${esc(t.label)}</td><td style="font-weight:900;color:${Number(t.amount)>=0?"var(--blueDark)":"var(--redDark)"}">${Number(t.amount)>=0?"+":""}${money(t.amount)}</td><td style="font-size:11px;color:var(--muted)">${esc((t.matchId||"").toUpperCase())}</td></tr>`).join("")}</tbody></table></div>`}
-
-function renderNotifications(){
-  const box=$("notificationsList");
-  const pending=notifications.length;
-  if($("notifPendingCount"))$("notifPendingCount").textContent=pending;
-  if($("notifCount"))$("notifCount").textContent=pending;
-  if(!box)return;
-  if(!user){box.innerHTML=`<div class="notification-empty"><span class="empty-icon">🔐</span>Entra amb el teu compte per veure les notificacions.</div>`;return}
-  if(!notifications.length){box.innerHTML=`<div class="notification-empty"><span class="empty-icon">🔔</span>No tens notificacions pendents.</div>`;return}
-  box.innerHTML=notifications.map(n=>`<article class="notification-card${n.read||n.dismissed?"":" unread"}"><div class="notification-head"><div><div class="notification-title">${esc(n.title||"Notificació")}</div><div class="notification-time">${n.createdAt?new Date(n.createdAt).toLocaleString("ca-ES"):"Sense data"}</div></div><span class="badge ${n.read?"green":"gold"}">${n.read?"Revisada":"Nova"}</span></div><div class="notification-body">${esc(n.body||"")}</div><div class="notification-meta"><span class="badge blue">UID: ${esc(n.uid||"")}</span><button class="btn secondary dismiss-notification" data-id="${esc(n.id)}">Marcar com revisada</button></div></article>`).join("");
-  box.querySelectorAll(".dismiss-notification").forEach(btn=>btn.addEventListener("click",()=>dismissNotification(btn.dataset.id)));
-}
-
-async function dismissNotification(id){
-  if(!user)return;
-  const note=notifications.find(n=>n.id===id);
-  if(!note)return;
-  try{
-    await updateDoc(doc(db,"notifications",id),{dismissed:true,dismissedAt:Date.now(),dismissedBy:user.uid});
-    notifications=notifications.filter(n=>n.id!==id);
-    renderNotifications();
-    renderTop();
-    toast("Notificació revisada.");
-  }catch(e){
-    toast("No s’ha pogut marcar com revisada.",true)
-  }
-}
 
 function renderBoxStore(){
   const box=$("boxStore");if(!box)return;
@@ -1311,15 +1256,15 @@ async function adminDeleteUser(u){if(!isAdmin())return;const id=u.uid||u.id;if(!
 async function adminGiveAll(amount){if(!isAdmin())return;if(!confirm(`Donar +${amount} RDTC a tots els usuaris?`))return;try{for(const u of adminUsers)await updateDoc(doc(db,"users",u.uid||u.id),{coins:money((u.coins||0)+amount),updatedAt:Date.now()});await addDoc(collection(db,"publicTransactions"),{uid:"ALL",name:"Tots",label:`Admin ha donat ${amount} RDTC a tots`,amount,matchId:"ADMIN",admin:user.email,adminAction:true,createdAt:Date.now()});toast("✅ RDTC donades a tots.");await loadAdminUsers()}catch(e){toast("Error.",true)}}
 async function clearAllTransactions(){if(!isAdmin())return;if(!confirm("Segur que vols esborrar TOTES les transaccions?"))return;if(!confirm("DOBLE CONFIRMACIÓ: Confirmes que vols esborrar totes les transaccions públiques?"))return;try{const snap=await getDocs(collection(db,"publicTransactions"));await Promise.all(snap.docs.map(d=>deleteDoc(doc(db,"publicTransactions",d.id))));toast("✅ Totes les transaccions esborrades.")}catch(e){toast("Error en esborrar.",true)}}
 
-function renderAll(){renderTop();renderMatches();renderResults();renderPublicTx();renderNotifications();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats();renderAchievementsPage()}
+function renderAll(){renderTop();renderMatches();renderPublicTx();renderHypeBanner();renderAdminTransactions();renderAdminBetsUsers();renderAdminBoxesUsers();renderAdminBoxesStats();renderBoxes();renderCardsPage();renderAdminCardUsers();renderAdminCardsStats();renderAchievementsPage()}
 function activatePage(pageId){
   if((pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage")&&(!adminUnlocked||!isAdmin())){toast("Escriu astop per accedir.",true);pageId="homePage"}
   activePage=pageId;
   document.querySelectorAll(".chrome-tab").forEach(t=>t.classList.toggle("active",t.dataset.page===pageId));
-  ["homePage","walletPage","resultsPage","txPage","notificationsPage","bankPage","boxesPage","cardsPage","achievementsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
+  ["homePage","walletPage","txPage","bankPage","boxesPage","cardsPage","achievementsPage","adminPage","adminBoxesPage","adminCardsPage"].forEach(id=>$(id).classList.toggle("hidden",id!==pageId));
   requestAnimationFrame(()=>{
     renderAll();
-    if(pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage"){loadAdminUsers();listenBoxes();listenCards();listenNotifications()}
+    if(pageId==="adminPage"||pageId==="adminBoxesPage"||pageId==="adminCardsPage"){loadAdminUsers();listenBoxes();listenCards()}
     if(pageId==="cardsPage")renderCardsPage();
     if(pageId==="achievementsPage")renderAchievementsPage();
   })
@@ -1352,7 +1297,6 @@ async function payLoan(l){if((wallet?.coins||0)<l.returnAmount)return toast("No 
 // ===========================
 document.querySelectorAll(".chrome-tab").forEach(tab=>tab.addEventListener("click",()=>activatePage(tab.dataset.page)));
 document.querySelectorAll(".admin-inner-tab").forEach(tab=>tab.addEventListener("click",()=>activateAdminPanel(tab.dataset.adminPanel)));
-window.addEventListener("keydown",e=>{const tag=document.activeElement?.tagName?.toLowerCase();if(tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable)return;adminSecretBuffer=(adminSecretBuffer+e.key.toLowerCase()).slice(-5);if(adminSecretBuffer==="astop"){adminSecretBuffer="";if(!user){$("authModal").classList.remove("hidden");toast("Entra amb un compte admin.",true);return}if(!isAdmin()){toast("Sense permisos d'admin.",true);return}adminUnlocked=true;$("adminTab").classList.remove("hidden");$("adminBoxesTab").classList.remove("hidden");activatePage("adminPage");loadAdminUsers();listenBoxes();toast("🔓 Panell admin obert.")}});
 document.querySelectorAll(".cards-tab").forEach(tab=>tab.addEventListener("click",()=>activateCardsPanel(tab.dataset.cardsPanel)));
 document.querySelectorAll(".ach-filter").forEach(btn=>btn.addEventListener("click",()=>{
   activeAchFilter=btn.dataset.filter;
@@ -1370,13 +1314,12 @@ window.addEventListener("keydown",e=>{
     if(!isAdmin()){toast("Sense permisos d'admin.",true);return}
     adminUnlocked=true;
     $("adminTab").classList.remove("hidden");$("adminBoxesTab").classList.remove("hidden");$("adminCardsTab").classList.remove("hidden");
-    activatePage("adminPage");loadAdminUsers();listenBoxes();listenCards();listenNotifications();populateAdminCardSelect();toast("🔓 Panell admin obert.");
+    activatePage("adminPage");loadAdminUsers();listenBoxes();listenCards();populateAdminCardSelect();toast("🔓 Panell admin obert.");
   }
 });
 
 $("searchInput").addEventListener("input",renderMatches);$("roundInput").addEventListener("change",renderMatches);
 $("adminSearch")?.addEventListener("input",renderAdminUsers);$("adminBoxSearch")?.addEventListener("input",renderAdminBoxesUsers);$("adminCardSearch")?.addEventListener("input",renderAdminCardUsers);
-$("refreshNotifications")?.addEventListener("click",()=>{listenNotifications();renderNotifications()});
 $("refreshAdmin").addEventListener("click",()=>{loadAdminUsers();renderAdminTransactions();renderAdminBetsUsers()});
 $("refreshAdminBoxes").addEventListener("click",()=>{loadAdminUsers();renderAdminBoxesUsers();renderAdminBoxesStats()});
 $("refreshAdminCards").addEventListener("click",()=>{loadAdminUsers();renderAdminCardUsers();renderAdminCardsStats()});
@@ -1400,32 +1343,28 @@ $("loanAmount").addEventListener("input",updateLoanPreview);$("loanBtn").addEven
 $("loginBtn").addEventListener("click",()=>$("authModal").classList.remove("hidden"));$("closeAuth").addEventListener("click",()=>$("authModal").classList.add("hidden"));
 $("closeCardDetail").addEventListener("click",()=>$("cardDetailModal").classList.add("hidden"));
 $("buyFlashBtn").addEventListener("click",()=>buyBox("flash"));
+
 document.querySelectorAll(".quick-btn").forEach(btn=>btn.addEventListener("click",()=>{const curr=Number($("betAmount").value||0);$("betAmount").value=curr+Number(btn.dataset.q);updateBetPreview()}));
 $("googleBtn").addEventListener("click",async()=>{try{const c=await signInWithPopup(auth,googleProvider);if(c.user&&!c.user.displayName){const f=c.user.email?.split("@")[0]||"Usuari";await updateProfile(c.user,{displayName:f})}$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="No s'ha pogut entrar amb Google."}});
 $("emailLogin").addEventListener("click",async()=>{try{await signInWithEmailAndPassword(auth,$("emailInput").value.trim(),$("passInput").value);$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="Login incorrecte."}});
 $("emailSignup").addEventListener("click",async()=>{try{const name=$("nameInput").value.trim(),email=$("emailInput").value.trim(),pass=$("passInput").value;if(!name){$("authError").textContent="Posa el teu nom.";return}if(!email||!pass){$("authError").textContent="Posa correu i contrasenya.";return}const c=await createUserWithEmailAndPassword(auth,email,pass);await updateProfile(c.user,{displayName:name});await setDoc(doc(db,"users",c.user.uid),{uid:c.user.uid,name,email:c.user.email||email,coins:economy.initialGuest+economy.accountBonus,bonusClaimed:true,deleted:false,createdAt:Date.now(),lastNegativeBonus:"",lastDailyBox:"",achievements:[]});$("authModal").classList.add("hidden")}catch(e){$("authError").textContent="No s'ha pogut crear el compte."}});
 $("logoutBtn").addEventListener("click",()=>signOut(auth));
+
 onAuthStateChanged(auth,async u=>{
   user=u;await ensureWallet();myBets=allBets.filter(b=>b.uid===uid());
-  listenBoxes();listenCards();listenNotifications();renderAll();renderAchievementsPage();
+  listenBoxes();listenCards();renderAll();renderAchievementsPage();
   if(adminUnlocked&&isAdmin())loadAdminUsers();
   else{adminUnlocked=false;$("adminTab").classList.add("hidden");$("adminBoxesTab").classList.add("hidden");$("adminCardsTab").classList.add("hidden");if(["adminPage","adminBoxesPage","adminCardsPage"].includes(activePage))activatePage("homePage")}
 });
 
 setInterval(updateFlashTimer,1000);
 
-function initialPageFromQuery(){
-  const page=new URLSearchParams(window.location.search).get("page");
-  if(page==="notifs")return"notificationsPage";
-  return page||"homePage";
-}
-
 (async function init(){
   await loadEconomy();await ensureWallet();
   initFlashSchedule();
-  listenTournament();listenBets();listenBoxes();listenCards();listenNotifications();
+  listenTournament();listenBets();listenBoxes();listenCards();
   renderBoxStore();renderCardShop();renderAchievementsPage();
-  activatePage(initialPageFromQuery());
+  activatePage("homePage");
 })();
 </script>
 </body>
