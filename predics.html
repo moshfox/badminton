@@ -716,13 +716,49 @@ async function loadEconomy(){
 function updateLoanPreview(){
   $("loanPreview").textContent=`${money(Number($("loanAmount").value||0)*economy.loanMultiplier)} RDTC`;
 }
-
 function listenTournament(){
-  onSnapshot(doc(tourDB,"tournaments","main"),snap=>{
-    const data=snap.exists()?snap.data():{matches:[]};
-    tournament.matches=Array.isArray(data.matches)?data.matches.map(normalizeMatch):[];
-    renderAll();resolveFinishedBets();
-  },err=>{console.error(err);$("matches").innerHTML=`<div class="empty"><span class="empty-icon">❌</span>No s'han pogut carregar els partits.</div>`;});
+  console.log("🏸 Connectant amb Firebase del torneig...");
+
+  onSnapshot(
+    doc(tourDB, "tournaments", "main"),
+
+    snap => {
+      console.log("🏸 Resposta Firebase:", snap.exists());
+
+      if (!snap.exists()) {
+        console.error("❌ No existeix tournaments/main");
+
+        $("matches").innerHTML =
+          `<div class="empty">
+            ❌ No existeix el document tournaments/main a Firebase.
+          </div>`;
+
+        return;
+      }
+
+      const data = snap.data();
+
+      console.log("📦 Dades rebudes:", data);
+
+      tournament.matches = Array.isArray(data.matches)
+        ? data.matches.map(normalizeMatch)
+        : [];
+
+      console.log("✅ Partits carregats:", tournament.matches.length);
+
+      renderAll();
+      resolveFinishedBets();
+    },
+
+    err => {
+      console.error("❌ ERROR FIREBASE:", err);
+
+      $("matches").innerHTML =
+        `<div class="empty">
+          ❌ Error Firebase: ${esc(err.message)}
+        </div>`;
+    }
+  );
 }
 
 function listenBets(){
@@ -807,7 +843,7 @@ function playedMatches(){
     !isPlaceholder(m.p2)
   );
 }
-function playedMatches(){return(tournament.matches||[]).filter(m=>!!m.winner&&!isPlaceholder(m.p1)&&!isPlaceholder(m.p2))}
+
 
 // GLOBAL totals (all users)
 function totalsFor(match){
@@ -1329,11 +1365,12 @@ async function changeBet(direction){
   $("changeAmount").value="";
   const upd=myBets.find(b=>String(b.matchId)===String(selectedMatch.id));
   if(upd)$("placedInfo").textContent=`Has apostat ${money(upd.amount)} RDTC per ${upd.choice}`;
-}
+
   $("changeAmount").value="";
-renderAll();
-renderChart();
-updateOddsDisplay(selectedMatch);
+  renderAll();
+  renderChart();
+  updateOddsDisplay(selectedMatch);
+}
 
 async function resolveFinishedBets(){
   const played=playedMatches();
